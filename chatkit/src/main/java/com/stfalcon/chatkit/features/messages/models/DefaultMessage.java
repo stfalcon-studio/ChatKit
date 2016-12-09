@@ -5,36 +5,39 @@ import java.util.Date;
 /*
  * Created by troy379 on 09.12.16.
  */
-public class DefaultMessage {
+public class DefaultMessage implements IMessage {
 
-    public DefaultMessage(long messageId, long authorId, Date createdAt, String text) {
+    public DefaultMessage(String messageId, String authorId, Date createdAt, String text) {
         this.messageId = messageId;
         this.authorId = authorId;
         this.createdAt = createdAt;
         this.text = text;
     }
 
-    private long messageId;
-    private long authorId;
+    private String messageId;
+    private String authorId;
     private Date createdAt;
     private String text;
 
-    public long getMessageId() {
+    @Override
+    public String getId() {
         return messageId;
     }
 
-    public void setMessageId(long messageId) {
+    public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 
-    public long getAuthorId() {
+    @Override
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(long authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
+    @Override
     public Date getCreatedAt() {
         return createdAt;
     }

@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
-import com.stfalcon.chatkit.features.messages.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IMessage;
 
 /*
  * Created by troy379 on 12.12.16.

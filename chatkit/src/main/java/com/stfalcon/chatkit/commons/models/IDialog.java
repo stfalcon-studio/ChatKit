@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public interface IDialog {
+
     String getId();
 
     List<IUser> getUsers();

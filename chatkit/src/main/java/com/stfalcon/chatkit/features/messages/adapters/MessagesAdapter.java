@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.adapter.ViewHolder;
+import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultDateHeaderViewHolder;
 import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultIncomingMessageViewHolder;
 import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultOutcomingMessageViewHolder;
 import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
-import com.stfalcon.chatkit.features.messages.models.IMessage;
 import com.stfalcon.chatkit.features.utils.DatesUtils;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         Wrapper wrapper = items.get(position);
         if (wrapper.item instanceof IMessage) {
             IMessage message = (IMessage) wrapper.item;
-            if (message.getAuthorId().contentEquals(senderId)) {
+            if (message.getUser().getId().contentEquals(senderId)) {
                 return VIEW_TYPE_OUTCOMING_MESSAGE;
             } else {
                 return VIEW_TYPE_INCOMING_MESSAGE;
@@ -218,7 +218,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         if (items.size() <= prevPosition) return false;
 
         if (items.get(prevPosition).item instanceof IMessage) {
-            return ((MESSAGE) items.get(prevPosition).item).getAuthorId().contentEquals(id);
+            return ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
         } else return false;
     }
 

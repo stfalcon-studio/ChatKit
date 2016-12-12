@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public interface IMessage {
+
     String getId();
 
     String getText();

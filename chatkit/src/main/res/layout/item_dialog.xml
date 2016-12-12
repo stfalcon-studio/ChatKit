@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/dialogContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@id/dialogAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp" />
+
+    <TextView
+        android:id="@id/dialogName"
+        style="@style/ChatListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_toLeftOf="@id/dialogDate"
+        android:layout_toRightOf="@id/dialogAvatar"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@id/dialogDate"
+        style="@style/ChatListDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_below="@id/dialogName"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@id/dialogDate"
+        android:layout_toRightOf="@id/dialogAvatar">
+
+        <ImageView
+            android:id="@id/dialogLastMessageUserAvatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="4dp" />
+
+
+        <TextView
+            android:id="@id/dialogLastMessage"
+            style="@style/ChatListLastMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/dialogLastMessageUserAvatar"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="2" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@id/dialogUnreadBubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/dialogDate"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bubble_circle"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:textAppearance="@style/ChatListUnread" />
+
+    <View
+        android:id="@id/dialogDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/dialogAvatar"
+        android:background="@color/default_dialog_list_divider_color" />
+
+</RelativeLayout>

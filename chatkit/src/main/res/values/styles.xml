@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ChatTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--    <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+<!--
+    <style name="NewMessagesText">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:background">@drawable/shape_indicator_new_messages</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="ChatMessageText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="ChatMessageAudio">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:drawableLeft">@drawable/ic_play_circle</item>
+        <item name="android:drawableStart">@drawable/ic_play_circle</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <style name="ChatMessageVoice">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:drawableLeft">@drawable/ic_record_voice</item>
+        <item name="android:drawableStart">@drawable/ic_record_voice</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+-->
+
+    <style name="ChatMessageInfo">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="ChatHeaderTitle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ChatWhoIsTyping">
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ChatSendButton">
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="ChatInputEditText">
+        <item name="android:background">@null</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ChatListName">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ChatListDate">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ChatListLastMessage">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ChatListUnread">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ChatMessageLayoutOutcoming">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:gravity">end|right</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="ChatMessageLayoutIncoming">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:gravity">end|right</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="ChatHeaderLayout">
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+<!--
+    <style name="NewMessagesDivider">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:alpha">0.2</item>
+    </style>-->
+
+</resources>

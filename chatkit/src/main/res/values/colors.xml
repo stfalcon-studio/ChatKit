@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_unread_bubble_color">#031cd7</color>
+    <color name="default_dialog_list_divider_color">#50000000</color>
+</resources>

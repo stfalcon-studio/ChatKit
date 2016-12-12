@@ -29,14 +29,14 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
 
     public DefaultDialogViewHolder(View itemView) {
         super(itemView);
-        container = (ViewGroup) itemView.findViewById(R.id.container);
-        tvName = (TextView) itemView.findViewById(R.id.tvName);
-        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-        tvLastMessage = (TextView) itemView.findViewById(R.id.tvLastMessage);
-        tvBubble = (TextView) itemView.findViewById(R.id.tvBubble);
-        ivLastMessageUser = (ImageView) itemView.findViewById(R.id.ivLastMessageUser);
-        ivAvatar = (ImageView) itemView.findViewById(R.id.ivAvatar);
-        divider = itemView.findViewById(R.id.divider);
+        container = (ViewGroup) itemView.findViewById(R.id.dialogContainer);
+        tvName = (TextView) itemView.findViewById(R.id.dialogName);
+        tvDate = (TextView) itemView.findViewById(R.id.dialogDate);
+        tvLastMessage = (TextView) itemView.findViewById(R.id.dialogLastMessage);
+        tvBubble = (TextView) itemView.findViewById(R.id.dialogUnreadBubble);
+        ivLastMessageUser = (ImageView) itemView.findViewById(R.id.dialogLastMessageUserAvatar);
+        ivAvatar = (ImageView) itemView.findViewById(R.id.dialogAvatar);
+        divider = itemView.findViewById(R.id.dialogDivider);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
 
         //Set Dialog avatar
         //TODO load image
-        ivAvatar = (ImageView) itemView.findViewById(R.id.ivAvatar);
+        //ivAvatar
 
         //Set Last message user avatar
         //TODO load image

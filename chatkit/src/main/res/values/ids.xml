@@ -3,4 +3,14 @@
     <!--TODO declare all user id here-->
     <item name="text" type="id" />
 
+    <!-- DIALOGS LIST ITEM IDS -->
+    <item name="dialogContainer" type="id" />
+    <item name="dialogName" type="id" />
+    <item name="dialogDate" type="id" />
+    <item name="dialogLastMessage" type="id" />
+    <item name="dialogUnreadBubble" type="id" />
+    <item name="dialogAvatar" type="id" />
+    <item name="dialogLastMessageUserAvatar" type="id" />
+    <item name="dialogDivider" type="id" />
+
 </resources>

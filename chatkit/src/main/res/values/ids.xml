@@ -1,0 +1,6 @@
+<resources>
+
+    <!--TODO declare all user id here-->
+    <item name="text" type="id" />
+
+</resources>

@@ -2,7 +2,10 @@ package com.stfalcon.chatkit.features.dialogs.widgets;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
 
 /**
@@ -19,5 +22,14 @@ public class DialogsListView extends RecyclerView {
         super(context, attrs);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
 
+        LinearLayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        SimpleItemAnimator animator = new DefaultItemAnimator();
+
+        setLayoutManager(layout);
+        setItemAnimator(animator);
+    }
 }

@@ -10,8 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.stfalcon.chatkit.sample.MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/btnChatList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Dialogs list" />
 </RelativeLayout>

@@ -14,11 +14,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Dialog list button
+        //Dialogs list button
         findViewById(R.id.btnChatList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, DialogsListActivity.class));
+            }
+        });
+
+        //Messages list button
+        findViewById(R.id.btnMessagesList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MessagesListActivity.class));
             }
         });
 

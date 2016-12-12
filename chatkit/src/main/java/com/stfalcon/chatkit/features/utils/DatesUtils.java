@@ -1,7 +1,9 @@
 package com.stfalcon.chatkit.features.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /*
  * Created by troy379 on 09.12.16.
@@ -9,6 +11,12 @@ import java.util.Date;
 public final class DatesUtils {
     private DatesUtils() {
         throw new AssertionError();
+    }
+
+    public static String format(Date date, Template template) {
+        if (date == null) return "";
+        return new SimpleDateFormat(template.get(), Locale.getDefault())
+                .format(date);
     }
 
     public static boolean isSameDay(Date date1, Date date2) {
@@ -31,4 +39,18 @@ public final class DatesUtils {
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
     }
 
+    public enum Template {
+        STRING_MONTH("dd MMMM yyyy"),
+        TIME("HH:mm");
+
+        private String template;
+
+        Template(String template) {
+            this.template = template;
+        }
+
+        public String get() {
+            return template;
+        }
+    }
 }

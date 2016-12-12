@@ -13,6 +13,8 @@ public interface IMessage {
 
     String getAuthorId();
 
+    String getText();
+
     // TODO: 09.12.16 most needed methods
 
 }

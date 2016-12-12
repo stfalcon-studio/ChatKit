@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.stfalcon.chatkit.R;
-import com.stfalcon.chatkit.commons.adapter.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 
 import java.lang.reflect.Constructor;
@@ -19,11 +18,14 @@ import java.util.List;
  */
 
 public class DialogsListAdapter<DIALOG extends IDialog>
-        extends RecyclerView.Adapter<ViewHolder> {
+        extends RecyclerView.Adapter<DialogViewHolder> {
 
     private List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;
     private Class<? extends DialogViewHolder> holderClass;
+    private DialogViewHolder.OnLoadImagesListener onLoadImagesListener;
+    private DialogViewHolder.OnItemClickListener onItemClickListener;
+    private DialogViewHolder.OnLongItemClickListener onLongItemClickListener;
 
     public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs) {
         this.itemLayoutId = itemLayoutId;
@@ -41,12 +43,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(DialogViewHolder holder, int position) {
+        holder.setOnLoadImagesListener(onLoadImagesListener);
+        holder.setOnItemClickListener(onItemClickListener);
+        holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.onBind(items.get(position));
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false);
 
         try {
@@ -101,4 +106,27 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         notifyItemChanged(position);
     }
 
+    public void setOnLoadImagesListener(DialogViewHolder.OnLoadImagesListener onLoadImagesListener) {
+        this.onLoadImagesListener = onLoadImagesListener;
+    }
+
+    public DialogViewHolder.OnLoadImagesListener getOnLoadImagesListener() {
+        return onLoadImagesListener;
+    }
+
+    public DialogViewHolder.OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(DialogViewHolder.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public DialogViewHolder.OnLongItemClickListener getOnLongItemClickListener() {
+        return onLongItemClickListener;
+    }
+
+    public void setOnLongItemClickListener(DialogViewHolder.OnLongItemClickListener onLongItemClickListener) {
+        this.onLongItemClickListener = onLongItemClickListener;
+    }
 }

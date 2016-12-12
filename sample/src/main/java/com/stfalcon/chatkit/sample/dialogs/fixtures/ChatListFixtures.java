@@ -33,6 +33,7 @@ public final class ChatListFixtures {
             add("http://avatar-creator.net/assets/temp-avatars/svgA9704302547033876.png");
         }
     };
+    private static String groupChatImage = "https://lh6.ggpht.com/e67TRisvQxr9wUxjujVcVjPLFDfI3aZmLHuBeFO5esWO7FyjtO1PckubLZsJlzkC8Byv=w300";
     private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static SecureRandom rnd = new SecureRandom();
 
@@ -47,7 +48,7 @@ public final class ChatListFixtures {
     private static IMessage getMessage(Date date) {
         DefaultMessage message = new DefaultMessage(
                 UUID.randomUUID().getLeastSignificantBits(),
-                new Random().nextInt(2) == 0 ? 0 : 1,
+                getUser(),
                 date,
                 randomString(getRandomInt()));
 
@@ -68,7 +69,10 @@ public final class ChatListFixtures {
     public static IDialog getChat() {
         ArrayList<IUser> users = getUsers();
 
-        return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()), users,
+        return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
+                users.size() > 1 ? "Group" : users.get(0).getName(),
+                users.size() > 1 ? groupChatImage : images.get(rnd.nextInt(4)),
+                users,
                 getMessage(Calendar.getInstance().getTime()), rnd.nextInt(2));
     }
 

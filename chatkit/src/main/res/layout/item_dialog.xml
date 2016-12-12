@@ -10,7 +10,7 @@
         android:id="@id/dialogAvatar"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"/>
 
     <TextView
         android:id="@id/dialogName"

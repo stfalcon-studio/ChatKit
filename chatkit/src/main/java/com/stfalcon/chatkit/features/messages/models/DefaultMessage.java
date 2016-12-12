@@ -10,15 +10,15 @@ import java.util.Date;
  */
 public class DefaultMessage implements IMessage {
 
-    public DefaultMessage(long messageId, long authorId, Date createdAt, String text) {
+    public DefaultMessage(long messageId, IUser user, Date createdAt, String text) {
         this.messageId = messageId;
-        this.authorId = authorId;
+        this.user = user;
         this.createdAt = createdAt;
         this.text = text;
     }
 
     private long messageId;
-    private long authorId;
+    private IUser user;
     private Date createdAt;
     private String text;
 
@@ -30,12 +30,8 @@ public class DefaultMessage implements IMessage {
         this.messageId = messageId;
     }
 
-    public long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
+    public void setUser(IUser user) {
+        this.user = user;
     }
 
     public Date getCreatedAt() {
@@ -57,7 +53,7 @@ public class DefaultMessage implements IMessage {
 
     @Override
     public IUser getUser() {
-        return null;
+        return user;
     }
 
     public void setText(String text) {

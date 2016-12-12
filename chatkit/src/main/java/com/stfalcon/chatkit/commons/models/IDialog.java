@@ -9,6 +9,10 @@ import java.util.List;
 public interface IDialog {
     String getId();
 
+    String getDialogPhoto();
+
+    String getDialogName();
+
     List<IUser> getUsers();
 
     IMessage getLastMessage();

@@ -40,29 +40,50 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
     }
 
     @Override
-    public void onBind(IDialog defaultDialog) {
+    public void onBind(final IDialog dialog) {
         //Set Name
-        tvName.setText(defaultDialog.getUsers().size() > 0 ? tvName.getContext().getString(R.string.chat_group)
-                : defaultDialog.getUsers().get(0).getName());//TODO Group name
-        tvName.setTypeface(defaultDialog.getUnreadCount() > 0 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        tvName.setText(dialog.getDialogName());
+        tvName.setTypeface(dialog.getUnreadCount() > 1 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
         //Set Date
-        tvDate.setText(DateFormatter.format(defaultDialog.getLastMessage().getCreatedAt(), DateFormatter.Template.TIME));
-        tvDate.setTypeface(defaultDialog.getUnreadCount() > 0 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        tvDate.setText(DateFormatter.format(dialog.getLastMessage().getCreatedAt(), DateFormatter.Template.TIME));
+        tvDate.setTypeface(dialog.getUnreadCount() > 0 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
         //Set Dialog avatar
-        //TODO load image
-        //ivAvatar
+        if (onLoadImagesListener != null) {
+            onLoadImagesListener.onLoadImage(dialog.getDialogPhoto(), ivAvatar);
+        }
 
         //Set Last message user avatar
-        //TODO load image
-        ivLastMessageUser.setVisibility(defaultDialog.getUsers().size() > 0 ? VISIBLE : GONE);
+        if (onLoadImagesListener != null) {
+            onLoadImagesListener.onLoadImage(dialog.getLastMessage().getUser().getAvatar(), ivLastMessageUser);
+        }
+        ivLastMessageUser.setVisibility(dialog.getUsers().size() > 1 ? VISIBLE : GONE);
 
         //Set Last message text
-        tvLastMessage.setText(defaultDialog.getLastMessage().getText());
+        tvLastMessage.setText(dialog.getLastMessage().getText());
 
         //Set Unread message count bubble
-        tvBubble.setText(String.valueOf(defaultDialog.getUnreadCount()));
-        tvBubble.setVisibility(defaultDialog.getUnreadCount() > 0 ? VISIBLE : GONE);
+        tvBubble.setText(String.valueOf(dialog.getUnreadCount()));
+        tvBubble.setVisibility(dialog.getUnreadCount() > 0 ? VISIBLE : GONE);
+
+        if (onItemClickListener != null) {
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(view, dialog);
+                }
+            });
+        }
+
+        if (onLongItemClickListener != null) {
+            container.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onLongItemClickListener.onLongItemClick(view, dialog);
+                    return true;
+                }
+            });
+        }
     }
 }

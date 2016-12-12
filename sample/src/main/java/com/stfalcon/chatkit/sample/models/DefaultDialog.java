@@ -13,14 +13,20 @@ import java.util.ArrayList;
 public class DefaultDialog implements IDialog {
     private String id;
 
+    private String dialogPhoto;
+
+    private String dialogName;
+
     private ArrayList<IUser> users;
 
     private IMessage lastMessage;
 
     private int unreadCount;
 
-    public DefaultDialog(String id, ArrayList<IUser> users, IMessage lastMessage, int unreadCount) {
+    public DefaultDialog(String id, String name, String photo, ArrayList<IUser> users, IMessage lastMessage, int unreadCount) {
         this.id = id;
+        this.dialogName = name;
+        this.dialogPhoto = photo;
         this.users = users;
         this.lastMessage = lastMessage;
         this.unreadCount = unreadCount;
@@ -29,6 +35,16 @@ public class DefaultDialog implements IDialog {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getDialogPhoto() {
+        return dialogPhoto;
+    }
+
+    @Override
+    public String getDialogName() {
+        return dialogName;
     }
 
     @Override

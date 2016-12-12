@@ -22,6 +22,6 @@ public class DefaultOutcomingMessageViewHolder
     @Override
     public void onBind(IMessage message) {
         // TODO: 09.12.16 fill views
-        text.setText(message.getText());
+        text.setText(isSelected() ? "selected" : message.getText());
     }
 }

@@ -15,9 +15,15 @@ public final class Demo {
     public static class Message implements IMessage {
 
         private int id;
+        private String text;
 
         public Message(int id) {
             this.id = id;
+        }
+
+        public Message(int id, String text) {
+            this.id = id;
+            this.text = text;
         }
 
         @Override
@@ -37,7 +43,7 @@ public final class Demo {
 
         @Override
         public String getText() {
-            return id + ", example text";
+            return text == null ? id + ", example text" : text;
         }
     }
 }

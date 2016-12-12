@@ -2,7 +2,6 @@ package com.stfalcon.chatkit.features.messages.adapters;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,7 +14,6 @@ import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder
 import com.stfalcon.chatkit.features.messages.models.IMessage;
 import com.stfalcon.chatkit.features.utils.DatesUtils;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -35,13 +33,17 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private String senderId;
     private List<Wrapper> items;
 
+    private int selectedItemsCount;
+    private boolean isSelectMode;
+    private SelectionListener selectionListener;
+
     public MessagesAdapter(String senderId) {
-        this(new HoldersConfig(), senderId);
+        this(senderId, new HoldersConfig());
     }
 
-    public MessagesAdapter(HoldersConfig holders, String senderId) {
-        this.holders = holders;
+    public MessagesAdapter(String senderId, HoldersConfig holders) {
         this.senderId = senderId;
+        this.holders = holders;
         this.items = new ArrayList<>();
     }
 
@@ -61,7 +63,15 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.onBind(items.get(position).item);
+        Wrapper wrapper = items.get(position);
+
+        if (wrapper.item instanceof IMessage) {
+            ((MessageViewHolder) holder).setSelected(wrapper.isSelected);
+            holder.itemView.setOnLongClickListener(getMessageLongClickListener());
+            holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
+        }
+
+        holder.onBind(wrapper.item);
     }
 
     @Override
@@ -85,7 +95,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * PRIVATE METHODS
+    * PUBLIC METHODS
     * */
     public void add(MESSAGE message) {
         boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
@@ -118,6 +128,19 @@ public class MessagesAdapter<MESSAGE extends IMessage>
             notifyItemRemoved(index);
         }
         recountDateHeaders();
+    }
+
+    public void enableSelectionMode(SelectionListener selectionListener) {
+        if (selectionListener == null) {
+            throw new IllegalArgumentException("SelectionListener must not be null. Use `disableSelectionMode()` if you want tp disable selection mode");
+        } else {
+            this.selectionListener = selectionListener;
+        }
+    }
+
+    public void disableSelectionMode() {
+        this.selectionListener = null;
+        unselectAllItems();
     }
 
     @SuppressWarnings("unchecked")
@@ -200,6 +223,83 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
+    * SELECTION
+    * */
+    private void incrementSelectedItemsCount() {
+        selectedItemsCount++;
+        notifySelectionChanged();
+    }
+
+    private void decrementSelectedItemsCount() {
+        selectedItemsCount--;
+        isSelectMode = selectedItemsCount > 0;
+
+        notifySelectionChanged();
+    }
+
+    private void notifySelectionChanged() {
+        if (selectionListener != null) {
+            selectionListener.onSelectionChanged(selectedItemsCount);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<MESSAGE> getSelectedMessages() {
+        ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
+        for (Wrapper wrapper : items) {
+            if (wrapper.item instanceof IMessage && wrapper.isSelected) {
+                selectedMessages.add((MESSAGE) wrapper.item);
+            }
+        }
+        return selectedMessages;
+    }
+
+    public void unselectAllItems() {
+        for (int i = 0; i < items.size(); i++) {
+            Wrapper wrapper = items.get(i);
+            if (wrapper.isSelected) {
+                wrapper.isSelected = false;
+                notifyItemChanged(i);
+            }
+        }
+        isSelectMode = false;
+        selectedItemsCount = 0;
+        notifySelectionChanged();
+    }
+
+    private View.OnClickListener getMessageClickListener(final Wrapper<MESSAGE> wrapper) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectionListener != null && isSelectMode) {
+                    wrapper.isSelected = !wrapper.isSelected;
+
+                    if (wrapper.isSelected) incrementSelectedItemsCount();
+                    else decrementSelectedItemsCount();
+
+                    MESSAGE message = (wrapper.item);
+                    notifyItemChanged(getMessagePositionById(message.getId()));
+                }
+            }
+        };
+    }
+
+    private View.OnLongClickListener getMessageLongClickListener() {
+        return new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (selectionListener == null) {
+                    return false;
+                } else {
+                    isSelectMode = true;
+                    view.callOnClick();
+                    return true;
+                }
+            }
+        };
+    }
+
+    /*
     * HOLDERS CONFIG
     * */
     public static class HoldersConfig {
@@ -245,6 +345,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     * */
     private class Wrapper<DATA> {
         private DATA item;
+        boolean isSelected;
 
         Wrapper(DATA item) {
             this.item = item;
@@ -256,5 +357,9 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     * */
     public interface Listener<MESSAGE extends IMessage> {
         void onMessageLongClick(MESSAGE message);
+    }
+
+    public interface SelectionListener {
+        void onSelectionChanged(int count);
     }
 }

@@ -10,7 +10,17 @@ import com.stfalcon.chatkit.features.messages.models.IMessage;
  */
 public abstract class MessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
+    private boolean isSelected;
+
     public MessageViewHolder(View itemView) {
         super(itemView);
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

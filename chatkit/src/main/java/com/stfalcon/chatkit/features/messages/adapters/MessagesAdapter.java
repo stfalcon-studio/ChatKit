@@ -108,6 +108,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         }
     }
 
+    @Override
     public void onLoadMore(int page, int total) {
         if (loadMoreListener != null) {
             loadMoreListener.onLoadMore(page, total);
@@ -115,8 +116,8 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
-        * PUBLIC METHODS
-        * */
+    * PUBLIC METHODS
+    * */
     public void add(MESSAGE message) {
         boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
         if (isNewMessageToday) {
@@ -155,6 +156,15 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
         items.set(position, element);
         notifyItemChanged(position);
+    }
+
+    public void delete(ArrayList<MESSAGE> messages) {
+        for (MESSAGE message : messages) {
+            int index = getMessagePositionById(message.getId());
+            items.remove(index);
+            notifyItemRemoved(index);
+        }
+        recountDateHeaders();
     }
 
     public void deleteByIds(String[] ids) {
@@ -205,6 +215,11 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         isSelectMode = false;
         selectedItemsCount = 0;
         notifySelectionChanged();
+    }
+
+    public void deleteSelectedMessages() {
+        ArrayList<MESSAGE> selectedMessages = getSelectedMessages();
+        delete(selectedMessages);
     }
 
     public void setOnClickListener(OnClickListener<MESSAGE> onClickListener) {

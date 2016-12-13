@@ -42,7 +42,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private MessageViewHolder.ImageLoader imageLoader;
 
     public MessagesAdapter(String senderId) {
-        this(senderId, new HoldersConfig(), null);
+        this(senderId, null);
     }
 
     public MessagesAdapter(String senderId, MessageViewHolder.ImageLoader imageLoader) {
@@ -118,8 +118,24 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
     }
 
-    public void add(ArrayList<MESSAGE> messages) {
-        Collections.reverse(messages);
+    /**
+     * Method for adding history.
+     *
+     * @param messages messages from history.
+     * @param reverse  {@code true} if need to reverse messages before adding.
+     */
+    public void add(ArrayList<MESSAGE> messages, boolean reverse) {
+        if (reverse) Collections.reverse(messages);
+
+        if (!items.isEmpty()) {
+            int lastItemPosition = items.size() - 1;
+            Date lastItem = (Date) items.get(lastItemPosition).item;
+            if (DatesUtils.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
+                items.remove(lastItemPosition);
+                notifyItemRemoved(lastItemPosition);
+            }
+        }
+
         int oldSize = items.size();
         generateDateHeaders(messages);
         notifyItemRangeInserted(oldSize, items.size() - oldSize);
@@ -159,23 +175,40 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     @SuppressWarnings("unchecked")
-    public void onLastItemLoaded() {
-        MESSAGE lastMessage = (MESSAGE) items.get(items.size() - 1).item;
-        this.items.add(new Wrapper<>(lastMessage.getCreatedAt()));
-        notifyItemInserted(items.size());
+    public ArrayList<MESSAGE> getSelectedMessages() {
+        ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
+        for (Wrapper wrapper : items) {
+            if (wrapper.item instanceof IMessage && wrapper.isSelected) {
+                selectedMessages.add((MESSAGE) wrapper.item);
+            }
+        }
+        return selectedMessages;
     }
 
-    public void setOnClickListener(OnClickListener onClickListener) {
+    public void unselectAllItems() {
+        for (int i = 0; i < items.size(); i++) {
+            Wrapper wrapper = items.get(i);
+            if (wrapper.isSelected) {
+                wrapper.isSelected = false;
+                notifyItemChanged(i);
+            }
+        }
+        isSelectMode = false;
+        selectedItemsCount = 0;
+        notifySelectionChanged();
+    }
+
+    public void setOnClickListener(OnClickListener<MESSAGE> onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public void setOnLongClickListener(OnLongClickListener onLongClickListener) {
+    public void setOnLongClickListener(OnLongClickListener<MESSAGE> onLongClickListener) {
         this.onLongClickListener = onLongClickListener;
     }
 
     /*
-        * PRIVATE METHODS
-        * */
+    * PRIVATE METHODS
+    * */
     private void recountDateHeaders() {
         ArrayList<Integer> indicesToDelete = new ArrayList<>();
 
@@ -208,6 +241,8 @@ public class MessagesAdapter<MESSAGE extends IMessage>
                 if (!DatesUtils.isSameDay(message.getCreatedAt(), nextMessage.getCreatedAt())) {
                     this.items.add(new Wrapper<>(message.getCreatedAt()));
                 }
+            } else {
+                this.items.add(new Wrapper<>(message.getCreatedAt()));
             }
         }
     }
@@ -245,9 +280,6 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         } else return false;
     }
 
-    /*
-    * SELECTION
-    * */
     private void incrementSelectedItemsCount() {
         selectedItemsCount++;
         notifySelectionChanged();
@@ -276,30 +308,6 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         if (onLongClickListener != null) {
             onLongClickListener.onMessageLongClick(message);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    public ArrayList<MESSAGE> getSelectedMessages() {
-        ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
-        for (Wrapper wrapper : items) {
-            if (wrapper.item instanceof IMessage && wrapper.isSelected) {
-                selectedMessages.add((MESSAGE) wrapper.item);
-            }
-        }
-        return selectedMessages;
-    }
-
-    public void unselectAllItems() {
-        for (int i = 0; i < items.size(); i++) {
-            Wrapper wrapper = items.get(i);
-            if (wrapper.isSelected) {
-                wrapper.isSelected = false;
-                notifyItemChanged(i);
-            }
-        }
-        isSelectMode = false;
-        selectedItemsCount = 0;
-        notifySelectionChanged();
     }
 
     private View.OnClickListener getMessageClickListener(final Wrapper<MESSAGE> wrapper) {
@@ -379,7 +387,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * WRAPPERS
+    * WRAPPER
     * */
     private class Wrapper<DATA> {
         private DATA item;

@@ -31,15 +31,9 @@ public final class Demo {
     public static class Message implements IMessage {
 
         private int id;
-        private String text;
 
         public Message(int id) {
             this.id = id;
-        }
-
-        public Message(int id, String text) {
-            this.id = id;
-            this.text = text;
         }
 
         @Override

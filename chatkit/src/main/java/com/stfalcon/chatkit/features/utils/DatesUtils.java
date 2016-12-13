@@ -19,6 +19,16 @@ public final class DatesUtils {
                 .format(date);
     }
 
+    public static boolean isToday(Date date) {
+        return isSameDay(date, Calendar.getInstance().getTime());
+    }
+
+    public static boolean isYesterday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return isSameDay(date, cal.getTime());
+    }
+
     public static boolean isSameDay(Date date1, Date date2) {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("The dates must not be null");

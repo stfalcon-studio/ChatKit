@@ -35,26 +35,28 @@ public class MessagesListActivity extends AppCompatActivity
         adapter.enableSelectionMode(this);
 
         int count = 0;
-        for (int i = 0; i < 5; i++) {
-            adapter.add(new Demo.Message(count++));
-        }
+        adapter.add(new Demo.Message(count++));
 
         messagesList.setAdapter(adapter);
 
         final int tempCount = count;
 
-        new Handler().postDelayed(new Runnable() {
+        Runnable historyRunnable = new Runnable() {
             @Override
             public void run() {
                 int newCount = tempCount;
 
                 ArrayList<Demo.Message> messages = new ArrayList<>();
-                for (int i = 0; i < 15; i++) {
-                    messages.add(new Demo.Message(newCount++, "(history)"));
+                for (int i = 0; i < 4; i++) {
+                    messages.add(new Demo.Message(++newCount));
                 }
-                adapter.add(messages);
+                adapter.add(messages, true);
             }
-        }, 5000);
+        };
+
+        for (int i = 0; i < 10; i++) {
+            new Handler().postDelayed(historyRunnable, i * 3000);
+        }
     }
 
     @Override

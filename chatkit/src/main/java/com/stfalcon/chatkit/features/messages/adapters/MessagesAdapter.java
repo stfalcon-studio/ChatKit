@@ -13,6 +13,7 @@ import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultIncomingMe
 import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultOutcomingMessageViewHolder;
 import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
 import com.stfalcon.chatkit.features.utils.DatesUtils;
+import com.stfalcon.chatkit.features.utils.RecyclerScrollMoreListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,8 @@ import java.util.List;
  * Created by troy379 on 09.12.16.
  */
 public class MessagesAdapter<MESSAGE extends IMessage>
-        extends RecyclerView.Adapter<ViewHolder> {
+        extends RecyclerView.Adapter<ViewHolder>
+        implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
     private static final int VIEW_TYPE_INCOMING_MESSAGE = 0x00;
     private static final int VIEW_TYPE_OUTCOMING_MESSAGE = 0x01;
@@ -37,6 +39,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private boolean isSelectMode;
     private SelectionListener selectionListener;
 
+    private OnLoadMoreListener loadMoreListener;
     private OnClickListener<MESSAGE> onClickListener;
     private OnLongClickListener<MESSAGE> onLongClickListener;
     private MessageViewHolder.ImageLoader imageLoader;
@@ -105,9 +108,15 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         }
     }
 
+    public void onLoadMore(int page, int total) {
+        if (loadMoreListener != null) {
+            loadMoreListener.onLoadMore(page, total);
+        }
+    }
+
     /*
-    * PUBLIC METHODS
-    * */
+        * PUBLIC METHODS
+        * */
     public void add(MESSAGE message) {
         boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
         if (isNewMessageToday) {
@@ -206,9 +215,13 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         this.onLongClickListener = onLongClickListener;
     }
 
+    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
+    }
+
     /*
-    * PRIVATE METHODS
-    * */
+        * PRIVATE METHODS
+        * */
     private void recountDateHeaders() {
         ArrayList<Integer> indicesToDelete = new ArrayList<>();
 
@@ -401,6 +414,10 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     /*
     * LISTENERS
     * */
+    public interface OnLoadMoreListener {
+        void onLoadMore(int page, int totalItemsCount);
+    }
+
     public interface SelectionListener {
         void onSelectionChanged(int count);
     }

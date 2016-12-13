@@ -34,29 +34,27 @@ public class MessagesListActivity extends AppCompatActivity
         });
         adapter.enableSelectionMode(this);
 
-        int count = 0;
-        adapter.add(new Demo.Message(count++));
+        adapter.add(new Demo.Message(0));
+
+        adapter.setLoadMoreListener(new MessagesAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                if (totalItemsCount < 50) {
+                    new Handler().postDelayed(new Runnable() { //imitation of slow connection
+                        @Override
+                        public void run() {
+                            ArrayList<Demo.Message> messages = new ArrayList<>();
+                            for (int i = 0; i < 10; i++) {
+                                messages.add(new Demo.Message(0));
+                            }
+                            adapter.add(messages, true);
+                        }
+                    }, 2000);
+                }
+            }
+        });
 
         messagesList.setAdapter(adapter);
-
-        final int tempCount = count;
-
-        Runnable historyRunnable = new Runnable() {
-            @Override
-            public void run() {
-                int newCount = tempCount;
-
-                ArrayList<Demo.Message> messages = new ArrayList<>();
-                for (int i = 0; i < 4; i++) {
-                    messages.add(new Demo.Message(++newCount));
-                }
-                adapter.add(messages, true);
-            }
-        };
-
-        for (int i = 0; i < 10; i++) {
-            new Handler().postDelayed(historyRunnable, i * 3000);
-        }
     }
 
     @Override

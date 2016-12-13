@@ -335,7 +335,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
             public boolean onLongClick(View view) {
                 if (selectionListener == null) {
                     notifyMessageLongClicked(wrapper.item);
-                    return false;
+                    return true;
                 } else {
                     isSelectMode = true;
                     view.callOnClick();

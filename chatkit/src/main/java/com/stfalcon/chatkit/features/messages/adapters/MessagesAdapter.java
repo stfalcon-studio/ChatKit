@@ -39,14 +39,21 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
     private OnClickListener<MESSAGE> onClickListener;
     private OnLongClickListener<MESSAGE> onLongClickListener;
+    private MessageViewHolder.ImageLoader imageLoader;
 
     public MessagesAdapter(String senderId) {
-        this(senderId, new HoldersConfig());
+        this(senderId, new HoldersConfig(), null);
     }
 
-    public MessagesAdapter(String senderId, HoldersConfig holders) {
+    public MessagesAdapter(String senderId, MessageViewHolder.ImageLoader imageLoader) {
+        this(senderId, new HoldersConfig(), imageLoader);
+    }
+
+    public MessagesAdapter(String senderId, HoldersConfig holders,
+                           MessageViewHolder.ImageLoader imageLoader) {
         this.senderId = senderId;
         this.holders = holders;
+        this.imageLoader = imageLoader;
         this.items = new ArrayList<>();
     }
 
@@ -70,6 +77,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
         if (wrapper.item instanceof IMessage) {
             ((MessageViewHolder) holder).setSelected(wrapper.isSelected);
+            ((MessageViewHolder) holder).setImageLoader(this.imageLoader);
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }

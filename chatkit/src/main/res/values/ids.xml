@@ -1,7 +1,8 @@
 <resources>
 
     <!--TODO declare all user id here-->
-    <item name="text" type="id" />
+    <item name="messageText" type="id" />
+    <item name="messageUserAvatar" type="id" />
 
     <!-- DIALOGS LIST ITEM IDS -->
     <item name="dialogContainer" type="id" />

@@ -18,7 +18,7 @@ public class DefaultDateHeaderViewHolder extends ViewHolder<Date> {
 
     public DefaultDateHeaderViewHolder(View itemView) {
         super(itemView);
-        text = (TextView) itemView.findViewById(R.id.text);
+        text = (TextView) itemView.findViewById(R.id.messageText);
     }
 
     @Override

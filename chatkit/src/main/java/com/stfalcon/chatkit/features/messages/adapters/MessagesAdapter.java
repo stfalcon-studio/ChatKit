@@ -133,6 +133,10 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         recountDateHeaders();
     }
 
+    public void clear() {
+        items.clear();
+    }
+
     public void enableSelectionMode(SelectionListener selectionListener) {
         if (selectionListener == null) {
             throw new IllegalArgumentException("SelectionListener must not be null. Use `disableSelectionMode()` if you want tp disable selection mode");

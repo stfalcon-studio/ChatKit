@@ -8,25 +8,27 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.models.IDialog;
+import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.features.dialogs.adapters.DialogViewHolder;
 import com.stfalcon.chatkit.features.dialogs.adapters.DialogsListAdapter;
 import com.stfalcon.chatkit.features.dialogs.widgets.DialogsListView;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.dialogs.fixtures.ChatListFixtures;
+import com.stfalcon.chatkit.sample.models.DefaultDialog;
 
 import java.util.List;
 
 public class DialogsListActivity extends AppCompatActivity {
-    private DialogsListView dialogsListView;
+    private DialogsListAdapter<DefaultDialog> dialogsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialogs_list);
 
-        dialogsListView = (DialogsListView) findViewById(R.id.dialogList);
+        DialogsListView dialogsListView = (DialogsListView) findViewById(R.id.dialogList);
 
-        DialogsListAdapter dialogsListAdapter = new DialogsListAdapter<>(getDialogs());
+        dialogsListAdapter = new DialogsListAdapter<>(getDialogs());
 
         dialogsListAdapter.setOnLoadImagesListener(new DialogViewHolder.OnLoadImagesListener() {
             @Override
@@ -54,7 +56,17 @@ public class DialogsListActivity extends AppCompatActivity {
         dialogsListView.setAdapter(dialogsListAdapter);
     }
 
-    private List<IDialog> getDialogs() {
+    private void onNewMessage(String dialogId, IMessage message) {
+        if (!dialogsListAdapter.updateDialogWithMessage(dialogId, message)) {
+            //Dialog with this ID doesn't exist, so you can create new Dialog or update all dialogs list
+        }
+    }
+
+    private void onNewDialog(DefaultDialog dialog) {
+        dialogsListAdapter.addItem(dialog);
+    }
+
+    private List<DefaultDialog> getDialogs() {
         return ChatListFixtures.getChatList();
     }
 }

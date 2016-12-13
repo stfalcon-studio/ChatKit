@@ -18,5 +18,7 @@ public interface IDialog {
 
     IMessage getLastMessage();
 
+    void setLastMessage(IMessage message);
+
     int getUnreadCount();
 }

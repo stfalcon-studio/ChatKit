@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.models.IDialog;
+import com.stfalcon.chatkit.commons.models.IMessage;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -99,11 +101,52 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         }
     }
 
+    public void addItem(DIALOG dialog) {
+        items.add(0, dialog);
+        notifyItemInserted(0);
+    }
+
     public void updateItem(int position, DIALOG item) {
         if (items == null) {
             items = new ArrayList<>();
         }
         notifyItemChanged(position);
+    }
+
+    public void updateItemById(DIALOG item) {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(item.getId())) {
+                items.set(i, item);
+                notifyItemChanged(i);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Update last message in dialog and swap item to top of list.
+     * @param dialogId Dialog ID
+     * @param message New message
+     * @return false if dialog doesn't exist.
+     */
+    public boolean updateDialogWithMessage(String dialogId, IMessage message) {
+        boolean dialogExist = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(dialogId)) {
+                items.get(i).setLastMessage(message);
+                notifyItemChanged(i);
+                if (i != 0) {
+                    Collections.swap(items, i, 0);
+                    notifyItemMoved(i, 0);
+                }
+                dialogExist = true;
+                break;
+            }
+        }
+        return dialogExist;
     }
 
     public void setOnLoadImagesListener(DialogViewHolder.OnLoadImagesListener onLoadImagesListener) {

@@ -6,14 +6,12 @@ import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
-import com.stfalcon.chatkit.features.messages.models.DefaultMessage;
 import com.stfalcon.chatkit.sample.models.DefaultUser;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -45,14 +43,28 @@ public final class ChatListFixtures {
         return chats;
     }
 
-    private static IMessage getMessage(Date date) {
-        DefaultMessage message = new DefaultMessage(
-                UUID.randomUUID().getLeastSignificantBits(),
-                getUser(),
-                date,
-                randomString(getRandomInt()));
+    private static IMessage getMessage(final Date date) {
+        return new IMessage() {
+            @Override
+            public String getId() {
+                return Long.toString(UUID.randomUUID().getLeastSignificantBits());
+            }
 
-        return message;
+            @Override
+            public String getText() {
+                return randomString(getRandomInt());
+            }
+
+            @Override
+            public IUser getUser() {
+                return getUser();
+            }
+
+            @Override
+            public Date getCreatedAt() {
+                return date;
+            }
+        };
     }
 
     private static String randomString(int len) {

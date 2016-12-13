@@ -58,6 +58,11 @@ public class DefaultDialog implements IDialog {
     }
 
     @Override
+    public void setLastMessage(IMessage lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    @Override
     public int getUnreadCount() {
         return unreadCount;
     }
@@ -68,10 +73,6 @@ public class DefaultDialog implements IDialog {
 
     public void setUsers(ArrayList<IUser> users) {
         this.users = users;
-    }
-
-    public void setLastMessage(IMessage lastMessage) {
-        this.lastMessage = lastMessage;
     }
 
     public void setUnreadCount(int unreadCount) {

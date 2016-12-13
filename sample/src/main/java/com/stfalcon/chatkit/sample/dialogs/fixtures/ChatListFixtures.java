@@ -37,8 +37,8 @@ public final class ChatListFixtures {
     private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static SecureRandom rnd = new SecureRandom();
 
-    public static ArrayList<IDialog> getChatList() {
-        ArrayList<IDialog> chats = new ArrayList<>();
+    public static ArrayList<DefaultDialog> getChatList() {
+        ArrayList<DefaultDialog> chats = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             chats.add(getChat());
         }
@@ -66,7 +66,7 @@ public final class ChatListFixtures {
         return rnd.nextInt(40) + 5;
     }
 
-    public static IDialog getChat() {
+    public static DefaultDialog getChat() {
         ArrayList<IUser> users = getUsers();
 
         return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),

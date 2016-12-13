@@ -37,6 +37,9 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private boolean isSelectMode;
     private SelectionListener selectionListener;
 
+    private OnClickListener<MESSAGE> onClickListener;
+    private OnLongClickListener<MESSAGE> onLongClickListener;
+
     public MessagesAdapter(String senderId) {
         this(senderId, new HoldersConfig());
     }
@@ -67,7 +70,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
         if (wrapper.item instanceof IMessage) {
             ((MessageViewHolder) holder).setSelected(wrapper.isSelected);
-            holder.itemView.setOnLongClickListener(getMessageLongClickListener());
+            holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }
 
@@ -150,9 +153,17 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         notifyItemInserted(items.size());
     }
 
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public void setOnLongClickListener(OnLongClickListener onLongClickListener) {
+        this.onLongClickListener = onLongClickListener;
+    }
+
     /*
-    * PRIVATE METHODS
-    * */
+        * PRIVATE METHODS
+        * */
     private void recountDateHeaders() {
         ArrayList<Integer> indicesToDelete = new ArrayList<>();
 
@@ -243,6 +254,18 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         }
     }
 
+    private void notifyMessageClicked(MESSAGE message) {
+        if (onClickListener != null) {
+            onClickListener.onMessageClick(message);
+        }
+    }
+
+    private void notifyMessageLongClicked(MESSAGE message) {
+        if (onLongClickListener != null) {
+            onLongClickListener.onMessageLongClick(message);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public ArrayList<MESSAGE> getSelectedMessages() {
         ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
@@ -279,16 +302,19 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
                     MESSAGE message = (wrapper.item);
                     notifyItemChanged(getMessagePositionById(message.getId()));
+                } else {
+                    notifyMessageClicked(wrapper.item);
                 }
             }
         };
     }
 
-    private View.OnLongClickListener getMessageLongClickListener() {
+    private View.OnLongClickListener getMessageLongClickListener(final Wrapper<MESSAGE> wrapper) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 if (selectionListener == null) {
+                    notifyMessageLongClicked(wrapper.item);
                     return false;
                 } else {
                     isSelectMode = true;
@@ -355,11 +381,15 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     /*
     * LISTENERS
     * */
-    public interface Listener<MESSAGE extends IMessage> {
-        void onMessageLongClick(MESSAGE message);
-    }
-
     public interface SelectionListener {
         void onSelectionChanged(int count);
+    }
+
+    public interface OnClickListener<MESSAGE extends IMessage> {
+        void onMessageClick(MESSAGE message);
+    }
+
+    public interface OnLongClickListener<MESSAGE extends IMessage> {
+        void onMessageLongClick(MESSAGE message);
     }
 }

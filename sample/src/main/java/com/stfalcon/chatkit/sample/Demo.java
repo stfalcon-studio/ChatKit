@@ -62,5 +62,10 @@ public final class Demo {
         public String getText() {
             return text == null ? id + ", example text" : text;
         }
+
+        @Override
+        public String getStatus() {
+            return "Sent";
+        }
     }
 }

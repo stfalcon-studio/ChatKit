@@ -31,7 +31,7 @@ public final class ChatListFixtures {
             add("http://avatar-creator.net/assets/temp-avatars/svgA9704302547033876.png");
         }
     };
-    private static String groupChatImage = "https://lh6.ggpht.com/e67TRisvQxr9wUxjujVcVjPLFDfI3aZmLHuBeFO5esWO7FyjtO1PckubLZsJlzkC8Byv=w300";
+    private static final String groupChatImage = "https://lh6.ggpht.com/e67TRisvQxr9wUxjujVcVjPLFDfI3aZmLHuBeFO5esWO7FyjtO1PckubLZsJlzkC8Byv=w300";
     private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static SecureRandom rnd = new SecureRandom();
 
@@ -57,12 +57,17 @@ public final class ChatListFixtures {
 
             @Override
             public IUser getUser() {
-                return getUser();
+                return ChatListFixtures.getUser();
             }
 
             @Override
             public Date getCreatedAt() {
                 return date;
+            }
+
+            @Override
+            public String getStatus() {
+                return null;
             }
         };
     }

@@ -57,7 +57,7 @@ public final class ChatListFixtures {
 
             @Override
             public IUser getUser() {
-                return getUser();
+                return ChatListFixtures.getUser();
             }
 
             @Override

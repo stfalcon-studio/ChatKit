@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="DialogsListView" format="reference" />
+
+    <declare-styleable name="DialogsListView">
+        <attr name="dialogTitleTextColor" format="color|reference" />
+        <attr name="dialogTitleTextSize" format="dimension|reference" />
+        <attr name="dialogTitleTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="dialogUnreadTitleTextColor" format="color|reference" />
+        <attr name="dialogUnreadTitleTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
+        <attr name="dialogMessageTextColor" format="color|reference" />
+        <attr name="dialogMessageTextSize" format="dimension|reference" />
+        <attr name="dialogMessageTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="dialogUnreadMessageTextColor" format="color|reference" />
+        <attr name="dialogUnreadMessageTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
+        <attr name="dialogDateColor" format="color|reference" />
+        <attr name="dialogDateSize" format="dimension|reference" />
+        <attr name="dialogDateStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="dialogUnreadDateColor" format="color|reference" />
+        <attr name="dialogUnreadDateStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
+        <attr name="dialogUnreadBubbleEnabled" format="boolean" />
+        <attr name="dialogUnreadBubbleTextColor" format="color|reference" />
+        <attr name="dialogUnreadBubbleTextSize" format="dimension|reference" />
+        <attr name="dialogUnreadBubbleTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="dialogUnreadBubbleBackgroundColor" format="color|reference" />
+
+        <attr name="dialogAvatarWidth" format="dimension|reference" />
+        <attr name="dialogAvatarHeight" format="dimension|reference" />
+
+        <attr name="dialogMessageAvatarEnabled" format="boolean" />
+        <attr name="dialogMessageAvatarWidth" format="dimension|reference" />
+        <attr name="dialogMessageAvatarHeight" format="dimension|reference" />
+
+        <attr name="dialogDividerEnabled" format="boolean" />
+        <attr name="dialogDividerColor" format="color|reference" />
+        <attr name="dialogDividerLeftPadding" format="dimension|reference" />
+        <attr name="dialogDividerRightPadding" format="dimension|reference" />
+
+        <attr name="dialogItemBackground" format="color|reference" />
+        <attr name="dialogUnreadItemBackground" format="color|reference" />
+
+    </declare-styleable>
+
+</resources>

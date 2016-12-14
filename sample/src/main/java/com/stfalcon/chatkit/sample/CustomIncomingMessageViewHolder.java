@@ -14,7 +14,7 @@ public class CustomIncomingMessageViewHolder extends MessageViewHolder<Demo.Mess
 
     public CustomIncomingMessageViewHolder(View itemView) {
         super(itemView);
-        text = (TextView) itemView.findViewById(R.id.text);
+        text = (TextView) itemView.findViewById(R.id.messageText);
     }
 
     @Override

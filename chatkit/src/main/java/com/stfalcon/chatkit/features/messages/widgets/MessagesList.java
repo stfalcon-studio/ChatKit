@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.features.messages.adapters.MessagesAdapter;
+import com.stfalcon.chatkit.features.utils.RecyclerScrollMoreListener;
 
 /*
  * Created by troy379 on 09.12.16.
@@ -33,10 +34,8 @@ public class MessagesList extends RecyclerView {
         throw new IllegalArgumentException("You can't set adapter to MessagesList, because it has own adapter");
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
+    public <MESSAGE extends IMessage>
+    void setAdapter(MessagesAdapter<MESSAGE> adapter) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);
 
@@ -45,10 +44,8 @@ public class MessagesList extends RecyclerView {
 
         setItemAnimator(itemAnimator);
         setLayoutManager(layoutManager);
-    }
 
-    public <MESSAGE extends IMessage>
-    void setAdapter(MessagesAdapter<MESSAGE> adapter) {
+        addOnScrollListener(new RecyclerScrollMoreListener(layoutManager, adapter));
         super.setAdapter(adapter);
     }
 }

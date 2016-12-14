@@ -15,4 +15,6 @@ public interface IMessage {
     IUser getUser();
 
     Date getCreatedAt();
+
+    String getStatus();
 }

@@ -2,8 +2,8 @@ package com.stfalcon.chatkit.sample;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
-import com.stfalcon.chatkit.sample.dialogs.fixtures.ChatListFixtures;
 
+import java.security.SecureRandom;
 import java.util.Date;
 
 /*
@@ -14,18 +14,26 @@ public final class Demo {
         throw new AssertionError();
     }
 
+    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static SecureRandom rnd = new SecureRandom();
+
+    public static String randomString(int len) {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        return sb.toString();
+    }
+
+    private static int getRandomInt() {
+        return rnd.nextInt(100) + 2;
+    }
+
     public static class Message implements IMessage {
 
         private int id;
-        private String text;
 
         public Message(int id) {
             this.id = id;
-        }
-
-        public Message(int id, String text) {
-            this.id = id;
-            this.text = text;
         }
 
         @Override
@@ -53,14 +61,21 @@ public final class Demo {
 
                 @Override
                 public String getAvatar() {
-                    return "https://pickaface.net/assets/images/slides/slide2.png";
+                    return id % 2 == 0
+                            ? "https://pickaface.net/assets/images/slides/slide2.png"
+                            : "https://acadeu.com/static/img/demo/avatars/jorgediaz.jpg";
                 }
             };
         }
 
         @Override
         public String getText() {
-            return text == null ? id + ", example text" : text;
+            return randomString(getRandomInt());
+        }
+
+        @Override
+        public String getStatus() {
+            return "Sent";
         }
     }
 }

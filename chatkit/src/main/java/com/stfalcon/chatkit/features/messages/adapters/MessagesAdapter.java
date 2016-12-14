@@ -13,6 +13,7 @@ import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultIncomingMe
 import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultOutcomingMessageViewHolder;
 import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
 import com.stfalcon.chatkit.features.utils.DatesUtils;
+import com.stfalcon.chatkit.features.utils.RecyclerScrollMoreListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,8 @@ import java.util.List;
  * Created by troy379 on 09.12.16.
  */
 public class MessagesAdapter<MESSAGE extends IMessage>
-        extends RecyclerView.Adapter<ViewHolder> {
+        extends RecyclerView.Adapter<ViewHolder>
+        implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
     private static final int VIEW_TYPE_INCOMING_MESSAGE = 0x00;
     private static final int VIEW_TYPE_OUTCOMING_MESSAGE = 0x01;
@@ -37,13 +39,24 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private boolean isSelectMode;
     private SelectionListener selectionListener;
 
+    private OnLoadMoreListener loadMoreListener;
+    private OnClickListener<MESSAGE> onClickListener;
+    private OnLongClickListener<MESSAGE> onLongClickListener;
+    private MessageViewHolder.ImageLoader imageLoader;
+
     public MessagesAdapter(String senderId) {
-        this(senderId, new HoldersConfig());
+        this(senderId, null);
     }
 
-    public MessagesAdapter(String senderId, HoldersConfig holders) {
+    public MessagesAdapter(String senderId, MessageViewHolder.ImageLoader imageLoader) {
+        this(senderId, new HoldersConfig(), imageLoader);
+    }
+
+    public MessagesAdapter(String senderId, HoldersConfig holders,
+                           MessageViewHolder.ImageLoader imageLoader) {
         this.senderId = senderId;
         this.holders = holders;
+        this.imageLoader = imageLoader;
         this.items = new ArrayList<>();
     }
 
@@ -67,7 +80,8 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
         if (wrapper.item instanceof IMessage) {
             ((MessageViewHolder) holder).setSelected(wrapper.isSelected);
-            holder.itemView.setOnLongClickListener(getMessageLongClickListener());
+            ((MessageViewHolder) holder).setImageLoader(this.imageLoader);
+            holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }
 
@@ -94,6 +108,13 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         }
     }
 
+    @Override
+    public void onLoadMore(int page, int total) {
+        if (loadMoreListener != null) {
+            loadMoreListener.onLoadMore(page, total);
+        }
+    }
+
     /*
     * PUBLIC METHODS
     * */
@@ -107,8 +128,24 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
     }
 
-    public void add(ArrayList<MESSAGE> messages) {
-        Collections.reverse(messages);
+    /**
+     * Method for adding history.
+     *
+     * @param messages messages from history.
+     * @param reverse  {@code true} if need to reverse messages before adding.
+     */
+    public void add(ArrayList<MESSAGE> messages, boolean reverse) {
+        if (reverse) Collections.reverse(messages);
+
+        if (!items.isEmpty()) {
+            int lastItemPosition = items.size() - 1;
+            Date lastItem = (Date) items.get(lastItemPosition).item;
+            if (DatesUtils.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
+                items.remove(lastItemPosition);
+                notifyItemRemoved(lastItemPosition);
+            }
+        }
+
         int oldSize = items.size();
         generateDateHeaders(messages);
         notifyItemRangeInserted(oldSize, items.size() - oldSize);
@@ -121,6 +158,15 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         notifyItemChanged(position);
     }
 
+    public void delete(ArrayList<MESSAGE> messages) {
+        for (MESSAGE message : messages) {
+            int index = getMessagePositionById(message.getId());
+            items.remove(index);
+            notifyItemRemoved(index);
+        }
+        recountDateHeaders();
+    }
+
     public void deleteByIds(String[] ids) {
         for (String id : ids) {
             int index = getMessagePositionById(id);
@@ -128,6 +174,10 @@ public class MessagesAdapter<MESSAGE extends IMessage>
             notifyItemRemoved(index);
         }
         recountDateHeaders();
+    }
+
+    public void clear() {
+        items.clear();
     }
 
     public void enableSelectionMode(SelectionListener selectionListener) {
@@ -144,15 +194,49 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     @SuppressWarnings("unchecked")
-    public void onLastItemLoaded() {
-        MESSAGE lastMessage = (MESSAGE) items.get(items.size() - 1).item;
-        this.items.add(new Wrapper<>(lastMessage.getCreatedAt()));
-        notifyItemInserted(items.size());
+    public ArrayList<MESSAGE> getSelectedMessages() {
+        ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
+        for (Wrapper wrapper : items) {
+            if (wrapper.item instanceof IMessage && wrapper.isSelected) {
+                selectedMessages.add((MESSAGE) wrapper.item);
+            }
+        }
+        return selectedMessages;
+    }
+
+    public void unselectAllItems() {
+        for (int i = 0; i < items.size(); i++) {
+            Wrapper wrapper = items.get(i);
+            if (wrapper.isSelected) {
+                wrapper.isSelected = false;
+                notifyItemChanged(i);
+            }
+        }
+        isSelectMode = false;
+        selectedItemsCount = 0;
+        notifySelectionChanged();
+    }
+
+    public void deleteSelectedMessages() {
+        ArrayList<MESSAGE> selectedMessages = getSelectedMessages();
+        delete(selectedMessages);
+    }
+
+    public void setOnClickListener(OnClickListener<MESSAGE> onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public void setOnLongClickListener(OnLongClickListener<MESSAGE> onLongClickListener) {
+        this.onLongClickListener = onLongClickListener;
+    }
+
+    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
     }
 
     /*
-    * PRIVATE METHODS
-    * */
+        * PRIVATE METHODS
+        * */
     private void recountDateHeaders() {
         ArrayList<Integer> indicesToDelete = new ArrayList<>();
 
@@ -185,6 +269,8 @@ public class MessagesAdapter<MESSAGE extends IMessage>
                 if (!DatesUtils.isSameDay(message.getCreatedAt(), nextMessage.getCreatedAt())) {
                     this.items.add(new Wrapper<>(message.getCreatedAt()));
                 }
+            } else {
+                this.items.add(new Wrapper<>(message.getCreatedAt()));
             }
         }
     }
@@ -222,9 +308,6 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         } else return false;
     }
 
-    /*
-    * SELECTION
-    * */
     private void incrementSelectedItemsCount() {
         selectedItemsCount++;
         notifySelectionChanged();
@@ -243,28 +326,16 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public ArrayList<MESSAGE> getSelectedMessages() {
-        ArrayList<MESSAGE> selectedMessages = new ArrayList<>();
-        for (Wrapper wrapper : items) {
-            if (wrapper.item instanceof IMessage && wrapper.isSelected) {
-                selectedMessages.add((MESSAGE) wrapper.item);
-            }
+    private void notifyMessageClicked(MESSAGE message) {
+        if (onClickListener != null) {
+            onClickListener.onMessageClick(message);
         }
-        return selectedMessages;
     }
 
-    public void unselectAllItems() {
-        for (int i = 0; i < items.size(); i++) {
-            Wrapper wrapper = items.get(i);
-            if (wrapper.isSelected) {
-                wrapper.isSelected = false;
-                notifyItemChanged(i);
-            }
+    private void notifyMessageLongClicked(MESSAGE message) {
+        if (onLongClickListener != null) {
+            onLongClickListener.onMessageLongClick(message);
         }
-        isSelectMode = false;
-        selectedItemsCount = 0;
-        notifySelectionChanged();
     }
 
     private View.OnClickListener getMessageClickListener(final Wrapper<MESSAGE> wrapper) {
@@ -279,17 +350,20 @@ public class MessagesAdapter<MESSAGE extends IMessage>
 
                     MESSAGE message = (wrapper.item);
                     notifyItemChanged(getMessagePositionById(message.getId()));
+                } else {
+                    notifyMessageClicked(wrapper.item);
                 }
             }
         };
     }
 
-    private View.OnLongClickListener getMessageLongClickListener() {
+    private View.OnLongClickListener getMessageLongClickListener(final Wrapper<MESSAGE> wrapper) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 if (selectionListener == null) {
-                    return false;
+                    notifyMessageLongClicked(wrapper.item);
+                    return true;
                 } else {
                     isSelectMode = true;
                     view.callOnClick();
@@ -341,7 +415,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * WRAPPERS
+    * WRAPPER
     * */
     private class Wrapper<DATA> {
         private DATA item;
@@ -355,11 +429,19 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     /*
     * LISTENERS
     * */
-    public interface Listener<MESSAGE extends IMessage> {
-        void onMessageLongClick(MESSAGE message);
+    public interface OnLoadMoreListener {
+        void onLoadMore(int page, int totalItemsCount);
     }
 
     public interface SelectionListener {
         void onSelectionChanged(int count);
+    }
+
+    public interface OnClickListener<MESSAGE extends IMessage> {
+        void onMessageClick(MESSAGE message);
+    }
+
+    public interface OnLongClickListener<MESSAGE extends IMessage> {
+        void onMessageLongClick(MESSAGE message);
     }
 }

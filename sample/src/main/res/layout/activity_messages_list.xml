@@ -1,6 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.stfalcon.chatkit.features.messages.widgets.MessagesList
         android:id="@+id/messagesList"
@@ -14,9 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#20000000"
-        android:hint="@string/hint_enter_a_message"
-        android:minHeight="60dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
+        app:inputHint="@string/hint_enter_a_message"/>
 
 </RelativeLayout>

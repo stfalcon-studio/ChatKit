@@ -35,7 +35,7 @@ public abstract class DialogViewHolder<DIALOG extends IDialog> extends ViewHolde
     }
 
     public interface OnLoadImagesListener {
-        void onLoadImage(String url, ImageView imageView); // TODO: 13.12.16 change params ordering;
+        void onLoadImage(ImageView imageView, String url);
     }
 
     public interface OnItemClickListener {

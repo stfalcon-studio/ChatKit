@@ -116,12 +116,12 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
 
         //Set Dialog avatar
         if (onLoadImagesListener != null) {
-            onLoadImagesListener.onLoadImage(dialog.getDialogPhoto(), ivAvatar);
+            onLoadImagesListener.onLoadImage(ivAvatar, dialog.getDialogPhoto());
         }
 
         //Set Last message user avatar
         if (onLoadImagesListener != null) {
-            onLoadImagesListener.onLoadImage(dialog.getLastMessage().getUser().getAvatar(), ivLastMessageUser);
+            onLoadImagesListener.onLoadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
         }
         ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                 && dialog.getUsers().size() > 1 ? VISIBLE : GONE);

@@ -1,9 +1,8 @@
 package com.stfalcon.chatkit.features.messages.widgets;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.v4.widget.Space;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -12,8 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
+
+import java.lang.reflect.Field;
 
 /*
  * Created by troy379 on 13.12.16.
@@ -21,10 +23,9 @@ import com.stfalcon.chatkit.R;
 public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
 
-    private static final int DEFAULT_MAX_LINES = 5;
-
     private EditText messageInput;
     private Button messageSendButton;
+    private Space buttonSpace;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -42,6 +43,10 @@ public class MessageInput extends RelativeLayout
     public MessageInput(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
+    }
+
+    public void setInputListener(InputListener inputListener) {
+        this.inputListener = inputListener;
     }
 
     @Override
@@ -71,38 +76,39 @@ public class MessageInput extends RelativeLayout
 
     }
 
-    public void setInputListener(InputListener inputListener) {
-        this.inputListener = inputListener;
-    }
-
     private boolean onSubmit() {
-        if (inputListener != null) {
-            return inputListener.onSubmit(input);
-        }
-        return false;
+        return inputListener != null && inputListener.onSubmit(input);
     }
 
     private void init(Context context, AttributeSet attrs) {
         init(context);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessageInput);
-        int maxLines = typedArray.getInt(R.styleable.MessageInput_android_maxLines, DEFAULT_MAX_LINES);
+        MessageInputStyle style = MessageInputStyle.parse(context, attrs);
 
-        int textSize = typedArray.getDimensionPixelSize(R.styleable.MessageInput_android_textSize, 0);
-        ColorStateList textColor = typedArray.getColorStateList(R.styleable.MessageInput_android_textColor);
-        ColorStateList hintColor = typedArray.getColorStateList(R.styleable.MessageInput_android_textColorHint);
-        CharSequence hint = typedArray.getText(R.styleable.MessageInput_android_hint);
-        CharSequence text = typedArray.getText(R.styleable.MessageInput_android_text);
-        Drawable button = typedArray.getDrawable(R.styleable.MessageInput_android_button);
+        this.messageInput.setMaxLines(style.getInputMaxLines());
+        this.messageInput.setHint(style.getInputHint());
+        this.messageInput.setText(style.getInputText());
+        this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
+        this.messageInput.setTextColor(style.getInputTextColor());
+        this.messageInput.setHintTextColor(style.getInputHintColor());
+        this.messageInput.setBackground(style.getInputBackground());
+        setCursor(style.getInputCursorDrawable());
 
-        typedArray.recycle();
+        this.messageSendButton.setBackground(style.getInputButtonDrawable());
+        this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
+        this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
+        this.buttonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
-        messageInput.setMaxLines(maxLines);
-        if (hint != null) messageInput.setHint(hint);
-        if (text != null) messageInput.setText(text);
-        if (textSize > 0) messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-        if (textColor != null) messageInput.setTextColor(textColor);
-        if (hintColor != null) messageInput.setHintTextColor(hintColor);
-        if (button != null) messageSendButton.setBackground(button);
+        if (getPaddingLeft() == 0
+                && getPaddingRight() == 0
+                && getPaddingTop() == 0
+                && getPaddingBottom() == 0) {
+            setPadding(
+                    style.getInputDefaultPaddingLeft(),
+                    style.getInputDefaultPaddingTop(),
+                    style.getInputDefaultPaddingRight(),
+                    style.getInputDefaultPaddingBottom()
+            );
+        }
     }
 
     private void init(Context context) {
@@ -110,10 +116,20 @@ public class MessageInput extends RelativeLayout
 
         messageInput = (EditText) findViewById(R.id.messageInput);
         messageSendButton = (Button) findViewById(R.id.messageSendButton);
+        buttonSpace = (Space) findViewById(R.id.buttonSpace);
 
         messageSendButton.setOnClickListener(this);
         messageInput.addTextChangedListener(this);
         messageInput.setText("");
+    }
+
+    private void setCursor(Drawable drawable) {
+        try {
+            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
+            f.setAccessible(true);
+            f.set(this.messageInput, drawable);
+        } catch (Exception ignore) {
+        }
     }
 
     /**
@@ -129,10 +145,4 @@ public class MessageInput extends RelativeLayout
          */
         boolean onSubmit(CharSequence input);
     }
-
-    /*
-    * TODO: 13.12.16 customization:
-    * default drawable color
-    * button margin
-    * */
 }

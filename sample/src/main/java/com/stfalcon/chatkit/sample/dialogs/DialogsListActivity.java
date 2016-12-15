@@ -32,7 +32,7 @@ public class DialogsListActivity extends AppCompatActivity {
 
         dialogsListAdapter.setOnLoadImagesListener(new DialogViewHolder.OnLoadImagesListener() {
             @Override
-            public void onLoadImage(String url, ImageView imageView) {
+            public void onLoadImage(ImageView imageView, String url) {
                 Picasso.with(DialogsListActivity.this).load(url).into(imageView);
             }
         });

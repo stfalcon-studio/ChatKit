@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="default_unread_bubble_color">#031cd7</color>
-    <color name="default_dialog_list_divider_color">#50000000</color>
+    <color name="white">#ffffff</color>
+    <color name="blue">#031cd7</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="black50">#50000000</color>
+    <color name="gray">#333333</color>
 </resources>

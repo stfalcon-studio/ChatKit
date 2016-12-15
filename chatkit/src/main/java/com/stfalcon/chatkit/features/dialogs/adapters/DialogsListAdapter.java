@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.features.dialogs.widgets.DialogStyle;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private DialogViewHolder.OnLoadImagesListener onLoadImagesListener;
     private DialogViewHolder.OnItemClickListener onItemClickListener;
     private DialogViewHolder.OnLongItemClickListener onLongItemClickListener;
+    private DialogStyle dialogStyle;
 
     public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs) {
         this.itemLayoutId = itemLayoutId;
@@ -57,10 +59,11 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false);
 
         try {
-            Constructor<? extends DialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class);
+            Constructor<? extends DialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class, DialogStyle.class);
             constructor.setAccessible(true);
-            return constructor.newInstance(v);
-        } catch (Exception ignore) {
+            return constructor.newInstance(v, dialogStyle);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -171,5 +174,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     public void setOnLongItemClickListener(DialogViewHolder.OnLongItemClickListener onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
+    }
+
+    public void setStyle(DialogStyle dialogStyle) {
+        this.dialogStyle = dialogStyle;
     }
 }

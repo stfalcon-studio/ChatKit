@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dialog_avatar_width">48dp</dimen>
+    <dimen name="dialog_avatar_height">48dp</dimen>
+    <dimen name="dialog_last_message_avatar_width">32dp</dimen>
+    <dimen name="dialog_last_message_avatar_height">32dp</dimen>
+    <dimen name="dialog_title_text_size">16sp</dimen>
+    <dimen name="dialog_message_text_size">12sp</dimen>
+    <dimen name="dialog_date_text_size">12sp</dimen>
+    <dimen name="dialog_unread_bubble_text_size">12sp</dimen>
+    <dimen name="dialog_divider_margin_left">80dp</dimen>
+    <dimen name="dialog_divider_margin_right">0dp</dimen>
+</resources>

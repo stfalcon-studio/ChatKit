@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.stfalcon.chatkit.commons.adapter.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
+import com.stfalcon.chatkit.features.dialogs.widgets.DialogStyle;
 
 /**
  * Created by Anton Bevza on 12/9/16.
@@ -14,9 +15,11 @@ public abstract class DialogViewHolder<DIALOG extends IDialog> extends ViewHolde
     OnLoadImagesListener onLoadImagesListener;
     OnItemClickListener onItemClickListener;
     OnLongItemClickListener onLongItemClickListener;
+    protected DialogStyle dialogStyle;
 
-    public DialogViewHolder(View itemView) {
+    public DialogViewHolder(View itemView, DialogStyle dialogStyle) {
         super(itemView);
+        this.dialogStyle = dialogStyle;
     }
 
     public void setOnLoadImagesListener(OnLoadImagesListener onLoadImagesListener) {

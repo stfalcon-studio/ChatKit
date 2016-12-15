@@ -11,6 +11,7 @@
     <item name="messageInput" type="id" />
 
     <!-- DIALOGS LIST ITEM -->
+    <item name="dialogRootLayout" type="id" />
     <item name="dialogContainer" type="id" />
     <item name="dialogName" type="id" />
     <item name="dialogDate" type="id" />
@@ -18,6 +19,7 @@
     <item name="dialogUnreadBubble" type="id" />
     <item name="dialogAvatar" type="id" />
     <item name="dialogLastMessageUserAvatar" type="id" />
+    <item name="dialogDividerContainer" type="id" />
     <item name="dialogDivider" type="id" />
 
 </resources>

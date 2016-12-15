@@ -1,0 +1,13 @@
+<resources>
+
+    <declare-styleable name="MessageInput" >
+        <attr name="android:button" />
+        <attr name="android:maxLines" />
+        <attr name="android:hint" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:textColorHint" />
+    </declare-styleable>
+
+</resources>

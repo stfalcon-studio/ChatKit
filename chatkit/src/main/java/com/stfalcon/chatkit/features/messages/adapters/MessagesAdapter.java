@@ -43,6 +43,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private OnClickListener<MESSAGE> onClickListener;
     private OnLongClickListener<MESSAGE> onLongClickListener;
     private MessageViewHolder.ImageLoader imageLoader;
+    private RecyclerView.LayoutManager layoutManager;
 
     public MessagesAdapter(String senderId) {
         this(senderId, null);
@@ -118,7 +119,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     /*
     * PUBLIC METHODS
     * */
-    public void add(MESSAGE message) {
+    public void add(MESSAGE message, boolean scroll) {
         boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
         if (isNewMessageToday) {
             items.add(0, new Wrapper<>(message.getCreatedAt()));
@@ -126,6 +127,9 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         Wrapper<MESSAGE> element = new Wrapper<>(message);
         items.add(0, element);
         notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        if (layoutManager != null && scroll) {
+            layoutManager.scrollToPosition(0);
+        }
     }
 
     /**
@@ -234,9 +238,13 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         this.loadMoreListener = loadMoreListener;
     }
 
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
+    }
+
     /*
-        * PRIVATE METHODS
-        * */
+    * PRIVATE METHODS
+    * */
     private void recountDateHeaders() {
         ArrayList<Integer> indicesToDelete = new ArrayList<>();
 

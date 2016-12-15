@@ -5,6 +5,7 @@ import com.stfalcon.chatkit.commons.models.IUser;
 
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.UUID;
 
 /*
  * Created by troy379 on 12.12.16.
@@ -30,10 +31,16 @@ public final class Demo {
 
     public static class Message implements IMessage {
 
-        private int id;
+        private long id;
+        private String text;
 
-        public Message(int id) {
-            this.id = id;
+        public Message() {
+            this(randomString(getRandomInt()));
+        }
+
+        public Message(String text) {
+            this.text = text;
+            this.id = UUID.randomUUID().getLeastSignificantBits();
         }
 
         @Override
@@ -43,7 +50,7 @@ public final class Demo {
 
         @Override
         public String getId() {
-            return Integer.toString(id);
+            return String.valueOf(id);
         }
 
         @Override
@@ -70,7 +77,7 @@ public final class Demo {
 
         @Override
         public String getText() {
-            return randomString(getRandomInt());
+            return text;
         }
 
         @Override

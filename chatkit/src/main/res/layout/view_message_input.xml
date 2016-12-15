@@ -1,0 +1,26 @@
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@id/messageInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/messageSendButton"
+        android:layout_toStartOf="@id/messageSendButton"
+        android:background="@null"
+        android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"/>
+
+    <Button
+        android:id="@id/messageSendButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_default_send_button"/>
+
+</merge>

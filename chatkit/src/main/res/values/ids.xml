@@ -1,10 +1,16 @@
 <resources>
 
     <!--TODO declare all user id here-->
+
+    <!-- MESSAGE LIST ITEM -->
     <item name="messageText" type="id" />
     <item name="messageUserAvatar" type="id" />
 
-    <!-- DIALOGS LIST ITEM IDS -->
+    <!-- MESSAGE INPUT -->
+    <item name="messageSendButton" type="id" />
+    <item name="messageInput" type="id" />
+
+    <!-- DIALOGS LIST ITEM -->
     <item name="dialogContainer" type="id" />
     <item name="dialogName" type="id" />
     <item name="dialogDate" type="id" />

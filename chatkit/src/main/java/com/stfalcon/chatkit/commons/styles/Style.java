@@ -24,7 +24,7 @@ public abstract class Style {
     protected Resources resources;
     protected AttributeSet attrs;
 
-    public Style(Context context, AttributeSet attrs) {
+    protected Style(Context context, AttributeSet attrs) {
         this.context = context;
         this.resources = context.getResources();
         this.attrs = attrs;

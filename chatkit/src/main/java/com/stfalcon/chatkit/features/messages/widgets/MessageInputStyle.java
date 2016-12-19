@@ -66,7 +66,7 @@ public class MessageInputStyle extends Style {
         return style;
     }
 
-    private MessageInputStyle(Context context, AttributeSet attrs) {
+    protected MessageInputStyle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.features.utils;
+package com.stfalcon.chatkit.messages;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,42 +8,27 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 /*
  * Created by troy379 on 13.12.16.
  */
-public class RecyclerScrollMoreListener
+class RecyclerScrollMoreListener
         extends RecyclerView.OnScrollListener {
 
     private OnLoadMoreListener loadMoreListener;
-    private int visibleThreshold = 5;
     private int currentPage = 0;
     private int previousTotalItemCount = 0;
     private boolean loading = true;
-    private int startingPageIndex = 0;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public RecyclerScrollMoreListener(LinearLayoutManager layoutManager, OnLoadMoreListener loadMoreListener) {
+    RecyclerScrollMoreListener(LinearLayoutManager layoutManager, OnLoadMoreListener loadMoreListener) {
         this.mLayoutManager = layoutManager;
         this.loadMoreListener = loadMoreListener;
     }
 
-    public RecyclerScrollMoreListener(GridLayoutManager layoutManager, OnLoadMoreListener loadMoreListener) {
-        this.mLayoutManager = layoutManager;
-        this.loadMoreListener = loadMoreListener;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
-    }
-
-    public RecyclerScrollMoreListener(StaggeredGridLayoutManager layoutManager, OnLoadMoreListener loadMoreListener) {
-        this.mLayoutManager = layoutManager;
-        this.loadMoreListener = loadMoreListener;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
-    }
-
-    public int getLastVisibleItem(int[] lastVisibleItemPositions) {
+    private int getLastVisibleItem(int[] lastVisibleItemPositions) {
         int maxSize = 0;
         for (int i = 0; i < lastVisibleItemPositions.length; i++) {
             if (i == 0) {
                 maxSize = lastVisibleItemPositions[i];
-            }
-            else if (lastVisibleItemPositions[i] > maxSize) {
+            } else if (lastVisibleItemPositions[i] > maxSize) {
                 maxSize = lastVisibleItemPositions[i];
             }
         }
@@ -66,7 +51,7 @@ public class RecyclerScrollMoreListener
             }
 
             if (totalItemCount < previousTotalItemCount) {
-                this.currentPage = this.startingPageIndex;
+                this.currentPage = 0;
                 this.previousTotalItemCount = totalItemCount;
                 if (totalItemCount == 0) {
                     this.loading = true;
@@ -78,6 +63,7 @@ public class RecyclerScrollMoreListener
                 previousTotalItemCount = totalItemCount;
             }
 
+            int visibleThreshold = 5;
             if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
                 currentPage++;
                 loadMoreListener.onLoadMore(currentPage, totalItemCount);
@@ -86,7 +72,7 @@ public class RecyclerScrollMoreListener
         }
     }
 
-    public interface OnLoadMoreListener {
+    interface OnLoadMoreListener {
         void onLoadMore(int page, int total);
     }
 }

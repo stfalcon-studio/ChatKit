@@ -1,19 +1,17 @@
-package com.stfalcon.chatkit.features.messages.adapters;
+package com.stfalcon.chatkit.messages;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
-import com.stfalcon.chatkit.commons.adapter.ViewHolder;
+import com.stfalcon.chatkit.commons.ImageLoader;
+import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultDateHeaderViewHolder;
-import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultIncomingMessageViewHolder;
-import com.stfalcon.chatkit.features.messages.adapters.holders.DefaultOutcomingMessageViewHolder;
-import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
-import com.stfalcon.chatkit.features.utils.DatesUtils;
-import com.stfalcon.chatkit.features.utils.RecyclerScrollMoreListener;
+import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +21,7 @@ import java.util.List;
 /*
  * Created by troy379 on 09.12.16.
  */
-public class MessagesAdapter<MESSAGE extends IMessage>
+public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
@@ -42,19 +40,19 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     private OnLoadMoreListener loadMoreListener;
     private OnClickListener<MESSAGE> onClickListener;
     private OnLongClickListener<MESSAGE> onLongClickListener;
-    private MessageViewHolder.ImageLoader imageLoader;
+    private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
 
-    public MessagesAdapter(String senderId) {
+    public MessagesListAdapter(String senderId) {
         this(senderId, null);
     }
 
-    public MessagesAdapter(String senderId, MessageViewHolder.ImageLoader imageLoader) {
+    public MessagesListAdapter(String senderId, ImageLoader imageLoader) {
         this(senderId, new HoldersConfig(), imageLoader);
     }
 
-    public MessagesAdapter(String senderId, HoldersConfig holders,
-                           MessageViewHolder.ImageLoader imageLoader) {
+    public MessagesListAdapter(String senderId, HoldersConfig holders,
+                               ImageLoader imageLoader) {
         this.senderId = senderId;
         this.holders = holders;
         this.imageLoader = imageLoader;
@@ -144,7 +142,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         if (!items.isEmpty()) {
             int lastItemPosition = items.size() - 1;
             Date lastItem = (Date) items.get(lastItemPosition).item;
-            if (DatesUtils.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
+            if (DateFormatter.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
                 items.remove(lastItemPosition);
                 notifyItemRemoved(lastItemPosition);
             }
@@ -274,7 +272,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
             this.items.add(new Wrapper<>(message));
             if (messages.size() > i + 1) {
                 MESSAGE nextMessage = messages.get(i + 1);
-                if (!DatesUtils.isSameDay(message.getCreatedAt(), nextMessage.getCreatedAt())) {
+                if (!DateFormatter.isSameDay(message.getCreatedAt(), nextMessage.getCreatedAt())) {
                     this.items.add(new Wrapper<>(message.getCreatedAt()));
                 }
             } else {
@@ -302,7 +300,7 @@ public class MessagesAdapter<MESSAGE extends IMessage>
         if (items.size() <= position) return false;
         if (items.get(position).item instanceof IMessage) {
             Date previousPositionDate = ((MESSAGE) items.get(position).item).getCreatedAt();
-            return DatesUtils.isSameDay(dateToCompare, previousPositionDate);
+            return DateFormatter.isSameDay(dateToCompare, previousPositionDate);
         } else return false;
     }
 
@@ -382,6 +380,37 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
+    * WRAPPER
+    * */
+    private class Wrapper<DATA> {
+        private DATA item;
+        boolean isSelected;
+
+        Wrapper(DATA item) {
+            this.item = item;
+        }
+    }
+
+    /*
+    * LISTENERS
+    * */
+    public interface OnLoadMoreListener {
+        void onLoadMore(int page, int totalItemsCount);
+    }
+
+    public interface SelectionListener {
+        void onSelectionChanged(int count);
+    }
+
+    public interface OnClickListener<MESSAGE extends IMessage> {
+        void onMessageClick(MESSAGE message);
+    }
+
+    public interface OnLongClickListener<MESSAGE extends IMessage> {
+        void onMessageLongClick(MESSAGE message);
+    }
+
+    /*
     * HOLDERS CONFIG
     * */
     public static class HoldersConfig {
@@ -423,33 +452,94 @@ public class MessagesAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * WRAPPER
+    * HOLDERS
     * */
-    private class Wrapper<DATA> {
-        private DATA item;
-        boolean isSelected;
+    public static abstract class MessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
-        Wrapper(DATA item) {
-            this.item = item;
+        private boolean isSelected;
+        protected ImageLoader imageLoader;
+
+        public MessageViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
+        }
+
+        public ImageLoader getImageLoader() {
+            return imageLoader;
+        }
+
+        public void setImageLoader(ImageLoader imageLoader) {
+            this.imageLoader = imageLoader;
         }
     }
 
-    /*
-    * LISTENERS
-    * */
-    public interface OnLoadMoreListener {
-        void onLoadMore(int page, int totalItemsCount);
+    public static class DefaultIncomingMessageViewHolder
+            extends MessageViewHolder<IMessage> {
+
+        private TextView text;
+        private ImageView userAvatar;
+
+        public DefaultIncomingMessageViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView) itemView.findViewById(R.id.messageText);
+            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+        }
+
+        @Override
+        public void onBind(IMessage message) {
+            text.setText(isSelected() ? "selected" : message.getText()); // FIXME: 13.12.16 for test only
+
+            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
+            if (isAvatarExists && imageLoader != null) {
+                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+            }
+        }
     }
 
-    public interface SelectionListener {
-        void onSelectionChanged(int count);
+    public static class DefaultOutcomingMessageViewHolder
+            extends MessageViewHolder<IMessage> {
+
+        private TextView text;
+        private ImageView userAvatar;
+
+        public DefaultOutcomingMessageViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView) itemView.findViewById(R.id.messageText);
+            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+        }
+
+        @Override
+        public void onBind(IMessage message) {
+            text.setText(isSelected() ? "selected" : message.getText()); // FIXME: 13.12.16 for test only
+
+            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
+            if (isAvatarExists && imageLoader != null) {
+                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+            }
+        }
     }
 
-    public interface OnClickListener<MESSAGE extends IMessage> {
-        void onMessageClick(MESSAGE message);
-    }
+    public static class DefaultDateHeaderViewHolder extends ViewHolder<Date> {
 
-    public interface OnLongClickListener<MESSAGE extends IMessage> {
-        void onMessageLongClick(MESSAGE message);
+        private TextView text;
+
+        public DefaultDateHeaderViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView) itemView.findViewById(R.id.messageText);
+        }
+
+        @Override
+        public void onBind(Date date) {
+            text.setText(DateFormatter.format(date, DateFormatter.Template.STRING_MONTH));
+        }
     }
 }

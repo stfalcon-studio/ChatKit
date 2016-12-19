@@ -21,17 +21,17 @@
     <attr name="MessageList" format="reference" />
 
     <declare-styleable name="MessageList" >
-        <attr name="incomingBubbleDrawable" format=""/>
-        <attr name="incomingDefaultBubbleColor" format=""/>
-        <attr name="incomingDefaultBubblePressedColor" format=""/>
-        <attr name="incomingDefaultBubbleSelectedColor" format=""/>
-        <attr name="incomingDefaultBubblePaddingLeft" format=""/>
-        <attr name="incomingDefaultBubblePaddingRight" format=""/>
-        <attr name="incomingDefaultBubblePaddingTop" format=""/>
-        <attr name="incomingDefaultBubblePaddingBottom" format=""/>
-        <attr name="incomingTextColor" format=""/>
-        <attr name="incomingTextSize" format=""/>
-        <attr name="incomingTextAlignment" format=""/>
+        <!--<attr name="incomingBubbleDrawable" format=""/>-->
+        <!--<attr name="incomingDefaultBubbleColor" format=""/>-->
+        <!--<attr name="incomingDefaultBubblePressedColor" format=""/>-->
+        <!--<attr name="incomingDefaultBubbleSelectedColor" format=""/>-->
+        <!--<attr name="incomingDefaultBubblePaddingLeft" format=""/>-->
+        <!--<attr name="incomingDefaultBubblePaddingRight" format=""/>-->
+        <!--<attr name="incomingDefaultBubblePaddingTop" format=""/>-->
+        <!--<attr name="incomingDefaultBubblePaddingBottom" format=""/>-->
+        <!--<attr name="incomingTextColor" format=""/>-->
+        <!--<attr name="incomingTextSize" format=""/>-->
+        <!--<attr name="incomingTextAlignment" format=""/>-->
 
         <!--<attr name="outcomingBubbleDrawable" format=""/>-->
         <!--<attr name="outcomingDefaultBubbleColor" format=""/>-->

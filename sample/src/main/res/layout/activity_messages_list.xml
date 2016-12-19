@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.stfalcon.chatkit.features.messages.widgets.MessagesList
+    <com.stfalcon.chatkit.messages.MessagesList
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"/>
 
-    <com.stfalcon.chatkit.features.messages.widgets.MessageInput
+    <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -3,12 +3,13 @@ package com.stfalcon.chatkit.sample;
 import android.view.View;
 import android.widget.TextView;
 
-import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
+import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
 /*
  * Created by troy379 on 12.12.16.
  */
-public class CustomIncomingMessageViewHolder extends MessageViewHolder<Demo.Message> {
+public class CustomIncomingMessageViewHolder
+        extends MessagesListAdapter.MessageViewHolder<Demo.Message> {
 
     private TextView text;
 

@@ -3,7 +3,7 @@ package com.stfalcon.chatkit.features.dialogs.adapters;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.stfalcon.chatkit.commons.adapter.ViewHolder;
+import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.features.dialogs.widgets.DialogStyle;
 

@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.commons.styles;
+package com.stfalcon.chatkit.commons;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -30,27 +30,27 @@ public abstract class Style {
         this.attrs = attrs;
     }
 
-    protected int getSystemAccentColor() {
+    protected final int getSystemAccentColor() {
         return getSystemColor(R.attr.colorAccent);
     }
 
-    protected int getSystemPrimaryColor() {
+    protected final int getSystemPrimaryColor() {
         return getSystemColor(R.attr.colorPrimary);
     }
 
-    protected int getSystemPrimaryDarkColor() {
+    protected final int getSystemPrimaryDarkColor() {
         return getSystemColor(R.attr.colorPrimaryDark);
     }
 
-    protected int getSystemPrimaryTextColor() {
+    protected final int getSystemPrimaryTextColor() {
         return getSystemColor(android.R.attr.textColorPrimary);
     }
 
-    protected int getSystemHintColor() {
+    protected final int getSystemHintColor() {
         return getSystemColor(android.R.attr.textColorHint);
     }
 
-    protected int getSystemColor(@AttrRes int attr) {
+    protected final int getSystemColor(@AttrRes int attr) {
         TypedValue typedValue = new TypedValue();
 
         TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{attr});
@@ -60,19 +60,19 @@ public abstract class Style {
         return color;
     }
 
-    protected int getDimension(@DimenRes int dimen) {
+    protected final int getDimension(@DimenRes int dimen) {
         return resources.getDimensionPixelSize(dimen);
     }
 
-    protected int getColor(@ColorRes int color) {
+    protected final int getColor(@ColorRes int color) {
         return ContextCompat.getColor(context, color);
     }
 
-    protected Drawable getDrawable(@DrawableRes int drawable) {
+    protected final Drawable getDrawable(@DrawableRes int drawable) {
         return ContextCompat.getDrawable(context, drawable);
     }
 
-    protected Drawable getVectorDrawable(@DrawableRes int drawable) {
+    protected final Drawable getVectorDrawable(@DrawableRes int drawable) {
         return VectorDrawableCompat.create(resources, drawable, null);
     }
 

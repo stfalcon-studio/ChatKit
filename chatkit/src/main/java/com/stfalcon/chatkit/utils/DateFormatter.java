@@ -1,9 +1,5 @@
 package com.stfalcon.chatkit.utils;
 
-import android.content.Context;
-
-import com.stfalcon.chatkit.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,32 +9,14 @@ import java.util.Locale;
  * Created by troy379 on 07.09.16.
  */
 public final class DateFormatter {
-    private DateFormatter() { throw new AssertionError(); }
+    private DateFormatter() {
+        throw new AssertionError();
+    }
 
     public static String format(Date date, Template template) {
         if (date == null) return "";
         return new SimpleDateFormat(template.get(), Locale.getDefault())
                 .format(date);
-    }
-
-    public static String getDateString(Context context, Date date) {
-        if (date == null) return "";
-        else if (isToday(date)) {
-            return context.getString(R.string.chat_date_today);
-        } else if (isYesterday(date)) {
-            return context.getString(R.string.chat_date_yesterday);
-        } else return new SimpleDateFormat(Template.STRING_MONTH.get(), Locale.getDefault())
-                .format(date);
-    }
-
-    public static boolean isToday(Date date) {
-        return isSameDay(date, Calendar.getInstance().getTime());
-    }
-
-    public static boolean isYesterday(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        return isSameDay(date, cal.getTime());
     }
 
     public static boolean isSameDay(Date date1, Date date2) {

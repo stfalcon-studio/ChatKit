@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.features.messages.widgets;
+package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -10,12 +10,12 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.R;
-import com.stfalcon.chatkit.commons.styles.Style;
+import com.stfalcon.chatkit.commons.Style;
 
 /*
  * Created by troy379 on 15.12.16.
  */
-public class MessageInputStyle extends Style {
+class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
 
@@ -38,7 +38,7 @@ public class MessageInputStyle extends Style {
     private int inputDefaultPaddingTop;
     private int inputDefaultPaddingBottom;
 
-    public static MessageInputStyle parse(Context context, AttributeSet attrs) {
+    static MessageInputStyle parse(Context context, AttributeSet attrs) {
         MessageInputStyle style = new MessageInputStyle(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessageInput);
 
@@ -66,71 +66,71 @@ public class MessageInputStyle extends Style {
         return style;
     }
 
-    protected MessageInputStyle(Context context, AttributeSet attrs) {
+    private MessageInputStyle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public Drawable getInputButtonDrawable() {
+    Drawable getInputButtonDrawable() {
         return inputButtonDrawable != null ? inputButtonDrawable : inputDefaultButtonDrawable;
     }
 
-    public int getInputButtonMargin() {
+    int getInputButtonMargin() {
         return inputButtonMargin;
     }
 
-    public int getInputButtonWidth() {
+    int getInputButtonWidth() {
         return inputButtonWidth;
     }
 
-    public int getInputButtonHeight() {
+    int getInputButtonHeight() {
         return inputButtonHeight;
     }
 
-    public int getInputMaxLines() {
+    int getInputMaxLines() {
         return inputMaxLines;
     }
 
-    public String getInputHint() {
+    String getInputHint() {
         return inputHint;
     }
 
-    public String getInputText() {
+    String getInputText() {
         return inputText;
     }
 
-    public int getInputTextSize() {
+    int getInputTextSize() {
         return inputTextSize;
     }
 
-    public int getInputTextColor() {
+    int getInputTextColor() {
         return inputTextColor;
     }
 
-    public int getInputHintColor() {
+    int getInputHintColor() {
         return inputHintColor;
     }
 
-    public Drawable getInputBackground() {
+    Drawable getInputBackground() {
         return inputBackground;
     }
 
-    public Drawable getInputCursorDrawable() {
+    Drawable getInputCursorDrawable() {
         return inputCursorDrawable;
     }
 
-    public int getInputDefaultPaddingLeft() {
+    int getInputDefaultPaddingLeft() {
         return inputDefaultPaddingLeft;
     }
 
-    public int getInputDefaultPaddingRight() {
+    int getInputDefaultPaddingRight() {
         return inputDefaultPaddingRight;
     }
 
-    public int getInputDefaultPaddingTop() {
+    int getInputDefaultPaddingTop() {
         return inputDefaultPaddingTop;
     }
 
-    public int getInputDefaultPaddingBottom() {
+    int getInputDefaultPaddingBottom() {
         return inputDefaultPaddingBottom;
     }
 

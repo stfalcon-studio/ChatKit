@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.features.messages.widgets;
+package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -9,8 +9,6 @@ import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.features.messages.adapters.MessagesAdapter;
-import com.stfalcon.chatkit.features.utils.RecyclerScrollMoreListener;
 
 /*
  * Created by troy379 on 09.12.16.
@@ -35,7 +33,7 @@ public class MessagesList extends RecyclerView {
     }
 
     public <MESSAGE extends IMessage>
-    void setAdapter(MessagesAdapter<MESSAGE> adapter) {
+    void setAdapter(MessagesListAdapter<MESSAGE> adapter) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);
 

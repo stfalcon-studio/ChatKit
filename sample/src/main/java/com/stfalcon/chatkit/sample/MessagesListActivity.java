@@ -6,18 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.stfalcon.chatkit.features.messages.adapters.MessagesAdapter;
-import com.stfalcon.chatkit.features.messages.adapters.holders.MessageViewHolder;
-import com.stfalcon.chatkit.features.messages.widgets.MessageInput;
-import com.stfalcon.chatkit.features.messages.widgets.MessagesList;
+import com.stfalcon.chatkit.commons.ImageLoader;
+import com.stfalcon.chatkit.messages.MessageInput;
+import com.stfalcon.chatkit.messages.MessagesList;
+import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
 import java.util.ArrayList;
 
 public class MessagesListActivity extends AppCompatActivity
-        implements MessagesAdapter.SelectionListener {
+        implements MessagesListAdapter.SelectionListener {
 
     private MessagesList messagesList;
-    private MessagesAdapter<Demo.Message> adapter;
+    private MessagesListAdapter<Demo.Message> adapter;
 
     private MessageInput input;
 
@@ -45,11 +45,11 @@ public class MessagesListActivity extends AppCompatActivity
     }
 
     private void initMessagesAdapter() {
-//        MessagesAdapter.HoldersConfig holdersConfig = new MessagesAdapter.HoldersConfig();
+//        MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
 //        holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_incoming_message);
-//        MessagesAdapter<Demo.Message> adapter = new MessagesAdapter<>(holdersConfig, "0");
+//        MessagesListAdapter<Demo.Message> adapter = new MessagesListAdapter<>(holdersConfig, "0");
 
-        adapter = new MessagesAdapter<>("0", new MessageViewHolder.ImageLoader() {
+        adapter = new MessagesListAdapter<>("0", new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
                 Picasso.with(MessagesListActivity.this).load(url).into(imageView);
@@ -59,7 +59,7 @@ public class MessagesListActivity extends AppCompatActivity
 
         adapter.add(new Demo.Message(), false);
 
-        adapter.setLoadMoreListener(new MessagesAdapter.OnLoadMoreListener() {
+        adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (totalItemsCount < 50) {

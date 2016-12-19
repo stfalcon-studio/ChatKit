@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.commons.adapter;
+package com.stfalcon.chatkit.commons;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.features.messages.widgets;
+package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

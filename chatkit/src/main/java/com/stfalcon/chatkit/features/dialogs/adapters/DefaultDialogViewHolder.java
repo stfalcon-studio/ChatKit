@@ -12,6 +12,8 @@ import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.features.dialogs.widgets.DialogStyle;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.util.Date;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -112,7 +114,7 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
         tvName.setText(dialog.getDialogName());
 
         //Set Date
-        tvDate.setText(DateFormatter.format(dialog.getLastMessage().getCreatedAt(), DateFormatter.Template.TIME));
+        tvDate.setText(getDateString(dialog.getLastMessage().getCreatedAt()));
 
         //Set Dialog avatar
         if (onLoadImagesListener != null) {
@@ -152,5 +154,9 @@ public class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
                 }
             });
         }
+    }
+
+    protected String getDateString(Date date) {
+        return DateFormatter.format(date, DateFormatter.Template.TIME);
     }
 }

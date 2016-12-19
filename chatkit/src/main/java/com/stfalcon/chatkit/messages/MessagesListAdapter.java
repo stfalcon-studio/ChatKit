@@ -494,7 +494,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(IMessage message) {
-            text.setText(isSelected() ? "selected" : message.getText()); // FIXME: 13.12.16 for test only
+            text.setSelected(isSelected());
+            text.setText(message.getText());
 
             boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
@@ -518,7 +519,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(IMessage message) {
-            text.setText(isSelected() ? "selected" : message.getText()); // FIXME: 13.12.16 for test only
+            text.setSelected(isSelected());
+            text.setText(message.getText());
 
             boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);

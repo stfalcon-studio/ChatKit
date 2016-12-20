@@ -9,9 +9,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.features.dialogs.adapters.DialogViewHolder;
-import com.stfalcon.chatkit.features.dialogs.adapters.DialogsListAdapter;
-import com.stfalcon.chatkit.features.dialogs.widgets.DialogsListView;
+import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.dialogs.fixtures.ChatListFixtures;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
@@ -26,18 +25,18 @@ public class DialogsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialogs_list);
 
-        DialogsListView dialogsListView = (DialogsListView) findViewById(R.id.dialogList);
+        DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogList);
 
         dialogsListAdapter = new DialogsListAdapter<>(getDialogs());
 
-        dialogsListAdapter.setOnLoadImagesListener(new DialogViewHolder.OnLoadImagesListener() {
+        dialogsListAdapter.setOnLoadImagesListener(new DialogsListAdapter.DialogViewHolder.OnLoadImagesListener() {
             @Override
             public void onLoadImage(ImageView imageView, String url) {
                 Picasso.with(DialogsListActivity.this).load(url).into(imageView);
             }
         });
 
-        dialogsListAdapter.setOnItemClickListener(new DialogViewHolder.OnItemClickListener() {
+        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.DialogViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, IDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, "Open chat with " + dialog.getDialogName(),
@@ -45,7 +44,7 @@ public class DialogsListActivity extends AppCompatActivity {
             }
         });
 
-        dialogsListAdapter.setOnLongItemClickListener(new DialogViewHolder.OnLongItemClickListener() {
+        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.DialogViewHolder.OnLongItemClickListener() {
             @Override
             public void onLongItemClick(View view, IDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, "Show menu",

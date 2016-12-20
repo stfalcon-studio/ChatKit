@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.stfalcon.chatkit.sample.dialogs.DialogsListActivity">
 
-    <com.stfalcon.chatkit.features.dialogs.widgets.DialogsListView
+    <com.stfalcon.chatkit.dialogs.DialogsList
         android:id="@+id/dialogList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

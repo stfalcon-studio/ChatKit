@@ -39,7 +39,7 @@
 
     <attr name="DialogsListView" format="reference" />
 
-    <declare-styleable name="DialogsListView">
+    <declare-styleable name="DialogsList">
         <attr name="dialogTitleTextColor" format="color|reference" />
         <attr name="dialogTitleTextSize" format="dimension|reference" />
         <attr name="dialogTitleTextStyle">

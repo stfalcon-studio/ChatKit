@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="white_three">#ebebeb</color>
     <color name="blue">#031cd7</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
-    <color name="black50">#50000000</color>
     <color name="gray">#333333</color>
+    <color name="dark_gray">#282a2b</color>
+    <color name="warm_grey">#7f7f7f</color>
+    <color name="warm_grey_two">#9c9c9c</color>
+    <color name="dark_mint">#51c05c</color>
+
+    <color name="dialog_divider">@color/white_three</color>
+    <color name="dialog_title_text">@color/dark_gray</color>
+    <color name="dialog_message_text">@color/warm_grey</color>
+    <color name="dialog_date_text">@color/warm_grey_two</color>
+    <color name="dialog_unread_text">@color/white</color>
+    <color name="dialog_unread_bubble">@color/dark_mint</color>
+
 </resources>

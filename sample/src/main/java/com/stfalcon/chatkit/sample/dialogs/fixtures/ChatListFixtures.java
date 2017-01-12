@@ -2,7 +2,6 @@ package com.stfalcon.chatkit.sample.dialogs.fixtures;
 
 import android.support.annotation.NonNull;
 
-import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
@@ -25,20 +24,59 @@ public final class ChatListFixtures {
 
     private static ArrayList<String> images = new ArrayList<String>() {
         {
-            add("https://pickaface.net/assets/images/slides/slide2.png");
-            add("https://pickaface.net/assets/images/slides/slide4.png");
-            add("https://acadeu.com/static/img/demo/avatars/jorgediaz.jpg");
-            add("http://avatar-creator.net/assets/temp-avatars/svgA9704302547033876.png");
+            add("http://i.imgur.com/pv1tBmT.png");
+            add("http://i.imgur.com/R3Jm1CL.png");
+            add("http://i.imgur.com/ROz4Jgh.png");
+            add("http://i.imgur.com/Qn9UesZ.png");
         }
     };
-    private static final String groupChatImage = "https://lh6.ggpht.com/e67TRisvQxr9wUxjujVcVjPLFDfI3aZmLHuBeFO5esWO7FyjtO1PckubLZsJlzkC8Byv=w300";
-    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final ArrayList<String> groupChatImages = new ArrayList<String>() {
+        {
+            add("http://i.imgur.com/1vU8qF8.png");
+            add("http://i.imgur.com/vy1UvUJ.png");
+            add("http://i.imgur.com/vvNbXWt.png");
+        }
+    };
+    private static final ArrayList<String> names = new ArrayList<String>() {
+        {
+            add("Samuel Reynolds");
+            add("Kyle Hardman");
+            add("Zoe Milton");
+            add("Angel Ogden");
+            add("Zoe Milton");
+            add("Angelina Mackenzie");
+            add("Kyle Oswald");
+            add("Abigail Stevenson");
+            add("Julia Goldman");
+            add("Jordan Gill");
+            add("Michelle Macey");
+        }
+    };
+    private static final ArrayList<String> groupChatTitles = new ArrayList<String>() {
+        {
+            add("Samuel, Michelle");
+            add("Jordan, Jordan, Zoe");
+            add("Julia, Angel, Kyle, Jordan");
+        }
+    };
+    private static final ArrayList<String> messages = new ArrayList<String>() {
+        {
+            add("Hello!");
+            add("Hello! No problem. I can today at 2 pm. And after we can go to the office.");
+            add("At first, for some time, I was not able to answer him one word");
+            add("At length one of them called out in a clear, polite, smooth dialect, not unlike in sound to the Italian");
+            add("By the bye, Bob, said Hopkins");
+            add("He made his passenger captain of one, with four of the men; and himself, his mate, and five more, went in the other; and they contrived their business very well, for they came up to the ship about midnight.");
+            add("So saying he unbuckled his baldric with the bugle");
+            add("Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.");
+        }
+    };
     private static SecureRandom rnd = new SecureRandom();
 
     public static ArrayList<DefaultDialog> getChatList() {
         ArrayList<DefaultDialog> chats = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            chats.add(getChat());
+            chats.add(getDialog());
         }
         return chats;
     }
@@ -52,7 +90,7 @@ public final class ChatListFixtures {
 
             @Override
             public String getText() {
-                return randomString(getRandomInt());
+                return messages.get(rnd.nextInt(messages.size()));
             }
 
             @Override
@@ -72,25 +110,13 @@ public final class ChatListFixtures {
         };
     }
 
-    private static String randomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
-
-    private static int getRandomInt() {
-        return rnd.nextInt(40) + 5;
-    }
-
-    public static DefaultDialog getChat() {
+    private static DefaultDialog getDialog() {
         ArrayList<IUser> users = getUsers();
-
         return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                users.size() > 1 ? "Group" : users.get(0).getName(),
-                users.size() > 1 ? groupChatImage : images.get(rnd.nextInt(4)),
+                users.size() > 1 ? groupChatTitles.get(users.size() - 2) : users.get(0).getName(),
+                users.size() > 1 ? groupChatImages.get(users.size() - 2) : images.get(rnd.nextInt(4)),
                 users,
-                getMessage(Calendar.getInstance().getTime()), rnd.nextInt(2));
+                getMessage(Calendar.getInstance().getTime()), rnd.nextInt(3));
     }
 
     private static ArrayList<IUser> getUsers() {
@@ -105,6 +131,6 @@ public final class ChatListFixtures {
     @NonNull
     private static IUser getUser() {
         return new DefaultUser(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                randomString(5) + " " + randomString(5), images.get(rnd.nextInt(4)));
+                names.get(rnd.nextInt(names.size())), images.get(rnd.nextInt(4)));
     }
 }

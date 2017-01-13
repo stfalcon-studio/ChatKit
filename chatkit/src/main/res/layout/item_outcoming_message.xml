@@ -11,7 +11,7 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_toLeftOf="@id/messageUserAvatar"
         android:layout_toStartOf="@id/messageUserAvatar"
-        android:background="@drawable/selector_outcoming_test"
+        android:background="@drawable/shape_outcoming_message"
         android:padding="16dp"/>
 
     <ImageView

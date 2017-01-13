@@ -14,7 +14,7 @@
         android:id="@id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_incoming_test"
+        android:background="@drawable/shape_incoming_message"
         android:padding="16dp"/>
 
 </LinearLayout>

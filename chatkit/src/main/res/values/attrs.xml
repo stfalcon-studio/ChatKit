@@ -3,8 +3,8 @@
     <attr name="MessageInput" format="reference" />
 
     <declare-styleable name="MessageInput" >
-        <attr name="inputButtonDrawable" format="reference"/>
-        <attr name="inputDefaultButtonColor" format="color|reference"/>
+        <attr name="inputButtonBackground" format="reference"/>
+        <attr name="inputButtonIcon" format="reference"/>
         <attr name="inputButtonMargin" format="dimension|reference"/>
         <attr name="inputButtonWidth" format="dimension|reference"/>
         <attr name="inputButtonHeight" format="dimension|reference"/>

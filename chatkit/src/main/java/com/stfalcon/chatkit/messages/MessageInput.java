@@ -8,8 +8,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +24,7 @@ public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
 
     private EditText messageInput;
-    private Button messageSendButton;
+    private ImageButton messageSendButton;
     private Space buttonSpace;
 
     private CharSequence input;
@@ -93,7 +93,8 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setBackground(style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
-        this.messageSendButton.setBackground(style.getInputButtonDrawable());
+        this.messageSendButton.setBackground(style.getInputButtonBackground());
+        this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
         this.buttonSpace.getLayoutParams().width = style.getInputButtonMargin();
@@ -115,7 +116,7 @@ public class MessageInput extends RelativeLayout
         inflate(context, R.layout.view_message_input, this);
 
         messageInput = (EditText) findViewById(R.id.messageInput);
-        messageSendButton = (Button) findViewById(R.id.messageSendButton);
+        messageSendButton = (ImageButton) findViewById(R.id.messageSendButton);
         buttonSpace = (Space) findViewById(R.id.buttonSpace);
 
         messageSendButton.setOnClickListener(this);

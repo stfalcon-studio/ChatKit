@@ -1,0 +1,8 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/mask" android:state_enabled="false" />
+    <item android:drawable="@drawable/mask_active" android:state_enabled="true" />
+
+    <!--TODO replace with code-->
+
+</selector>

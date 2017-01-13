@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ChatKit</string>
-    <string name="hint_enter_a_message">Enter a message</string>
+    <string name="hint_enter_a_message">Type a message…</string>
 </resources>

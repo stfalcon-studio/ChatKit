@@ -20,7 +20,7 @@
         android:layout_toLeftOf="@id/messageSendButton"
         android:layout_toStartOf="@id/messageSendButton"/>
 
-    <Button
+    <ImageButton
         android:id="@id/messageSendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

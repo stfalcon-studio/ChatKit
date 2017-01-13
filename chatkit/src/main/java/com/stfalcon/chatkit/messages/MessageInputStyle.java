@@ -1,12 +1,9 @@
 package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.R;
@@ -19,8 +16,8 @@ class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
 
-    private Drawable inputButtonDrawable;
-    private Drawable inputDefaultButtonDrawable;
+    private Drawable inputButtonBackground;
+    private Drawable inputButtonIcon;
     private int inputButtonWidth;
     private int inputButtonHeight;
     private int inputButtonMargin;
@@ -42,8 +39,14 @@ class MessageInputStyle extends Style {
         MessageInputStyle style = new MessageInputStyle(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessageInput);
 
-        style.inputButtonDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputButtonDrawable);
-        style.inputDefaultButtonDrawable = style.getButtonSelector(typedArray.getColor(R.styleable.MessageInput_inputDefaultButtonColor, style.getSystemAccentColor()));
+        style.inputButtonBackground = typedArray.getDrawable(R.styleable.MessageInput_inputButtonBackground);
+        if (style.inputButtonBackground == null) {
+            style.inputButtonBackground = ContextCompat.getDrawable(context, R.drawable.selector_bg_send);
+        }
+        style.inputButtonIcon = typedArray.getDrawable(R.styleable.MessageInput_inputButtonIcon);
+        if (style.inputButtonIcon == null) {
+            style.inputButtonIcon = ContextCompat.getDrawable(context, R.drawable.selector_icon_send);
+        }
         style.inputButtonWidth = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputButtonWidth, style.getDimension(R.dimen.input_button_width));
         style.inputButtonHeight = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputButtonHeight, style.getDimension(R.dimen.input_button_height));
         style.inputButtonMargin = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputButtonMargin, style.getDimension(R.dimen.input_button_margin));
@@ -51,8 +54,8 @@ class MessageInputStyle extends Style {
         style.inputHint = typedArray.getString(R.styleable.MessageInput_inputHint);
         style.inputText = typedArray.getString(R.styleable.MessageInput_inputText);
         style.inputTextSize = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputTextSize, style.getDimension(R.dimen.input_text_size));
-        style.inputTextColor = typedArray.getColor(R.styleable.MessageInput_inputTextColor, style.getSystemPrimaryTextColor());
-        style.inputHintColor = typedArray.getColor(R.styleable.MessageInput_inputHintColor, style.getSystemHintColor());
+        style.inputTextColor = typedArray.getColor(R.styleable.MessageInput_inputTextColor, ContextCompat.getColor(context, R.color.dark_grey_two));
+        style.inputHintColor = typedArray.getColor(R.styleable.MessageInput_inputHintColor, ContextCompat.getColor(context, R.color.warm_grey_three));
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);
 
@@ -70,8 +73,8 @@ class MessageInputStyle extends Style {
         super(context, attrs);
     }
 
-    Drawable getInputButtonDrawable() {
-        return inputButtonDrawable != null ? inputButtonDrawable : inputDefaultButtonDrawable;
+    Drawable getInputButtonBackground() {
+        return inputButtonBackground;
     }
 
     int getInputButtonMargin() {
@@ -134,23 +137,8 @@ class MessageInputStyle extends Style {
         return inputDefaultPaddingBottom;
     }
 
-    private Drawable getButtonSelector(int color) {
-        ColorDrawable normalColor = new ColorDrawable(color);
-        ColorDrawable pressedColor = new ColorDrawable(color);
-        ColorDrawable disabledColor = new ColorDrawable(Color.GRAY);
-        pressedColor.setAlpha(200);
-
-        Drawable button = DrawableCompat.wrap(getVectorDrawable(R.drawable.ic_send));
-        DrawableCompat.setTintList(
-                button,
-                new ColorStateList(
-                        new int[][]{
-                                new int[]{android.R.attr.state_enabled, -android.R.attr.state_pressed},
-                                new int[]{android.R.attr.state_enabled, android.R.attr.state_pressed},
-                                new int[]{-android.R.attr.state_enabled}
-                        },
-                        new int[]{normalColor.getColor(), pressedColor.getColor(), disabledColor.getColor()}
-                ));
-        return button;
+    Drawable getInputButtonIcon() {
+        return inputButtonIcon;
     }
+
 }

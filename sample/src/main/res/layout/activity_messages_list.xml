@@ -10,12 +10,20 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/input"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/input"
+        android:background="#e8e8e8"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#20000000"
         app:inputHint="@string/hint_enter_a_message"/>
 
 </RelativeLayout>

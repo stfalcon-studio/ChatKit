@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@id/messageText"
+    <RelativeLayout
+        android:id="@id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toLeftOf="@id/messageUserAvatar"
-        android:layout_toStartOf="@id/messageUserAvatar"
-        android:background="@drawable/shape_outcoming_message"
-        android:padding="16dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/message_outcoming_bubble_margin_left">
 
-    <ImageView
-        android:id="@id/messageUserAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true" />
+
+        <TextView
+            android:id="@id/messageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/messageText"
+            android:layout_marginTop="4dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

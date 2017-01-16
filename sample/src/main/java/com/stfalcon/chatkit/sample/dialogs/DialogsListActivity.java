@@ -12,7 +12,7 @@ import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.sample.R;
-import com.stfalcon.chatkit.sample.dialogs.fixtures.ChatListFixtures;
+import com.stfalcon.chatkit.sample.fixtures.ChatListFixtures;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
 
 import java.util.List;

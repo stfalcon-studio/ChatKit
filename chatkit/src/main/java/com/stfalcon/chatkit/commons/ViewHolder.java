@@ -19,16 +19,4 @@ public abstract class ViewHolder<DATA> extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public static <HOLDER extends ViewHolder>
-    ViewHolder getHolder(ViewGroup parent, @LayoutRes int layout, Class<HOLDER> holderClass) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-
-        try {
-            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class);
-            constructor.setAccessible(true);
-            return constructor.newInstance(v);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }

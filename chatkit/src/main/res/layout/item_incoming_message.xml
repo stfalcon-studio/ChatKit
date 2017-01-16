@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:orientation="horizontal">
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
-    <ImageView
+    <com.stfalcon.chatkit.utils.ShapeImageView
         android:id="@id/messageUserAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="8dp" />
 
-    <TextView
-        android:id="@id/messageText"
+    <RelativeLayout
+        android:id="@id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_incoming_message"
-        android:padding="16dp"/>
+        android:layout_marginRight="@dimen/message_incoming_bubble_margin_right"
+        android:layout_toRightOf="@id/messageUserAvatar"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@id/messageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/messageText"
+            android:layout_below="@id/messageText"
+            android:layout_marginTop="4dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

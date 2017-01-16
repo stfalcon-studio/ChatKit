@@ -10,6 +10,7 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
+import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class MessagesListActivity extends AppCompatActivity
         implements MessagesListAdapter.SelectionListener {
 
     private MessagesList messagesList;
-    private MessagesListAdapter<Demo.Message> adapter;
+    private MessagesListAdapter<MessagesListFixtures.Message> adapter;
 
     private MessageInput input;
 
@@ -33,7 +34,7 @@ public class MessagesListActivity extends AppCompatActivity
         input.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
-                adapter.add(new Demo.Message(input.toString()), true);
+                adapter.add(new MessagesListFixtures.Message(input.toString()), true);
                 return true;
             }
         });
@@ -57,7 +58,7 @@ public class MessagesListActivity extends AppCompatActivity
         });
         adapter.enableSelectionMode(this);
 
-        adapter.add(new Demo.Message(), false);
+        adapter.add(new MessagesListFixtures.Message(), false);
 
         adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
             @Override
@@ -66,9 +67,9 @@ public class MessagesListActivity extends AppCompatActivity
                     new Handler().postDelayed(new Runnable() { //imitation of slow connection
                         @Override
                         public void run() {
-                            ArrayList<Demo.Message> messages = new ArrayList<>();
+                            ArrayList<MessagesListFixtures.Message> messages = new ArrayList<>();
                             for (int i = 0; i < 10; i++) {
-                                messages.add(new Demo.Message());
+                                messages.add(new MessagesListFixtures.Message());
                             }
                             adapter.add(messages, true);
                         }

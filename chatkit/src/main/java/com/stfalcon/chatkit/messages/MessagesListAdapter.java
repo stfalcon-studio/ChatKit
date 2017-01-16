@@ -2,9 +2,13 @@ package com.stfalcon.chatkit.messages;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
@@ -13,6 +17,7 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -42,6 +47,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private OnLongClickListener<MESSAGE> onLongClickListener;
     private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
+    private MessagesListStyle messagesListStyle;
 
     public MessagesListAdapter(String senderId) {
         this(senderId, null);
@@ -63,13 +69,26 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_INCOMING_MESSAGE:
-                return ViewHolder.getHolder(parent, holders.incomingLayout, holders.incomingHolder);
+                return getHolder(parent, holders.incomingLayout, holders.incomingHolder);
             case VIEW_TYPE_OUTCOMING_MESSAGE:
-                return ViewHolder.getHolder(parent, holders.outcomingLayout, holders.outcomingHolder);
+                return getHolder(parent, holders.outcomingLayout, holders.outcomingHolder);
             case VIEW_TYPE_DATE_HEADER:
-                return ViewHolder.getHolder(parent, holders.dateHeaderLayout, holders.dateHeaderHolder);
+                return getHolder(parent, holders.dateHeaderLayout, holders.dateHeaderHolder);
         }
         return null;
+    }
+
+    public <HOLDER extends ViewHolder>
+    ViewHolder getHolder(ViewGroup parent, @LayoutRes int layout, Class<HOLDER> holderClass) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+
+        try {
+            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class, MessagesListStyle.class);
+            constructor.setAccessible(true);
+            return constructor.newInstance(v, messagesListStyle);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -379,6 +398,10 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         };
     }
 
+    public void setStyle(MessagesListStyle style) {
+        this.messagesListStyle = style;
+    }
+
     /*
     * WRAPPER
     * */
@@ -416,13 +439,19 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static class HoldersConfig {
 
         private Class<? extends MessageViewHolder<? extends IMessage>> incomingHolder;
-        private @LayoutRes int incomingLayout;
+        private
+        @LayoutRes
+        int incomingLayout;
 
         private Class<? extends MessageViewHolder<? extends IMessage>> outcomingHolder;
-        private @LayoutRes int outcomingLayout;
+        private
+        @LayoutRes
+        int outcomingLayout;
 
         private Class<? extends ViewHolder<Date>> dateHeaderHolder;
-        private @LayoutRes int dateHeaderLayout;
+        private
+        @LayoutRes
+        int dateHeaderLayout;
 
         public HoldersConfig() {
             this.incomingHolder = DefaultIncomingMessageViewHolder.class;
@@ -483,19 +512,39 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static class DefaultIncomingMessageViewHolder
             extends MessageViewHolder<IMessage> {
 
+        private ViewGroup bubble;
         private TextView text;
+        private TextView time;
         private ImageView userAvatar;
 
-        public DefaultIncomingMessageViewHolder(View itemView) {
+        public DefaultIncomingMessageViewHolder(View itemView, MessagesListStyle style) {
             super(itemView);
+            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
+            time = (TextView) itemView.findViewById(R.id.messageTime);
             userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+
+            bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
+                    style.getIncomingDefaultBubblePaddingTop(),
+                    style.getIncomingDefaultBubblePaddingRight(),
+                    style.getIncomingDefaultBubblePaddingBottom());
+            bubble.setBackground(style.getIncomingBubbleDrawable());
+
+            text.setTextColor(style.getIncomingTextColor());
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
+
+            userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
+            userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
+
+            time.setTextColor(style.getIncomingTimeTextColor());
+            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
         }
 
         @Override
         public void onBind(IMessage message) {
-            text.setSelected(isSelected());
+            bubble.setSelected(isSelected());
             text.setText(message.getText());
+            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
 
             boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
@@ -508,25 +557,34 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static class DefaultOutcomingMessageViewHolder
             extends MessageViewHolder<IMessage> {
 
+        private ViewGroup bubble;
         private TextView text;
-        private ImageView userAvatar;
+        private TextView time;
 
-        public DefaultOutcomingMessageViewHolder(View itemView) {
+        public DefaultOutcomingMessageViewHolder(View itemView, MessagesListStyle style) {
             super(itemView);
+            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+            time = (TextView) itemView.findViewById(R.id.messageTime);
+
+            bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
+                    style.getOutcomingDefaultBubblePaddingTop(),
+                    style.getOutcomingDefaultBubblePaddingRight(),
+                    style.getOutcomingDefaultBubblePaddingBottom());
+            bubble.setBackground(style.getOutcomingBubbleDrawable());
+
+            text.setTextColor(style.getOutcomingTextColor());
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
+
+            time.setTextColor(style.getOutcomingTimeTextColor());
+            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
         }
 
         @Override
         public void onBind(IMessage message) {
-            text.setSelected(isSelected());
+            bubble.setSelected(isSelected());
             text.setText(message.getText());
-
-            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-            if (isAvatarExists && imageLoader != null) {
-                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
-            }
+            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
         }
     }
 
@@ -534,9 +592,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         private TextView text;
 
-        public DefaultDateHeaderViewHolder(View itemView) {
+        public DefaultDateHeaderViewHolder(View itemView, MessagesListStyle style) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.messageText);
+
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
+            text.setTextColor(style.getDateHeaderTextColor());
+            text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
+                    style.getDateHeaderPadding(), style.getDateHeaderPadding());
         }
 
         @Override

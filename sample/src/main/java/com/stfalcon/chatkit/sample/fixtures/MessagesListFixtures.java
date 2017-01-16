@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.sample;
+package com.stfalcon.chatkit.sample.fixtures;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
@@ -10,23 +10,10 @@ import java.util.UUID;
 /*
  * Created by troy379 on 12.12.16.
  */
-public final class Demo {
-    private Demo() {
+public final class MessagesListFixtures extends Fixtures {
+
+    private MessagesListFixtures() {
         throw new AssertionError();
-    }
-
-    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static SecureRandom rnd = new SecureRandom();
-
-    public static String randomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
-
-    private static int getRandomInt() {
-        return rnd.nextInt(100) + 2;
     }
 
     public static class Message implements IMessage {
@@ -35,7 +22,7 @@ public final class Demo {
         private String text;
 
         public Message() {
-            this(randomString(getRandomInt()));
+            this(messages.get(rnd.nextInt(messages.size())));
         }
 
         public Message(String text) {
@@ -63,14 +50,12 @@ public final class Demo {
 
                 @Override
                 public String getName() {
-                    return "Peter";
+                    return id % 2 == 0 ? names.get(0) : names.get(1);
                 }
 
                 @Override
                 public String getAvatar() {
-                    return id % 2 == 0
-                            ? "https://pickaface.net/assets/images/slides/slide2.png"
-                            : "https://acadeu.com/static/img/demo/avatars/jorgediaz.jpg";
+                    return id % 2 == 0 ? avatars.get(0) : avatars.get(1);
                 }
             };
         }

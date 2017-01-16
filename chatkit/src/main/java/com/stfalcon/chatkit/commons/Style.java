@@ -73,7 +73,7 @@ public abstract class Style {
     }
 
     protected final Drawable getVectorDrawable(@DrawableRes int drawable) {
-        return VectorDrawableCompat.create(resources, drawable, null);
+        return resources.getDrawable(drawable);
     }
 
 }

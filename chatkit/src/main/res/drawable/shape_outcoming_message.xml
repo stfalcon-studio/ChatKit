@@ -1,23 +1,12 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
 
-    <item>
-        <rotate
-            android:fromDegrees="45"
-            android:pivotX="100%"
-            android:pivotY="0%"
-            android:toDegrees="0">
-            <shape android:shape="rectangle">
-                <solid android:color="#fff" />
-                <corners android:radius="2dp" />
-            </shape>
-        </rotate>
-    </item>
+    <corners
+        android:bottomLeftRadius="@dimen/message_bubble_corners_radius"
+        android:bottomRightRadius="0dp"
+        android:topLeftRadius="@dimen/message_bubble_corners_radius"
+        android:topRightRadius="@dimen/message_bubble_corners_radius" />
 
-    <item android:right="8dp">
-        <shape android:shape="rectangle">
-            <solid android:color="#fff" />
-            <corners android:radius="2dp" />
-        </shape>
-    </item>
+    <solid android:color="@color/white" />
 
-</layer-list>
+</shape>

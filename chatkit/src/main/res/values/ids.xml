@@ -1,8 +1,10 @@
 <resources>
 
     <!-- MESSAGE LIST ITEM -->
+    <item name="bubble" type="id" />
     <item name="messageText" type="id" />
     <item name="messageUserAvatar" type="id" />
+    <item name="messageTime" type="id" />
 
     <!-- MESSAGE INPUT -->
     <item name="messageSendButton" type="id" />

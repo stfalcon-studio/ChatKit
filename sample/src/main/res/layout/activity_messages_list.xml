@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,22 +7,21 @@
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/input"/>
+        android:layout_above="@+id/input" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/input"
-        android:background="#e8e8e8"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        />
+        android:background="#e8e8e8" />
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:inputHint="@string/hint_enter_a_message"/>
+        app:inputHint="@string/hint_enter_a_message" />
 
 </RelativeLayout>

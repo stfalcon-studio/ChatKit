@@ -2,39 +2,60 @@
 
     <attr name="MessageInput" format="reference" />
 
-    <declare-styleable name="MessageInput" >
-        <attr name="inputButtonBackground" format="reference"/>
-        <attr name="inputButtonIcon" format="reference"/>
-        <attr name="inputButtonMargin" format="dimension|reference"/>
-        <attr name="inputButtonWidth" format="dimension|reference"/>
-        <attr name="inputButtonHeight" format="dimension|reference"/>
-        <attr name="inputMaxLines" format="integer"/>
-        <attr name="inputHint" format="string"/>
-        <attr name="inputText" format="string"/>
-        <attr name="inputTextSize" format="dimension|reference"/>
-        <attr name="inputTextColor" format="color|reference"/>
-        <attr name="inputHintColor" format="color|reference"/>
-        <attr name="inputBackground" format="reference"/>
-        <attr name="inputCursorDrawable" format="reference"/>
+    <declare-styleable name="MessageInput">
+        <attr name="inputButtonBackground" format="reference" />
+        <attr name="inputButtonIcon" format="reference" />
+        <attr name="inputButtonMargin" format="dimension|reference" />
+        <attr name="inputButtonWidth" format="dimension|reference" />
+        <attr name="inputButtonHeight" format="dimension|reference" />
+        <attr name="inputMaxLines" format="integer" />
+        <attr name="inputHint" format="string" />
+        <attr name="inputText" format="string" />
+        <attr name="inputTextSize" format="dimension|reference" />
+        <attr name="inputTextColor" format="color|reference" />
+        <attr name="inputHintColor" format="color|reference" />
+        <attr name="inputBackground" format="reference" />
+        <attr name="inputCursorDrawable" format="reference" />
     </declare-styleable>
 
-    <attr name="MessageList" format="reference" />
+    <attr name="MessagesList" format="reference" />
 
-    <declare-styleable name="MessageList" >
-        <!--<attr name="incomingBubbleDrawable" format=""/>-->
-        <!--<attr name="incomingDefaultBubbleColor" format=""/>-->
-        <!--<attr name="incomingDefaultBubblePressedColor" format=""/>-->
-        <!--<attr name="incomingDefaultBubbleSelectedColor" format=""/>-->
-        <!--<attr name="incomingDefaultBubblePaddingLeft" format=""/>-->
-        <!--<attr name="incomingDefaultBubblePaddingRight" format=""/>-->
-        <!--<attr name="incomingDefaultBubblePaddingTop" format=""/>-->
-        <!--<attr name="incomingDefaultBubblePaddingBottom" format=""/>-->
-        <!--<attr name="incomingTextColor" format=""/>-->
-        <!--<attr name="incomingTextSize" format=""/>-->
-        <!--<attr name="incomingTextAlignment" format=""/>-->
+    <declare-styleable name="MessagesList">
 
-        <!--<attr name="outcomingBubbleDrawable" format=""/>-->
-        <!--<attr name="outcomingDefaultBubbleColor" format=""/>-->
+        <attr name="incomingAvatarWidth" format="dimension|reference" />
+        <attr name="incomingAvatarHeight" format="dimension|reference" />
+
+        <attr name="incomingBubbleDrawable" format="reference" />
+        <attr name="incomingDefaultBubbleColor" format="color|reference" />
+        <attr name="incomingDefaultBubblePressedColor" format="color|reference" />
+        <attr name="incomingDefaultBubbleSelectedColor" format="color|reference" />
+        <attr name="incomingBubblePaddingLeft" format="dimension|reference" />
+        <attr name="incomingBubblePaddingRight" format="dimension|reference" />
+        <attr name="incomingBubblePaddingTop" format="dimension|reference" />
+        <attr name="incomingBubblePaddingBottom" format="dimension|reference" />
+        <attr name="incomingTextColor" format="color|reference" />
+        <attr name="incomingTextSize" format="dimension|reference" />
+        <attr name="incomingTimeTextColor" format="color|reference" />
+        <attr name="incomingTimeTextSize" format="dimension|reference" />
+
+
+        <attr name="outcomingBubbleDrawable" format="reference" />
+        <attr name="outcomingDefaultBubbleColor" format="color|reference" />
+        <attr name="outcomingDefaultBubblePressedColor" format="color|reference" />
+        <attr name="outcomingDefaultBubbleSelectedColor" format="color|reference" />
+        <attr name="outcomingBubblePaddingLeft" format="dimension|reference" />
+        <attr name="outcomingBubblePaddingRight" format="dimension|reference" />
+        <attr name="outcomingBubblePaddingTop" format="dimension|reference" />
+        <attr name="outcomingBubblePaddingBottom" format="dimension|reference" />
+        <attr name="outcomingTextColor" format="color|reference" />
+        <attr name="outcomingTextSize" format="dimension|reference" />
+        <attr name="outcomingTimeTextColor" format="color|reference" />
+        <attr name="outcomingTimeTextSize" format="dimension|reference" />
+
+        <attr name="dateHeaderTextColor" format="color|reference" />
+        <attr name="dateHeaderTextSize" format="dimension|reference" />
+        <attr name="dateHeaderPadding" format="dimension|reference" />
+
     </declare-styleable>
 
     <attr name="DialogsListView" format="reference" />

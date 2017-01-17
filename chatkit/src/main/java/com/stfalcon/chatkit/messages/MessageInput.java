@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2016 stfalcon.com
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
@@ -17,8 +33,8 @@ import com.stfalcon.chatkit.R;
 
 import java.lang.reflect.Field;
 
-/*
- * Created by troy379 on 13.12.16.
+/**
+ *  Component for input outcoming messages
  */
 public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
@@ -45,9 +61,14 @@ public class MessageInput extends RelativeLayout
         init(context, attrs);
     }
 
+    /**
+     * Set callback to be invoked when user entered his input
+     * @param inputListener input callback
+     */
     public void setInputListener(InputListener inputListener) {
         this.inputListener = inputListener;
     }
+
 
     @Override
     public void onClick(View view) {
@@ -60,17 +81,28 @@ public class MessageInput extends RelativeLayout
         }
     }
 
+    /**
+     * This method is called to notify you that, within s,
+     * the count characters beginning at start have just replaced old text that had length before
+     */
+    @Override
+    public void onTextChanged(CharSequence s, int start, int count, int after) {
+        input = s;
+        messageSendButton.setEnabled(input.length() > 0);
+    }
+
+    /**
+     * This method is called to notify you that, within s,
+     * the count characters beginning at start are about to be replaced by new text with length after.
+     */
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        input = charSequence;
-        messageSendButton.setEnabled(input.length() > 0);
-    }
-
+    /**
+     *This method is called to notify you that, somewhere within s, the text has been changed.
+     */
     @Override
     public void afterTextChanged(Editable editable) {
 

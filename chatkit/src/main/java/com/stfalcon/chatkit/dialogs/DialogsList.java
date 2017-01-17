@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2016 stfalcon.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package com.stfalcon.chatkit.dialogs;
 
 import android.content.Context;
@@ -11,9 +27,8 @@ import android.util.AttributeSet;
 import com.stfalcon.chatkit.commons.models.IDialog;
 
 /**
- * Created by Anton Bevza on 12/9/16.
+ * Component for displaying list of dialogs
  */
-
 public class DialogsList extends RecyclerView {
     private DialogListStyle dialogStyle;
 
@@ -42,11 +57,19 @@ public class DialogsList extends RecyclerView {
         setItemAnimator(animator);
     }
 
+    /**
+     * This method replaced by custom setAdapter
+     */
     @Override
     public void setAdapter(Adapter adapter) {
         throw new IllegalArgumentException("You can't set adapter to DialogsList, because it has own adapter");
     }
 
+    /**
+     * Set adapter for DialogsList
+     * @param adapter Adapter. Must extend DialogsListAdapter
+     * @param <DIALOG> Dialog model class
+     */
     public <DIALOG extends IDialog> void setAdapter(DialogsListAdapter<DIALOG> adapter) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);

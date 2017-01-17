@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2016 stfalcon.com
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package com.stfalcon.chatkit.dialogs;
 
 import android.graphics.drawable.GradientDrawable;
@@ -11,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
+import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -26,7 +43,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Created by Anton Bevza on 12/9/16.
+ * Default list adapter for DialogList
  */
 
 public class DialogsListAdapter<DIALOG extends IDialog>
@@ -35,29 +52,52 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;
     private Class<? extends DialogViewHolder> holderClass;
-    private DialogViewHolder.OnLoadImagesListener onLoadImagesListener;
+    private ImageLoader imageLoader;
     private DialogViewHolder.OnItemClickListener onItemClickListener;
     private DialogViewHolder.OnLongItemClickListener onLongItemClickListener;
     private DialogListStyle dialogStyle;
 
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs) {
+    /**
+     * For custom list item layout and custom view holder
+     *
+     * @param itemLayoutId custom list item resource id
+     * @param holderClass  custom view holder class
+     * @param dialogs      list of dialog items
+     * @param imageLoader  image loading method
+     */
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs,
+                              ImageLoader imageLoader) {
         this.itemLayoutId = itemLayoutId;
         this.holderClass = holderClass;
         this.items = dialogs;
+        this.imageLoader = imageLoader;
     }
 
-    public DialogsListAdapter(List<DIALOG> dialogs) {
-        this(R.layout.item_dialog, DefaultDialogViewHolder.class, dialogs);
+    /**
+     * For default list item layout and view holder
+     *
+     * @param dialogs     list of dialog items
+     * @param imageLoader image loading method
+     */
+    public DialogsListAdapter(List<DIALOG> dialogs, ImageLoader imageLoader) {
+        this(R.layout.item_dialog, DefaultDialogViewHolder.class, dialogs, imageLoader);
     }
 
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, List<DIALOG> dialogs) {
-        this(itemLayoutId, DefaultDialogViewHolder.class, dialogs);
+    /**
+     * For custom list item layout and default view holder
+     *
+     * @param itemLayoutId custom list item resource id
+     * @param dialogs      list of dialog items
+     * @param imageLoader  image loading method
+     */
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, List<DIALOG> dialogs, ImageLoader imageLoader) {
+        this(itemLayoutId, DefaultDialogViewHolder.class, dialogs, imageLoader);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(DialogViewHolder holder, int position) {
-        holder.setOnLoadImagesListener(onLoadImagesListener);
+        holder.setOnLoadImagesListener(imageLoader);
         holder.setOnItemClickListener(onItemClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.onBind(items.get(position));
@@ -66,7 +106,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     @Override
     public DialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false);
-
+        //create view holder by reflation
         try {
             Constructor<? extends DialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class, DialogListStyle.class);
             constructor.setAccessible(true);
@@ -77,6 +117,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         return null;
     }
 
+    /**
+     * @return size of dialogs list
+     */
     @Override
     public int getItemCount() {
         return items.size();
@@ -91,17 +134,31 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         }
     }
 
+    /**
+     * clear dialogs list
+     */
     public void clear() {
         if (items != null) {
             items.clear();
         }
+        notifyDataSetChanged();
     }
 
+    /**
+     * Set dialogs list
+     *
+     * @param items dialogs list
+     */
     public void setItems(List<DIALOG> items) {
         this.items = items;
         notifyDataSetChanged();
     }
 
+    /**
+     * Add dialogs items
+     *
+     * @param newItems new dialogs list
+     */
     public void addItems(List<DIALOG> newItems) {
         if (newItems != null) {
             if (items == null) {
@@ -113,18 +170,35 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         }
     }
 
+    /**
+     * Add dialog to dialogs list
+     *
+     * @param dialog dialog item
+     */
     public void addItem(DIALOG dialog) {
         items.add(0, dialog);
         notifyItemInserted(0);
     }
 
+    /**
+     * Update dialog by position in dialogs list
+     *
+     * @param position position in dialogs list
+     * @param item     new dialog item
+     */
     public void updateItem(int position, DIALOG item) {
         if (items == null) {
             items = new ArrayList<>();
         }
+        items.set(position, item);
         notifyItemChanged(position);
     }
 
+    /**
+     * Update dialog by dialog id
+     *
+     * @param item new dialog item
+     */
     public void updateItemById(DIALOG item) {
         if (items == null) {
             items = new ArrayList<>();
@@ -140,8 +214,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * Update last message in dialog and swap item to top of list.
+     *
      * @param dialogId Dialog ID
-     * @param message New message
+     * @param message  New message
      * @return false if dialog doesn't exist.
      */
     public boolean updateDialogWithMessage(String dialogId, IMessage message) {
@@ -161,41 +236,63 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         return dialogExist;
     }
 
-    public void setOnLoadImagesListener(DialogViewHolder.OnLoadImagesListener onLoadImagesListener) {
-        this.onLoadImagesListener = onLoadImagesListener;
+    /**
+     * Register a callback to be invoked when image need to load.
+     *
+     * @param imageLoader image loading method
+     */
+    public void setImageLoader(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
     }
 
-    public DialogViewHolder.OnLoadImagesListener getOnLoadImagesListener() {
-        return onLoadImagesListener;
+    /**
+     * @return registered image loader
+     */
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 
+    /**
+     * @return the on click callback registered for this view.
+     */
     public DialogViewHolder.OnItemClickListener getOnItemClickListener() {
         return onItemClickListener;
     }
 
+    /**
+     * Register a callback to be invoked when item is clicked.
+     *
+     * @param onItemClickListener on click item callback
+     */
     public void setOnItemClickListener(DialogViewHolder.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    /**
+     * @return on long click item callback
+     */
     public DialogViewHolder.OnLongItemClickListener getOnLongItemClickListener() {
         return onLongItemClickListener;
     }
 
+    /**
+     * Register a callback to be invoked when item is long clicked.
+     */
     public void setOnLongItemClickListener(DialogViewHolder.OnLongItemClickListener onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
-    public void setStyle(DialogListStyle dialogStyle) {
+    //TODO ability to set style programmatically
+    void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
-
 
 
     /*
     * HOLDERS
     * */
     public abstract static class DialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
-        OnLoadImagesListener onLoadImagesListener;
+        ImageLoader onLoadImagesListener;
         OnItemClickListener onItemClickListener;
         OnLongItemClickListener onLongItemClickListener;
         protected DialogListStyle dialogStyle;
@@ -205,20 +302,16 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             this.dialogStyle = dialogStyle;
         }
 
-        public void setOnLoadImagesListener(OnLoadImagesListener onLoadImagesListener) {
+        void setOnLoadImagesListener(ImageLoader onLoadImagesListener) {
             this.onLoadImagesListener = onLoadImagesListener;
         }
 
-        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        void setOnItemClickListener(OnItemClickListener onItemClickListener) {
             this.onItemClickListener = onItemClickListener;
         }
 
-        public void setOnLongItemClickListener(OnLongItemClickListener onLongItemClickListener) {
+        void setOnLongItemClickListener(OnLongItemClickListener onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
-        }
-
-        public interface OnLoadImagesListener {
-            void onLoadImage(ImageView imageView, String url);
         }
 
         public interface OnItemClickListener {
@@ -327,12 +420,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
             //Set Dialog avatar
             if (onLoadImagesListener != null) {
-                onLoadImagesListener.onLoadImage(ivAvatar, dialog.getDialogPhoto());
+                onLoadImagesListener.loadImage(ivAvatar, dialog.getDialogPhoto());
             }
 
             //Set Last message user avatar
             if (onLoadImagesListener != null) {
-                onLoadImagesListener.onLoadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
+                onLoadImagesListener.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);

@@ -21,7 +21,6 @@
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:inputHint="@string/hint_enter_a_message" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
@@ -27,11 +28,9 @@ public class DialogsListActivity extends AppCompatActivity {
 
         DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogList);
 
-        dialogsListAdapter = new DialogsListAdapter<>(getDialogs());
-
-        dialogsListAdapter.setOnLoadImagesListener(new DialogsListAdapter.DialogViewHolder.OnLoadImagesListener() {
+        dialogsListAdapter = new DialogsListAdapter<>(getDialogs(), new ImageLoader() {
             @Override
-            public void onLoadImage(ImageView imageView, String url) {
+            public void loadImage(ImageView imageView, String url) {
                 Picasso.with(DialogsListActivity.this).load(url).into(imageView);
             }
         });

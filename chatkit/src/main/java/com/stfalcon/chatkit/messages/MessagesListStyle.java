@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2016 stfalcon.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
@@ -13,8 +29,8 @@ import android.util.AttributeSet;
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.Style;
 
-/*
- * Created by troy379 on 16.12.16.
+/**
+ * Style for MessagesListStyle customization by xml attributes
  */
 class MessagesListStyle extends Style {
     private int incomingAvatarWidth;
@@ -141,39 +157,39 @@ class MessagesListStyle extends Style {
         return button;
     }
 
-    public int getIncomingAvatarWidth() {
+    int getIncomingAvatarWidth() {
         return incomingAvatarWidth;
     }
 
-    public int getIncomingAvatarHeight() {
+    int getIncomingAvatarHeight() {
         return incomingAvatarHeight;
     }
 
-    public int getIncomingDefaultBubblePaddingLeft() {
+    int getIncomingDefaultBubblePaddingLeft() {
         return incomingDefaultBubblePaddingLeft;
     }
 
-    public int getIncomingDefaultBubblePaddingRight() {
+    int getIncomingDefaultBubblePaddingRight() {
         return incomingDefaultBubblePaddingRight;
     }
 
-    public int getIncomingDefaultBubblePaddingTop() {
+    int getIncomingDefaultBubblePaddingTop() {
         return incomingDefaultBubblePaddingTop;
     }
 
-    public int getIncomingDefaultBubblePaddingBottom() {
+    int getIncomingDefaultBubblePaddingBottom() {
         return incomingDefaultBubblePaddingBottom;
     }
 
-    public int getIncomingTextColor() {
+    int getIncomingTextColor() {
         return incomingTextColor;
     }
 
-    public int getIncomingTextSize() {
+    int getIncomingTextSize() {
         return incomingTextSize;
     }
 
-    public Drawable getOutcomingBubbleDrawable() {
+    Drawable getOutcomingBubbleDrawable() {
         if (outcomingBubbleDrawable == -1) {
             return getMessageSelector(outcomingDefaultBubbleColor, outcomingDefaultBubbleSelectedColor,
                     outcomingDefaultBubblePressedColor, R.drawable.shape_outcoming_message);
@@ -182,59 +198,59 @@ class MessagesListStyle extends Style {
         }
     }
 
-    public int getOutcomingDefaultBubblePaddingLeft() {
+    int getOutcomingDefaultBubblePaddingLeft() {
         return outcomingDefaultBubblePaddingLeft;
     }
 
-    public int getOutcomingDefaultBubblePaddingRight() {
+    int getOutcomingDefaultBubblePaddingRight() {
         return outcomingDefaultBubblePaddingRight;
     }
 
-    public int getOutcomingDefaultBubblePaddingTop() {
+    int getOutcomingDefaultBubblePaddingTop() {
         return outcomingDefaultBubblePaddingTop;
     }
 
-    public int getOutcomingDefaultBubblePaddingBottom() {
+    int getOutcomingDefaultBubblePaddingBottom() {
         return outcomingDefaultBubblePaddingBottom;
     }
 
-    public int getOutcomingTextColor() {
+    int getOutcomingTextColor() {
         return outcomingTextColor;
     }
 
-    public int getOutcomingTextSize() {
+    int getOutcomingTextSize() {
         return outcomingTextSize;
     }
 
-    public int getDateHeaderTextColor() {
+    int getDateHeaderTextColor() {
         return dateHeaderTextColor;
     }
 
-    public int getDateHeaderTextSize() {
+    int getDateHeaderTextSize() {
         return dateHeaderTextSize;
     }
 
-    public int getDateHeaderPadding() {
+    int getDateHeaderPadding() {
         return dateHeaderPadding;
     }
 
-    public int getIncomingTimeTextSize() {
+    int getIncomingTimeTextSize() {
         return incomingTimeTextSize;
     }
 
-    public int getIncomingTimeTextColor() {
+    int getIncomingTimeTextColor() {
         return incomingTimeTextColor;
     }
 
-    public int getOutcomingTimeTextColor() {
+    int getOutcomingTimeTextColor() {
         return outcomingTimeTextColor;
     }
 
-    public int getOutcomingTimeTextSize() {
+    int getOutcomingTimeTextSize() {
         return outcomingTimeTextSize;
     }
 
-    public Drawable getIncomingBubbleDrawable() {
+    Drawable getIncomingBubbleDrawable() {
         if (incomingBubbleDrawable == -1) {
             return getMessageSelector(incomingDefaultBubbleColor, incomingDefaultBubbleSelectedColor,
                     incomingDefaultBubblePressedColor, R.drawable.shape_incoming_message);

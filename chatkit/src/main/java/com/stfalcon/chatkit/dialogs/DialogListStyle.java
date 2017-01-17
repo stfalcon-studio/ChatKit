@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2016 stfalcon.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package com.stfalcon.chatkit.dialogs;
 
 import android.content.Context;
@@ -10,10 +26,10 @@ import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.Style;
 
 /**
- * Created by Anton Bevza on 12/13/16.
+ * Style for DialogList customization by xml attributes
  */
 
-public class DialogListStyle extends Style {
+class DialogListStyle extends Style {
     private int dialogTitleTextColor;
     private int dialogTitleTextSize;
     private int dialogTitleTextStyle;
@@ -53,7 +69,7 @@ public class DialogListStyle extends Style {
     private int dialogItemBackground;
     private int dialogUnreadItemBackground;
 
-    public static DialogListStyle parse(Context context, AttributeSet attrs) {
+    static DialogListStyle parse(Context context, AttributeSet attrs) {
         DialogListStyle dialogStyle = new DialogListStyle(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DialogsList);
@@ -138,251 +154,251 @@ public class DialogListStyle extends Style {
         super(context, attrs);
     }
 
-    public int getDialogTitleTextColor() {
+    int getDialogTitleTextColor() {
         return dialogTitleTextColor;
     }
 
-    public void setDialogTitleTextColor(int dialogTitleTextColor) {
+    void setDialogTitleTextColor(int dialogTitleTextColor) {
         this.dialogTitleTextColor = dialogTitleTextColor;
     }
 
-    public int getDialogTitleTextSize() {
+    int getDialogTitleTextSize() {
         return dialogTitleTextSize;
     }
 
-    public void setDialogTitleTextSize(int dialogTitleTextSize) {
+    void setDialogTitleTextSize(int dialogTitleTextSize) {
         this.dialogTitleTextSize = dialogTitleTextSize;
     }
 
-    public int getDialogTitleTextStyle() {
+    int getDialogTitleTextStyle() {
         return dialogTitleTextStyle;
     }
 
-    public void setDialogTitleTextStyle(int dialogTitleTextStyle) {
+    void setDialogTitleTextStyle(int dialogTitleTextStyle) {
         this.dialogTitleTextStyle = dialogTitleTextStyle;
     }
 
-    public int getDialogUnreadTitleTextColor() {
+    int getDialogUnreadTitleTextColor() {
         return dialogUnreadTitleTextColor;
     }
 
-    public void setDialogUnreadTitleTextColor(int dialogUnreadTitleTextColor) {
+    void setDialogUnreadTitleTextColor(int dialogUnreadTitleTextColor) {
         this.dialogUnreadTitleTextColor = dialogUnreadTitleTextColor;
     }
 
-    public int getDialogUnreadTitleTextStyle() {
+    int getDialogUnreadTitleTextStyle() {
         return dialogUnreadTitleTextStyle;
     }
 
-    public void setDialogUnreadTitleTextStyle(int dialogUnreadTitleTextStyle) {
+    void setDialogUnreadTitleTextStyle(int dialogUnreadTitleTextStyle) {
         this.dialogUnreadTitleTextStyle = dialogUnreadTitleTextStyle;
     }
 
-    public int getDialogMessageTextColor() {
+    int getDialogMessageTextColor() {
         return dialogMessageTextColor;
     }
 
-    public void setDialogMessageTextColor(int dialogMessageTextColor) {
+    void setDialogMessageTextColor(int dialogMessageTextColor) {
         this.dialogMessageTextColor = dialogMessageTextColor;
     }
 
-    public int getDialogMessageTextSize() {
+    int getDialogMessageTextSize() {
         return dialogMessageTextSize;
     }
 
-    public void setDialogMessageTextSize(int dialogMessageTextSize) {
+    void setDialogMessageTextSize(int dialogMessageTextSize) {
         this.dialogMessageTextSize = dialogMessageTextSize;
     }
 
-    public int getDialogMessageTextStyle() {
+    int getDialogMessageTextStyle() {
         return dialogMessageTextStyle;
     }
 
-    public void setDialogMessageTextStyle(int dialogMessageTextStyle) {
+    void setDialogMessageTextStyle(int dialogMessageTextStyle) {
         this.dialogMessageTextStyle = dialogMessageTextStyle;
     }
 
-    public int getDialogUnreadMessageTextColor() {
+    int getDialogUnreadMessageTextColor() {
         return dialogUnreadMessageTextColor;
     }
 
-    public void setDialogUnreadMessageTextColor(int dialogUnreadMessageTextColor) {
+    void setDialogUnreadMessageTextColor(int dialogUnreadMessageTextColor) {
         this.dialogUnreadMessageTextColor = dialogUnreadMessageTextColor;
     }
 
-    public int getDialogUnreadMessageTextStyle() {
+    int getDialogUnreadMessageTextStyle() {
         return dialogUnreadMessageTextStyle;
     }
 
-    public void setDialogUnreadMessageTextStyle(int dialogUnreadMessageTextStyle) {
+    void setDialogUnreadMessageTextStyle(int dialogUnreadMessageTextStyle) {
         this.dialogUnreadMessageTextStyle = dialogUnreadMessageTextStyle;
     }
 
-    public int getDialogDateColor() {
+    int getDialogDateColor() {
         return dialogDateColor;
     }
 
-    public void setDialogDateColor(int dialogDateColor) {
+    void setDialogDateColor(int dialogDateColor) {
         this.dialogDateColor = dialogDateColor;
     }
 
-    public int getDialogDateSize() {
+    int getDialogDateSize() {
         return dialogDateSize;
     }
 
-    public void setDialogDateSize(int dialogDateSize) {
+    void setDialogDateSize(int dialogDateSize) {
         this.dialogDateSize = dialogDateSize;
     }
 
-    public int getDialogDateStyle() {
+    int getDialogDateStyle() {
         return dialogDateStyle;
     }
 
-    public void setDialogDateStyle(int dialogDateStyle) {
+    void setDialogDateStyle(int dialogDateStyle) {
         this.dialogDateStyle = dialogDateStyle;
     }
 
-    public int getDialogUnreadDateColor() {
+    int getDialogUnreadDateColor() {
         return dialogUnreadDateColor;
     }
 
-    public void setDialogUnreadDateColor(int dialogUnreadDateColor) {
+    void setDialogUnreadDateColor(int dialogUnreadDateColor) {
         this.dialogUnreadDateColor = dialogUnreadDateColor;
     }
 
-    public int getDialogUnreadDateStyle() {
+    int getDialogUnreadDateStyle() {
         return dialogUnreadDateStyle;
     }
 
-    public void setDialogUnreadDateStyle(int dialogUnreadDateStyle) {
+    void setDialogUnreadDateStyle(int dialogUnreadDateStyle) {
         this.dialogUnreadDateStyle = dialogUnreadDateStyle;
     }
 
-    public boolean isDialogUnreadBubbleEnabled() {
+    boolean isDialogUnreadBubbleEnabled() {
         return dialogUnreadBubbleEnabled;
     }
 
-    public void setDialogUnreadBubbleEnabled(boolean dialogUnreadBubbleEnabled) {
+    void setDialogUnreadBubbleEnabled(boolean dialogUnreadBubbleEnabled) {
         this.dialogUnreadBubbleEnabled = dialogUnreadBubbleEnabled;
     }
 
-    public int getDialogUnreadBubbleTextColor() {
+    int getDialogUnreadBubbleTextColor() {
         return dialogUnreadBubbleTextColor;
     }
 
-    public void setDialogUnreadBubbleTextColor(int dialogUnreadBubbleTextColor) {
+    void setDialogUnreadBubbleTextColor(int dialogUnreadBubbleTextColor) {
         this.dialogUnreadBubbleTextColor = dialogUnreadBubbleTextColor;
     }
 
-    public int getDialogUnreadBubbleTextSize() {
+    int getDialogUnreadBubbleTextSize() {
         return dialogUnreadBubbleTextSize;
     }
 
-    public void setDialogUnreadBubbleTextSize(int dialogUnreadBubbleTextSize) {
+    void setDialogUnreadBubbleTextSize(int dialogUnreadBubbleTextSize) {
         this.dialogUnreadBubbleTextSize = dialogUnreadBubbleTextSize;
     }
 
-    public int getDialogUnreadBubbleTextStyle() {
+    int getDialogUnreadBubbleTextStyle() {
         return dialogUnreadBubbleTextStyle;
     }
 
-    public void setDialogUnreadBubbleTextStyle(int dialogUnreadBubbleTextStyle) {
+    void setDialogUnreadBubbleTextStyle(int dialogUnreadBubbleTextStyle) {
         this.dialogUnreadBubbleTextStyle = dialogUnreadBubbleTextStyle;
     }
 
-    public int getDialogUnreadBubbleBackgroundColor() {
+    int getDialogUnreadBubbleBackgroundColor() {
         return dialogUnreadBubbleBackgroundColor;
     }
 
-    public void setDialogUnreadBubbleBackgroundColor(int dialogUnreadBubbleBackgroundColor) {
+    void setDialogUnreadBubbleBackgroundColor(int dialogUnreadBubbleBackgroundColor) {
         this.dialogUnreadBubbleBackgroundColor = dialogUnreadBubbleBackgroundColor;
     }
 
-    public int getDialogAvatarWidth() {
+    int getDialogAvatarWidth() {
         return dialogAvatarWidth;
     }
 
-    public void setDialogAvatarWidth(int dialogAvatarWidth) {
+    void setDialogAvatarWidth(int dialogAvatarWidth) {
         this.dialogAvatarWidth = dialogAvatarWidth;
     }
 
-    public int getDialogAvatarHeight() {
+    int getDialogAvatarHeight() {
         return dialogAvatarHeight;
     }
 
-    public void setDialogAvatarHeight(int dialogAvatarHeight) {
+    void setDialogAvatarHeight(int dialogAvatarHeight) {
         this.dialogAvatarHeight = dialogAvatarHeight;
     }
 
-    public boolean isDialogDividerEnabled() {
+    boolean isDialogDividerEnabled() {
         return dialogDividerEnabled;
     }
 
-    public void setDialogDividerEnabled(boolean dialogDividerEnabled) {
+    void setDialogDividerEnabled(boolean dialogDividerEnabled) {
         this.dialogDividerEnabled = dialogDividerEnabled;
     }
 
-    public int getDialogDividerColor() {
+    int getDialogDividerColor() {
         return dialogDividerColor;
     }
 
-    public void setDialogDividerColor(int dialogDividerColor) {
+    void setDialogDividerColor(int dialogDividerColor) {
         this.dialogDividerColor = dialogDividerColor;
     }
 
-    public int getDialogDividerLeftPadding() {
+    int getDialogDividerLeftPadding() {
         return dialogDividerLeftPadding;
     }
 
-    public void setDialogDividerLeftPadding(int dialogDividerLeftMargin) {
+    void setDialogDividerLeftPadding(int dialogDividerLeftMargin) {
         this.dialogDividerLeftPadding = dialogDividerLeftMargin;
     }
 
-    public int getDialogDividerRightPadding() {
+    int getDialogDividerRightPadding() {
         return dialogDividerRightPadding;
     }
 
-    public void setDialogDividerRightPadding(int dialogDividerRightMargin) {
+    void setDialogDividerRightPadding(int dialogDividerRightMargin) {
         this.dialogDividerRightPadding = dialogDividerRightMargin;
     }
 
-    public int getDialogItemBackground() {
+    int getDialogItemBackground() {
         return dialogItemBackground;
     }
 
-    public void setDialogItemBackground(int dialogItemBackground) {
+    void setDialogItemBackground(int dialogItemBackground) {
         this.dialogItemBackground = dialogItemBackground;
     }
 
-    public int getDialogUnreadItemBackground() {
+    int getDialogUnreadItemBackground() {
         return dialogUnreadItemBackground;
     }
 
-    public void setDialogUnreadItemBackground(int dialogUnreadItemBackground) {
+    void setDialogUnreadItemBackground(int dialogUnreadItemBackground) {
         this.dialogUnreadItemBackground = dialogUnreadItemBackground;
     }
 
-    public void setDialogMessageAvatarEnabled(boolean dialogMessageAvatarEnabled) {
+    void setDialogMessageAvatarEnabled(boolean dialogMessageAvatarEnabled) {
         this.dialogMessageAvatarEnabled = dialogMessageAvatarEnabled;
     }
 
-    public boolean isDialogMessageAvatarEnabled() {
+    boolean isDialogMessageAvatarEnabled() {
         return dialogMessageAvatarEnabled;
     }
 
-    public int getDialogMessageAvatarWidth() {
+    int getDialogMessageAvatarWidth() {
         return dialogMessageAvatarWidth;
     }
 
-    public void setDialogMessageAvatarWidth(int dialogMessageAvatarWidth) {
+    void setDialogMessageAvatarWidth(int dialogMessageAvatarWidth) {
         this.dialogMessageAvatarWidth = dialogMessageAvatarWidth;
     }
 
-    public int getDialogMessageAvatarHeight() {
+    int getDialogMessageAvatarHeight() {
         return dialogMessageAvatarHeight;
     }
 
-    public void setDialogMessageAvatarHeight(int dialogMessageAvatarHeight) {
+    void setDialogMessageAvatarHeight(int dialogMessageAvatarHeight) {
         this.dialogMessageAvatarHeight = dialogMessageAvatarHeight;
     }
 }

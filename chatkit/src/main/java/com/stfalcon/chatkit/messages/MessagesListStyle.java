@@ -120,9 +120,9 @@ class MessagesListStyle extends Style {
                 ContextCompat.getColor(context, R.color.white));
         style.outcomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTextSize,
                 context.getResources().getDimensionPixelSize(R.dimen.message_text_size));
-        style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_incomingTimeTextColor,
+        style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTimeTextColor,
                 ContextCompat.getColor(context, R.color.white60));
-        style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTimeTextSize,
+        style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTimeTextSize,
                 context.getResources().getDimensionPixelSize(R.dimen.message_time_text_size));
 
         style.dateHeaderTextColor = typedArray.getColor(R.styleable.MessagesList_dateHeaderTextColor,

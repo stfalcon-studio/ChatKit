@@ -3,16 +3,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnChatList"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chatSamplesList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dialogs list" />
-
-    <Button
-        android:id="@+id/btnMessagesList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Messages list" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

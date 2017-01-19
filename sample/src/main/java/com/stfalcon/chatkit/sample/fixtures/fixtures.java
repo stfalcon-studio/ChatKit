@@ -19,9 +19,9 @@ public class Fixtures {
     };
     protected static final ArrayList<String> groupChatImages = new ArrayList<String>() {
         {
-            add("http://i.imgur.com/1vU8qF8.png");
-            add("http://i.imgur.com/vy1UvUJ.png");
-            add("http://i.imgur.com/vvNbXWt.png");
+            add("http://i.imgur.com/hRShCT3.png");
+            add("http://i.imgur.com/zgTUcL3.png");
+            add("http://i.imgur.com/mRqh5w1.png");
         }
     };
     protected static final ArrayList<String> names = new ArrayList<String>() {

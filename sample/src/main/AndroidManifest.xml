@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MessagesListActivity"></activity>
+        <activity android:name=".messages.MessagesListActivity"></activity>
         <activity android:name=".dialogs.DialogsListActivity"></activity>
     </application>
 

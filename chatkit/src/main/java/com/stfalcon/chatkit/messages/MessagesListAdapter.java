@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016 stfalcon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -99,9 +99,13 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 
         try {
-            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class, MessagesListStyle.class);
+            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class);
             constructor.setAccessible(true);
-            return constructor.newInstance(v, messagesListStyle);
+            HOLDER holder = constructor.newInstance(v);
+            if (holder instanceof DefaultMessageViewHolder) {
+                ((DefaultMessageViewHolder) holder).applyStyle(messagesListStyle);
+            }
+            return holder;
         } catch (Exception e) {
             return null;
         }
@@ -499,6 +503,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /*
     * HOLDERS
     * */
+
     public static abstract class MessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
         private boolean isSelected;
@@ -525,21 +530,41 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
+    interface DefaultMessageViewHolder {
+        void applyStyle(MessagesListStyle style);
+    }
+
     public static class DefaultIncomingMessageViewHolder
-            extends MessageViewHolder<IMessage> {
+            extends MessageViewHolder<IMessage> implements DefaultMessageViewHolder {
 
         private ViewGroup bubble;
         private TextView text;
         private TextView time;
         private ImageView userAvatar;
 
-        public DefaultIncomingMessageViewHolder(View itemView, MessagesListStyle style) {
+        public DefaultIncomingMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
             time = (TextView) itemView.findViewById(R.id.messageTime);
             userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+        }
 
+        @Override
+        public void onBind(IMessage message) {
+            bubble.setSelected(isSelected());
+            text.setText(message.getText());
+            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+
+            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
+            if (isAvatarExists && imageLoader != null) {
+                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+            }
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
             bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
                     style.getIncomingDefaultBubblePaddingTop(),
                     style.getIncomingDefaultBubblePaddingRight(),
@@ -555,6 +580,23 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             time.setTextColor(style.getIncomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
         }
+    }
+
+    public static class DefaultOutcomingMessageViewHolder
+            extends MessageViewHolder<IMessage> implements DefaultMessageViewHolder {
+
+        private ViewGroup bubble;
+        private TextView text;
+        private TextView time;
+        private ImageView userAvatar;
+
+        public DefaultOutcomingMessageViewHolder(View itemView) {
+            super(itemView);
+            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
+            text = (TextView) itemView.findViewById(R.id.messageText);
+            time = (TextView) itemView.findViewById(R.id.messageTime);
+            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+        }
 
         @Override
         public void onBind(IMessage message) {
@@ -562,27 +604,17 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             text.setText(message.getText());
             time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
 
-            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-            if (isAvatarExists && imageLoader != null) {
-                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+            if (userAvatar != null) {
+                boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+                userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
+                if (isAvatarExists && imageLoader != null) {
+                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+                }
             }
         }
-    }
 
-    public static class DefaultOutcomingMessageViewHolder
-            extends MessageViewHolder<IMessage> {
-
-        private ViewGroup bubble;
-        private TextView text;
-        private TextView time;
-
-        public DefaultOutcomingMessageViewHolder(View itemView, MessagesListStyle style) {
-            super(itemView);
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
-
+        @Override
+        public void applyStyle(MessagesListStyle style) {
             bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
                     style.getOutcomingDefaultBubblePaddingTop(),
                     style.getOutcomingDefaultBubblePaddingRight(),
@@ -595,32 +627,29 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             time.setTextColor(style.getOutcomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
         }
-
-        @Override
-        public void onBind(IMessage message) {
-            bubble.setSelected(isSelected());
-            text.setText(message.getText());
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
-        }
     }
 
-    public static class DefaultDateHeaderViewHolder extends ViewHolder<Date> {
+    public static class DefaultDateHeaderViewHolder extends ViewHolder<Date>
+            implements DefaultMessageViewHolder {
 
         private TextView text;
 
-        public DefaultDateHeaderViewHolder(View itemView, MessagesListStyle style) {
+        public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.messageText);
-
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
-            text.setTextColor(style.getDateHeaderTextColor());
-            text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
-                    style.getDateHeaderPadding(), style.getDateHeaderPadding());
         }
 
         @Override
         public void onBind(Date date) {
             text.setText(DateFormatter.format(date, DateFormatter.Template.STRING_MONTH));
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
+            text.setTextColor(style.getDateHeaderTextColor());
+            text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
+                    style.getDateHeaderPadding(), style.getDateHeaderPadding());
         }
     }
 }

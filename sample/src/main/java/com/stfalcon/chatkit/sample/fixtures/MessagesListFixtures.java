@@ -2,8 +2,8 @@ package com.stfalcon.chatkit.sample.fixtures;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
+import com.stfalcon.chatkit.sample.models.DefaultUser;
 
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.UUID;
 
@@ -41,23 +41,9 @@ public final class MessagesListFixtures extends Fixtures {
         }
 
         @Override
-        public IUser getUser() {
-            return new IUser() {
-                @Override
-                public String getId() {
-                    return id % 2 == 0 ? "0" : "1";
-                }
-
-                @Override
-                public String getName() {
-                    return id % 2 == 0 ? names.get(0) : names.get(1);
-                }
-
-                @Override
-                public String getAvatar() {
-                    return id % 2 == 0 ? avatars.get(0) : avatars.get(1);
-                }
-            };
+        public DefaultUser getUser() {
+            return new DefaultUser(id % 2 == 0 ? "0" : "1", id % 2 == 0 ? names.get(0) : names.get(1),
+                    id % 2 == 0 ? avatars.get(0) : avatars.get(1), "online");
         }
 
         @Override

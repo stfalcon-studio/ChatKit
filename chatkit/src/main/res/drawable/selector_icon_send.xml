@@ -3,6 +3,4 @@
     <item android:drawable="@drawable/send_icon" android:state_enabled="false" />
     <item android:drawable="@drawable/send_icon_active" android:state_enabled="true" />
 
-    <!--TODO replace with code-->
-
 </selector>

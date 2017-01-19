@@ -8,22 +8,25 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="8dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@id/bubble"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="40dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/avatarContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="top"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@id/messageUserAvatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="56dp"
+                android:layout_height="56dp" />
 
             <TextView
                 android:id="@id/messageTime"
@@ -37,11 +40,10 @@
             android:id="@id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/avatarContainer" />
+            android:layout_toLeftOf="@+id/avatarContainer" />
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

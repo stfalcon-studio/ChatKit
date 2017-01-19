@@ -9,11 +9,13 @@ public class DefaultUser implements IUser {
     private String id;
     private String name;
     private String avatar;
+    private String online;
 
-    public DefaultUser(String id, String name, String avatar) {
+    public DefaultUser(String id, String name, String avatar, String online) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.online = online;
     }
 
     @Override
@@ -41,5 +43,9 @@ public class DefaultUser implements IUser {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getOnline() {
+        return online;
     }
 }

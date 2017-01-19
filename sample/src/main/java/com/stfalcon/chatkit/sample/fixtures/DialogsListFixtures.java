@@ -15,15 +15,15 @@ import java.util.UUID;
 /**
  * Created by Anton Bevza on 07.09.16.
  */
-public final class ChatListFixtures extends Fixtures{
-    private ChatListFixtures() {
+public final class DialogsListFixtures extends Fixtures {
+    private DialogsListFixtures() {
         throw new AssertionError();
     }
 
     public static ArrayList<DefaultDialog> getChatList() {
         ArrayList<DefaultDialog> chats = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            chats.add(getDialog());
+            chats.add(getDialog(i));
         }
         return chats;
     }
@@ -42,7 +42,7 @@ public final class ChatListFixtures extends Fixtures{
 
             @Override
             public IUser getUser() {
-                return ChatListFixtures.getUser();
+                return DialogsListFixtures.getUser();
             }
 
             @Override
@@ -57,13 +57,13 @@ public final class ChatListFixtures extends Fixtures{
         };
     }
 
-    private static DefaultDialog getDialog() {
+    private static DefaultDialog getDialog(int i) {
         ArrayList<IUser> users = getUsers();
         return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
                 users.size() > 1 ? groupChatTitles.get(users.size() - 2) : users.get(0).getName(),
                 users.size() > 1 ? groupChatImages.get(users.size() - 2) : avatars.get(rnd.nextInt(4)),
                 users,
-                getMessage(Calendar.getInstance().getTime()), rnd.nextInt(3));
+                getMessage(Calendar.getInstance().getTime()), i < 3 ? 3 - i : 0);
     }
 
     private static ArrayList<IUser> getUsers() {
@@ -78,6 +78,6 @@ public final class ChatListFixtures extends Fixtures{
     @NonNull
     private static IUser getUser() {
         return new DefaultUser(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)));
+                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)), "online");
     }
 }

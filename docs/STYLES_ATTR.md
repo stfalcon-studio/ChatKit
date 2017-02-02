@@ -34,8 +34,8 @@ Dialogs list xml atributes:
 | `dialogDividerColor` | Sets color of divider between dialogs items | 
 | `dialogDividerLeftPadding` | Sets left padding for divider between dialog items | 
 | `dialogDividerRightPadding` | Sets right padding for divider between dialog items | 
-| `dialogItemBackground` | Sets color of dialogs items| 
-| `dialogItemBackground` | Sets color of dialogs items when has unread messages | 
+| `dialogItemBackground` | Sets background of dialogs items| 
+| `dialogItemBackground` | Sets background of dialogs items when has unread messages | 
 
 Messages list xml atributes
 

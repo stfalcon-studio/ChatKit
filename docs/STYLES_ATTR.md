@@ -55,7 +55,6 @@ Messages list xml atributes
 | `incomingTextSize` | Sets incoming message text size |
 | `incomingTimeTextColor` | Sets incoming message time text color |
 | `incomingTimeTextSize` | Sets incoming message time text size |
-| ------------- |-------------|
 | `outcomingBubbleDrawable` | Sets custom drawable for incoming message bubble. You can set drawable selector with preseed and selected states|
 | `outcomingDefaultBubbleColor` | Sets color for default outcoming message bubble|
 | `outcomingDefaultBubblePressedColor` | Sets color for default outcoming message bubble on state pressed|
@@ -68,7 +67,24 @@ Messages list xml atributes
 | `outcomingTextSize` | Sets outcoming message text size |
 | `outcomingTimeTextColor` | Sets outcoming message time text color |
 | `outcomingTimeTextSize` | Sets outcoming message time text size |
-| ------------- |-------------|
 | `dateHeaderTextColor` | Sets date header text color |
 | `dateHeaderTextSize` | Sets date header text size |
 | `dateHeaderPadding` | Sets date header view padding |
+
+Input message view xml atttributes
+| `inputButtonBackground` | Sets background for button Send|
+| `inputButtonIcon` | Sets icon for button Send |
+| `inputButtonMargin` | Sets margin for button Send |
+| `inputButtonMargin` | Sets margin for button Send |
+| `inputButtonWidth` | Sets width for button Send |
+| `inputButtonHeight` | Sets height for button Send |
+| `inputMaxLines` | Sets max lines for message input field |
+| `inputHint` | Sets hint for message input field |
+| `inputText` | Sets text in message input field|
+| `inputTextSize` | Sets input message text size|
+| `inputTextColor` | Sets input message text color|
+| `inputHintColor` | Sets text color of hint in message input field|
+| `inputBackground` | Sets background for input message view |
+| `inputCursorDrawable` | Sets cursor drawable for input message EditText |
+
+

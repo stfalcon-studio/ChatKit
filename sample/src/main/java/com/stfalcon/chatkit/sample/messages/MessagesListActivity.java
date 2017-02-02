@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -122,17 +124,31 @@ public class MessagesListActivity extends AppCompatActivity
             holdersConfig.setOutcoming(MessagesListAdapter.DefaultOutcomingMessageViewHolder.class,
                     R.layout.item_custom_outcoming_message);
             adapter = new MessagesListAdapter<>("0", holdersConfig, imageLoader);
+            adapter.setOnLongClickListener(new MessagesListAdapter.OnLongClickListener<MessagesListFixtures.Message>() {
+                @Override
+                public void onMessageLongClick(MessagesListFixtures.Message message) {
+                    //Yor custom long click handler
+                    Toast.makeText(MessagesListActivity.this,
+                            R.string.on_log_click_message, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (type == ChatSamplesListAdapter.ChatSample.Type.CUSTOM_VIEW_HOLDER) {
             MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
             holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
             holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
             adapter = new MessagesListAdapter<>("0", holdersConfig, imageLoader);
+            adapter.setOnLongClickListener(new MessagesListAdapter.OnLongClickListener<MessagesListFixtures.Message>() {
+                @Override
+                public void onMessageLongClick(MessagesListFixtures.Message message) {
+                    //Yor custom long click handler
+                    Toast.makeText(MessagesListActivity.this,
+                            R.string.on_log_click_message, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             adapter = new MessagesListAdapter<>("0", imageLoader);
+            adapter.enableSelectionMode(this);
         }
-
-
-        adapter.enableSelectionMode(this);
 
         adapter.add(new MessagesListFixtures.Message(), false);
 

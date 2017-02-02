@@ -1,3 +1,26 @@
+For example: 
+```eed
+<com.stfalcon.chatkit.dialogs.DialogsList
+        android:id="@+id/dialogList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dialogAvatarHeight="60dp"
+        app:dialogAvatarWidth="60dp"
+        app:dialogDateSize="12sp"
+        app:dialogDividerColor="#7d979797"
+        app:dialogDividerLeftPadding="0dp"
+        app:dialogDividerRightPadding="0dp"
+        app:dialogMessageTextSize="14sp"
+        app:dialogTitleTextSize="16sp"
+        app:dialogUnreadBubbleEnabled="false"
+        app:dialogUnreadDateColor="@color/dark_gray"
+        app:dialogUnreadDateStyle="bold"
+        app:dialogUnreadItemBackground="#91ebebeb"
+        app:dialogUnreadMessageTextColor="@color/black"
+        app:dialogUnreadTitleTextStyle="bold" />
+```
+
+
 Dialogs list xml atributes:
 
 | Attribute        | Description| 

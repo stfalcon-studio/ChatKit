@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016 stfalcon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,11 +58,12 @@ public class DialogsList extends RecyclerView {
     }
 
     /**
-     * This method replaced by custom setAdapter
+     * Don't use this method for setting your adapter, otherwise exception will by thrown.
+     * Call {@link #setAdapter(DialogsListAdapter)} instead.
      */
     @Override
     public void setAdapter(Adapter adapter) {
-        throw new IllegalArgumentException("You can't set adapter to DialogsList, because it has own adapter");
+        throw new IllegalArgumentException("You can't set adapter to DialogsList. Use #setAdapter(DialogsListAdapter) instead.");
     }
 
     /**

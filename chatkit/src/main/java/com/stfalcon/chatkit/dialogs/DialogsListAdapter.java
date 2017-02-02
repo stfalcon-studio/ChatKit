@@ -43,9 +43,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Default list adapter for DialogList
+ * Adapter for {@link DialogsList}
  */
-
 public class DialogsListAdapter<DIALOG extends IDialog>
         extends RecyclerView.Adapter<DialogsListAdapter.DialogViewHolder> {
 
@@ -56,22 +55,6 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private DialogViewHolder.OnItemClickListener onItemClickListener;
     private DialogViewHolder.OnLongItemClickListener onLongItemClickListener;
     private DialogListStyle dialogStyle;
-
-    /**
-     * For custom list item layout and custom view holder
-     *
-     * @param itemLayoutId custom list item resource id
-     * @param holderClass  custom view holder class
-     * @param dialogs      list of dialog items
-     * @param imageLoader  image loading method
-     */
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs,
-                              ImageLoader imageLoader) {
-        this.itemLayoutId = itemLayoutId;
-        this.holderClass = holderClass;
-        this.items = dialogs;
-        this.imageLoader = imageLoader;
-    }
 
     /**
      * For default list item layout and view holder
@@ -92,6 +75,22 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      */
     public DialogsListAdapter(@LayoutRes int itemLayoutId, List<DIALOG> dialogs, ImageLoader imageLoader) {
         this(itemLayoutId, DefaultDialogViewHolder.class, dialogs, imageLoader);
+    }
+
+    /**
+     * For custom list item layout and custom view holder
+     *
+     * @param itemLayoutId custom list item resource id
+     * @param holderClass  custom view holder class
+     * @param dialogs      list of dialog items
+     * @param imageLoader  image loading method
+     */
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs,
+                              ImageLoader imageLoader) {
+        this.itemLayoutId = itemLayoutId;
+        this.holderClass = holderClass;
+        this.items = dialogs;
+        this.imageLoader = imageLoader;
     }
 
     @SuppressWarnings("unchecked")
@@ -290,7 +289,6 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
-
 
     /*
     * HOLDERS

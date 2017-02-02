@@ -72,6 +72,8 @@ Messages list xml atributes
 | `dateHeaderPadding` | Sets date header view padding |
 
 Input message view xml atttributes
+| Attribute        | Description| 
+| ------------- |-------------|
 | `inputButtonBackground` | Sets background for button Send|
 | `inputButtonIcon` | Sets icon for button Send |
 | `inputButtonMargin` | Sets margin for button Send |

@@ -55,7 +55,7 @@ Messages list xml atributes
 | `incomingTextSize` | Sets incoming message text size |
 | `incomingTimeTextColor` | Sets incoming message time text color |
 | `incomingTimeTextSize` | Sets incoming message time text size |
-| `outcomingBubbleDrawable` | Sets custom drawable for incoming message bubble. You can set drawable selector with preseed and selected states|
+| `outcomingBubbleDrawable` | Sets custom drawable for incoming message bubble. You can set drawable selector with pressed and selected states|
 | `outcomingDefaultBubbleColor` | Sets color for default outcoming message bubble|
 | `outcomingDefaultBubblePressedColor` | Sets color for default outcoming message bubble on state pressed|
 | `outcomingDefaultBubbleSelectedColor` | Sets color for default outcoming message bubble on state selected|

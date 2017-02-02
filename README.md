@@ -3,10 +3,10 @@ ChatKit
 
 Description
 
-Install
+Components
 -----
 
-Usage
+Install
 -----
 
 Customization

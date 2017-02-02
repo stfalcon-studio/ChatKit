@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements ChatSamplesListAd
             {
                 add(new ChatSamplesListAdapter.ChatSample("Default design",
                         "", 0, ChatSamplesListAdapter.ChatSample.Type.DEFAULT));
-                add(new ChatSamplesListAdapter.ChatSample("Customization with attributes",
+                add(new ChatSamplesListAdapter.ChatSample("Styling using attributes",
                         "", 0, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_ATTR));
                 add(new ChatSamplesListAdapter.ChatSample("Custom layout",
                         "", 0, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_LAYOUT));

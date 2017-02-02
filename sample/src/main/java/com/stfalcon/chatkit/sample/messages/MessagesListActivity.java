@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,13 +24,17 @@ import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
 import java.util.ArrayList;
 
 public class MessagesListActivity extends AppCompatActivity
-        implements MessagesListAdapter.SelectionListener {
+        implements MessagesListAdapter.SelectionListener,
+        Toolbar.OnMenuItemClickListener {
+
     private static final String ARG_TYPE = "type";
 
     private MessagesList messagesList;
     private MessagesListAdapter<MessagesListFixtures.Message> adapter;
     private MessageInput input;
+    private int selectionCount;
 
+    private Menu menu;
     private ChatSamplesListAdapter.ChatSample.Type type;
 
     @Override
@@ -58,16 +65,51 @@ public class MessagesListActivity extends AppCompatActivity
         });
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.chat_actions_menu, menu);
+        onSelectionChanged(0);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                adapter.deleteSelectedMessages();
+                break;
+        }
+        return true;
+    }
+
     @Override
     public void onSelectionChanged(int count) {
+        this.selectionCount = count;
+        menu.findItem(R.id.action_delete).setVisible(count > 0);
+    }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                adapter.deleteSelectedMessages();
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectionCount == 0) {
+            super.onBackPressed();
+        } else {
+            adapter.unselectAllItems();
+        }
     }
 
     private void initMessagesAdapter() {
-//        MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
-//        holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_incoming_message);
-//        MessagesListAdapter<Demo.Message> adapter = new MessagesListAdapter<>(holdersConfig, "0");
-
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {

@@ -1,3 +1,5 @@
+Dialogs list xml atributes:
+
 | Attribute        | Description| 
 | ------------- |-------------| 
 | `dialogTitleTextColor` | Sets dialog title text color | 
@@ -34,3 +36,39 @@
 | `dialogDividerRightPadding` | Sets right padding for divider between dialog items | 
 | `dialogItemBackground` | Sets color of dialogs items| 
 | `dialogItemBackground` | Sets color of dialogs items when has unread messages | 
+
+Messages list xml atributes
+
+| Attribute        | Description| 
+| ------------- |-------------|
+| `incomingAvatarWidth` | Sets width of avatar view in incoming message | 
+| `incomingAvatarHeight` | Sets height of avatar view in incoming message | 
+| `incomingBubbleDrawable` | Sets custom drawable for incoming message bubble. You can set drawable selector with preseed and selected states|
+| `incomingDefaultBubbleColor` | Sets color for default incoming message bubble|
+| `incomingDefaultBubblePressedColor` | Sets color for default incoming message bubble on state pressed|
+| `incomingDefaultBubbleSelectedColor` | Sets color for default incoming message bubble on state selected|
+| `incomingBubblePaddingLeft` | Sets left padding for incoming message bubble |
+| `incomingBubblePaddingRight` | Sets right padding for incoming message bubble |
+| `incomingBubblePaddingTop` | Sets top padding for incoming message bubble |
+| `incomingBubblePaddingBottom` | Sets bottom padding for incoming message bubble |
+| `incomingTextColor` | Sets incoming message text color |
+| `incomingTextSize` | Sets incoming message text size |
+| `incomingTimeTextColor` | Sets incoming message time text color |
+| `incomingTimeTextSize` | Sets incoming message time text size |
+| ------------- |-------------|
+| `outcomingBubbleDrawable` | Sets custom drawable for incoming message bubble. You can set drawable selector with preseed and selected states|
+| `outcomingDefaultBubbleColor` | Sets color for default outcoming message bubble|
+| `outcomingDefaultBubblePressedColor` | Sets color for default outcoming message bubble on state pressed|
+| `outcomingDefaultBubbleSelectedColor` | Sets color for default outcoming message bubble on state selected|
+| `outcomingBubblePaddingLeft` | Sets left padding for outcoming message bubble |
+| `outcomingBubblePaddingRight` | Sets right padding for outcoming message bubble |
+| `outcomingBubblePaddingTop` | Sets top padding for outcoming message bubble |
+| `outcomingBubblePaddingBottom` | Sets bottom padding for outcoming message bubble |
+| `outcomingTextColor` | Sets outcoming message text color |
+| `outcomingTextSize` | Sets outcoming message text size |
+| `outcomingTimeTextColor` | Sets outcoming message time text color |
+| `outcomingTimeTextSize` | Sets outcoming message time text size |
+| ------------- |-------------|
+| `dateHeaderTextColor` | Sets date header text color |
+| `dateHeaderTextSize` | Sets date header text size |
+| `dateHeaderPadding` | Sets date header view padding |

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +45,7 @@ public class MessagesListActivity extends AppCompatActivity
                 setContentView(R.layout.activity_messages_list_attr);
                 break;
             case CUSTOM_LAYOUT:
+            case CUSTOM_VIEW_HOLDER:
                 setContentView(R.layout.activity_messages_list_layout);
                 break;
             default:
@@ -119,10 +119,8 @@ public class MessagesListActivity extends AppCompatActivity
 
         if (type == ChatSamplesListAdapter.ChatSample.Type.CUSTOM_LAYOUT) {
             MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
-            holdersConfig.setIncoming(MessagesListAdapter.DefaultIncomingMessageViewHolder.class,
-                    R.layout.item_custom_incoming_message);
-            holdersConfig.setOutcoming(MessagesListAdapter.DefaultOutcomingMessageViewHolder.class,
-                    R.layout.item_custom_outcoming_message);
+            holdersConfig.setIncomingLayout(R.layout.item_custom_incoming_message);
+            holdersConfig.setOutcomingLayout(R.layout.item_custom_outcoming_message);
             adapter = new MessagesListAdapter<>("0", holdersConfig, imageLoader);
             adapter.setOnLongClickListener(new MessagesListAdapter.OnLongClickListener<MessagesListFixtures.Message>() {
                 @Override

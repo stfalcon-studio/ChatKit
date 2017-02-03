@@ -9,8 +9,9 @@
         android:layout_height="match_parent"
         app:incomingAvatarWidth="56dp"
         app:incomingAvatarHeight="56dp"
-        app:incomingBubbleDrawable="@drawable/shape_custom_incoming_message"
-        app:outcomingBubbleDrawable="@drawable/shape_custom_outcoming_message"
+        app:incomingBubbleDrawable="@drawable/bubble_your"
+        app:outcomingBubbleDrawable="@drawable/bubble"
+        app:outcomingTimeTextColor="#ae858585"
         android:layout_above="@+id/input" />
 
     <View
@@ -26,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        app:inputButtonBackground="@drawable/custom_layout_send_bg"
+        app:inputButtonIcon="@drawable/ic_send_selector"
         app:inputHint="@string/hint_enter_a_message"/>
 
 </RelativeLayout>

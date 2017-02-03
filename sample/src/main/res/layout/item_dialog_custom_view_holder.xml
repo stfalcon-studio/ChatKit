@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/dialogRootLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -16,8 +15,6 @@
             android:id="@id/dialogAvatar"
             android:layout_width="@dimen/dialog_avatar_width"
             android:layout_height="@dimen/dialog_avatar_height"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="2dp"
             android:layout_margin="16dp" />
 
         <TextView
@@ -31,7 +28,6 @@
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"
             android:includeFontPadding="false"
-            android:textSize="16sp"
             android:maxLines="1" />
 
         <TextView
@@ -50,15 +46,14 @@
             android:layout_below="@id/dialogName"
             android:layout_marginRight="16dp"
             android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@+id/dialogUnreadBubble"
             android:layout_toRightOf="@id/dialogAvatar">
 
-            <TextView
-                android:id="@+id/tvLastMessageAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="4dp"
-                android:textStyle="bold" />
+            <com.stfalcon.chatkit.utils.ShapeImageView
+                android:id="@id/dialogLastMessageUserAvatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="7dp" />
 
 
             <TextView
@@ -66,12 +61,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/tvLastMessageAuthor"
+                android:layout_toRightOf="@id/dialogLastMessageUserAvatar"
                 android:ellipsize="end"
-                android:paddingTop="1dp"
+                android:gravity="top"
                 android:maxLines="1" />
 
         </RelativeLayout>
+        
+        <ImageView
+            android:id="@+id/online"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bubble_online"
+            android:layout_alignRight="@id/dialogAvatar"
+            android:layout_alignTop="@id/dialogAvatar"
+            />
+
+        <TextView
+            android:id="@id/dialogUnreadBubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/dialogDate"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bubble_circle"
+            android:ellipsize="end"
+            android:fontFamily="@string/font_fontFamily_medium"
+            android:gravity="center"
+            android:lines="1" />
 
         <FrameLayout
             android:id="@id/dialogDividerContainer"

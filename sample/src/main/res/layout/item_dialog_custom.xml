@@ -9,15 +9,12 @@
         android:id="@id/dialogContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingLeft="16dp">
+        android:background="?attr/selectableItemBackground">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/dialogAvatar"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dialog_avatar_width"
+            android:layout_height="@dimen/dialog_avatar_height"
             android:layout_margin="16dp" />
 
         <TextView
@@ -26,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:layout_marginTop="19dp"
-            android:layout_toLeftOf="@id/dialogAvatar"
+            android:layout_toLeftOf="@id/dialogDate"
+            android:layout_toRightOf="@id/dialogAvatar"
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"
             android:includeFontPadding="false"
@@ -38,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:maxLines="1" />
 
@@ -47,11 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/dialogName"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_toLeftOf="@id/dialogAvatar">
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@+id/dialogUnreadBubble"
+            android:layout_toRightOf="@id/dialogAvatar">
 
-            <ImageView
+            <com.stfalcon.chatkit.utils.ShapeImageView
                 android:id="@id/dialogLastMessageUserAvatar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -74,8 +72,10 @@
             android:id="@id/dialogUnreadBubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/dialogAvatar"
-            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/dialogDate"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bubble_circle"
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"

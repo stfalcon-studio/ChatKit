@@ -78,6 +78,6 @@ public final class DialogsListFixtures extends Fixtures {
     @NonNull
     private static IUser getUser() {
         return new DefaultUser(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)), "online");
+                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)), rnd.nextBoolean());
     }
 }

@@ -58,6 +58,6 @@ public class Fixtures {
             add("Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.");
         }
     };
-    protected static SecureRandom rnd = new SecureRandom();
+    public static SecureRandom rnd = new SecureRandom();
 
 }

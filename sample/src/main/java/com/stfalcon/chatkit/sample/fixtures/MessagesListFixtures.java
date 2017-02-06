@@ -11,7 +11,7 @@ import java.util.UUID;
 /*
  * Created by troy379 on 12.12.16.
  */
-public final class MessagesListFixtures extends Fixtures {
+public final class MessagesListFixtures extends FixturesData {
     private MessagesListFixtures() {
         throw new AssertionError();
     }

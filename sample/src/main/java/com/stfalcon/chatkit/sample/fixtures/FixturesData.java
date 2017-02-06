@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Anton Bevza on 1/13/17.
  */
 
-public class Fixtures {
+public class FixturesData {
 
     protected static ArrayList<String> avatars = new ArrayList<String>() {
         {

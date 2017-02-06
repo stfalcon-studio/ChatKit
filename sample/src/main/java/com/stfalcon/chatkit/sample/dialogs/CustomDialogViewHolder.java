@@ -4,7 +4,6 @@ import android.view.View;
 
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.sample.R;
-import com.stfalcon.chatkit.sample.fixtures.Fixtures;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
 import com.stfalcon.chatkit.sample.models.DefaultUser;
 

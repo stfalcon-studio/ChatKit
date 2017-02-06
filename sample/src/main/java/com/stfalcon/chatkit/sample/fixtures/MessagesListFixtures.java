@@ -1,9 +1,10 @@
 package com.stfalcon.chatkit.sample.fixtures;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.sample.models.DefaultUser;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,15 +12,29 @@ import java.util.UUID;
  * Created by troy379 on 12.12.16.
  */
 public final class MessagesListFixtures extends Fixtures {
-
     private MessagesListFixtures() {
         throw new AssertionError();
+    }
+
+    public static ArrayList<Message> getMessages() {
+        ArrayList<MessagesListFixtures.Message> messages = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Message message = new MessagesListFixtures.Message();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            message.createdAt = calendar.getTime();
+
+            messages.add(message);
+        }
+        return messages;
     }
 
     public static class Message implements IMessage {
 
         private long id;
         private String text;
+        private Date createdAt;
 
         public Message() {
             this(messages.get(rnd.nextInt(messages.size())));
@@ -32,7 +47,7 @@ public final class MessagesListFixtures extends Fixtures {
 
         @Override
         public Date getCreatedAt() {
-            return new Date();
+            return createdAt == null ? new Date() : createdAt;
         }
 
         @Override

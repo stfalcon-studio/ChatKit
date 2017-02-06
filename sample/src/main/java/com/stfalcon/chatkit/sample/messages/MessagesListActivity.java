@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -156,16 +155,7 @@ public class MessagesListActivity extends AppCompatActivity
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (totalItemsCount < 50) {
-                    new Handler().postDelayed(new Runnable() { //imitation of slow connection
-                        @Override
-                        public void run() {
-                            ArrayList<MessagesListFixtures.Message> messages = new ArrayList<>();
-                            for (int i = 0; i < 10; i++) {
-                                messages.add(new MessagesListFixtures.Message());
-                            }
-                            adapter.add(messages, true);
-                        }
-                    }, 1000);
+                    loadMessages();
                 }
             }
         });
@@ -177,5 +167,15 @@ public class MessagesListActivity extends AppCompatActivity
         Intent intent = new Intent(activity, MessagesListActivity.class);
         intent.putExtra(ARG_TYPE, type);
         activity.startActivity(intent);
+    }
+
+    private void loadMessages() {
+        new Handler().postDelayed(new Runnable() { //imitation of internet connection
+            @Override
+            public void run() {
+                ArrayList<MessagesListFixtures.Message> messages = MessagesListFixtures.getMessages();
+                adapter.add(messages, true);
+            }
+        }, 1000);
     }
 }

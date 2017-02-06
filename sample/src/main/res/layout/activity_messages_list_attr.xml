@@ -8,26 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
-        app:incomingAvatarHeight="56dp"
-        app:incomingAvatarWidth="56dp"
-        app:incomingDefaultBubbleColor="#cf7e7e"
-        app:incomingTextColor="@color/white"
-        app:incomingTextSize="19sp"
-        app:incomingTimeTextColor="@color/white"
-        app:outcomingDefaultBubbleColor="#78e6ed"
-        app:outcomingTextColor="@color/dark_gray"
-        app:outcomingTextSize="19sp"
-        app:outcomingTimeTextColor="@color/dark_gray" />
+        app:incomingDefaultBubbleColor="#f8efe6"
+        app:outcomingDefaultBubbleColor="#38be55" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/input"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#e8e8e8" />
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray"
-        app:inputButtonBackground="@color/transparent"
+        app:inputButtonBackground="@drawable/custom_attr_send_bg"
         app:inputButtonIcon="@drawable/ic_send_selector"
-        app:inputHint="Enter your message..."
-        app:inputTextSize="14sp" />
+        app:inputHint="@string/hint_enter_a_message" />
 
 </RelativeLayout>

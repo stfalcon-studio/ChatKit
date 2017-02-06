@@ -124,8 +124,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         Wrapper wrapper = items.get(position);
 
         if (wrapper.item instanceof IMessage) {
-            ((MessageViewHolder) holder).setSelected(wrapper.isSelected);
-            ((MessageViewHolder) holder).setImageLoader(this.imageLoader);
+            ((BaseMessageViewHolder) holder).setSelected(wrapper.isSelected);
+            ((BaseMessageViewHolder) holder).setImageLoader(this.imageLoader);
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }
@@ -593,10 +593,10 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      */
     public static class HoldersConfig {
 
-        private Class<? extends MessageViewHolder<? extends IMessage>> incomingHolder;
+        private Class<? extends BaseMessageViewHolder<? extends IMessage>> incomingHolder;
         private int incomingLayout;
 
-        private Class<? extends MessageViewHolder<? extends IMessage>> outcomingHolder;
+        private Class<? extends BaseMessageViewHolder<? extends IMessage>> outcomingHolder;
         private int outcomingLayout;
 
         private Class<? extends ViewHolder<Date>> dateHeaderHolder;
@@ -619,7 +619,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          * @param holder holder class.
          * @param layout layout resource.
          */
-        public void setIncoming(Class<? extends MessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
+        public void setIncoming(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
             this.incomingHolder = holder;
             this.incomingLayout = layout;
         }
@@ -629,7 +629,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          *
          * @param holder holder class.
          */
-        public void setIncomingHolder(Class<? extends MessageViewHolder<? extends IMessage>> holder) {
+        public void setIncomingHolder(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
             this.incomingHolder = holder;
         }
 
@@ -648,7 +648,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          * @param holder holder class.
          * @param layout layout resource.
          */
-        public void setOutcoming(Class<? extends MessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
+        public void setOutcoming(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
             this.outcomingHolder = holder;
             this.outcomingLayout = layout;
         }
@@ -658,7 +658,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          *
          * @param holder holder class.
          */
-        public void setOutcomingHolder(Class<? extends MessageViewHolder<? extends IMessage>> holder) {
+        public void setOutcomingHolder(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
             this.outcomingHolder = holder;
         }
 
@@ -709,7 +709,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * The base class for view holders for incoming and outcoming message.
      * You can extend it to create your own holder in conjuction with custom layout or even using default layout.
      */
-    public static abstract class MessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
+    public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
         private boolean isSelected;
 
@@ -718,7 +718,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          */
         protected ImageLoader imageLoader;
 
-        public MessageViewHolder(View itemView) {
+        public BaseMessageViewHolder(View itemView) {
             super(itemView);
         }
 
@@ -758,15 +758,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Default view holder implementation for incoming message
      */
-    public static class DefaultIncomingMessageViewHolder
-            extends MessageViewHolder<IMessage> implements DefaultMessageViewHolder {
+    public static class IncomingMessageViewHolder<MESSAGE extends IMessage>
+            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
-        private ViewGroup bubble;
-        private TextView text;
-        private TextView time;
-        private ImageView userAvatar;
+        protected ViewGroup bubble;
+        protected TextView text;
+        protected TextView time;
+        protected ImageView userAvatar;
 
-        public DefaultIncomingMessageViewHolder(View itemView) {
+        public IncomingMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
@@ -775,7 +775,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         @Override
-        public void onBind(IMessage message) {
+        public void onBind(MESSAGE message) {
             bubble.setSelected(isSelected());
             text.setText(message.getText());
             time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
@@ -806,18 +806,25 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
+    private static class DefaultIncomingMessageViewHolder extends IncomingMessageViewHolder<IMessage> {
+
+        public DefaultIncomingMessageViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     /**
      * Default view holder implementation for outcoming message
      */
-    public static class DefaultOutcomingMessageViewHolder
-            extends MessageViewHolder<IMessage> implements DefaultMessageViewHolder {
+    public static class OutcomingMessageViewHolder<MESSAGE extends IMessage>
+            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
-        private ViewGroup bubble;
-        private TextView text;
-        private TextView time;
-        private ImageView userAvatar;
+        protected ViewGroup bubble;
+        protected TextView text;
+        protected TextView time;
+        protected ImageView userAvatar;
 
-        public DefaultOutcomingMessageViewHolder(View itemView) {
+        public OutcomingMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
@@ -826,7 +833,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         @Override
-        public void onBind(IMessage message) {
+        public void onBind(MESSAGE message) {
             bubble.setSelected(isSelected());
             text.setText(message.getText());
             time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
@@ -853,6 +860,13 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             time.setTextColor(style.getOutcomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
+        }
+    }
+
+    private static class DefaultOutcomingMessageViewHolder extends OutcomingMessageViewHolder<IMessage> {
+
+        public DefaultOutcomingMessageViewHolder(View itemView) {
+            super(itemView);
         }
     }
 

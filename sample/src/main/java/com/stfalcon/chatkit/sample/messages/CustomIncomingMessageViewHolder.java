@@ -1,34 +1,30 @@
 package com.stfalcon.chatkit.sample.messages;
 
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
 
 public class CustomIncomingMessageViewHolder
-        extends MessagesListAdapter.MessageViewHolder<MessagesListFixtures.Message> {
-
-    private TextView text;
-    private TextView online;
-    private ImageView avatar;
-
+        extends MessagesListAdapter.IncomingMessageViewHolder<MessagesListFixtures.Message> {
+    private View onlineView;
 
     public CustomIncomingMessageViewHolder(View itemView) {
         super(itemView);
-        text = (TextView) itemView.findViewById(R.id.messageText);
-        online = (TextView) itemView.findViewById(R.id.tvStatusOnline);
-        avatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+        onlineView = itemView.findViewById(R.id.online);
+
     }
 
     @Override
     public void onBind(MessagesListFixtures.Message message) {
-        text.setText(message.getText());
-        online.setText(message.getUser().getOnline());
-        if (getImageLoader() != null) {
-            getImageLoader().loadImage(avatar, message.getUser().getAvatar());
+        super.onBind(message);
+
+        boolean isOnline = message.getUser().isOnline();
+        if (isOnline) {
+            onlineView.setBackgroundResource(R.drawable.bubble_online);
+        } else {
+            onlineView.setBackgroundResource(R.drawable.bubble_offline);
         }
     }
 }

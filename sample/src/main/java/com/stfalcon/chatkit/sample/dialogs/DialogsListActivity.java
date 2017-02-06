@@ -38,6 +38,7 @@ public class DialogsListActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_dialogs_list_attr);
                 break;
             case CUSTOM_LAYOUT:
+            case CUSTOM_VIEW_HOLDER:
                 setContentView(R.layout.activity_dialogs_list_layout);
                 break;
             default:
@@ -63,14 +64,14 @@ public class DialogsListActivity extends AppCompatActivity {
             dialogsListAdapter = new DialogsListAdapter<>(getDialogs(), imageLoader);
         }
 
-        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.DialogViewHolder.OnItemClickListener() {
+        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, IDialog dialog) {
                 MessagesListActivity.open(DialogsListActivity.this, type);
             }
         });
 
-        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.DialogViewHolder.OnLongItemClickListener() {
+        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnLongItemClickListener() {
             @Override
             public void onLongItemClick(View view, IDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, "Show menu",

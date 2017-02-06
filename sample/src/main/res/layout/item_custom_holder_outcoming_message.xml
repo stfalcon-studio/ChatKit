@@ -8,40 +8,28 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="8dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@id/messageUserAvatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="2dp" />
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/message_incoming_bubble_margin_right"
-        android:layout_toLeftOf="@id/messageUserAvatar">
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="40dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@id/messageText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/messageText"
-            android:layout_marginTop="4dp"
-            android:textSize="12sp" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <TextView
+        android:id="@id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bubble"
+        android:layout_alignLeft="@id/bubble"
+        android:lines="1"
+        android:layout_marginLeft="16dp" />
 
 </RelativeLayout>

@@ -58,7 +58,7 @@ public final class MessagesListFixtures extends Fixtures {
         @Override
         public DefaultUser getUser() {
             return new DefaultUser(id % 2 == 0 ? "0" : "1", id % 2 == 0 ? names.get(0) : names.get(1),
-                    id % 2 == 0 ? avatars.get(0) : avatars.get(1), "online");
+                    id % 2 == 0 ? avatars.get(0) : avatars.get(1), true);
         }
 
         @Override

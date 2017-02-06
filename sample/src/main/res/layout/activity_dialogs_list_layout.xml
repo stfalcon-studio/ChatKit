@@ -10,8 +10,11 @@
         android:id="@+id/dialogList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:dialogTitleTextStyle="bold"
+        app:dialogUnreadTitleTextStyle="bold"
+        app:dialogMessageTextSize="17sp"
+        app:dialogUnreadBubbleBackgroundColor="#e94f4f"
         app:dialogDividerLeftPadding="0dp"
-        app:dialogAvatarHeight="36dp"
-        app:dialogAvatarWidth="36dp"/>
+        app:dialogUnreadItemBackground="#a6efefef"/>
 
 </RelativeLayout>

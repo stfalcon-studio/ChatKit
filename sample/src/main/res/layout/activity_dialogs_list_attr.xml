@@ -12,8 +12,8 @@
         app:dialogDividerLeftPadding="0dp"
         app:dialogMessageTextSize="17sp"
         app:dialogTitleTextStyle="bold"
-        app:dialogUnreadBubbleBackgroundColor="#e94f4f"
-        app:dialogUnreadItemBackground="#a6efefef"
+        app:dialogUnreadBubbleBackgroundColor="@color/red"
+        app:dialogUnreadItemBackground="@color/gray_transparent"
         app:dialogUnreadTitleTextStyle="bold"/>
 
 </RelativeLayout>

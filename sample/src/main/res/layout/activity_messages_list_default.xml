@@ -17,7 +17,7 @@
         android:layout_above="@+id/input"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="#e8e8e8"/>
+        android:background="@color/gray_light"/>
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"

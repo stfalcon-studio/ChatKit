@@ -21,7 +21,7 @@
         android:layout_alignRight="@id/messageUserAvatar"
         android:layout_alignTop="@id/messageUserAvatar"
         android:layout_marginRight="5dp"
-        android:background="@drawable/bubble_online" />
+        android:background="@drawable/shape_bubble_online" />
 
     <LinearLayout
         android:id="@id/bubble"

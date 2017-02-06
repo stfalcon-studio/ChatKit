@@ -73,7 +73,7 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/bubble_online"
+            android:background="@drawable/shape_bubble_online"
             android:layout_alignRight="@id/dialogAvatar"
             android:layout_alignTop="@id/dialogAvatar"
             />

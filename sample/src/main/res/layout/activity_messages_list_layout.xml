@@ -12,9 +12,9 @@
         android:layout_above="@+id/input"
         app:incomingAvatarHeight="56dp"
         app:incomingAvatarWidth="56dp"
-        app:incomingBubbleDrawable="@drawable/bubble_your"
-        app:outcomingBubbleDrawable="@drawable/bubble"
-        app:outcomingTimeTextColor="#ae858585"/>
+        app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
+        app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
+        app:outcomingTimeTextColor="@color/gray_dark_transparent"/>
 
     <View
         android:layout_width="match_parent"
@@ -22,14 +22,14 @@
         android:layout_above="@+id/input"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="#e8e8e8"/>
+        android:background="@color/gray_light"/>
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:inputButtonBackground="@drawable/custom_layout_send_bg"
+        app:inputButtonBackground="@drawable/bg_custom_layout_send"
         app:inputButtonIcon="@drawable/ic_send_selector"
         app:inputHint="@string/hint_enter_a_message"/>
 

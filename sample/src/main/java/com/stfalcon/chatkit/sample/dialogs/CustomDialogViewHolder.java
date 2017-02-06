@@ -29,9 +29,9 @@ public class CustomDialogViewHolder extends DialogsListAdapter.DialogViewHolder<
             boolean isOnline = ((DefaultUser)dialog.getUsers().get(0)).isOnline();
             onlineView.setVisibility(View.VISIBLE);
             if (isOnline) {
-                onlineView.setBackgroundResource(R.drawable.bubble_online);
+                onlineView.setBackgroundResource(R.drawable.shape_bubble_online);
             } else {
-                onlineView.setBackgroundResource(R.drawable.bubble_offline);
+                onlineView.setBackgroundResource(R.drawable.shape_bubble_offline);
             }
         }
     }

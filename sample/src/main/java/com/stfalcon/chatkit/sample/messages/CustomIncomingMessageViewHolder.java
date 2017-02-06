@@ -22,9 +22,9 @@ public class CustomIncomingMessageViewHolder
 
         boolean isOnline = message.getUser().isOnline();
         if (isOnline) {
-            onlineView.setBackgroundResource(R.drawable.bubble_online);
+            onlineView.setBackgroundResource(R.drawable.shape_bubble_online);
         } else {
-            onlineView.setBackgroundResource(R.drawable.bubble_offline);
+            onlineView.setBackgroundResource(R.drawable.shape_bubble_offline);
         }
     }
 }

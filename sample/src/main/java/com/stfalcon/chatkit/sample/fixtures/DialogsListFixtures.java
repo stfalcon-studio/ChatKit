@@ -49,11 +49,6 @@ public final class DialogsListFixtures extends FixturesData {
             public Date getCreatedAt() {
                 return date;
             }
-
-            @Override
-            public String getStatus() {
-                return "Sent";
-            }
         };
     }
 

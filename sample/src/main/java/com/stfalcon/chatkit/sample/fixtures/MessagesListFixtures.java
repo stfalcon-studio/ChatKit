@@ -1,6 +1,7 @@
 package com.stfalcon.chatkit.sample.fixtures;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.sample.models.DefaultUser;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public final class MessagesListFixtures extends FixturesData {
         }
 
         @Override
-        public DefaultUser getUser() {
+        public IUser getUser() {
             return new DefaultUser(id % 2 == 0 ? "0" : "1", id % 2 == 0 ? names.get(0) : names.get(1),
                     id % 2 == 0 ? avatars.get(0) : avatars.get(1), true);
         }
@@ -66,7 +67,6 @@ public final class MessagesListFixtures extends FixturesData {
             return text;
         }
 
-        @Override
         public String getStatus() {
             return "Sent";
         }

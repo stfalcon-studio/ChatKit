@@ -209,6 +209,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Updates message by its id.
      *
+     * @param message updated message object.
+     */
+    public void update(MESSAGE message) {
+        update(message.getId(), message);
+    }
+
+    /**
+     * Updates message by old identifier (use this method if id has changed). Otherwise use {@link #update(IMessage)}
+     *
      * @param oldId      an identifier of message to update.
      * @param newMessage new message object.
      */

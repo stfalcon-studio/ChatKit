@@ -59,7 +59,7 @@ public class MessagesListActivity extends AppCompatActivity
         input.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
-                adapter.add(new MessagesListFixtures.Message(input.toString()), true);
+                adapter.addToStart(new MessagesListFixtures.Message(input.toString()), true);
                 return true;
             }
         });
@@ -148,7 +148,7 @@ public class MessagesListActivity extends AppCompatActivity
             adapter.enableSelectionMode(this);
         }
 
-        adapter.add(new MessagesListFixtures.Message(), false);
+        adapter.addToStart(new MessagesListFixtures.Message(), false);
 
         adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
             @Override
@@ -173,7 +173,7 @@ public class MessagesListActivity extends AppCompatActivity
             @Override
             public void run() {
                 ArrayList<MessagesListFixtures.Message> messages = MessagesListFixtures.getMessages();
-                adapter.add(messages, true);
+                adapter.addToEnd(messages, true);
             }
         }, 1000);
     }

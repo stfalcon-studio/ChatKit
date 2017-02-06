@@ -170,7 +170,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param message message to add.
      * @param scroll  {@code true} if need to scroll list to bottom when message added.
      */
-    public void add(MESSAGE message, boolean scroll) {
+    public void addToStart(MESSAGE message, boolean scroll) {
         boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
         if (isNewMessageToday) {
             items.add(0, new Wrapper<>(message.getCreatedAt()));
@@ -189,7 +189,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param messages messages from history.
      * @param reverse  {@code true} if need to reverse messages before adding.
      */
-    public void add(ArrayList<MESSAGE> messages, boolean reverse) {
+    public void addToEnd(List<MESSAGE> messages, boolean reverse) {
         if (reverse) Collections.reverse(messages);
 
         if (!items.isEmpty()) {
@@ -233,7 +233,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      *
      * @param messages messages list to delete.
      */
-    public void delete(ArrayList<MESSAGE> messages) {
+    public void delete(List<MESSAGE> messages) {
         for (MESSAGE message : messages) {
             int index = getMessagePositionById(message.getId());
             items.remove(index);
@@ -301,7 +301,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Returns the list of selected messages.
      *
-     * @return {@link ArrayList<MESSAGE>} of selected messages. Empty list if nothing was selected or selection mode is disabled.
+     * @return list of selected messages. Empty list if nothing was selected or selection mode is disabled.
      */
     @SuppressWarnings("unchecked")
     public ArrayList<MESSAGE> getSelectedMessages() {
@@ -335,7 +335,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * Call {@link #getSelectedMessages()} before calling this method to delete messages from your data source.
      */
     public void deleteSelectedMessages() {
-        ArrayList<MESSAGE> selectedMessages = getSelectedMessages();
+        List<MESSAGE> selectedMessages = getSelectedMessages();
         delete(selectedMessages);
         unselectAllItems();
     }
@@ -371,7 +371,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     * PRIVATE METHODS
     * */
     private void recountDateHeaders() {
-        ArrayList<Integer> indicesToDelete = new ArrayList<>();
+        List<Integer> indicesToDelete = new ArrayList<>();
 
         for (int i = 0; i < items.size(); i++) {
             Wrapper wrapper = items.get(i);
@@ -393,7 +393,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
-    private void generateDateHeaders(ArrayList<MESSAGE> messages) {
+    private void generateDateHeaders(List<MESSAGE> messages) {
         for (int i = 0; i < messages.size(); i++) {
             MESSAGE message = messages.get(i);
             this.items.add(new Wrapper<>(message));

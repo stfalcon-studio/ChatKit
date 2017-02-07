@@ -124,8 +124,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         Wrapper wrapper = items.get(position);
 
         if (wrapper.item instanceof IMessage) {
-            ((BaseMessageViewHolder) holder).setSelected(wrapper.isSelected);
-            ((BaseMessageViewHolder) holder).setImageLoader(this.imageLoader);
+            ((BaseMessageViewHolder) holder).isSelected = wrapper.isSelected;
+            ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }
@@ -739,25 +739,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * Make message selected
-         */
-        public void setSelected(boolean selected) {
-            isSelected = selected;
-        }
-
-        /**
          * Getter for {@link #imageLoader}
          */
         public ImageLoader getImageLoader() {
             return imageLoader;
         }
 
-        /**
-         * Setter for {@link #imageLoader}
-         */
-        public void setImageLoader(ImageLoader imageLoader) {
-            this.imageLoader = imageLoader;
-        }
     }
 
     interface DefaultMessageViewHolder {

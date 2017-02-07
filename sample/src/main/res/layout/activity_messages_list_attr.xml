@@ -12,7 +12,15 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
         app:incomingDefaultBubbleColor="@color/ivory"
-        app:outcomingDefaultBubbleColor="@color/green"/>
+        app:incomingDefaultBubblePressedColor="@color/ivory_dark"
+        app:incomingDefaultBubbleSelectedColor="@color/gray"
+        app:incomingTextColor="@color/black"
+        app:incomingTextSize="18sp"
+        app:outcomingDefaultBubbleColor="@color/green"
+        app:outcomingDefaultBubblePressedColor="@color/green_dark"
+        app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
+        app:outcomingTextColor="@color/white"
+        app:outcomingTextSize="18sp"/>
 
     <View
         android:layout_width="match_parent"

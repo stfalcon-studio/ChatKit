@@ -20,7 +20,8 @@
         app:outcomingDefaultBubblePressedColor="@color/green_dark"
         app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
         app:outcomingTextColor="@color/white"
-        app:outcomingTextSize="18sp"/>
+        app:outcomingTextSize="18sp"
+        app:dateHeaderFormat="dd MMMM yyyy"/>
 
     <View
         android:layout_width="match_parent"

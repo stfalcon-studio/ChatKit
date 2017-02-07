@@ -59,8 +59,8 @@
         <attr name="dateHeaderTextColor" format="color|reference" />
         <attr name="dateHeaderTextSize" format="dimension|reference" />
         <attr name="dateHeaderPadding" format="dimension|reference" />
+        <attr name="dateHeaderFormat" format="string|reference" />
         <!--TODO text style-->
-        <!--TODO date format-->
 
     </declare-styleable>
 

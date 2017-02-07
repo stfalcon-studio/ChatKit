@@ -885,7 +885,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static class DefaultDateHeaderViewHolder extends ViewHolder<Date>
             implements DefaultMessageViewHolder {
 
-        private TextView text;
+        protected TextView text;
+        protected String dateFormat;
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
@@ -894,7 +895,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(Date date) {
-            text.setText(DateFormatter.format(date, DateFormatter.Template.STRING_MONTH));
+            text.setText(DateFormatter.format(date, dateFormat));
         }
 
         @Override
@@ -903,6 +904,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             text.setTextColor(style.getDateHeaderTextColor());
             text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
                     style.getDateHeaderPadding(), style.getDateHeaderPadding());
+            dateFormat = style.getDateHeaderFormat();
+            dateFormat = dateFormat == null ? DateFormatter.Template.STRING_MONTH.get() : dateFormat;
         }
     }
 }

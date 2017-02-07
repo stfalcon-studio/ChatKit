@@ -65,6 +65,7 @@ class MessagesListStyle extends Style {
     private int dateHeaderTextColor;
     private int dateHeaderTextSize;
     private int dateHeaderPadding;
+    private String dateHeaderFormat;
 
     static MessagesListStyle parse(Context context, AttributeSet attrs) {
         MessagesListStyle style = new MessagesListStyle(context, attrs);
@@ -131,6 +132,7 @@ class MessagesListStyle extends Style {
                 context.getResources().getDimensionPixelSize(R.dimen.message_date_header_text_size));
         style.dateHeaderPadding = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderPadding,
                 context.getResources().getDimensionPixelSize(R.dimen.message_date_header_padding));
+        style.dateHeaderFormat = typedArray.getString(R.styleable.MessagesList_dateHeaderFormat);
 
         typedArray.recycle();
 
@@ -232,6 +234,10 @@ class MessagesListStyle extends Style {
 
     int getDateHeaderPadding() {
         return dateHeaderPadding;
+    }
+
+    public String getDateHeaderFormat() {
+        return dateHeaderFormat;
     }
 
     int getIncomingTimeTextSize() {

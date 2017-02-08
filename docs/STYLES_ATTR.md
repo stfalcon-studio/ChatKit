@@ -1,27 +1,4 @@
-For example: 
-```eed
-<com.stfalcon.chatkit.dialogs.DialogsList
-        android:id="@+id/dialogList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:dialogAvatarHeight="60dp"
-        app:dialogAvatarWidth="60dp"
-        app:dialogDateSize="12sp"
-        app:dialogDividerColor="#7d979797"
-        app:dialogDividerLeftPadding="0dp"
-        app:dialogDividerRightPadding="0dp"
-        app:dialogMessageTextSize="14sp"
-        app:dialogTitleTextSize="16sp"
-        app:dialogUnreadBubbleEnabled="false"
-        app:dialogUnreadDateColor="@color/dark_gray"
-        app:dialogUnreadDateStyle="bold"
-        app:dialogUnreadItemBackground="#91ebebeb"
-        app:dialogUnreadMessageTextColor="@color/black"
-        app:dialogUnreadTitleTextStyle="bold" />
-```
-
-
-Dialogs list xml atributes:
+## Dialogs list xml atributes:
 
 | Attribute        | Description| 
 | ------------- |-------------| 
@@ -60,7 +37,7 @@ Dialogs list xml atributes:
 | `dialogItemBackground` | Sets background of dialogs items| 
 | `dialogItemBackground` | Sets background of dialogs items when has unread messages | 
 
-Messages list xml atributes
+## Messages list xml atributes
 
 | Attribute        | Description| 
 | ------------- |-------------|
@@ -94,13 +71,12 @@ Messages list xml atributes
 | `dateHeaderTextSize` | Sets date header text size |
 | `dateHeaderPadding` | Sets date header view padding |
 
-Input message view xml atttributes
+## Input message view xml atttributes
 
 | Attribute        | Description| 
 | ------------- |-------------|
 | `inputButtonBackground` | Sets background for button Send|
 | `inputButtonIcon` | Sets icon for button Send |
-| `inputButtonMargin` | Sets margin for button Send |
 | `inputButtonMargin` | Sets margin for button Send |
 | `inputButtonWidth` | Sets width for button Send |
 | `inputButtonHeight` | Sets height for button Send |

@@ -174,13 +174,24 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
-     * Add dialog to dialogs list
+     * Add dialog to the end of dialogs list
      *
      * @param dialog dialog item
      */
     public void addItem(DIALOG dialog) {
-        items.add(0, dialog);
+        items.add(dialog);
         notifyItemInserted(0);
+    }
+
+    /**
+     * Add dialog to dialogs list
+     *
+     * @param dialog dialog item
+     * @param position position in dialogs lost
+     */
+    public void addItem(int position, DIALOG dialog) {
+        items.add(position, dialog);
+        notifyItemInserted(position);
     }
 
     /**

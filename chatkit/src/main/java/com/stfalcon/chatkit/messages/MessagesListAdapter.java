@@ -776,7 +776,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             text.setText(message.getText());
             time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
 
-            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+            boolean isAvatarExists = imageLoader != null && message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
             if (isAvatarExists && imageLoader != null) {
                 imageLoader.loadImage(userAvatar, message.getUser().getAvatar());

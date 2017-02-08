@@ -46,23 +46,25 @@ public class DialogsListActivity extends AppCompatActivity {
         }
 
 
-        DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogList);
+        DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
 
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
+                //If you using another library - write here your way to load image
                 Picasso.with(DialogsListActivity.this).load(url).into(imageView);
             }
         };
 
         if (type == ChatSamplesListAdapter.ChatSample.Type.CUSTOM_LAYOUT) {
-            dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom, getDialogs(), imageLoader);
+            dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom, imageLoader);
         } else if (type == ChatSamplesListAdapter.ChatSample.Type.CUSTOM_VIEW_HOLDER) {
             dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom_view_holder,
-                    CustomDialogViewHolder.class, getDialogs(), imageLoader);
+                    CustomDialogViewHolder.class, imageLoader);
         } else {
-            dialogsListAdapter = new DialogsListAdapter<>(getDialogs(), imageLoader);
+            dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
         }
+        dialogsListAdapter.setItems(getDialogs());
 
         dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener() {
             @Override

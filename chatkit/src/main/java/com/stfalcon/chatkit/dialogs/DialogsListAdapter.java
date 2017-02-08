@@ -59,22 +59,20 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * For default list item layout and view holder
      *
-     * @param dialogs     list of dialog items
      * @param imageLoader image loading method
      */
-    public DialogsListAdapter(List<DIALOG> dialogs, ImageLoader imageLoader) {
-        this(R.layout.item_dialog, DialogViewHolder.class, dialogs, imageLoader);
+    public DialogsListAdapter(ImageLoader imageLoader) {
+        this(R.layout.item_dialog, DialogViewHolder.class, imageLoader);
     }
 
     /**
      * For custom list item layout and default view holder
      *
      * @param itemLayoutId custom list item resource id
-     * @param dialogs      list of dialog items
      * @param imageLoader  image loading method
      */
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, List<DIALOG> dialogs, ImageLoader imageLoader) {
-        this(itemLayoutId, DialogViewHolder.class, dialogs, imageLoader);
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, ImageLoader imageLoader) {
+        this(itemLayoutId, DialogViewHolder.class, imageLoader);
     }
 
     /**
@@ -82,21 +80,19 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      *
      * @param itemLayoutId custom list item resource id
      * @param holderClass  custom view holder class
-     * @param dialogs      list of dialog items
      * @param imageLoader  image loading method
      */
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends BaseDialogViewHolder> holderClass, List<DIALOG> dialogs,
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends BaseDialogViewHolder> holderClass,
                               ImageLoader imageLoader) {
         this.itemLayoutId = itemLayoutId;
         this.holderClass = holderClass;
-        this.items = dialogs;
         this.imageLoader = imageLoader;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(BaseDialogViewHolder holder, int position) {
-        holder.setOnLoadImagesListener(imageLoader);
+        holder.setImageLoader(imageLoader);
         holder.setOnItemClickListener(onItemClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.onBind(items.get(position));
@@ -128,7 +124,11 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         return items.size();
     }
 
-    public void removeItemWithId(String id) {
+    /**
+     * remove item with id
+     * @param id dialog i
+     */
+    public void deleteById(String id) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(id)) {
                 items.remove(i);
@@ -294,7 +294,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     * HOLDERS
     * */
     public abstract static class BaseDialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
-        protected ImageLoader onLoadImagesListener;
+        protected ImageLoader imageLoader;
         protected OnItemClickListener onItemClickListener;
         protected OnLongItemClickListener onLongItemClickListener;
 
@@ -302,8 +302,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             super(itemView);
         }
 
-        void setOnLoadImagesListener(ImageLoader onLoadImagesListener) {
-            this.onLoadImagesListener = onLoadImagesListener;
+        void setImageLoader(ImageLoader imageLoader) {
+            this.imageLoader = imageLoader;
         }
 
         void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -425,13 +425,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvDate.setText(getDateString(dialog.getLastMessage().getCreatedAt()));
 
             //Set Dialog avatar
-            if (onLoadImagesListener != null) {
-                onLoadImagesListener.loadImage(ivAvatar, dialog.getDialogPhoto());
+            if (imageLoader != null) {
+                imageLoader.loadImage(ivAvatar, dialog.getDialogPhoto());
             }
 
             //Set Last message user avatar
-            if (onLoadImagesListener != null) {
-                onLoadImagesListener.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
+            if (imageLoader != null) {
+                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);

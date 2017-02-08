@@ -124,8 +124,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         Wrapper wrapper = items.get(position);
 
         if (wrapper.item instanceof IMessage) {
-            ((BaseMessageViewHolder) holder).setSelected(wrapper.isSelected);
-            ((BaseMessageViewHolder) holder).setImageLoader(this.imageLoader);
+            ((BaseMessageViewHolder) holder).isSelected = wrapper.isSelected;
+            ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
         }
@@ -739,25 +739,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * Make message selected
-         */
-        public void setSelected(boolean selected) {
-            isSelected = selected;
-        }
-
-        /**
          * Getter for {@link #imageLoader}
          */
         public ImageLoader getImageLoader() {
             return imageLoader;
         }
 
-        /**
-         * Setter for {@link #imageLoader}
-         */
-        public void setImageLoader(ImageLoader imageLoader) {
-            this.imageLoader = imageLoader;
-        }
     }
 
     interface DefaultMessageViewHolder {
@@ -789,7 +776,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             text.setText(message.getText());
             time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
 
-            boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
+            boolean isAvatarExists = imageLoader != null && message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
             if (isAvatarExists && imageLoader != null) {
                 imageLoader.loadImage(userAvatar, message.getUser().getAvatar());

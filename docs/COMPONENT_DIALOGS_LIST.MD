@@ -2,7 +2,7 @@
 
 DialogsList is a component for displaying and management of a dialog list. The main features: fast and simple implementation, one-on-one and group dialog support, unread messages’ markers. Also there are several customization methods for changing appearance of dialog list and realization of additional features, which are not included by default.
 <p align="center">
-<img src="images/DIALOGS_DEFAULT_VIEW.png">
+<img src="../images/DIALOGS_DEFAULT_VIEW.png">
 </p>
 
 ## How to make it work
@@ -177,7 +177,7 @@ app:dialogUnreadTitleTextStyle="bold"/>
 ```
 ...you can get this:
 <p align="center">
-<img src="images/DIALOGS_CUSTOM_ATTRS_STYLE.png">
+<img src="../images/DIALOGS_CUSTOM_ATTRS_STYLE.png">
 </p>
 
 You can view [all available attributes here](STYLES_ATTR.md)
@@ -203,7 +203,7 @@ After creating layout you need to transfer it to the adapter’s constructor.
 dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom, imageLoader);
 ```
 <p align="center">
-<img src="images/DIALOGS_CUSTOM_LAYOUT.png">
+<img src="../images/DIALOGS_CUSTOM_LAYOUT.png">
 <h6 align="center">We’ve changed a position of the unread message indicator and the avatar shape.</h6>
 </p>
 
@@ -245,6 +245,6 @@ public class CustomDialogViewHolder extends DialogsListAdapter.DialogViewHolder<
 }
 ```
 <p align="center">
-<img src="images/DIALOGS_CUSTOM_HOLDER.png">
+<img src="../images/DIALOGS_CUSTOM_HOLDER.png">
 <h6 align="center">Pay attention on a the online status in one-on-one dialogs.</h6>
 </p>

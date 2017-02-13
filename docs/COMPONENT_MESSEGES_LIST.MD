@@ -2,7 +2,7 @@
 
 MessagesList is a component for displaying and management of messages in conversation. Its main feature is a correct and simple interaction with a list of messages and date headers, which is implemented via adapter. Also, it supports several customization levels to let you add all of the features, that wasn’t included by default.
 <p align="center">
-<img src="images/CHAT_DEFAULT_VIEW.png">
+<img src="../images/CHAT_DEFAULT_VIEW.png">
 </p>
 
 ## How to make it work
@@ -84,7 +84,7 @@ public class Author implements IUser {
 ```
 It describes info of message author, such as user id (to differ the incoming and outgoing messages), user name and his/her avatar. If user doesn't have avatar image, you can return `null`, and image will not be shown in incoming message item:
 <p align="center">
-<img src="images/CHAT_DEFAULT_WITHOUT_AVATARS.png">
+<img src="../images/CHAT_DEFAULT_WITHOUT_AVATARS.png">
 </p>
 That's all! This approach allows the adapter to work with your message model without type converting of any kind!
 
@@ -145,7 +145,7 @@ But these listeners are not enough, if you want to create really convenient UX. 
 
 For this case we have the selection mode, that turns on after user long press, and turns off, if amount of selected items is changed to zero. By default this behaviour is disabled, but you can enable it by calling `adapter.enableSelectionMode(SelectionListener selectionListener)`. The object in this parameter is the listener for selected messages count, that can be used as trigger for toolbar action mode (for example):
 <p align="center">
-<img src="images/CHAT_DEFAULT_SELECTION_MODE.png">
+<img src="../images/CHAT_DEFAULT_SELECTION_MODE.png">
 </p>
 ...and the code looks like this:
 
@@ -190,7 +190,7 @@ The simplest way to customize appearance is to use `MessageList` widget attribut
 ```
 ...we can get something like this:
 <p align="center">
-<img src="images/CHAT_CUSTOM_ATTRS_STYLE.png">
+<img src="../images/CHAT_CUSTOM_ATTRS_STYLE.png">
 </p>
 If the shape of bubble doesn’t suits you, set your own drawable through the `incomingBubbleDrawable`/`outcomingBubbleDrawable` attribute. However, color customization attributes would not work for setting their state color, you should describe this behavior using selectors. Also you can set paddings for each of them by using `incomingBubblePaddingXXX` and `outcomingBubblePaddingXXX` attributes.
 
@@ -218,7 +218,7 @@ holdersConfig.setOutcomingLayout(R.layout.item_custom_outcoming_message);
 adapter = new MessagesListAdapter<>(senderId, holdersConfig, imageLoader);
 ```
 <p align="center">
-<img src="images/CHAT_CUSTOM_LAYOUT.png">
+<img src="../images/CHAT_CUSTOM_LAYOUT.png">
 <h6 align="center">Here we’ve changed a message time position, an avatar shape and a bubble shape.</h6>
 </p>
 
@@ -259,6 +259,6 @@ public class CustomOutcomingMessageViewHolder
 }
 ```
 <p align="center">
-<img src="images/CHAT_CUSTOM_HOLDER.png">
+<img src="../images/CHAT_CUSTOM_HOLDER.png">
 <h6 align="center">Pay attention to outgoing message’ status and online indicator.</h6>
 </p>

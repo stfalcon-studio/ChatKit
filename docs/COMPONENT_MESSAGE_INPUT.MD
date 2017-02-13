@@ -33,7 +33,7 @@ inputView.setInputListener(new MessageInput.InputListener() {
    }
 });
 ```
-<img src="images/MESSAGE_INPUT_DEFAULT_EMPTY.png" width="50%"><img src="images/MESSAGE_INPUT_DEFAULT_FILLED.png" width="50%">
+<img src="../images/MESSAGE_INPUT_DEFAULT_EMPTY.png" width="50%"><img src="../images/MESSAGE_INPUT_DEFAULT_FILLED.png" width="50%">
 
 #### Make it look the way you want
 
@@ -54,6 +54,6 @@ For example, we need to change color and size of the text, replace button’s ba
    app:inputTextColor="@color/black"
    app:inputTextSize="18sp"/>
 ```
-<img src="images/MESSAGE_INPUT_STYLED_EMPTY.png" width="50%"><img src="images/MESSAGE_INPUT_STYLED_FILLED.png" width="50%">
+<img src="../images/MESSAGE_INPUT_STYLED_EMPTY.png" width="50%"><img src="../images/MESSAGE_INPUT_STYLED_FILLED.png" width="50%">
 
 You can view [all available attributes here](STYLES_ATTR.md)

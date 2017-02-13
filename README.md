@@ -1,7 +1,7 @@
 #### ChatKit - is a library designed to simplify the creation of UI for such a trivial task as chat, which have flexible possibilities for styling, customizing and data management.
 
 <p align="center">
-<img src="images/HEADER">
+<img src="images/HEADER.png">
 </p>
 
 ### Features

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -65,16 +64,16 @@ public class DialogsListActivity extends AppCompatActivity {
         }
         dialogsListAdapter.setItems(getDialogs());
 
-        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener<DefaultDialog>() {
+        dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<DefaultDialog>() {
             @Override
-            public void onItemClick(View view, DefaultDialog dialog) {
+            public void onDialogClick(DefaultDialog dialog) {
                 MessagesListActivity.open(DialogsListActivity.this, type);
             }
         });
 
-        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnLongItemClickListener<DefaultDialog>() {
+        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.OnDialogLongClickListener<DefaultDialog>() {
             @Override
-            public void onLongItemClick(View view, DefaultDialog dialog) {
+            public void onDialogLongClick(DefaultDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, dialog.getDialogName(),
                         Toast.LENGTH_SHORT).show();
             }

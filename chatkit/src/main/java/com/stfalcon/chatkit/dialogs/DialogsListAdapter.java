@@ -52,8 +52,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private int itemLayoutId;
     private Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
-    private BaseDialogViewHolder.OnItemClickListener<DIALOG> onItemClickListener;
-    private BaseDialogViewHolder.OnLongItemClickListener<DIALOG> onLongItemClickListener;
+    private OnDialogClickListener<DIALOG> onDialogClickListener;
+    private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
 
     /**
@@ -93,7 +93,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     @Override
     public void onBindViewHolder(BaseDialogViewHolder holder, int position) {
         holder.setImageLoader(imageLoader);
-        holder.setOnItemClickListener(onItemClickListener);
+        holder.setOnDialogClickListener(onDialogClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.onBind(items.get(position));
     }
@@ -269,30 +269,30 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * @return the on click callback registered for this view.
      */
-    public BaseDialogViewHolder.OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
+    public OnDialogClickListener getOnDialogClickListener() {
+        return onDialogClickListener;
     }
 
     /**
      * Register a callback to be invoked when item is clicked.
      *
-     * @param onItemClickListener on click item callback
+     * @param onDialogClickListener on click item callback
      */
-    public void setOnItemClickListener(BaseDialogViewHolder.OnItemClickListener<DIALOG> onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
+        this.onDialogClickListener = onDialogClickListener;
     }
 
     /**
      * @return on long click item callback
      */
-    public BaseDialogViewHolder.OnLongItemClickListener getOnLongItemClickListener() {
+    public OnDialogLongClickListener getOnLongItemClickListener() {
         return onLongItemClickListener;
     }
 
     /**
      * Register a callback to be invoked when item is long clicked.
      */
-    public void setOnLongItemClickListener(BaseDialogViewHolder.OnLongItemClickListener<DIALOG> onLongItemClickListener) {
+    public void setOnLongItemClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
@@ -302,12 +302,23 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /*
+    * LISTENERS
+    * */
+    public interface OnDialogClickListener<DIALOG extends IDialog> {
+        void onDialogClick(DIALOG dialog);
+    }
+
+    public interface OnDialogLongClickListener<DIALOG extends IDialog> {
+        void onDialogLongClick(DIALOG dialog);
+    }
+
+    /*
     * HOLDERS
     * */
     public abstract static class BaseDialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
         protected ImageLoader imageLoader;
-        protected OnItemClickListener onItemClickListener;
-        protected OnLongItemClickListener onLongItemClickListener;
+        protected OnDialogClickListener onDialogClickListener;
+        protected OnDialogLongClickListener onLongItemClickListener;
 
         public BaseDialogViewHolder(View itemView) {
             super(itemView);
@@ -317,20 +328,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             this.imageLoader = imageLoader;
         }
 
-        void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-            this.onItemClickListener = onItemClickListener;
+        void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
+            this.onDialogClickListener = onDialogClickListener;
         }
 
-        void setOnLongItemClickListener(OnLongItemClickListener onLongItemClickListener) {
+        void setOnLongItemClickListener(OnDialogLongClickListener onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
-        }
-
-        public interface OnItemClickListener<DIALOG extends IDialog> {
-            void onItemClick(View view, DIALOG dialog);
-        }
-
-        public interface OnLongItemClickListener<DIALOG extends IDialog> {
-            void onLongItemClick(View view, DIALOG dialog);
         }
     }
 
@@ -455,11 +458,11 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvBubble.setVisibility(dialogStyle.isDialogUnreadBubbleEnabled() &&
                     dialog.getUnreadCount() > 0 ? VISIBLE : GONE);
 
-            if (onItemClickListener != null) {
+            if (onDialogClickListener != null) {
                 container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onItemClickListener.onItemClick(view, dialog);
+                        onDialogClickListener.onDialogClick(dialog);
                     }
                 });
             }
@@ -468,7 +471,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 container.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        onLongItemClickListener.onLongItemClick(view, dialog);
+                        onLongItemClickListener.onDialogLongClick(dialog);
                         return true;
                     }
                 });

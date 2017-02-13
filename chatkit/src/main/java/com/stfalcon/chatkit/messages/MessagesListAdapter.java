@@ -57,8 +57,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private SelectionListener selectionListener;
 
     private OnLoadMoreListener loadMoreListener;
-    private OnClickListener<MESSAGE> onClickListener;
-    private OnLongClickListener<MESSAGE> onLongClickListener;
+    private OnMessageClickListener<MESSAGE> onMessageClickListener;
+    private OnMessageLongClickListener<MESSAGE> onMessageLongClickListener;
     private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
@@ -352,19 +352,19 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Sets click listener for item. Fires ONLY if list is not in selection mode.
      *
-     * @param onClickListener click listener.
+     * @param onMessageClickListener click listener.
      */
-    public void setOnClickListener(OnClickListener<MESSAGE> onClickListener) {
-        this.onClickListener = onClickListener;
+    public void setOnMessageClickListener(OnMessageClickListener<MESSAGE> onMessageClickListener) {
+        this.onMessageClickListener = onMessageClickListener;
     }
 
     /**
      * Sets long click listener for item. Fires only if selection mode is disabled.
      *
-     * @param onLongClickListener long click listener.
+     * @param onMessageLongClickListener long click listener.
      */
-    public void setOnLongClickListener(OnLongClickListener<MESSAGE> onLongClickListener) {
-        this.onLongClickListener = onLongClickListener;
+    public void setOnMessageLongClickListener(OnMessageLongClickListener<MESSAGE> onMessageLongClickListener) {
+        this.onMessageLongClickListener = onMessageLongClickListener;
     }
 
     /**
@@ -469,14 +469,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     private void notifyMessageClicked(MESSAGE message) {
-        if (onClickListener != null) {
-            onClickListener.onMessageClick(message);
+        if (onMessageClickListener != null) {
+            onMessageClickListener.onMessageClick(message);
         }
     }
 
     private void notifyMessageLongClicked(MESSAGE message) {
-        if (onLongClickListener != null) {
-            onLongClickListener.onMessageLongClick(message);
+        if (onMessageLongClickListener != null) {
+            onMessageLongClickListener.onMessageLongClick(message);
         }
     }
 
@@ -569,7 +569,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Interface definition for a callback to be invoked when message item is clicked.
      */
-    public interface OnClickListener<MESSAGE extends IMessage> {
+    public interface OnMessageClickListener<MESSAGE extends IMessage> {
 
         /**
          * Fires when message was clicked.
@@ -582,7 +582,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Interface definition for a callback to be invoked when message item is long clicked.
      */
-    public interface OnLongClickListener<MESSAGE extends IMessage> {
+    public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
 
         /**
          * Fires when message was long clicked.

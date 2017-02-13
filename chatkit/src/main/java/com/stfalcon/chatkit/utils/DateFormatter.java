@@ -21,9 +21,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * TODO doc
- */
 public final class DateFormatter {
     private DateFormatter() {
         throw new AssertionError();

@@ -122,7 +122,7 @@ public class MessagesListActivity extends AppCompatActivity
             holdersConfig.setIncomingLayout(R.layout.item_custom_incoming_message);
             holdersConfig.setOutcomingLayout(R.layout.item_custom_outcoming_message);
             adapter = new MessagesListAdapter<>("0", holdersConfig, imageLoader);
-            adapter.setOnLongClickListener(new MessagesListAdapter.OnLongClickListener<MessagesListFixtures.Message>() {
+            adapter.setOnMessageLongClickListener(new MessagesListAdapter.OnMessageLongClickListener<MessagesListFixtures.Message>() {
                 @Override
                 public void onMessageLongClick(MessagesListFixtures.Message message) {
                     //Yor custom long click handler
@@ -135,7 +135,7 @@ public class MessagesListActivity extends AppCompatActivity
             holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
             holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
             adapter = new MessagesListAdapter<>("0", holdersConfig, imageLoader);
-            adapter.setOnLongClickListener(new MessagesListAdapter.OnLongClickListener<MessagesListFixtures.Message>() {
+            adapter.setOnMessageLongClickListener(new MessagesListAdapter.OnMessageLongClickListener<MessagesListFixtures.Message>() {
                 @Override
                 public void onMessageLongClick(MessagesListFixtures.Message message) {
                     //Yor custom long click handler

@@ -111,11 +111,10 @@ That's all! This approach allows the adapter to work with your dialog model with
 
 When your models are ready to be used by adapter, you can simply add them to the list. There is four ways to do this:
 
-TODO translate
-* adapter.setItems(List<DIALOG> items) - заменяет существующий список новым списком диалогов;
-* adapter.addItems(List<DIALOG> items) - добавляет в конец списка новый список диалогов;
-* adapter.addItem(DIALOG dialog) - добавляет один диалог в указанную позицию.
-* adapter.addItem(int position, DIALOG dialog) - добавляет в конец списка один диалог.
+* adapter.setItems(List<DIALOG> items) - replaces existing list with a new dialog list;
+* adapter.addItems(List<DIALOG> items) - adds a new dialog list to the end of the list;
+* adapter.addItem(DIALOG dialog) - adds a new dialog to the specified position;
+* adapter.addItem(int position, DIALOG dialog) - adds one dialog to the end of the list.
 
 #### Updating dialogs
 If dialog has changed, you can update it by position in list by calling `adapter.updateItem(int position, DIALOG item)` or update it by dialog id by calling `adapter.updateItemById(DIALOG item)`
@@ -140,16 +139,16 @@ To delete all of the dialogs, just call `adapter.clear()` method.
 Of course, the adapter have listeners for such important actions as short and long clicks. They just returns a message object that has been pressed, with a type that is specified as the generic type of adapter:
 
 ```java
-dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener<Dialog>() {
+dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<Dialog>() {
    @Override
-   public void onItemClick(View view, Dialog dialog) {
+   public void onDialogClick(Dialog dialog) {
        //On item click action
    }
 });
 
-dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnLongItemClickListener<Dialog>() {
+dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<Dialog>() {
    @Override
-   public void onLongItemClick(View view, Dialog dialog) {
+   public void onDialogLongClick(Dialog dialog) {
        //on long item click action
    }
 });
@@ -197,8 +196,7 @@ But what if changing appearance is not enough? Not a problem, create your own la
 * `@id/dialogDividerContainer` (ViewGroup)
 * `@id/dialogDivider` (View)
 
-TODO link
-For better understanding see how [default layout looks like](link to layout).
+For better understanding see how [default layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_dialog_custom.xml).
 
 After creating layout you need to transfer it to the adapter’s constructor.
 ```java

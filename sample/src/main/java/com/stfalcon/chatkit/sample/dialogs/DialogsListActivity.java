@@ -71,7 +71,7 @@ public class DialogsListActivity extends AppCompatActivity {
             }
         });
 
-        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.OnDialogLongClickListener<DefaultDialog>() {
+        dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<DefaultDialog>() {
             @Override
             public void onDialogLongClick(DefaultDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, dialog.getDialogName(),

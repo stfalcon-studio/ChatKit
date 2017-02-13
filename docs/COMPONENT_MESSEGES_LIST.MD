@@ -132,10 +132,10 @@ If message has changed, you can update it by calling `adapter.update(IMessage me
 Of course, the adapter have listeners for such important actions as short and long clicks. They just returns a message object that has been pressed, with a type that is specified as the generic type of adapter:
 
 ```java
-public interface OnClickListener<MESSAGE extends IMessage> {
+public interface OnMessageClickListener<MESSAGE extends IMessage> {
    void onMessageClick(MESSAGE message);
 }
-public interface OnLongClickListener<MESSAGE extends IMessage> {
+public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
    void onMessageLongClick(MESSAGE message);
 }
 ```
@@ -161,7 +161,7 @@ Furthermore, if you want to delete selected messages, just call  `adapter.delete
 
 If you need to disable selection mode on-the-fly, use `adapter.disableSelectionMode()`. It will cancel items’ selection and remove the listener.
 
-**N.B.! When selection mode is enabled, your custom `OnLongClickListener` will be ignored due to the conflict of logic.**
+**N.B.! When selection mode is enabled, your custom `OnMessageLongClickListener` will be ignored due to the conflict of logic.**
 
 ## Make it look the way you want
 
@@ -206,6 +206,8 @@ But what if you need not only to change the appearance of the elements, but also
 * `@id/messageText` (TextView)
 * `@id/messageTime`  (TextView)
 * `@id/messageUserAvatar` (ImageView)
+
+For better understanding see how [default layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_custom_incoming_message.xml)
 
 After a layout was created, you need to put it into `HoldersConfig` object, which has appropriate methods for each layout files: `setIncomingLayout(int layoutRes)`, `setOutcomingLayout(int layoutRes)` `setDateHeaderLayout(int layoutRes)`. To hook up a config object, you need to transfer it to adapter through a constructor:
 

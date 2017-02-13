@@ -1,4 +1,6 @@
-#### ChatKit - is a library designed to simplify the creation of UI for such a trivial task as chat, which have flexible possibilities for styling, customizing and data management.
+#ChatKit for Android
+
+ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management
 
 <p align="center">
 <img src="images/HEADER.png">

@@ -24,7 +24,7 @@ ChatKit - is a library designed to simplify the development of UI for such a tri
 To implement all of the features above you can use the following components:
 
 * [DialogsList](docs/COMPONENT_DIALOGS_LIST.MD);
-* [MessagesList](docs/COMPONENT_MESSAGES_LIST.MD);
+* [MessagesList](docs/COMPONENT_MESSAGES_LIST.md);
 * [MessageInput](docs/COMPONENT_MESSAGE_INPUT.MD);
 
 

@@ -598,7 +598,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     /**
      * Configuration object for passing custom layouts and view holders into adapter.
-     * You need to pass it into {@link #MessagesListAdapter(String, HoldersConfig, ImageLoader)} to apply your changes.
+     * You need to pass it into {@link MessagesListAdapter#MessagesListAdapter(String, HoldersConfig, ImageLoader)} to apply your changes.
      */
     public static class HoldersConfig {
 
@@ -733,6 +733,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         /**
          * Make message unselected
+         *
+         * @return weather is item selected.
          */
         public boolean isSelected() {
             return isSelected;
@@ -740,6 +742,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         /**
          * Getter for {@link #imageLoader}
+         *
+         * @return image loader interface.
          */
         public ImageLoader getImageLoader() {
             return imageLoader;

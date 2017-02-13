@@ -291,6 +291,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * Register a callback to be invoked when item is long clicked.
+     *
+     * @param onLongItemClickListener on long click item callback
      */
     public void setOnDialogLongClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;

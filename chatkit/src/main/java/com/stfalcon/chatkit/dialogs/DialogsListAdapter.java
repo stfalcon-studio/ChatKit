@@ -43,78 +43,73 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Default list adapter for DialogList
+ * Adapter for {@link DialogsList}
  */
-
 public class DialogsListAdapter<DIALOG extends IDialog>
-        extends RecyclerView.Adapter<DialogsListAdapter.DialogViewHolder> {
+        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> {
 
     private List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;
-    private Class<? extends DialogViewHolder> holderClass;
+    private Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
-    private DialogViewHolder.OnItemClickListener onItemClickListener;
-    private DialogViewHolder.OnLongItemClickListener onLongItemClickListener;
+    private OnDialogClickListener<DIALOG> onDialogClickListener;
+    private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
-
-    /**
-     * For custom list item layout and custom view holder
-     *
-     * @param itemLayoutId custom list item resource id
-     * @param holderClass  custom view holder class
-     * @param dialogs      list of dialog items
-     * @param imageLoader  image loading method
-     */
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends DialogViewHolder> holderClass, List<DIALOG> dialogs,
-                              ImageLoader imageLoader) {
-        this.itemLayoutId = itemLayoutId;
-        this.holderClass = holderClass;
-        this.items = dialogs;
-        this.imageLoader = imageLoader;
-    }
 
     /**
      * For default list item layout and view holder
      *
-     * @param dialogs     list of dialog items
      * @param imageLoader image loading method
      */
-    public DialogsListAdapter(List<DIALOG> dialogs, ImageLoader imageLoader) {
-        this(R.layout.item_dialog, DefaultDialogViewHolder.class, dialogs, imageLoader);
+    public DialogsListAdapter(ImageLoader imageLoader) {
+        this(R.layout.item_dialog, DialogViewHolder.class, imageLoader);
     }
 
     /**
      * For custom list item layout and default view holder
      *
      * @param itemLayoutId custom list item resource id
-     * @param dialogs      list of dialog items
      * @param imageLoader  image loading method
      */
-    public DialogsListAdapter(@LayoutRes int itemLayoutId, List<DIALOG> dialogs, ImageLoader imageLoader) {
-        this(itemLayoutId, DefaultDialogViewHolder.class, dialogs, imageLoader);
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, ImageLoader imageLoader) {
+        this(itemLayoutId, DialogViewHolder.class, imageLoader);
+    }
+
+    /**
+     * For custom list item layout and custom view holder
+     *
+     * @param itemLayoutId custom list item resource id
+     * @param holderClass  custom view holder class
+     * @param imageLoader  image loading method
+     */
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends BaseDialogViewHolder> holderClass,
+                              ImageLoader imageLoader) {
+        this.itemLayoutId = itemLayoutId;
+        this.holderClass = holderClass;
+        this.imageLoader = imageLoader;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(DialogViewHolder holder, int position) {
-        holder.setOnLoadImagesListener(imageLoader);
-        holder.setOnItemClickListener(onItemClickListener);
+    public void onBindViewHolder(BaseDialogViewHolder holder, int position) {
+        holder.setImageLoader(imageLoader);
+        holder.setOnDialogClickListener(onDialogClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.onBind(items.get(position));
     }
 
     @Override
-    public DialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseDialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false);
         //create view holder by reflation
         try {
-            Constructor<? extends DialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class);
+            Constructor<? extends BaseDialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class);
             constructor.setAccessible(true);
-            DialogViewHolder dialogViewHolder = constructor.newInstance(v);
-            if (dialogViewHolder instanceof DefaultDialogViewHolder) {
-                ((DefaultDialogViewHolder) dialogViewHolder).setDialogStyle(dialogStyle);
+            BaseDialogViewHolder baseDialogViewHolder = constructor.newInstance(v);
+            if (baseDialogViewHolder instanceof DialogViewHolder) {
+                ((DialogViewHolder) baseDialogViewHolder).setDialogStyle(dialogStyle);
             }
-            return dialogViewHolder;
+            return baseDialogViewHolder;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,7 +124,11 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         return items.size();
     }
 
-    public void removeItemWithId(String id) {
+    /**
+     * remove item with id
+     * @param id dialog i
+     */
+    public void deleteById(String id) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(id)) {
                 items.remove(i);
@@ -175,13 +174,24 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
-     * Add dialog to dialogs list
+     * Add dialog to the end of dialogs list
      *
      * @param dialog dialog item
      */
     public void addItem(DIALOG dialog) {
-        items.add(0, dialog);
+        items.add(dialog);
         notifyItemInserted(0);
+    }
+
+    /**
+     * Add dialog to dialogs list
+     *
+     * @param dialog dialog item
+     * @param position position in dialogs lost
+     */
+    public void addItem(int position, DIALOG dialog) {
+        items.add(position, dialog);
+        notifyItemInserted(position);
     }
 
     /**
@@ -259,30 +269,32 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * @return the on click callback registered for this view.
      */
-    public DialogViewHolder.OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
+    public OnDialogClickListener getOnDialogClickListener() {
+        return onDialogClickListener;
     }
 
     /**
      * Register a callback to be invoked when item is clicked.
      *
-     * @param onItemClickListener on click item callback
+     * @param onDialogClickListener on click item callback
      */
-    public void setOnItemClickListener(DialogViewHolder.OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
+        this.onDialogClickListener = onDialogClickListener;
     }
 
     /**
      * @return on long click item callback
      */
-    public DialogViewHolder.OnLongItemClickListener getOnLongItemClickListener() {
+    public OnDialogLongClickListener getOnLongItemClickListener() {
         return onLongItemClickListener;
     }
 
     /**
      * Register a callback to be invoked when item is long clicked.
+     *
+     * @param onLongItemClickListener on long click item callback
      */
-    public void setOnLongItemClickListener(DialogViewHolder.OnLongItemClickListener onLongItemClickListener) {
+    public void setOnDialogLongClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
@@ -291,41 +303,43 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         this.dialogStyle = dialogStyle;
     }
 
+    /*
+    * LISTENERS
+    * */
+    public interface OnDialogClickListener<DIALOG extends IDialog> {
+        void onDialogClick(DIALOG dialog);
+    }
+
+    public interface OnDialogLongClickListener<DIALOG extends IDialog> {
+        void onDialogLongClick(DIALOG dialog);
+    }
 
     /*
     * HOLDERS
     * */
-    public abstract static class DialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
-        protected ImageLoader onLoadImagesListener;
-        protected OnItemClickListener onItemClickListener;
-        protected OnLongItemClickListener onLongItemClickListener;
+    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
+        protected ImageLoader imageLoader;
+        protected OnDialogClickListener onDialogClickListener;
+        protected OnDialogLongClickListener onLongItemClickListener;
 
-        public DialogViewHolder(View itemView) {
+        public BaseDialogViewHolder(View itemView) {
             super(itemView);
         }
 
-        void setOnLoadImagesListener(ImageLoader onLoadImagesListener) {
-            this.onLoadImagesListener = onLoadImagesListener;
+        void setImageLoader(ImageLoader imageLoader) {
+            this.imageLoader = imageLoader;
         }
 
-        void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-            this.onItemClickListener = onItemClickListener;
+        void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
+            this.onDialogClickListener = onDialogClickListener;
         }
 
-        void setOnLongItemClickListener(OnLongItemClickListener onLongItemClickListener) {
+        void setOnLongItemClickListener(OnDialogLongClickListener onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
-        }
-
-        public interface OnItemClickListener {
-            void onItemClick(View view, IDialog dialog);
-        }
-
-        public interface OnLongItemClickListener {
-            void onLongItemClick(View view, IDialog dialog);
         }
     }
 
-    public static class DefaultDialogViewHolder extends DialogViewHolder<IDialog> {
+    public static class DialogViewHolder<DIALOG extends IDialog> extends BaseDialogViewHolder<DIALOG> {
         protected DialogListStyle dialogStyle;
         protected ViewGroup container;
         protected ViewGroup root;
@@ -338,7 +352,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         protected ViewGroup dividerContainer;
         protected View divider;
 
-        public DefaultDialogViewHolder(View itemView) {
+        public DialogViewHolder(View itemView) {
             super(itemView);
             root = (ViewGroup) itemView.findViewById(R.id.dialogRootLayout);
             container = (ViewGroup) itemView.findViewById(R.id.dialogContainer);
@@ -413,7 +427,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
 
         @Override
-        public void onBind(final IDialog dialog) {
+        public void onBind(final DIALOG dialog) {
             if (dialog.getUnreadCount() > 0) {
                 applyUnreadStyle();
             } else {
@@ -427,13 +441,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvDate.setText(getDateString(dialog.getLastMessage().getCreatedAt()));
 
             //Set Dialog avatar
-            if (onLoadImagesListener != null) {
-                onLoadImagesListener.loadImage(ivAvatar, dialog.getDialogPhoto());
+            if (imageLoader != null) {
+                imageLoader.loadImage(ivAvatar, dialog.getDialogPhoto());
             }
 
             //Set Last message user avatar
-            if (onLoadImagesListener != null) {
-                onLoadImagesListener.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
+            if (imageLoader != null) {
+                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
@@ -446,11 +460,11 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvBubble.setVisibility(dialogStyle.isDialogUnreadBubbleEnabled() &&
                     dialog.getUnreadCount() > 0 ? VISIBLE : GONE);
 
-            if (onItemClickListener != null) {
+            if (onDialogClickListener != null) {
                 container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onItemClickListener.onItemClick(view, dialog);
+                        onDialogClickListener.onDialogClick(dialog);
                     }
                 });
             }
@@ -459,7 +473,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 container.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        onLongItemClickListener.onLongItemClick(view, dialog);
+                        onLongItemClickListener.onDialogLongClick(dialog);
                         return true;
                     }
                 });

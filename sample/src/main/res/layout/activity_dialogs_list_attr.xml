@@ -1,28 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.stfalcon.chatkit.sample.dialogs.DialogsListActivity">
+    android:background="@color/white">
 
     <com.stfalcon.chatkit.dialogs.DialogsList
-        android:id="@+id/dialogList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:dialogAvatarHeight="60dp"
-        app:dialogAvatarWidth="60dp"
-        app:dialogDateSize="12sp"
-        app:dialogDividerColor="#7d979797"
-        app:dialogDividerLeftPadding="0dp"
-        app:dialogDividerRightPadding="0dp"
-        app:dialogMessageTextSize="14sp"
-        app:dialogTitleTextSize="16sp"
-        app:dialogUnreadBubbleEnabled="false"
-        app:dialogUnreadDateColor="@color/dark_gray"
-        app:dialogUnreadDateStyle="bold"
-        app:dialogUnreadItemBackground="#91ebebeb"
-        app:dialogUnreadMessageTextColor="@color/black"
-        app:dialogUnreadTitleTextStyle="bold" />
+    android:id="@+id/dialogsList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:dialogDividerLeftPadding="0dp"
+    app:dialogMessageTextSize="17sp"
+    app:dialogTitleTextStyle="bold"
+    app:dialogUnreadBubbleBackgroundColor="@color/red"
+    app:dialogUnreadItemBackground="@color/gray_transparent"
+    app:dialogUnreadTitleTextStyle="bold"/>
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ChatSamplesListAdapter extends RecyclerView.Adapter<ChatSamplesList
     public void onBindViewHolder(ChatPresentationViewHolder holder, int position) {
         final ChatSample item = items.get(position);
         holder.tvName.setText(item.name);
+        holder.infoImage.setImageResource(item.imageRes);
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,13 +51,15 @@ public class ChatSamplesListAdapter extends RecyclerView.Adapter<ChatSamplesList
     }
 
     class ChatPresentationViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
         View root;
+        ImageView infoImage;
+        TextView tvName;
 
         ChatPresentationViewHolder(View itemView) {
             super(itemView);
             root = itemView.findViewById(R.id.card);
             tvName = (TextView) itemView.findViewById(R.id.infoText);
+            infoImage = (ImageView) itemView.findViewById(R.id.infoImage);
         }
     }
 

@@ -35,8 +35,10 @@
         <attr name="incomingBubblePaddingBottom" format="dimension|reference" />
         <attr name="incomingTextColor" format="color|reference" />
         <attr name="incomingTextSize" format="dimension|reference" />
+        <!--TODO text style-->
         <attr name="incomingTimeTextColor" format="color|reference" />
         <attr name="incomingTimeTextSize" format="dimension|reference" />
+        <!--TODO text style-->
 
 
         <attr name="outcomingBubbleDrawable" format="reference" />
@@ -49,12 +51,16 @@
         <attr name="outcomingBubblePaddingBottom" format="dimension|reference" />
         <attr name="outcomingTextColor" format="color|reference" />
         <attr name="outcomingTextSize" format="dimension|reference" />
+        <!--TODO text style-->
         <attr name="outcomingTimeTextColor" format="color|reference" />
         <attr name="outcomingTimeTextSize" format="dimension|reference" />
+        <!--TODO text style-->
 
         <attr name="dateHeaderTextColor" format="color|reference" />
         <attr name="dateHeaderTextSize" format="dimension|reference" />
         <attr name="dateHeaderPadding" format="dimension|reference" />
+        <attr name="dateHeaderFormat" format="string|reference" />
+        <!--TODO text style-->
 
     </declare-styleable>
 

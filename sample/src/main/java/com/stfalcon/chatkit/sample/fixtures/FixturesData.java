@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Anton Bevza on 1/13/17.
  */
 
-public class Fixtures {
+public class FixturesData {
 
     protected static ArrayList<String> avatars = new ArrayList<String>() {
         {
@@ -58,6 +58,6 @@ public class Fixtures {
             add("Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.");
         }
     };
-    protected static SecureRandom rnd = new SecureRandom();
+    public static SecureRandom rnd = new SecureRandom();
 
 }

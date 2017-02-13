@@ -1,33 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:theme="@style/AppTheme">
 
     <com.stfalcon.chatkit.messages.MessagesList
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
-        app:incomingAvatarHeight="56dp"
-        app:incomingAvatarWidth="56dp"
-        app:incomingDefaultBubbleColor="#cf7e7e"
-        app:incomingTextColor="@color/white"
-        app:incomingTextSize="19sp"
-        app:incomingTimeTextColor="@color/white"
-        app:outcomingDefaultBubbleColor="#78e6ed"
-        app:outcomingTextColor="@color/dark_gray"
-        app:outcomingTextSize="19sp"
-        app:outcomingTimeTextColor="@color/dark_gray" />
+        app:incomingDefaultBubbleColor="@color/ivory"
+        app:incomingDefaultBubblePressedColor="@color/ivory_dark"
+        app:incomingDefaultBubbleSelectedColor="@color/gray"
+        app:incomingTextColor="@color/black"
+        app:incomingTextSize="18sp"
+        app:outcomingDefaultBubbleColor="@color/green"
+        app:outcomingDefaultBubblePressedColor="@color/green_dark"
+        app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
+        app:outcomingTextColor="@color/white"
+        app:outcomingTextSize="18sp"
+        app:dateHeaderFormat="dd MMMM yyyy"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/input"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/gray_light"/>
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray"
-        app:inputButtonBackground="@color/transparent"
+        app:inputButtonBackground="@drawable/bg_custom_attr_send"
         app:inputButtonIcon="@drawable/ic_send_selector"
-        app:inputHint="Enter your message..."
-        app:inputTextSize="14sp" />
+        app:inputHint="@string/hint_enter_a_message"/>
 
 </RelativeLayout>

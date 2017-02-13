@@ -15,7 +15,7 @@ import java.util.UUID;
 /**
  * Created by Anton Bevza on 07.09.16.
  */
-public final class DialogsListFixtures extends Fixtures {
+public final class DialogsListFixtures extends FixturesData {
     private DialogsListFixtures() {
         throw new AssertionError();
     }
@@ -49,11 +49,6 @@ public final class DialogsListFixtures extends Fixtures {
             public Date getCreatedAt() {
                 return date;
             }
-
-            @Override
-            public String getStatus() {
-                return "Sent";
-            }
         };
     }
 
@@ -78,6 +73,6 @@ public final class DialogsListFixtures extends Fixtures {
     @NonNull
     private static IUser getUser() {
         return new DefaultUser(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)), "online");
+                names.get(rnd.nextInt(names.size())), avatars.get(rnd.nextInt(4)), rnd.nextBoolean());
     }
 }

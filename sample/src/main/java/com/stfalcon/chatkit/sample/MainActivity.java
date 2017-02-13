@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity implements ChatSamplesListAd
 
         ArrayList<ChatSamplesListAdapter.ChatSample> samples = new ArrayList<ChatSamplesListAdapter.ChatSample>() {
             {
-                add(new ChatSamplesListAdapter.ChatSample("Default design",
-                        "", 0, ChatSamplesListAdapter.ChatSample.Type.DEFAULT));
-                add(new ChatSamplesListAdapter.ChatSample("Styling using attributes",
-                        "", 0, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_ATTR));
-                add(new ChatSamplesListAdapter.ChatSample("Custom layout",
-                        "", 0, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_LAYOUT));
-                add(new ChatSamplesListAdapter.ChatSample("Custom view holder",
-                        "", 0, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_VIEW_HOLDER));
+                add(new ChatSamplesListAdapter.ChatSample(getString(R.string.sample_title_default),
+                        "", R.drawable.bg_preview_default_design, ChatSamplesListAdapter.ChatSample.Type.DEFAULT));
+                add(new ChatSamplesListAdapter.ChatSample(getString(R.string.sample_title_attrs),
+                        "", R.drawable.bg_preview_attrs_styling, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_ATTR));
+                add(new ChatSamplesListAdapter.ChatSample(getString(R.string.sample_title_layout),
+                        "", R.drawable.bg_preview_custom_layout, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_LAYOUT));
+                add(new ChatSamplesListAdapter.ChatSample(getString(R.string.sample_title_holder),
+                        "", R.drawable.bg_preview_custom_holder, ChatSamplesListAdapter.ChatSample.Type.CUSTOM_VIEW_HOLDER));
             }
         };
 

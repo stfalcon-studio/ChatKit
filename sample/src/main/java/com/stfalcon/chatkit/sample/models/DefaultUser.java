@@ -9,9 +9,9 @@ public class DefaultUser implements IUser {
     private String id;
     private String name;
     private String avatar;
-    private String online;
+    private boolean online;
 
-    public DefaultUser(String id, String name, String avatar, String online) {
+    public DefaultUser(String id, String name, String avatar, boolean online) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
@@ -45,7 +45,7 @@ public class DefaultUser implements IUser {
         this.avatar = avatar;
     }
 
-    public String getOnline() {
+    public boolean isOnline() {
         return online;
     }
 }

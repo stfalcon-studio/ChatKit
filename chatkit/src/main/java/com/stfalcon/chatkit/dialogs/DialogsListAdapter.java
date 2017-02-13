@@ -52,8 +52,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private int itemLayoutId;
     private Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
-    private BaseDialogViewHolder.OnItemClickListener onItemClickListener;
-    private BaseDialogViewHolder.OnLongItemClickListener onLongItemClickListener;
+    private BaseDialogViewHolder.OnItemClickListener<DIALOG> onItemClickListener;
+    private BaseDialogViewHolder.OnLongItemClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
 
     /**
@@ -278,7 +278,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      *
      * @param onItemClickListener on click item callback
      */
-    public void setOnItemClickListener(BaseDialogViewHolder.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(BaseDialogViewHolder.OnItemClickListener<DIALOG> onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -292,7 +292,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * Register a callback to be invoked when item is long clicked.
      */
-    public void setOnLongItemClickListener(BaseDialogViewHolder.OnLongItemClickListener onLongItemClickListener) {
+    public void setOnLongItemClickListener(BaseDialogViewHolder.OnLongItemClickListener<DIALOG> onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
@@ -325,12 +325,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             this.onLongItemClickListener = onLongItemClickListener;
         }
 
-        public interface OnItemClickListener {
-            void onItemClick(View view, IDialog dialog);
+        public interface OnItemClickListener<DIALOG extends IDialog> {
+            void onItemClick(View view, DIALOG dialog);
         }
 
-        public interface OnLongItemClickListener {
-            void onLongItemClick(View view, IDialog dialog);
+        public interface OnLongItemClickListener<DIALOG extends IDialog> {
+            void onLongItemClick(View view, DIALOG dialog);
         }
     }
 

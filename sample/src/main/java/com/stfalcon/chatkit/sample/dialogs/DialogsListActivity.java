@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.dialogs.DialogsList;
@@ -66,17 +65,17 @@ public class DialogsListActivity extends AppCompatActivity {
         }
         dialogsListAdapter.setItems(getDialogs());
 
-        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener() {
+        dialogsListAdapter.setOnItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnItemClickListener<DefaultDialog>() {
             @Override
-            public void onItemClick(View view, IDialog dialog) {
+            public void onItemClick(View view, DefaultDialog dialog) {
                 MessagesListActivity.open(DialogsListActivity.this, type);
             }
         });
 
-        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnLongItemClickListener() {
+        dialogsListAdapter.setOnLongItemClickListener(new DialogsListAdapter.BaseDialogViewHolder.OnLongItemClickListener<DefaultDialog>() {
             @Override
-            public void onLongItemClick(View view, IDialog dialog) {
-                Toast.makeText(DialogsListActivity.this, "Show menu",
+            public void onLongItemClick(View view, DefaultDialog dialog) {
+                Toast.makeText(DialogsListActivity.this, dialog.getDialogName(),
                         Toast.LENGTH_SHORT).show();
             }
         });

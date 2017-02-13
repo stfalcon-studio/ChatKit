@@ -20,7 +20,7 @@ To start using the component you just need to follow several steps:
 ```
 #### Set an adapter
 
-Adapter’s constructor takes a sender id (a user on whose behalf messages are sending) and implementation of ImageLoader to load avatars in messages ([Click here to learn more about image loading](docs/IMAGE_LOADER.md)).
+Adapter’s constructor takes a sender id (a user on whose behalf messages are sending) and implementation of ImageLoader to load avatars in messages ([Click here to learn more about image loading](IMAGE_LOADER.md)).
 
 
 ```java
@@ -196,7 +196,7 @@ If the shape of bubble doesn’t suits you, set your own drawable through the `i
 
 In case if you don’t like default data format, you can set it with only one line by using java date format — `dateHeaderFormat="dd.MM.yy"`
 
-You can view [all available attributes here](docs/STYLES_ATTR.md)
+You can view [all available attributes here](STYLES_ATTR.md)
 
 #### Create your own layout
 

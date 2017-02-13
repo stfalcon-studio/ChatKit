@@ -20,7 +20,7 @@ To start using the component, you just need to follow a few steps:
 
 #### Set an adapter
 
-For `DialogsList` default realization you just need to transfer dialog list and dialog avatar image upload realization to adapter’s constructor ([Click here to know more about image loading](docs/IMAGE_LOADER.md)).
+For `DialogsList` default realization you just need to transfer dialog list and dialog avatar image upload realization to adapter’s constructor ([Click here to know more about image loading](IMAGE_LOADER.md)).
 
 ```java
 DialogsListAdapter dialogsListAdapter = new DialogsListAdapter<>(dialogs, new ImageLoader() {
@@ -180,7 +180,7 @@ app:dialogUnreadTitleTextStyle="bold"/>
 <img src="images/DIALOGS_CUSTOM_ATTRS_STYLE.png">
 </p>
 
-You can view [all available attributes here](docs/STYLES_ATTR.md)
+You can view [all available attributes here](STYLES_ATTR.md)
 
 #### Create your own layout
 

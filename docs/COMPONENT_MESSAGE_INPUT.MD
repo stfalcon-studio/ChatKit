@@ -56,4 +56,4 @@ For example, we need to change color and size of the text, replace button’s ba
 ```
 <img src="images/MESSAGE_INPUT_STYLED_EMPTY.png" width="50%"><img src="images/MESSAGE_INPUT_STYLED_FILLED.png" width="50%">
 
-You can view [all available attributes here](docs/STYLES_ATTR.md)
+You can view [all available attributes here](STYLES_ATTR.md)

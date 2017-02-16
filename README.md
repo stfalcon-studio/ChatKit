@@ -1,6 +1,6 @@
 # ChatKit for Android
 
-ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management
+ChatKit is a library designed to simplify the development of UI for such a trivial task as chat. It has flexible possibilities for styling, customizing and data management
 
 <p align="center">
 <img src="images/HEADER.png">
@@ -12,7 +12,7 @@ ChatKit - is a library designed to simplify the development of UI for such a tri
 * Fully customizable layouts - setting styles out of the box (use your own colors, text appearances, drawables, selectors and sizes) or even create your own custom markup or/and holders for unique behaviour;
 * List of dialogs, including tete-a-tete and group chats, markers for unread messages and last user message view;
 * List of messages (incoming and outcoming) with history pagination and already calculated dates headers;
-* Different avatars with no concrete realization of image loading - you can use any library you want;
+* Different avatars with no specific realization of image loading - you can use any library you want;
 * Selection mode for interacting with messages;
 * Easy dates formatting;
 * Your own models for dialogs and messages - there is no converting needed;
@@ -51,6 +51,13 @@ Check out the [sample project](/sample/src/main) to try it yourself! :wink:
 
 ### Change log
 [See the changelog](docs/CHANGELOG.md) to be aware of latest improvements and fixes.
+
+### Gratitude
+
+We were inspired by [JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController) library for iOS. In our plans to improve functionality to give Android developers wide opportunities to create fast and good-looking UI for chats in their applications.
+
+Please, contact us via github@stfalcon.com if you are using this library, just to let us know :)
+Thank you!
 
 ### License
 

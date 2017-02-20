@@ -20,7 +20,7 @@ ChatKit is a library designed to simplify the development of UI for such a trivi
 * Custom animations (according to RecyclerView usage).
 
 ### Who we are
-Need iOS and Android apps, MVP development or prototyping? Contact us via info@stfalcon.com. We develop software since 2009, and we're known experts in this field. Check out our [portfolio](https://stfalcon.com/en/portfolio).
+Need iOS and Android apps, MVP development or prototyping? Contact us via info@stfalcon.com. We develop software since 2009, and we're known experts in this field. Check out our [portfolio](https://stfalcon.com/en/portfolio) and see more libraries from [stfalcon-studio](https://stfalcon-studio.github.io/).
 
 ### How to use
 

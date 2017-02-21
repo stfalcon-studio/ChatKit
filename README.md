@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/troy379/maven/ChatKit/images/download.svg) ](https://bintray.com/troy379/maven/ChatKit/_latestVersion)
+
 # ChatKit for Android
 
 ChatKit is a library designed to simplify the development of UI for such a trivial task as chat. It has flexible possibilities for styling, customizing and data management
@@ -32,7 +34,7 @@ To implement all of the features above you can use the following components:
 
 Download via Gradle:
 ```gradle
-compile 'com.github.stfalcon:chatkit:0.1.0'
+compile 'com.github.stfalcon:chatkit:0.1.1'
 ```
 
 or Maven:
@@ -40,7 +42,7 @@ or Maven:
 <dependency>
   <groupId>com.github.stfalcon</groupId>
   <artifactId>chatkit</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <type>pom</type>
 </dependency>
 ```

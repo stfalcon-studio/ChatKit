@@ -223,9 +223,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      */
     public void update(String oldId, MESSAGE newMessage) {
         int position = getMessagePositionById(oldId);
-        Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
-        items.set(position, element);
-        notifyItemChanged(position);
+        if (position >= 0) {
+            Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
+            items.set(position, element);
+            notifyItemChanged(position);
+        }
     }
 
     /**
@@ -782,7 +784,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             boolean isAvatarExists = imageLoader != null && message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
             userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-            if (isAvatarExists && imageLoader != null) {
+            if (isAvatarExists) {
                 imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
             }
         }

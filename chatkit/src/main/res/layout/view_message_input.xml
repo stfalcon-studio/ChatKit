@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/buttonSpace"
         android:layout_toStartOf="@+id/buttonSpace"
-        android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"/>
+        android:inputType="textAutoCorrect|textAutoComplete|textMultiLine|textCapSentences"/>
 
     <android.support.v4.widget.Space
         android:id="@+id/buttonSpace"

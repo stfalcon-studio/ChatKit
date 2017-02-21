@@ -34,14 +34,14 @@ import com.stfalcon.chatkit.R;
 import java.lang.reflect.Field;
 
 /**
- *  Component for input outcoming messages
+ * Component for input outcoming messages
  */
 public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
 
-    private EditText messageInput;
-    private ImageButton messageSendButton;
-    private Space buttonSpace;
+    protected EditText messageInput;
+    protected ImageButton messageSendButton;
+    protected Space buttonSpace;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -63,12 +63,30 @@ public class MessageInput extends RelativeLayout
 
     /**
      * Set callback to be invoked when user entered his input
+     *
      * @param inputListener input callback
      */
     public void setInputListener(InputListener inputListener) {
         this.inputListener = inputListener;
     }
 
+    /**
+     * Returns EditText for messages input
+     *
+     * @return EditText
+     */
+    public EditText getInputEditText() {
+        return messageInput;
+    }
+
+    /**
+     * Returns `submit` button
+     *
+     * @return ImageButton
+     */
+    public ImageButton getButton() {
+        return messageSendButton;
+    }
 
     @Override
     public void onClick(View view) {
@@ -101,7 +119,7 @@ public class MessageInput extends RelativeLayout
     }
 
     /**
-     *This method is called to notify you that, somewhere within s, the text has been changed.
+     * This method is called to notify you that, somewhere within s, the text has been changed.
      */
     @Override
     public void afterTextChanged(Editable editable) {

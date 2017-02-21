@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -23,8 +22,7 @@ import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
 import java.util.ArrayList;
 
 public class MessagesListActivity extends AppCompatActivity
-        implements MessagesListAdapter.SelectionListener,
-        Toolbar.OnMenuItemClickListener {
+        implements MessagesListAdapter.SelectionListener {
 
     private static final String ARG_TYPE = "type";
 
@@ -88,16 +86,6 @@ public class MessagesListActivity extends AppCompatActivity
     public void onSelectionChanged(int count) {
         this.selectionCount = count;
         menu.findItem(R.id.action_delete).setVisible(count > 0);
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_delete:
-                adapter.deleteSelectedMessages();
-                break;
-        }
-        return false;
     }
 
     @Override

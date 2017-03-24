@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.dialogs.DialogsList;
+import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.sample.ChatSamplesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.fixtures.DialogsListFixtures;
@@ -21,7 +21,14 @@ import com.stfalcon.chatkit.sample.models.DefaultDialog;
 import java.util.List;
 
 public class DialogsListActivity extends AppCompatActivity {
+
     private static final String ARG_TYPE = "type";
+
+    public static void open(Activity activity, ChatSamplesListAdapter.ChatSample.Type type) {
+        Intent intent = new Intent(activity, DialogsListActivity.class);
+        intent.putExtra(ARG_TYPE, type);
+        activity.startActivity(intent);
+    }
 
     private DialogsListAdapter<DefaultDialog> dialogsListAdapter;
     private ChatSamplesListAdapter.ChatSample.Type type;
@@ -94,11 +101,5 @@ public class DialogsListActivity extends AppCompatActivity {
 
     private List<DefaultDialog> getDialogs() {
         return DialogsListFixtures.getChatList();
-    }
-
-    public static void open(Activity activity, ChatSamplesListAdapter.ChatSample.Type type) {
-        Intent intent = new Intent(activity, DialogsListActivity.class);
-        intent.putExtra(ARG_TYPE, type);
-        activity.startActivity(intent);
     }
 }

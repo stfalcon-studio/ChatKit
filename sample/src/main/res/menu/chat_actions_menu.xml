@@ -7,4 +7,10 @@
         android:title="@string/action_delete"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_copy"
+        android:icon="@drawable/ic_content_copy_white_24dp"
+        android:title="@string/action_copy"
+        app:showAsAction="always"/>
+
 </menu>

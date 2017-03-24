@@ -18,13 +18,22 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.ChatSamplesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
+import com.stfalcon.chatkit.sample.utils.AppUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MessagesListActivity extends AppCompatActivity
         implements MessagesListAdapter.SelectionListener {
 
     private static final String ARG_TYPE = "type";
+
+    public static void open(Activity activity, ChatSamplesListAdapter.ChatSample.Type type) {
+        Intent intent = new Intent(activity, MessagesListActivity.class);
+        intent.putExtra(ARG_TYPE, type);
+        activity.startActivity(intent);
+    }
 
     private MessagesList messagesList;
     private MessagesListAdapter<MessagesListFixtures.Message> adapter;
@@ -78,6 +87,11 @@ public class MessagesListActivity extends AppCompatActivity
             case R.id.action_delete:
                 adapter.deleteSelectedMessages();
                 break;
+            case R.id.action_copy:
+                adapter.copySelectedMessagesText(this, getMessageStringFormatter(), true);
+
+                AppUtils.showToast(this, R.string.copied_message, true);
+                break;
         }
         return true;
     }
@@ -86,6 +100,7 @@ public class MessagesListActivity extends AppCompatActivity
     public void onSelectionChanged(int count) {
         this.selectionCount = count;
         menu.findItem(R.id.action_delete).setVisible(count > 0);
+        menu.findItem(R.id.action_copy).setVisible(count > 0);
     }
 
     @Override
@@ -150,12 +165,6 @@ public class MessagesListActivity extends AppCompatActivity
         messagesList.setAdapter(adapter);
     }
 
-    public static void open(Activity activity, ChatSamplesListAdapter.ChatSample.Type type) {
-        Intent intent = new Intent(activity, MessagesListActivity.class);
-        intent.putExtra(ARG_TYPE, type);
-        activity.startActivity(intent);
-    }
-
     private void loadMessages() {
         new Handler().postDelayed(new Runnable() { //imitation of internet connection
             @Override
@@ -164,5 +173,18 @@ public class MessagesListActivity extends AppCompatActivity
                 adapter.addToEnd(messages, true);
             }
         }, 1000);
+    }
+
+    private MessagesListAdapter.Formatter<MessagesListFixtures.Message> getMessageStringFormatter() {
+        return new MessagesListAdapter.Formatter<MessagesListFixtures.Message>() {
+            @Override
+            public String format(MessagesListFixtures.Message message) {
+                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
+                        .format(message.getCreatedAt());
+
+                return String.format(Locale.getDefault(), "%s: %s (%s)",
+                        message.getUser().getName(), message.getText(), createdAt);
+            }
+        };
     }
 }

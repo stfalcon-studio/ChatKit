@@ -11,17 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
+        app:dateHeaderFormat="dd MMMM yyyy"
         app:incomingDefaultBubbleColor="@color/ivory"
         app:incomingDefaultBubblePressedColor="@color/ivory_dark"
         app:incomingDefaultBubbleSelectedColor="@color/gray"
         app:incomingTextColor="@color/black"
+        app:incomingTextLinkColor="@color/green"
         app:incomingTextSize="18sp"
         app:outcomingDefaultBubbleColor="@color/green"
         app:outcomingDefaultBubblePressedColor="@color/green_dark"
         app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
         app:outcomingTextColor="@color/white"
+        app:outcomingTextLinkColor="@color/brown"
         app:outcomingTextSize="18sp"
-        app:dateHeaderFormat="dd MMMM yyyy"/>
+        app:textAutoLink="all"/>
 
     <View
         android:layout_width="match_parent"

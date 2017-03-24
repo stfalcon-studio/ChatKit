@@ -16,6 +16,9 @@
 
 package com.stfalcon.chatkit.messages;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -326,6 +329,34 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
+     * Returns selected messages text and do {@link #unselectAllItems()} for you.
+     *
+     * @param formatter The formatter that allows you to format your message model when copying.
+     * @param reverse   Change ordering when copying messages.
+     * @return formatted text by {@link Formatter}. If it's {@code null} - {@code MESSAGE#toString()} will be used.
+     */
+    public String getSelectedMessagesText(Formatter<MESSAGE> formatter, boolean reverse) {
+        String copiedText = getSelectedText(formatter, reverse);
+        unselectAllItems();
+        return copiedText;
+    }
+
+    /**
+     * Copies text to device clipboard and returns selected messages text. Also it does {@link #unselectAllItems()} for you.
+     *
+     * @param context   The context.
+     * @param formatter The formatter that allows you to format your message model when copying.
+     * @param reverse   Change ordering when copying messages.
+     * @return formatted text by {@link Formatter}. If it's {@code null} - {@code MESSAGE#toString()} will be used.
+     */
+    public String copySelectedMessagesText(Context context, Formatter<MESSAGE> formatter, boolean reverse) {
+        String copiedText = getSelectedText(formatter, reverse);
+        copyToClipboard(context, copiedText);
+        unselectAllItems();
+        return copiedText;
+    }
+
+    /**
      * Unselect all of the selected messages. Notifies {@link SelectionListener} with zero count.
      */
     public void unselectAllItems() {
@@ -517,6 +548,27 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         };
     }
 
+    private String getSelectedText(Formatter<MESSAGE> formatter, boolean reverse) {
+        StringBuilder builder = new StringBuilder();
+
+        ArrayList<MESSAGE> selectedMessages = getSelectedMessages();
+        if (reverse) Collections.reverse(selectedMessages);
+
+        for (MESSAGE message : selectedMessages) {
+            builder.append(formatter == null
+                    ? message.toString()
+                    : formatter.format(message));
+        }
+
+        return builder.toString();
+    }
+
+    private void copyToClipboard(Context context, String copiedText) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(copiedText, copiedText);
+        clipboard.setPrimaryClip(clip);
+    }
+
     void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         this.layoutManager = layoutManager;
     }
@@ -592,6 +644,20 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          * @param message clicked message.
          */
         void onMessageLongClick(MESSAGE message);
+    }
+
+    /**
+     * Interface used to format your message model when copying.
+     */
+    public interface Formatter<MESSAGE> {
+
+        /**
+         * Formats an string representation of the message object.
+         *
+         * @param message The object that should be formatted.
+         * @return Formatted text.
+         */
+        String format(MESSAGE message);
     }
 
     /*

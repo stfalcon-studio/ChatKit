@@ -19,6 +19,7 @@ package com.stfalcon.chatkit.messages;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -51,8 +52,10 @@ class MessagesListStyle extends Style {
     private int incomingDefaultBubblePaddingBottom;
     private int incomingTextColor;
     private int incomingTextSize;
+    private int incomingTextStyle;
     private int incomingTimeTextColor;
     private int incomingTimeTextSize;
+    private int incomingTimeTextStyle;
 
     private int outcomingBubbleDrawable;
     private int outcomingDefaultBubbleColor;
@@ -64,13 +67,16 @@ class MessagesListStyle extends Style {
     private int outcomingDefaultBubblePaddingBottom;
     private int outcomingTextColor;
     private int outcomingTextSize;
+    private int outcomingTextStyle;
     private int outcomingTimeTextColor;
     private int outcomingTimeTextSize;
+    private int outcomingTimeTextStyle;
 
-    private int dateHeaderTextColor;
-    private int dateHeaderTextSize;
     private int dateHeaderPadding;
     private String dateHeaderFormat;
+    private int dateHeaderTextColor;
+    private int dateHeaderTextSize;
+    private int dateHeaderTextStyle;
 
     static MessagesListStyle parse(Context context, AttributeSet attrs) {
         MessagesListStyle style = new MessagesListStyle(context, attrs);
@@ -107,10 +113,12 @@ class MessagesListStyle extends Style {
                 style.getColor(R.color.dark_grey_two));
         style.incomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTextSize,
                 style.getDimension(R.dimen.message_text_size));
+        style.incomingTextStyle = typedArray.getInt(R.styleable.MessagesList_incomingTextStyle, Typeface.NORMAL);
         style.incomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_incomingTimeTextColor,
                 style.getColor(R.color.warm_grey_four));
         style.incomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTimeTextSize,
                 style.getDimension(R.dimen.message_time_text_size));
+        style.incomingTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_incomingTimeTextStyle, Typeface.NORMAL);
 
         style.outcomingBubbleDrawable = typedArray.getResourceId(R.styleable.MessagesList_outcomingBubbleDrawable, -1);
         style.outcomingDefaultBubbleColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubbleColor,
@@ -132,18 +140,21 @@ class MessagesListStyle extends Style {
                 style.getColor(R.color.white));
         style.outcomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTextSize,
                 style.getDimension(R.dimen.message_text_size));
+        style.outcomingTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTextStyle, Typeface.NORMAL);
         style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTimeTextColor,
                 style.getColor(R.color.white60));
         style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTimeTextSize,
                 style.getDimension(R.dimen.message_time_text_size));
+        style.outcomingTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTimeTextStyle, Typeface.NORMAL);
 
+        style.dateHeaderPadding = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderPadding,
+                style.getDimension(R.dimen.message_date_header_padding));
+        style.dateHeaderFormat = typedArray.getString(R.styleable.MessagesList_dateHeaderFormat);
         style.dateHeaderTextColor = typedArray.getColor(R.styleable.MessagesList_dateHeaderTextColor,
                 style.getColor(R.color.warm_grey_two));
         style.dateHeaderTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderTextSize,
                 style.getDimension(R.dimen.message_date_header_text_size));
-        style.dateHeaderPadding = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderPadding,
-                style.getDimension(R.dimen.message_date_header_padding));
-        style.dateHeaderFormat = typedArray.getString(R.styleable.MessagesList_dateHeaderFormat);
+        style.dateHeaderTextStyle = typedArray.getInt(R.styleable.MessagesList_dateHeaderTextStyle, Typeface.NORMAL);
 
         typedArray.recycle();
 
@@ -215,6 +226,10 @@ class MessagesListStyle extends Style {
         return incomingTextSize;
     }
 
+    int getIncomingTextStyle() {
+        return incomingTextStyle;
+    }
+
     Drawable getOutcomingBubbleDrawable() {
         if (outcomingBubbleDrawable == -1) {
             return getMessageSelector(outcomingDefaultBubbleColor, outcomingDefaultBubbleSelectedColor,
@@ -248,12 +263,24 @@ class MessagesListStyle extends Style {
         return outcomingTextSize;
     }
 
+    int getOutcomingTextStyle() {
+        return outcomingTextStyle;
+    }
+
+    int getOutcomingTimeTextStyle() {
+        return outcomingTimeTextStyle;
+    }
+
     int getDateHeaderTextColor() {
         return dateHeaderTextColor;
     }
 
     int getDateHeaderTextSize() {
         return dateHeaderTextSize;
+    }
+
+    int getDateHeaderTextStyle() {
+        return dateHeaderTextStyle;
     }
 
     int getDateHeaderPadding() {
@@ -266,6 +293,10 @@ class MessagesListStyle extends Style {
 
     int getIncomingTimeTextSize() {
         return incomingTimeTextSize;
+    }
+
+    int getIncomingTimeTextStyle() {
+        return incomingTimeTextStyle;
     }
 
     int getIncomingTimeTextColor() {

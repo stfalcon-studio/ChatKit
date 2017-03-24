@@ -47,10 +47,19 @@
         <attr name="incomingBubblePaddingBottom" format="dimension|reference" />
         <attr name="incomingTextColor" format="color|reference" />
         <attr name="incomingTextSize" format="dimension|reference" />
-        <!--TODO text style-->
+        <attr name="incomingTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
         <attr name="incomingTimeTextColor" format="color|reference" />
         <attr name="incomingTimeTextSize" format="dimension|reference" />
-        <!--TODO text style-->
+        <attr name="incomingTimeTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
 
         <attr name="outcomingBubbleDrawable" format="reference" />
         <attr name="outcomingDefaultBubbleColor" format="color|reference" />
@@ -62,16 +71,29 @@
         <attr name="outcomingBubblePaddingBottom" format="dimension|reference" />
         <attr name="outcomingTextColor" format="color|reference" />
         <attr name="outcomingTextSize" format="dimension|reference" />
-        <!--TODO text style-->
+        <attr name="outcomingTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
         <attr name="outcomingTimeTextColor" format="color|reference" />
         <attr name="outcomingTimeTextSize" format="dimension|reference" />
-        <!--TODO text style-->
+        <attr name="outcomingTimeTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
 
-        <attr name="dateHeaderTextColor" format="color|reference" />
-        <attr name="dateHeaderTextSize" format="dimension|reference" />
         <attr name="dateHeaderPadding" format="dimension|reference" />
         <attr name="dateHeaderFormat" format="string|reference" />
-        <!--TODO text style-->
+        <attr name="dateHeaderTextColor" format="color|reference" />
+        <attr name="dateHeaderTextSize" format="dimension|reference" />
+        <attr name="dateHeaderTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
 
     </declare-styleable>
 

@@ -865,6 +865,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             text.setTextColor(style.getIncomingTextColor());
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
+            text.setTypeface(text.getTypeface(), style.getIncomingTextStyle());
             text.setAutoLinkMask(style.getTextAutoLinkMask());
             text.setLinkTextColor(style.getIncomingTextLinkColor());
 
@@ -873,6 +874,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             time.setTextColor(style.getIncomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
+            time.setTypeface(time.getTypeface(), style.getIncomingTimeTextStyle());
         }
     }
 
@@ -927,12 +929,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             text.setTextColor(style.getOutcomingTextColor());
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
+            text.setTypeface(text.getTypeface(), style.getOutcomingTextStyle());
             text.setAutoLinkMask(style.getTextAutoLinkMask());
             text.setLinkTextColor(style.getOutcomingTextLinkColor());
             text.setLinkTextColor(style.getOutcomingTextLinkColor());
 
             time.setTextColor(style.getOutcomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
+            time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
         }
     }
 
@@ -964,8 +968,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void applyStyle(MessagesListStyle style) {
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
             text.setTextColor(style.getDateHeaderTextColor());
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
+            text.setTypeface(text.getTypeface(), style.getDateHeaderTextStyle());
             text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
                     style.getDateHeaderPadding(), style.getDateHeaderPadding());
             dateFormat = style.getDateHeaderFormat();

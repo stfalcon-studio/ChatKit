@@ -22,6 +22,18 @@
 
     <declare-styleable name="MessagesList">
 
+        <attr name="textAutoLink">
+            <flag name="all" value="15" />
+            <flag name="email" value="2" />
+            <flag name="map" value="8" />
+            <flag name="none" value="0" />
+            <flag name="phone" value="4" />
+            <flag name="web" value="1" />
+        </attr>
+
+        <attr name="incomingTextLinkColor" format="color|reference" />
+        <attr name="outcomingTextLinkColor" format="color|reference" />
+
         <attr name="incomingAvatarWidth" format="dimension|reference" />
         <attr name="incomingAvatarHeight" format="dimension|reference" />
 
@@ -39,7 +51,6 @@
         <attr name="incomingTimeTextColor" format="color|reference" />
         <attr name="incomingTimeTextSize" format="dimension|reference" />
         <!--TODO text style-->
-
 
         <attr name="outcomingBubbleDrawable" format="reference" />
         <attr name="outcomingDefaultBubbleColor" format="color|reference" />

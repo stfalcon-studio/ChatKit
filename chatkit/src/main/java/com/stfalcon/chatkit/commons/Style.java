@@ -24,7 +24,6 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -89,7 +88,7 @@ public abstract class Style {
     }
 
     protected final Drawable getVectorDrawable(@DrawableRes int drawable) {
-        return resources.getDrawable(drawable);
+        return ContextCompat.getDrawable(context, drawable);
     }
 
 }

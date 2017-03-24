@@ -865,6 +865,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             text.setTextColor(style.getIncomingTextColor());
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
+            text.setAutoLinkMask(style.getTextAutoLinkMask());
+            text.setLinkTextColor(style.getIncomingTextLinkColor());
 
             userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
             userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
@@ -925,6 +927,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
             text.setTextColor(style.getOutcomingTextColor());
             text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
+            text.setAutoLinkMask(style.getTextAutoLinkMask());
+            text.setLinkTextColor(style.getOutcomingTextLinkColor());
+            text.setLinkTextColor(style.getOutcomingTextLinkColor());
 
             time.setTextColor(style.getOutcomingTimeTextColor());
             time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());

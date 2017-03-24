@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016 stfalcon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,6 +33,11 @@ import com.stfalcon.chatkit.commons.Style;
  * Style for MessagesListStyle customization by xml attributes
  */
 class MessagesListStyle extends Style {
+
+    private int textAutoLinkMask;
+    private int incomingTextLinkColor;
+    private int outcomingTextLinkColor;
+
     private int incomingAvatarWidth;
     private int incomingAvatarHeight;
 
@@ -71,67 +76,73 @@ class MessagesListStyle extends Style {
         MessagesListStyle style = new MessagesListStyle(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessagesList);
 
+        style.textAutoLinkMask = typedArray.getInt(R.styleable.MessagesList_textAutoLink, 0);
+        style.incomingTextLinkColor = typedArray.getColor(R.styleable.MessagesList_incomingTextLinkColor,
+                style.getSystemAccentColor());
+        style.outcomingTextLinkColor = typedArray.getColor(R.styleable.MessagesList_outcomingTextLinkColor,
+                style.getSystemAccentColor());
+
         style.incomingAvatarWidth = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingAvatarWidth,
-                context.getResources().getDimensionPixelSize(R.dimen.message_avatar_width));
+                style.getDimension(R.dimen.message_avatar_width));
         style.incomingAvatarHeight = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingAvatarHeight,
-                context.getResources().getDimensionPixelSize(R.dimen.message_avatar_height));
+                style.getDimension(R.dimen.message_avatar_height));
 
         style.incomingBubbleDrawable = typedArray.getResourceId(R.styleable.MessagesList_incomingBubbleDrawable, -1);
         style.incomingDefaultBubbleColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultBubbleColor,
-                ContextCompat.getColor(context, R.color.white_two));
+                style.getColor(R.color.white_two));
         style.incomingDefaultBubblePressedColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultBubblePressedColor,
-                ContextCompat.getColor(context, R.color.white_two));
+                style.getColor(R.color.white_two));
         style.incomingDefaultBubbleSelectedColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultBubbleSelectedColor,
-                ContextCompat.getColor(context, R.color.cornflower_blue_two_24));
+                style.getColor(R.color.cornflower_blue_two_24));
 
         style.incomingDefaultBubblePaddingLeft = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingLeft,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_left));
+                style.getDimension(R.dimen.message_padding_left));
         style.incomingDefaultBubblePaddingRight = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingRight,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_right));
+                style.getDimension(R.dimen.message_padding_right));
         style.incomingDefaultBubblePaddingTop = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingTop,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_top));
+                style.getDimension(R.dimen.message_padding_top));
         style.incomingDefaultBubblePaddingBottom = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingBottom,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_bottom));
+                style.getDimension(R.dimen.message_padding_bottom));
         style.incomingTextColor = typedArray.getColor(R.styleable.MessagesList_incomingTextColor,
-                ContextCompat.getColor(context, R.color.dark_grey_two));
+                style.getColor(R.color.dark_grey_two));
         style.incomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTextSize,
-                context.getResources().getDimensionPixelSize(R.dimen.message_text_size));
+                style.getDimension(R.dimen.message_text_size));
         style.incomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_incomingTimeTextColor,
-                ContextCompat.getColor(context, R.color.warm_grey_four));
+                style.getColor(R.color.warm_grey_four));
         style.incomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTimeTextSize,
-                context.getResources().getDimensionPixelSize(R.dimen.message_time_text_size));
+                style.getDimension(R.dimen.message_time_text_size));
 
         style.outcomingBubbleDrawable = typedArray.getResourceId(R.styleable.MessagesList_outcomingBubbleDrawable, -1);
         style.outcomingDefaultBubbleColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubbleColor,
-                ContextCompat.getColor(context, R.color.cornflower_blue_two));
+                style.getColor(R.color.cornflower_blue_two));
         style.outcomingDefaultBubblePressedColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubblePressedColor,
-                ContextCompat.getColor(context, R.color.cornflower_blue_two));
+                style.getColor(R.color.cornflower_blue_two));
         style.outcomingDefaultBubbleSelectedColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubbleSelectedColor,
-                ContextCompat.getColor(context, R.color.cornflower_blue_two_24));
+                style.getColor(R.color.cornflower_blue_two_24));
 
         style.outcomingDefaultBubblePaddingLeft = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingBubblePaddingLeft,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_left));
+                style.getDimension(R.dimen.message_padding_left));
         style.outcomingDefaultBubblePaddingRight = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingBubblePaddingRight,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_right));
+                style.getDimension(R.dimen.message_padding_right));
         style.outcomingDefaultBubblePaddingTop = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingBubblePaddingTop,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_top));
+                style.getDimension(R.dimen.message_padding_top));
         style.outcomingDefaultBubblePaddingBottom = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingBubblePaddingBottom,
-                context.getResources().getDimensionPixelSize(R.dimen.message_padding_bottom));
+                style.getDimension(R.dimen.message_padding_bottom));
         style.outcomingTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTextColor,
-                ContextCompat.getColor(context, R.color.white));
+                style.getColor(R.color.white));
         style.outcomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTextSize,
-                context.getResources().getDimensionPixelSize(R.dimen.message_text_size));
+                style.getDimension(R.dimen.message_text_size));
         style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTimeTextColor,
-                ContextCompat.getColor(context, R.color.white60));
+                style.getColor(R.color.white60));
         style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTimeTextSize,
-                context.getResources().getDimensionPixelSize(R.dimen.message_time_text_size));
+                style.getDimension(R.dimen.message_time_text_size));
 
         style.dateHeaderTextColor = typedArray.getColor(R.styleable.MessagesList_dateHeaderTextColor,
-                ContextCompat.getColor(context, R.color.warm_grey_two));
+                style.getColor(R.color.warm_grey_two));
         style.dateHeaderTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderTextSize,
-                context.getResources().getDimensionPixelSize(R.dimen.message_date_header_text_size));
+                style.getDimension(R.dimen.message_date_header_text_size));
         style.dateHeaderPadding = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderPadding,
-                context.getResources().getDimensionPixelSize(R.dimen.message_date_header_padding));
+                style.getDimension(R.dimen.message_date_header_padding));
         style.dateHeaderFormat = typedArray.getString(R.styleable.MessagesList_dateHeaderFormat);
 
         typedArray.recycle();
@@ -139,11 +150,12 @@ class MessagesListStyle extends Style {
         return style;
     }
 
-    MessagesListStyle(Context context, AttributeSet attrs) {
+    private MessagesListStyle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    Drawable getMessageSelector(@ColorInt int normalColor, @ColorInt int selectedColor, @ColorInt int pressedColor, @DrawableRes int shape) {
+    private Drawable getMessageSelector(@ColorInt int normalColor, @ColorInt int selectedColor,
+                                        @ColorInt int pressedColor, @DrawableRes int shape) {
 
         Drawable button = DrawableCompat.wrap(getVectorDrawable(shape));
         DrawableCompat.setTintList(
@@ -157,6 +169,18 @@ class MessagesListStyle extends Style {
                         new int[]{selectedColor, pressedColor, normalColor}
                 ));
         return button;
+    }
+
+    int getTextAutoLinkMask() {
+        return textAutoLinkMask;
+    }
+
+    int getIncomingTextLinkColor() {
+        return incomingTextLinkColor;
+    }
+
+    int getOutcomingTextLinkColor() {
+        return outcomingTextLinkColor;
     }
 
     int getIncomingAvatarWidth() {
@@ -236,7 +260,7 @@ class MessagesListStyle extends Style {
         return dateHeaderPadding;
     }
 
-    public String getDateHeaderFormat() {
+    String getDateHeaderFormat() {
         return dateHeaderFormat;
     }
 

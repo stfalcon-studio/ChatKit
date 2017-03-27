@@ -17,16 +17,20 @@ public final class MessagesListFixtures extends FixturesData {
         throw new AssertionError();
     }
 
-    public static ArrayList<Message> getMessages() {
+    public static ArrayList<Message> getMessages(Date startDate) {
         ArrayList<MessagesListFixtures.Message> messages = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Message message = new MessagesListFixtures.Message();
+            int count = rnd.nextInt(5) + 1;
+            for (int j = 0; j < count; j++) {
+                Message message = new MessagesListFixtures.Message();
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-            message.createdAt = calendar.getTime();
+                Calendar calendar = Calendar.getInstance();
+                if (startDate != null) calendar.setTime(startDate);
+                calendar.add(Calendar.DAY_OF_MONTH, -(i * i + 1));
+                message.createdAt = calendar.getTime();
 
-            messages.add(message);
+                messages.add(message);
+            }
         }
         return messages;
     }

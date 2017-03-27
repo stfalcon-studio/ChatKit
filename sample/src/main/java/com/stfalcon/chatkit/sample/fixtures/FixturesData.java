@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * Created by Anton Bevza on 1/13/17.
  */
 
-public class FixturesData {
+class FixturesData {
 
-    protected static ArrayList<String> avatars = new ArrayList<String>() {
+    static ArrayList<String> avatars = new ArrayList<String>() {
         {
             add("http://i.imgur.com/pv1tBmT.png");
             add("http://i.imgur.com/R3Jm1CL.png");
@@ -17,14 +17,16 @@ public class FixturesData {
             add("http://i.imgur.com/Qn9UesZ.png");
         }
     };
-    protected static final ArrayList<String> groupChatImages = new ArrayList<String>() {
+
+    static final ArrayList<String> groupChatImages = new ArrayList<String>() {
         {
             add("http://i.imgur.com/hRShCT3.png");
             add("http://i.imgur.com/zgTUcL3.png");
             add("http://i.imgur.com/mRqh5w1.png");
         }
     };
-    protected static final ArrayList<String> names = new ArrayList<String>() {
+
+    static final ArrayList<String> names = new ArrayList<String>() {
         {
             add("Samuel Reynolds");
             add("Kyle Hardman");
@@ -39,14 +41,16 @@ public class FixturesData {
             add("Michelle Macey");
         }
     };
-    protected static final ArrayList<String> groupChatTitles = new ArrayList<String>() {
+
+    static final ArrayList<String> groupChatTitles = new ArrayList<String>() {
         {
             add("Samuel, Michelle");
             add("Jordan, Jordan, Zoe");
             add("Julia, Angel, Kyle, Jordan");
         }
     };
-    protected static final ArrayList<String> messages = new ArrayList<String>() {
+
+    static final ArrayList<String> messages = new ArrayList<String>() {
         {
             add("Hello!");
             add("Hello! No problem. I can today at 2 pm. And after we can go to the office.");
@@ -58,6 +62,7 @@ public class FixturesData {
             add("Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.");
         }
     };
-    public static SecureRandom rnd = new SecureRandom();
+
+    static SecureRandom rnd = new SecureRandom();
 
 }

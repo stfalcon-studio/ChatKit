@@ -22,6 +22,7 @@ import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class MessagesListActivity extends AppCompatActivity
@@ -37,7 +38,7 @@ public class MessagesListActivity extends AppCompatActivity
 
     private MessagesList messagesList;
     private MessagesListAdapter<MessagesListFixtures.Message> adapter;
-    private MessageInput input;
+    private Date lastLoadedDate;
     private int selectionCount;
 
     private Menu menu;
@@ -62,7 +63,7 @@ public class MessagesListActivity extends AppCompatActivity
         messagesList = (MessagesList) findViewById(R.id.messagesList);
         initMessagesAdapter();
 
-        input = (MessageInput) findViewById(R.id.input);
+        MessageInput input = (MessageInput) findViewById(R.id.input);
         input.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
@@ -169,8 +170,9 @@ public class MessagesListActivity extends AppCompatActivity
         new Handler().postDelayed(new Runnable() { //imitation of internet connection
             @Override
             public void run() {
-                ArrayList<MessagesListFixtures.Message> messages = MessagesListFixtures.getMessages();
-                adapter.addToEnd(messages, true);
+                ArrayList<MessagesListFixtures.Message> messages = MessagesListFixtures.getMessages(lastLoadedDate);
+                lastLoadedDate = messages.get(messages.size() - 1).getCreatedAt();
+                adapter.addToEnd(messages, false);
             }
         }, 1000);
     }

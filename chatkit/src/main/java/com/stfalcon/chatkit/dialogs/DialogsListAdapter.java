@@ -138,6 +138,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Returns {@code true} if, and only if, dialogs count in adapter is non-zero.
+     *
+     * @return {@code true} if size is 0, otherwise {@code false}
+     */
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    /**
      * clear dialogs list
      */
     public void clear() {

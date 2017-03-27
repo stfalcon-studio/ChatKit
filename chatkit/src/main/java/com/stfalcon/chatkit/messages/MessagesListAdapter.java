@@ -285,6 +285,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
+     * Returns {@code true} if, and only if, messages count in adapter is non-zero.
+     *
+     * @return {@code true} if size is 0, otherwise {@code false}
+     */
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    /**
      * Clears the messages list.
      */
     public void clear() {

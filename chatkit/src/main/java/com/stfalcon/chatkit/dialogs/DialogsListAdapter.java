@@ -55,6 +55,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private OnDialogClickListener<DIALOG> onDialogClickListener;
     private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
+    private DateFormatter.Formatter datesFormatter;
 
     /**
      * For default list item layout and view holder
@@ -95,6 +96,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         holder.setImageLoader(imageLoader);
         holder.setOnDialogClickListener(onDialogClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
+        holder.setDatesFormatter(datesFormatter);
         holder.onBind(items.get(position));
     }
 
@@ -126,6 +128,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * remove item with id
+     *
      * @param id dialog i
      */
     public void deleteById(String id) {
@@ -195,7 +198,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * Add dialog to dialogs list
      *
-     * @param dialog dialog item
+     * @param dialog   dialog item
      * @param position position in dialogs lost
      */
     public void addItem(int position, DIALOG dialog) {
@@ -307,6 +310,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
+    /**
+     * Sets custom {@link DateFormatter.Formatter} for text representation of last message date.
+     */
+    public void setDatesFormatter(DateFormatter.Formatter datesFormatter) {
+        this.datesFormatter = datesFormatter;
+    }
+
     //TODO ability to set style programmatically
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
@@ -326,10 +336,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /*
     * HOLDERS
     * */
-    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
+    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog>
+            extends ViewHolder<DIALOG> {
+
         protected ImageLoader imageLoader;
         protected OnDialogClickListener onDialogClickListener;
         protected OnDialogLongClickListener onLongItemClickListener;
+        protected DateFormatter.Formatter datesFormatter;
 
         public BaseDialogViewHolder(View itemView) {
             super(itemView);
@@ -345,6 +358,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
         void setOnLongItemClickListener(OnDialogLongClickListener onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
+        }
+
+        public void setDatesFormatter(DateFormatter.Formatter dateHeadersFormatter) {
+            this.datesFormatter = dateHeadersFormatter;
         }
     }
 
@@ -447,7 +464,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvName.setText(dialog.getDialogName());
 
             //Set Date
-            tvDate.setText(getDateString(dialog.getLastMessage().getCreatedAt()));
+            String formattedDate = null;
+            Date lastMessageDate = dialog.getLastMessage().getCreatedAt();
+            if (datesFormatter != null) formattedDate = datesFormatter.format(lastMessageDate);
+            tvDate.setText(formattedDate == null
+                    ? getDateString(lastMessageDate)
+                    : formattedDate);
 
             //Set Dialog avatar
             if (imageLoader != null) {

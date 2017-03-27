@@ -65,6 +65,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
+    private DateFormatter.Formatter dateHeadersFormatter;
 
     /**
      * For default list item layout and view holder.
@@ -131,6 +132,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
+        } else if (wrapper.item instanceof Date) {
+            ((DefaultDateHeaderViewHolder) holder).dateHeadersFormatter = dateHeadersFormatter;
         }
 
         holder.onBind(wrapper.item);
@@ -418,9 +421,16 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         this.loadMoreListener = loadMoreListener;
     }
 
+    /**
+     * Sets custom {@link DateFormatter.Formatter} for text representation of date headers.
+     */
+    public void setDateHeadersFormatter(DateFormatter.Formatter dateHeadersFormatter) {
+        this.dateHeadersFormatter = dateHeadersFormatter;
+    }
+
     /*
-    * PRIVATE METHODS
-    * */
+        * PRIVATE METHODS
+        * */
     private void recountDateHeaders() {
         List<Integer> indicesToDelete = new ArrayList<>();
 
@@ -964,6 +974,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         protected TextView text;
         protected String dateFormat;
+        protected DateFormatter.Formatter dateHeadersFormatter;
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
@@ -972,7 +983,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(Date date) {
-            text.setText(DateFormatter.format(date, dateFormat));
+            String formattedDate = null;
+            if (dateHeadersFormatter != null) formattedDate = dateHeadersFormatter.format(date);
+            text.setText(formattedDate == null ? DateFormatter.format(date, dateFormat) : formattedDate);
         }
 
         @Override
@@ -983,7 +996,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
                     style.getDateHeaderPadding(), style.getDateHeaderPadding());
             dateFormat = style.getDateHeaderFormat();
-            dateFormat = dateFormat == null ? DateFormatter.Template.STRING_MONTH.get() : dateFormat;
+            dateFormat = dateFormat == null ? DateFormatter.Template.STRING_DAY_MONTH_YEAR.get() : dateFormat;
         }
     }
 }

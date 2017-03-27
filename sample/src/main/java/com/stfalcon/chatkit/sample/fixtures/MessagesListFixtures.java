@@ -20,8 +20,8 @@ public final class MessagesListFixtures extends FixturesData {
     public static ArrayList<Message> getMessages(Date startDate) {
         ArrayList<MessagesListFixtures.Message> messages = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            int count = rnd.nextInt(5) + 1;
-            for (int j = 0; j < count; j++) {
+            int countPerDay = rnd.nextInt(5) + 1;
+            for (int j = 0; j < countPerDay; j++) {
                 Message message = new MessagesListFixtures.Message();
 
                 Calendar calendar = Calendar.getInstance();

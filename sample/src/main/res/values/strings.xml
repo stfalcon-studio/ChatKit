@@ -11,4 +11,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_copy">Copy</string>
     <string name="copied_message">Message copied!</string>
+
+    <string name="date_header_today">Today</string>
+    <string name="date_header_yesterday">Yesterday</string>
 </resources>

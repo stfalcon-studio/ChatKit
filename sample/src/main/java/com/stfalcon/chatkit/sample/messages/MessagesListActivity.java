@@ -19,6 +19,7 @@ import com.stfalcon.chatkit.sample.ChatSamplesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.fixtures.MessagesListFixtures;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
+import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -150,6 +151,20 @@ public class MessagesListActivity extends AppCompatActivity
         } else {
             adapter = new MessagesListAdapter<>("0", imageLoader);
             adapter.enableSelectionMode(this);
+            if (type == ChatSamplesListAdapter.ChatSample.Type.CUSTOM_ATTR) {
+                adapter.setDateHeadersFormatter(new DateFormatter.Formatter() {
+                    @Override
+                    public String format(Date date) {
+                        if (DateFormatter.isToday(date)) {
+                            return getString(R.string.date_header_today);
+                        } else if (DateFormatter.isYesterday(date)) {
+                            return getString(R.string.date_header_yesterday);
+                        } else {
+                            return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
+                        }
+                    }
+                });
+            }
         }
 
         adapter.addToStart(new MessagesListFixtures.Message(), false);

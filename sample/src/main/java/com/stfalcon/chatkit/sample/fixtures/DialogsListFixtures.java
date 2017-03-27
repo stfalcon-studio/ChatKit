@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-/**
+/*
  * Created by Anton Bevza on 07.09.16.
  */
 public final class DialogsListFixtures extends FixturesData {
@@ -22,8 +22,11 @@ public final class DialogsListFixtures extends FixturesData {
 
     public static ArrayList<DefaultDialog> getChatList() {
         ArrayList<DefaultDialog> chats = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            chats.add(getDialog(i));
+        for (int i = 0; i < 20; i++) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, -(i * i));
+
+            chats.add(getDialog(i, calendar.getTime()));
         }
         return chats;
     }
@@ -52,13 +55,13 @@ public final class DialogsListFixtures extends FixturesData {
         };
     }
 
-    private static DefaultDialog getDialog(int i) {
+    private static DefaultDialog getDialog(int i, Date lastMessageCreatedAt) {
         ArrayList<IUser> users = getUsers();
         return new DefaultDialog(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
                 users.size() > 1 ? groupChatTitles.get(users.size() - 2) : users.get(0).getName(),
                 users.size() > 1 ? groupChatImages.get(users.size() - 2) : avatars.get(rnd.nextInt(4)),
                 users,
-                getMessage(Calendar.getInstance().getTime()), i < 3 ? 3 - i : 0);
+                getMessage(lastMessageCreatedAt), i < 3 ? 3 - i : 0);
     }
 
     private static ArrayList<IUser> getUsers() {

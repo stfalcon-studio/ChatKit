@@ -17,7 +17,9 @@ import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.fixtures.DialogsListFixtures;
 import com.stfalcon.chatkit.sample.messages.MessagesListActivity;
 import com.stfalcon.chatkit.sample.models.DefaultDialog;
+import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.util.Date;
 import java.util.List;
 
 public class DialogsListActivity extends AppCompatActivity {
@@ -83,6 +85,20 @@ public class DialogsListActivity extends AppCompatActivity {
             public void onDialogLongClick(DefaultDialog dialog) {
                 Toast.makeText(DialogsListActivity.this, dialog.getDialogName(),
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialogsListAdapter.setDatesFormatter(new DateFormatter.Formatter() {
+            @Override
+            public String format(Date date) {
+                if (DateFormatter.isToday(date)) {
+                    return DateFormatter.format(date, DateFormatter.Template.TIME);
+                } else if (DateFormatter.isYesterday(date)) {
+                    return getString(R.string.date_header_yesterday);
+                } else if (DateFormatter.isCurrentYear(date)) {
+                    return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH);
+                } else {
+                    return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
+                }
             }
         });
 

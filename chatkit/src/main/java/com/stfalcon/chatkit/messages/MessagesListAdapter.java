@@ -601,7 +601,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             builder.append(formatter == null
                     ? message.toString()
                     : formatter.format(message));
+            builder.append("\n\n");
         }
+        builder.replace(builder.length() - 2, builder.length(), "");
 
         return builder.toString();
     }

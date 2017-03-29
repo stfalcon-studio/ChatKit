@@ -21,8 +21,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -59,7 +62,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private List<Wrapper> items;
 
     private int selectedItemsCount;
-    private boolean isSelectMode;
+    private boolean isSelectionModeEnabled;
     private SelectionListener selectionListener;
 
     private OnLoadMoreListener loadMoreListener;
@@ -119,6 +122,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         if (wrapper.item instanceof IMessage) {
             ((BaseMessageViewHolder) holder).isSelected = wrapper.isSelected;
+            ((BaseMessageViewHolder) holder).isSelectionModeEnabled = isSelectionModeEnabled;
             ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
@@ -373,7 +377,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 notifyItemChanged(i);
             }
         }
-        isSelectMode = false;
+        isSelectionModeEnabled = false;
         selectedItemsCount = 0;
         notifySelectionChanged();
     }
@@ -533,7 +537,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     private void decrementSelectedItemsCount() {
         selectedItemsCount--;
-        isSelectMode = selectedItemsCount > 0;
+        isSelectionModeEnabled = selectedItemsCount > 0;
 
         notifySelectionChanged();
     }
@@ -560,7 +564,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectionListener != null && isSelectMode) {
+                if (selectionListener != null && isSelectionModeEnabled) {
                     wrapper.isSelected = !wrapper.isSelected;
 
                     if (wrapper.isSelected) incrementSelectedItemsCount();
@@ -583,7 +587,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                     notifyMessageLongClicked(wrapper.item);
                     return true;
                 } else {
-                    isSelectMode = true;
+                    isSelectionModeEnabled = true;
                     view.callOnClick();
                     return true;
                 }
@@ -987,6 +991,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
         private boolean isSelected;
+        private boolean isSelectionModeEnabled;
 
         /**
          * Callback for implementing images loading in message list
@@ -998,12 +1003,21 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * Make message unselected
+         * Returns whether is item selected
          *
          * @return weather is item selected.
          */
         public boolean isSelected() {
             return isSelected;
+        }
+
+        /**
+         * Returns weather is selection mode enabled
+         *
+         * @return weather is selection mode enabled.
+         */
+        public boolean isSelectionModeEnabled() {
+            return isSelectionModeEnabled;
         }
 
         /**
@@ -1013,6 +1027,21 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
          */
         public ImageLoader getImageLoader() {
             return imageLoader;
+        }
+
+        protected void configureLinksBehavior(final TextView text) {
+            text.setLinksClickable(false);
+            text.setMovementMethod(new LinkMovementMethod() {
+                @Override
+                public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+                    boolean result = false;
+                    if (isSelectionModeEnabled) {
+                        result = super.onTouchEvent(widget, buffer, event);
+                    }
+                    itemView.onTouchEvent(event);
+                    return result;
+                }
+            });
         }
 
     }
@@ -1060,6 +1089,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 text.setTypeface(text.getTypeface(), style.getIncomingTextStyle());
                 text.setAutoLinkMask(style.getTextAutoLinkMask());
                 text.setLinkTextColor(style.getIncomingTextLinkColor());
+                configureLinksBehavior(text);
             }
 
             if (userAvatar != null) {
@@ -1123,7 +1153,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 text.setTypeface(text.getTypeface(), style.getOutcomingTextStyle());
                 text.setAutoLinkMask(style.getTextAutoLinkMask());
                 text.setLinkTextColor(style.getOutcomingTextLinkColor());
-                text.setLinkTextColor(style.getOutcomingTextLinkColor());
+                configureLinksBehavior(text);
             }
 
             if (time != null) {

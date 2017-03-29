@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.facebook.fresco:fresco:1.2.0'
 
     compile project(':chatkit')
 }

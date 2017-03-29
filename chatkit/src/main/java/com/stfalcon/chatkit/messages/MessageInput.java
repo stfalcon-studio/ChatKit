@@ -41,6 +41,7 @@ public class MessageInput extends RelativeLayout
 
     protected EditText messageInput;
     protected ImageButton messageSendButton;
+    protected ImageButton addAttachmentsButton;
     protected Space buttonSpace;
 
     private CharSequence input;
@@ -96,6 +97,8 @@ public class MessageInput extends RelativeLayout
             if (isSubmitted) {
                 messageInput.setText("");
             }
+        } else if (id == R.id.addAttachmentsButton) {
+            inputListener.onAddAttachments();
         }
     }
 
@@ -167,9 +170,11 @@ public class MessageInput extends RelativeLayout
 
         messageInput = (EditText) findViewById(R.id.messageInput);
         messageSendButton = (ImageButton) findViewById(R.id.messageSendButton);
+        addAttachmentsButton = (ImageButton) findViewById(R.id.addAttachmentsButton);
         buttonSpace = (Space) findViewById(R.id.buttonSpace);
 
         messageSendButton.setOnClickListener(this);
+        addAttachmentsButton.setOnClickListener(this);
         messageInput.addTextChangedListener(this);
         messageInput.setText("");
     }
@@ -195,5 +200,6 @@ public class MessageInput extends RelativeLayout
          * @return if input text is valid, you must return {@code true} and input will be cleared, otherwise return false.
          */
         boolean onSubmit(CharSequence input);
+        void onAddAttachments();
     }
 }

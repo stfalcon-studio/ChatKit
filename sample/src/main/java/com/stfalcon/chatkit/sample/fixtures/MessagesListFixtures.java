@@ -2,6 +2,7 @@ package com.stfalcon.chatkit.sample.fixtures;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
+import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.sample.models.DefaultUser;
 
 import java.util.ArrayList;
@@ -35,11 +36,18 @@ public final class MessagesListFixtures extends FixturesData {
         return messages;
     }
 
-    public static class Message implements IMessage {
+    public static Message getImageMessage() {
+        MessagesListFixtures.Message message = new MessagesListFixtures.Message();
+        message.imageUrl = "https://pp.userapi.com/c633423/v633423016/2f5b7/YtccYCpaOWA.jpg";
+        return message;
+    }
+
+    public static class Message implements IMessage, MessageContentType.Image {
 
         private long id;
         private String text;
         private Date createdAt;
+        private String imageUrl;
 
         public Message() {
             this(messages.get(rnd.nextInt(messages.size())));
@@ -69,6 +77,11 @@ public final class MessagesListFixtures extends FixturesData {
         @Override
         public String getText() {
             return text;
+        }
+
+        @Override
+        public String getImageUrl() {
+            return imageUrl;
         }
 
         public String getStatus() {

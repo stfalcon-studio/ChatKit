@@ -71,6 +71,11 @@ public class MessagesListActivity extends AppCompatActivity
                 adapter.addToStart(new MessagesListFixtures.Message(input.toString()), true);
                 return true;
             }
+
+            @Override
+            public void onAddAttachments() {
+                adapter.addToStart(MessagesListFixtures.getImageMessage(), true);
+            }
         });
     }
 

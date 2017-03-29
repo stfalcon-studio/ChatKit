@@ -57,7 +57,8 @@ public class MessagesList extends RecyclerView {
 
     /**
      * Set adapter for MessagesList
-     * @param adapter Adapter. Must extend MessagesListAdapter
+     *
+     * @param adapter   Adapter. Must extend MessagesListAdapter
      * @param <MESSAGE> Message model class
      */
     public <MESSAGE extends IMessage>

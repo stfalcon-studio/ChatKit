@@ -17,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/addAttachmentsButton"
         android:layout_toEndOf="@+id/addAttachmentsButton"
         android:layout_toLeftOf="@+id/buttonSpace"
+        android:layout_toRightOf="@+id/addAttachmentsButton"
         android:layout_toStartOf="@+id/buttonSpace"
         android:inputType="textAutoCorrect|textAutoComplete|textMultiLine|textCapSentences"/>
 

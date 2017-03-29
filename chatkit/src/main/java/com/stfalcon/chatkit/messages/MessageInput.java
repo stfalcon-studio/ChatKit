@@ -200,6 +200,8 @@ public class MessageInput extends RelativeLayout
          * @return if input text is valid, you must return {@code true} and input will be cleared, otherwise return false.
          */
         boolean onSubmit(CharSequence input);
+
+        // TODO: 29.03.17 doc
         void onAddAttachments();
     }
 }

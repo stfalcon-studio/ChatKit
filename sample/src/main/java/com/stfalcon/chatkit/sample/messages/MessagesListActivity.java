@@ -204,8 +204,11 @@ public class MessagesListActivity extends AppCompatActivity
                 String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
                         .format(message.getCreatedAt());
 
+                String text = message.getText();
+                if (text == null) text = "[attachment]";
+
                 return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getUser().getName(), message.getText(), createdAt);
+                        message.getUser().getName(), text, createdAt);
             }
         };
     }

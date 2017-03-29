@@ -37,7 +37,7 @@ public final class MessagesListFixtures extends FixturesData {
     }
 
     public static Message getImageMessage() {
-        MessagesListFixtures.Message message = new MessagesListFixtures.Message();
+        MessagesListFixtures.Message message = new MessagesListFixtures.Message(null);
         message.imageUrl = "https://pp.userapi.com/c633423/v633423016/2f5b7/YtccYCpaOWA.jpg";
         return message;
     }

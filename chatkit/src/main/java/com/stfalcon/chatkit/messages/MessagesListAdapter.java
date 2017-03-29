@@ -1035,30 +1035,43 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         @Override
         public void onBind(MESSAGE message) {
             super.onBind(message);
-            bubble.setSelected(isSelected());
-            text.setText(message.getText());
+            if (bubble != null) {
+                bubble.setSelected(isSelected());
+            }
+
+            if (text != null) {
+                text.setText(message.getText());
+            }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
-            bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
-                    style.getIncomingDefaultBubblePaddingTop(),
-                    style.getIncomingDefaultBubblePaddingRight(),
-                    style.getIncomingDefaultBubblePaddingBottom());
-            bubble.setBackground(style.getIncomingBubbleDrawable());
+            if (bubble != null) {
+                bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
+                        style.getIncomingDefaultBubblePaddingTop(),
+                        style.getIncomingDefaultBubblePaddingRight(),
+                        style.getIncomingDefaultBubblePaddingBottom());
+                bubble.setBackground(style.getIncomingBubbleDrawable());
+            }
 
-            text.setTextColor(style.getIncomingTextColor());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
-            text.setTypeface(text.getTypeface(), style.getIncomingTextStyle());
-            text.setAutoLinkMask(style.getTextAutoLinkMask());
-            text.setLinkTextColor(style.getIncomingTextLinkColor());
+            if (text != null) {
+                text.setTextColor(style.getIncomingTextColor());
+                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
+                text.setTypeface(text.getTypeface(), style.getIncomingTextStyle());
+                text.setAutoLinkMask(style.getTextAutoLinkMask());
+                text.setLinkTextColor(style.getIncomingTextLinkColor());
+            }
 
-            userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
-            userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
+            if (userAvatar != null) {
+                userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
+                userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
+            }
 
-            time.setTextColor(style.getIncomingTimeTextColor());
-            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
-            time.setTypeface(time.getTypeface(), style.getIncomingTimeTextStyle());
+            if (time != null) {
+                time.setTextColor(style.getIncomingTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getIncomingTimeTextStyle());
+            }
         }
     }
 
@@ -1071,49 +1084,53 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         protected ViewGroup bubble;
         protected TextView text;
         protected TextView time;
-        protected ImageView userAvatar;
 
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
             time = (TextView) itemView.findViewById(R.id.messageTime);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
         }
 
         @Override
         public void onBind(MESSAGE message) {
-            bubble.setSelected(isSelected());
-            text.setText(message.getText());
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+            if (bubble != null) {
+                bubble.setSelected(isSelected());
+            }
 
-            if (userAvatar != null) {
-                boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-                userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-                if (isAvatarExists && imageLoader != null) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
-                }
+            if (text != null) {
+                text.setText(message.getText());
+            }
+
+            if (time != null) {
+                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
             }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
-            bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
-                    style.getOutcomingDefaultBubblePaddingTop(),
-                    style.getOutcomingDefaultBubblePaddingRight(),
-                    style.getOutcomingDefaultBubblePaddingBottom());
-            bubble.setBackground(style.getOutcomingBubbleDrawable());
+            if (bubble != null) {
+                bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
+                        style.getOutcomingDefaultBubblePaddingTop(),
+                        style.getOutcomingDefaultBubblePaddingRight(),
+                        style.getOutcomingDefaultBubblePaddingBottom());
+                bubble.setBackground(style.getOutcomingBubbleDrawable());
+            }
 
-            text.setTextColor(style.getOutcomingTextColor());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
-            text.setTypeface(text.getTypeface(), style.getOutcomingTextStyle());
-            text.setAutoLinkMask(style.getTextAutoLinkMask());
-            text.setLinkTextColor(style.getOutcomingTextLinkColor());
-            text.setLinkTextColor(style.getOutcomingTextLinkColor());
+            if (text != null) {
+                text.setTextColor(style.getOutcomingTextColor());
+                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
+                text.setTypeface(text.getTypeface(), style.getOutcomingTextStyle());
+                text.setAutoLinkMask(style.getTextAutoLinkMask());
+                text.setLinkTextColor(style.getOutcomingTextLinkColor());
+                text.setLinkTextColor(style.getOutcomingTextLinkColor());
+            }
 
-            time.setTextColor(style.getOutcomingTimeTextColor());
-            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
-            time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
+            if (time != null) {
+                time.setTextColor(style.getOutcomingTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
+            }
         }
     }
 
@@ -1129,7 +1146,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
 
-            if (image instanceof RoundedImageView) {
+            if (image != null && image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
                         R.dimen.message_bubble_corners_radius,
                         R.dimen.message_bubble_corners_radius,
@@ -1142,7 +1159,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         @Override
         public void onBind(MESSAGE message) {
             super.onBind(message);
-            imageLoader.loadImage(image, message.getImageUrl());
+            if (image != null && imageLoader != null) {
+                imageLoader.loadImage(image, message.getImageUrl());
+            }
         }
     }
 
@@ -1160,7 +1179,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             image = (ImageView) itemView.findViewById(R.id.image);
             time = (TextView) itemView.findViewById(R.id.messageTime);
 
-            if (image instanceof RoundedImageView) {
+            if (image != null && image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
                         R.dimen.message_bubble_corners_radius,
                         R.dimen.message_bubble_corners_radius,
@@ -1172,8 +1191,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(MESSAGE message) {
-            imageLoader.loadImage(image, message.getImageUrl());
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+            if (image != null && imageLoader != null) {
+                imageLoader.loadImage(image, message.getImageUrl());
+            }
+            if (time != null) {
+                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+            }
         }
     }
 
@@ -1194,18 +1217,22 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(Date date) {
-            String formattedDate = null;
-            if (dateHeadersFormatter != null) formattedDate = dateHeadersFormatter.format(date);
-            text.setText(formattedDate == null ? DateFormatter.format(date, dateFormat) : formattedDate);
+            if (text != null) {
+                String formattedDate = null;
+                if (dateHeadersFormatter != null) formattedDate = dateHeadersFormatter.format(date);
+                text.setText(formattedDate == null ? DateFormatter.format(date, dateFormat) : formattedDate);
+            }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
-            text.setTextColor(style.getDateHeaderTextColor());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
-            text.setTypeface(text.getTypeface(), style.getDateHeaderTextStyle());
-            text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
-                    style.getDateHeaderPadding(), style.getDateHeaderPadding());
+            if (text != null) {
+                text.setTextColor(style.getDateHeaderTextColor());
+                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
+                text.setTypeface(text.getTypeface(), style.getDateHeaderTextStyle());
+                text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
+                        style.getDateHeaderPadding(), style.getDateHeaderPadding());
+            }
             dateFormat = style.getDateHeaderFormat();
             dateFormat = dateFormat == null ? DateFormatter.Template.STRING_DAY_MONTH_YEAR.get() : dateFormat;
         }
@@ -1229,12 +1256,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(MESSAGE message) {
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+            if (time != null)
+                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
 
-            boolean isAvatarExists = imageLoader != null && message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-            if (isAvatarExists) {
-                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+            if (userAvatar != null) {
+                boolean isAvatarExists = imageLoader != null
+                        && message.getUser().getAvatar() != null
+                        && !message.getUser().getAvatar().isEmpty();
+
+                userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
+                if (isAvatarExists) {
+                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+                }
             }
         }
     }

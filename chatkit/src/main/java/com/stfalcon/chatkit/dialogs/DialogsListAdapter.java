@@ -396,58 +396,92 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         private void applyStyle() {
             if (dialogStyle != null) {
                 //Texts
-                tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogTitleTextSize());
-                tvLastMessage.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogMessageTextSize());
-                tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogDateSize());
+                if (tvName != null) {
+                    tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogTitleTextSize());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogMessageTextSize());
+                }
+
+                if (tvDate != null) {
+                    tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogDateSize());
+                }
 
                 //Divider
-                divider.setBackgroundColor(dialogStyle.getDialogDividerColor());
-                dividerContainer.setPadding(dialogStyle.getDialogDividerLeftPadding(), 0,
-                        dialogStyle.getDialogDividerRightPadding(), 0);
+                if (divider != null)
+                    divider.setBackgroundColor(dialogStyle.getDialogDividerColor());
+                if (dividerContainer != null)
+                    dividerContainer.setPadding(dialogStyle.getDialogDividerLeftPadding(), 0,
+                            dialogStyle.getDialogDividerRightPadding(), 0);
                 //Avatar
-                ivAvatar.getLayoutParams().width = dialogStyle.getDialogAvatarWidth();
-                ivAvatar.getLayoutParams().height = dialogStyle.getDialogAvatarHeight();
+                if (ivAvatar != null) {
+                    ivAvatar.getLayoutParams().width = dialogStyle.getDialogAvatarWidth();
+                    ivAvatar.getLayoutParams().height = dialogStyle.getDialogAvatarHeight();
+                }
 
                 //Last message user avatar
-                ivLastMessageUser.getLayoutParams().width = dialogStyle.getDialogMessageAvatarWidth();
-                ivLastMessageUser.getLayoutParams().height = dialogStyle.getDialogMessageAvatarHeight();
+                if (ivLastMessageUser != null) {
+                    ivLastMessageUser.getLayoutParams().width = dialogStyle.getDialogMessageAvatarWidth();
+                    ivLastMessageUser.getLayoutParams().height = dialogStyle.getDialogMessageAvatarHeight();
+                }
 
                 //Unread bubble
-                GradientDrawable bgShape = (GradientDrawable) tvBubble.getBackground();
-                bgShape.setColor(dialogStyle.getDialogUnreadBubbleBackgroundColor());
-                tvBubble.setVisibility(dialogStyle.isDialogDividerEnabled() ? VISIBLE : GONE);
-                tvBubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogUnreadBubbleTextSize());
-                tvBubble.setTextColor(dialogStyle.getDialogUnreadBubbleTextColor());
-                tvBubble.setTypeface(tvBubble.getTypeface(), dialogStyle.getDialogUnreadBubbleTextStyle());
+                if (tvBubble != null) {
+                    GradientDrawable bgShape = (GradientDrawable) tvBubble.getBackground();
+                    bgShape.setColor(dialogStyle.getDialogUnreadBubbleBackgroundColor());
+                    tvBubble.setVisibility(dialogStyle.isDialogDividerEnabled() ? VISIBLE : GONE);
+                    tvBubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogUnreadBubbleTextSize());
+                    tvBubble.setTextColor(dialogStyle.getDialogUnreadBubbleTextColor());
+                    tvBubble.setTypeface(tvBubble.getTypeface(), dialogStyle.getDialogUnreadBubbleTextStyle());
+                }
             }
         }
 
 
         private void applyDefaultStyle() {
             if (dialogStyle != null) {
-                root.setBackgroundColor(dialogStyle.getDialogItemBackground());
-                tvName.setTextColor(dialogStyle.getDialogTitleTextColor());
-                tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogTitleTextStyle());
+                if (root != null) {
+                    root.setBackgroundColor(dialogStyle.getDialogItemBackground());
+                }
 
-                tvDate.setTextColor(dialogStyle.getDialogDateColor());
-                tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogDateStyle());
+                if (tvName != null) {
+                    tvName.setTextColor(dialogStyle.getDialogTitleTextColor());
+                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogTitleTextStyle());
+                }
 
-                tvLastMessage.setTextColor(dialogStyle.getDialogMessageTextColor());
-                tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogMessageTextStyle());
+                if (tvDate != null) {
+                    tvDate.setTextColor(dialogStyle.getDialogDateColor());
+                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogDateStyle());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextColor(dialogStyle.getDialogMessageTextColor());
+                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogMessageTextStyle());
+                }
             }
         }
 
         private void applyUnreadStyle() {
             if (dialogStyle != null) {
-                root.setBackgroundColor(dialogStyle.getDialogUnreadItemBackground());
-                tvName.setTextColor(dialogStyle.getDialogUnreadTitleTextColor());
-                tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogUnreadTitleTextStyle());
+                if (root != null) {
+                    root.setBackgroundColor(dialogStyle.getDialogUnreadItemBackground());
+                }
 
-                tvDate.setTextColor(dialogStyle.getDialogUnreadDateColor());
-                tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogUnreadDateStyle());
+                if (tvName != null) {
+                    tvName.setTextColor(dialogStyle.getDialogUnreadTitleTextColor());
+                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogUnreadTitleTextStyle());
+                }
 
-                tvLastMessage.setTextColor(dialogStyle.getDialogUnreadMessageTextColor());
-                tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogUnreadMessageTextStyle());
+                if (tvDate != null) {
+                    tvDate.setTextColor(dialogStyle.getDialogUnreadDateColor());
+                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogUnreadDateStyle());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextColor(dialogStyle.getDialogUnreadMessageTextColor());
+                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogUnreadMessageTextStyle());
+                }
             }
         }
 

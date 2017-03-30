@@ -62,8 +62,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private List<Wrapper> items;
 
     private int selectedItemsCount;
-    private boolean isSelectionModeEnabled;
     private SelectionListener selectionListener;
+    private static boolean isSelectionModeEnabled;
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
@@ -122,7 +122,6 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         if (wrapper.item instanceof IMessage) {
             ((BaseMessageViewHolder) holder).isSelected = wrapper.isSelected;
-            ((BaseMessageViewHolder) holder).isSelectionModeEnabled = isSelectionModeEnabled;
             ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
             holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
             holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
@@ -991,7 +990,6 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
 
         private boolean isSelected;
-        private boolean isSelectionModeEnabled;
 
         /**
          * Callback for implementing images loading in message list
@@ -1035,7 +1033,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 @Override
                 public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
                     boolean result = false;
-                    if (isSelectionModeEnabled) {
+                    if (!isSelectionModeEnabled) {
                         result = super.onTouchEvent(widget, buffer, event);
                     }
                     itemView.onTouchEvent(event);

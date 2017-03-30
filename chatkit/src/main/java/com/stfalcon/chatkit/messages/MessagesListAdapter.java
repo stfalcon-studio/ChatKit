@@ -1048,7 +1048,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * Default view holder implementation for incoming text message
      */
     public static class IncomingTextMessageViewHolder<MESSAGE extends IMessage>
-            extends BaseIncomingMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
+            extends BaseIncomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
         protected TextView text;
@@ -1073,6 +1073,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void applyStyle(MessagesListStyle style) {
+            super.applyStyle(style);
             if (bubble != null) {
                 bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
                         style.getIncomingDefaultBubblePaddingTop(),
@@ -1089,17 +1090,6 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 text.setLinkTextColor(style.getIncomingTextLinkColor());
                 configureLinksBehavior(text);
             }
-
-            if (userAvatar != null) {
-                userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
-                userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
-            }
-
-            if (time != null) {
-                time.setTextColor(style.getIncomingTimeTextColor());
-                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
-                time.setTypeface(time.getTypeface(), style.getIncomingTimeTextStyle());
-            }
         }
     }
 
@@ -1107,21 +1097,20 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * Default view holder implementation for outcoming text message
      */
     public static class OutcomingTextMessageViewHolder<MESSAGE extends IMessage>
-            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
+            extends BaseOutcomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
         protected TextView text;
-        protected TextView time;
 
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
             text = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
         }
 
         @Override
         public void onBind(MESSAGE message) {
+            super.onBind(message);
             if (bubble != null) {
                 bubble.setSelected(isSelected());
             }
@@ -1129,14 +1118,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             if (text != null) {
                 text.setText(message.getText());
             }
-
-            if (time != null) {
-                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
-            }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
+            super.applyStyle(style);
             if (bubble != null) {
                 bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
                         style.getOutcomingDefaultBubblePaddingTop(),
@@ -1152,12 +1138,6 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 text.setAutoLinkMask(style.getTextAutoLinkMask());
                 text.setLinkTextColor(style.getOutcomingTextLinkColor());
                 configureLinksBehavior(text);
-            }
-
-            if (time != null) {
-                time.setTextColor(style.getOutcomingTimeTextColor());
-                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
-                time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
             }
         }
     }
@@ -1197,15 +1177,13 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * Default view holder implementation for outcoming image message
      */
     public static class OutcomingImageMessageViewHolder<MESSAGE extends MessageContentType.Image>
-            extends BaseMessageViewHolder<MESSAGE> {
+            extends BaseOutcomingMessageViewHolder<MESSAGE> {
 
         protected ImageView image;
-        protected TextView time;
 
         public OutcomingImageMessageViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
 
             if (image != null && image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
@@ -1219,11 +1197,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(MESSAGE message) {
+            super.onBind(message);
             if (image != null && imageLoader != null) {
                 imageLoader.loadImage(image, message.getImageUrl());
-            }
-            if (time != null) {
-                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
             }
         }
     }
@@ -1271,7 +1247,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     private abstract static class BaseIncomingMessageViewHolder<MESSAGE extends IMessage>
-            extends BaseMessageViewHolder<MESSAGE> {
+            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
         protected ImageView userAvatar;
@@ -1296,6 +1272,47 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 if (isAvatarExists) {
                     imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
                 }
+            }
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            if (time != null) {
+                time.setTextColor(style.getIncomingTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getIncomingTimeTextStyle());
+            }
+
+            if (userAvatar != null) {
+                userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
+                userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
+            }
+
+        }
+    }
+
+    private abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends IMessage>
+            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
+
+        protected TextView time;
+
+        public BaseOutcomingMessageViewHolder(View itemView) {
+            super(itemView);
+            time = (TextView) itemView.findViewById(R.id.messageTime);
+        }
+
+        @Override
+        public void onBind(MESSAGE message) {
+            if (time != null)
+                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            if (time != null) {
+                time.setTextColor(style.getOutcomingTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
             }
         }
     }

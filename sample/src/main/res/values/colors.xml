@@ -8,6 +8,7 @@
     <color name="gray_transparent">#a6efefef</color>
     <color name="gray_dark_transparent">#ae858585</color>
     <color name="black">#000000</color>
+    <color name="black_10">#19000000</color>
     <color name="ivory">#f8efe6</color>
     <color name="ivory_dark">#f7e8d9</color>
     <color name="green">#38be55</color>

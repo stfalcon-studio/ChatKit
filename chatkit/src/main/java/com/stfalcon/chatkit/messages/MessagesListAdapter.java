@@ -1149,10 +1149,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             extends BaseIncomingMessageViewHolder<MESSAGE> {
 
         protected ImageView image;
+        protected View imageOverlay;
 
         public IncomingImageMessageViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
+            imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
             if (image != null && image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
@@ -1170,6 +1172,19 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             if (image != null && imageLoader != null) {
                 imageLoader.loadImage(image, message.getImageUrl());
             }
+
+            if (imageOverlay != null) {
+                imageOverlay.setSelected(isSelected());
+            }
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            super.applyStyle(style);
+
+            if (imageOverlay != null) {
+                imageOverlay.setBackground(style.getIncomingImageOverlayDrawable());
+            }
         }
     }
 
@@ -1180,10 +1195,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             extends BaseOutcomingMessageViewHolder<MESSAGE> {
 
         protected ImageView image;
+        protected View imageOverlay;
 
         public OutcomingImageMessageViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
+            imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
             if (image != null && image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
@@ -1200,6 +1217,19 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             super.onBind(message);
             if (image != null && imageLoader != null) {
                 imageLoader.loadImage(image, message.getImageUrl());
+            }
+
+            if (imageOverlay != null) {
+                imageOverlay.setSelected(isSelected());
+            }
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            super.applyStyle(style);
+
+            if (imageOverlay != null) {
+                imageOverlay.setBackground(style.getOutcomingImageOverlayDrawable());
             }
         }
     }

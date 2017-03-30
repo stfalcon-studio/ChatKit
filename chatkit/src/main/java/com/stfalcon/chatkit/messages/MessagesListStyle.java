@@ -19,6 +19,7 @@ package com.stfalcon.chatkit.messages;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -46,13 +47,20 @@ class MessagesListStyle extends Style {
     private int incomingDefaultBubbleColor;
     private int incomingDefaultBubblePressedColor;
     private int incomingDefaultBubbleSelectedColor;
+
+    private int incomingImageOverlayDrawable;
+    private int incomingDefaultImageOverlayPressedColor;
+    private int incomingDefaultImageOverlaySelectedColor;
+
     private int incomingDefaultBubblePaddingLeft;
     private int incomingDefaultBubblePaddingRight;
     private int incomingDefaultBubblePaddingTop;
     private int incomingDefaultBubblePaddingBottom;
+
     private int incomingTextColor;
     private int incomingTextSize;
     private int incomingTextStyle;
+
     private int incomingTimeTextColor;
     private int incomingTimeTextSize;
     private int incomingTimeTextStyle;
@@ -61,13 +69,20 @@ class MessagesListStyle extends Style {
     private int outcomingDefaultBubbleColor;
     private int outcomingDefaultBubblePressedColor;
     private int outcomingDefaultBubbleSelectedColor;
+
+    private int outcomingImageOverlayDrawable;
+    private int outcomingDefaultImageOverlayPressedColor;
+    private int outcomingDefaultImageOverlaySelectedColor;
+
     private int outcomingDefaultBubblePaddingLeft;
     private int outcomingDefaultBubblePaddingRight;
     private int outcomingDefaultBubblePaddingTop;
     private int outcomingDefaultBubblePaddingBottom;
+
     private int outcomingTextColor;
     private int outcomingTextSize;
     private int outcomingTextStyle;
+
     private int outcomingTimeTextColor;
     private int outcomingTimeTextSize;
     private int outcomingTimeTextStyle;
@@ -101,6 +116,12 @@ class MessagesListStyle extends Style {
         style.incomingDefaultBubbleSelectedColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultBubbleSelectedColor,
                 style.getColor(R.color.cornflower_blue_two_24));
 
+        style.incomingImageOverlayDrawable = typedArray.getResourceId(R.styleable.MessagesList_incomingImageOverlayDrawable, -1);
+        style.incomingDefaultImageOverlayPressedColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultImageOverlayPressedColor,
+                style.getColor(R.color.transparent));
+        style.incomingDefaultImageOverlaySelectedColor = typedArray.getColor(R.styleable.MessagesList_incomingDefaultImageOverlaySelectedColor,
+                style.getColor(R.color.cornflower_blue_light_40));
+
         style.incomingDefaultBubblePaddingLeft = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingLeft,
                 style.getDimension(R.dimen.message_padding_left));
         style.incomingDefaultBubblePaddingRight = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingBubblePaddingRight,
@@ -127,6 +148,12 @@ class MessagesListStyle extends Style {
                 style.getColor(R.color.cornflower_blue_two));
         style.outcomingDefaultBubbleSelectedColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubbleSelectedColor,
                 style.getColor(R.color.cornflower_blue_two_24));
+
+        style.outcomingImageOverlayDrawable = typedArray.getResourceId(R.styleable.MessagesList_outcomingImageOverlayDrawable, -1);
+        style.outcomingDefaultImageOverlayPressedColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultImageOverlayPressedColor,
+                style.getColor(R.color.transparent));
+        style.outcomingDefaultImageOverlaySelectedColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultImageOverlaySelectedColor,
+                style.getColor(R.color.cornflower_blue_light_40));
 
         style.outcomingDefaultBubblePaddingLeft = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingBubblePaddingLeft,
                 style.getDimension(R.dimen.message_padding_left));
@@ -168,9 +195,9 @@ class MessagesListStyle extends Style {
     private Drawable getMessageSelector(@ColorInt int normalColor, @ColorInt int selectedColor,
                                         @ColorInt int pressedColor, @DrawableRes int shape) {
 
-        Drawable button = DrawableCompat.wrap(getVectorDrawable(shape));
+        Drawable drawable = DrawableCompat.wrap(getVectorDrawable(shape)).mutate();
         DrawableCompat.setTintList(
-                button,
+                drawable,
                 new ColorStateList(
                         new int[][]{
                                 new int[]{android.R.attr.state_selected},
@@ -179,7 +206,7 @@ class MessagesListStyle extends Style {
                         },
                         new int[]{selectedColor, pressedColor, normalColor}
                 ));
-        return button;
+        return drawable;
     }
 
     int getTextAutoLinkMask() {
@@ -236,6 +263,15 @@ class MessagesListStyle extends Style {
                     outcomingDefaultBubblePressedColor, R.drawable.shape_outcoming_message);
         } else {
             return ContextCompat.getDrawable(context, outcomingBubbleDrawable);
+        }
+    }
+
+    Drawable getOutcomingImageOverlayDrawable() {
+        if (outcomingImageOverlayDrawable == -1) {
+            return getMessageSelector(Color.TRANSPARENT, outcomingDefaultImageOverlaySelectedColor,
+                    outcomingDefaultImageOverlayPressedColor, R.drawable.shape_outcoming_message);
+        } else {
+            return ContextCompat.getDrawable(context, outcomingImageOverlayDrawable);
         }
     }
 
@@ -317,6 +353,15 @@ class MessagesListStyle extends Style {
                     incomingDefaultBubblePressedColor, R.drawable.shape_incoming_message);
         } else {
             return ContextCompat.getDrawable(context, incomingBubbleDrawable);
+        }
+    }
+
+    Drawable getIncomingImageOverlayDrawable() {
+        if (incomingImageOverlayDrawable == -1) {
+            return getMessageSelector(Color.TRANSPARENT, incomingDefaultImageOverlaySelectedColor,
+                    incomingDefaultImageOverlayPressedColor, R.drawable.shape_incoming_message);
+        } else {
+            return ContextCompat.getDrawable(context, incomingImageOverlayDrawable);
         }
     }
 }

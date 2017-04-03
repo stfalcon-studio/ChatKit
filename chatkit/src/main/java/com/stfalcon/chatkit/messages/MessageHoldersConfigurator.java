@@ -42,7 +42,7 @@ public class MessageHoldersConfigurator {
     private HolderConfig<MessageContentType.Image> incomingImageConfig;
     private HolderConfig<MessageContentType.Image> outcomingImageConfig;
 
-    private List<ContentTypeConfig> customContentTypes;
+    private List<ContentTypeConfig> customContentTypes = new ArrayList<>();
     private ContentChecker contentChecker;
 
     public MessageHoldersConfigurator() {
@@ -254,11 +254,12 @@ public class MessageHoldersConfigurator {
      * @param contentChecker  {@link ContentChecker} for registered type
      * @return {@link MessageHoldersConfigurator} for subsequent configuration.
      */
-    public <TYPE extends BaseMessageViewHolder<? extends MessageContentType>>
-    MessageHoldersConfigurator registerContentType(byte type, @NonNull Class<TYPE> holder,
-                                                   @LayoutRes int incomingLayout,
-                                                   @LayoutRes int outcomingLayout,
-                                                   @NonNull ContentChecker contentChecker) {
+    public <TYPE extends MessageContentType>
+    MessageHoldersConfigurator registerContentType(
+            byte type, @NonNull Class<? extends BaseMessageViewHolder<TYPE>> holder,
+            @LayoutRes int incomingLayout,
+            @LayoutRes int outcomingLayout,
+            @NonNull ContentChecker contentChecker) {
 
         return registerContentType(type,
                 holder, incomingLayout,
@@ -277,13 +278,15 @@ public class MessageHoldersConfigurator {
      * @param contentChecker  {@link ContentChecker} for registered type
      * @return {@link MessageHoldersConfigurator} for subsequent configuration.
      */
-    public <TYPE extends BaseMessageViewHolder<? extends MessageContentType>>
-    MessageHoldersConfigurator registerContentType(byte type,
-                                                   @NonNull Class<TYPE> incomingHolder, @LayoutRes int incomingLayout,
-                                                   @NonNull Class<TYPE> outcomingHolder, @LayoutRes int outcomingLayout,
-                                                   @NonNull ContentChecker contentChecker) {
-        if (customContentTypes == null)
-            customContentTypes = new ArrayList<>();
+    public <TYPE extends MessageContentType>
+    MessageHoldersConfigurator registerContentType(
+            byte type,
+            @NonNull Class<? extends BaseMessageViewHolder<TYPE>> incomingHolder, @LayoutRes int incomingLayout,
+            @NonNull Class<? extends BaseMessageViewHolder<TYPE>> outcomingHolder, @LayoutRes int outcomingLayout,
+            @NonNull ContentChecker contentChecker) {
+
+        if (type == 0)
+            throw new IllegalArgumentException("content type must be greater or less than '0'!");
 
         customContentTypes.add(
                 new ContentTypeConfig<>(type,
@@ -330,11 +333,11 @@ public class MessageHoldersConfigurator {
                 return getHolder(parent, outcomingImageConfig, messagesListStyle);
             default:
                 for (ContentTypeConfig typeConfig : customContentTypes) {
-                    if (typeConfig.type == Math.abs(viewType)) {
+                    if (Math.abs(typeConfig.type) == Math.abs(viewType)) {
                         if (viewType > 0)
-                            return getHolder(parent, typeConfig.incomingConfig, null);
+                            return getHolder(parent, typeConfig.incomingConfig, messagesListStyle);
                         else
-                            return getHolder(parent, typeConfig.outcomingConfig, null);
+                            return getHolder(parent, typeConfig.outcomingConfig, messagesListStyle);
                     }
                 }
         }
@@ -346,6 +349,7 @@ public class MessageHoldersConfigurator {
               View.OnClickListener onMessageClickListener,
               View.OnLongClickListener onMessageLongClickListener,
               DateFormatter.Formatter dateHeadersFormatter) {
+
         if (item instanceof IMessage) {
             ((MessageHoldersConfigurator.BaseMessageViewHolder) holder).isSelected = isSelected;
             ((MessageHoldersConfigurator.BaseMessageViewHolder) holder).imageLoader = imageLoader;
@@ -558,7 +562,7 @@ public class MessageHoldersConfigurator {
         }
 
         @Override
-        public void applyStyle(MessagesListStyle style) {
+        public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
             if (bubble != null) {
                 bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
@@ -616,7 +620,7 @@ public class MessageHoldersConfigurator {
         }
 
         @Override
-        public void applyStyle(MessagesListStyle style) {
+        public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
 
             if (imageOverlay != null) {
@@ -662,7 +666,7 @@ public class MessageHoldersConfigurator {
         }
 
         @Override
-        public void applyStyle(MessagesListStyle style) {
+        public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
 
             if (imageOverlay != null) {
@@ -709,15 +713,10 @@ public class MessageHoldersConfigurator {
         }
     }
 
-    /*
-    * DEFAULTS
-    * */
-
-    interface DefaultMessageViewHolder {
-        void applyStyle(MessagesListStyle style);
-    }
-
-    private abstract static class BaseIncomingMessageViewHolder<MESSAGE extends IMessage>
+    /**
+     * Base view holder for incoming message
+     */
+    public abstract static class BaseIncomingMessageViewHolder<MESSAGE extends IMessage>
             extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
@@ -763,7 +762,10 @@ public class MessageHoldersConfigurator {
         }
     }
 
-    private abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends IMessage>
+    /**
+     * Base view holder for outcoming message
+     */
+    public abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends IMessage>
             extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
@@ -788,6 +790,14 @@ public class MessageHoldersConfigurator {
                 time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
             }
         }
+    }
+
+    /*
+    * DEFAULTS
+    * */
+
+    interface DefaultMessageViewHolder {
+        void applyStyle(MessagesListStyle style);
     }
 
     private static class DefaultIncomingTextMessageViewHolder

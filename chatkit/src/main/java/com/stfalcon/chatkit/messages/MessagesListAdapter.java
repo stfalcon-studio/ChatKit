@@ -47,7 +47,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
-    private MessagesHolders holders;
+    private MessageHoldersConfigurator holdersConfigurator;
     private String senderId;
     private List<Wrapper> items;
 
@@ -71,34 +71,34 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param imageLoader image loading method.
      */
     public MessagesListAdapter(String senderId, ImageLoader imageLoader) {
-        this(senderId, new MessagesHolders(), imageLoader);
+        this(senderId, new MessageHoldersConfigurator(), imageLoader);
     }
 
     /**
      * For default list item layout and view holder.
      *
-     * @param senderId    identifier of sender.
-     * @param holders     custom layouts and view holders. See {@link MessagesHolders} documentation for details
-     * @param imageLoader image loading method.
+     * @param senderId            identifier of sender.
+     * @param holdersConfigurator custom layouts and view holders. See {@link MessageHoldersConfigurator} documentation for details
+     * @param imageLoader         image loading method.
      */
-    public MessagesListAdapter(String senderId, MessagesHolders holders,
+    public MessagesListAdapter(String senderId, MessageHoldersConfigurator holdersConfigurator,
                                ImageLoader imageLoader) {
         this.senderId = senderId;
-        this.holders = holders;
+        this.holdersConfigurator = holdersConfigurator;
         this.imageLoader = imageLoader;
         this.items = new ArrayList<>();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return holders.getHolder(parent, viewType, messagesListStyle);
+        return holdersConfigurator.getHolder(parent, viewType, messagesListStyle);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
-        holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
+        holdersConfigurator.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
                 dateHeadersFormatter);
@@ -111,7 +111,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     @Override
     public int getItemViewType(int position) {
-        return holders.getViewType(items.get(position).item, senderId);
+        return holdersConfigurator.getViewType(items.get(position).item, senderId);
     }
 
     @Override
@@ -637,13 +637,13 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * This class is deprecated. Use {@link MessagesHolders} instead.
+     * This class is deprecated. Use {@link MessageHoldersConfigurator} instead.
      */
     @Deprecated
-    public static class HoldersConfig extends MessagesHolders {
+    public static class HoldersConfig extends MessageHoldersConfigurator {
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setIncomingTextConfig(Class, int)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setIncomingTextConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
@@ -654,7 +654,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setIncomingTextHolder(Class)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setIncomingTextHolder(Class)} instead.
          *
          * @param holder holder class.
          */
@@ -664,7 +664,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setIncomingTextLayout(int)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setIncomingTextLayout(int)} instead.
          *
          * @param layout layout resource.
          */
@@ -674,7 +674,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setOutcomingTextConfig(Class, int)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setOutcomingTextConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
@@ -685,7 +685,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setOutcomingTextHolder(Class)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setOutcomingTextHolder(Class)} instead.
          *
          * @param holder holder class.
          */
@@ -695,7 +695,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setOutcomingTextLayout(int)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setOutcomingTextLayout(int)} instead.
          *
          * @param layout layout resource.
          */
@@ -705,7 +705,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * This method is deprecated. Use {@link MessagesHolders#setDateHeaderConfig(Class, int)} instead.
+         * This method is deprecated. Use {@link MessageHoldersConfigurator#setDateHeaderConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
@@ -717,11 +717,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * This class is deprecated. Use {@link MessagesHolders.BaseMessageViewHolder} instead.
+     * This class is deprecated. Use {@link MessageHoldersConfigurator.BaseMessageViewHolder} instead.
      */
     @Deprecated
     public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage>
-            extends MessagesHolders.BaseMessageViewHolder<MESSAGE> {
+            extends MessageHoldersConfigurator.BaseMessageViewHolder<MESSAGE> {
 
         private boolean isSelected;
 
@@ -779,11 +779,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * This class is deprecated. Use {@link MessagesHolders.DefaultDateHeaderViewHolder} instead.
+     * This class is deprecated. Use {@link MessageHoldersConfigurator.DefaultDateHeaderViewHolder} instead.
      */
     @Deprecated
     public static class DefaultDateHeaderViewHolder extends ViewHolder<Date>
-            implements MessagesHolders.DefaultMessageViewHolder {
+            implements MessageHoldersConfigurator.DefaultMessageViewHolder {
 
         protected TextView text;
         protected String dateFormat;
@@ -818,12 +818,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * This class is deprecated. Use {@link MessagesHolders.IncomingTextMessageViewHolder} instead.
+     * This class is deprecated. Use {@link MessageHoldersConfigurator.IncomingTextMessageViewHolder} instead.
      */
     @Deprecated
     public static class IncomingMessageViewHolder<MESSAGE extends IMessage>
-            extends MessagesHolders.IncomingTextMessageViewHolder<MESSAGE>
-            implements MessagesHolders.DefaultMessageViewHolder {
+            extends MessageHoldersConfigurator.IncomingTextMessageViewHolder<MESSAGE>
+            implements MessageHoldersConfigurator.DefaultMessageViewHolder {
 
         public IncomingMessageViewHolder(View itemView) {
             super(itemView);
@@ -831,11 +831,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * This class is deprecated. Use {@link MessagesHolders.OutcomingTextMessageViewHolder} instead.
+     * This class is deprecated. Use {@link MessageHoldersConfigurator.OutcomingTextMessageViewHolder} instead.
      */
     @Deprecated
     public static class OutcomingMessageViewHolder<MESSAGE extends IMessage>
-            extends MessagesHolders.OutcomingTextMessageViewHolder<MESSAGE> {
+            extends MessageHoldersConfigurator.OutcomingTextMessageViewHolder<MESSAGE> {
 
         public OutcomingMessageViewHolder(View itemView) {
             super(itemView);

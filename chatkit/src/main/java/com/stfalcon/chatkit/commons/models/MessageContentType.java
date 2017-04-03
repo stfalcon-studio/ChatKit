@@ -1,13 +1,13 @@
 package com.stfalcon.chatkit.commons.models;
 
-import com.stfalcon.chatkit.messages.MessagesHolders;
+import com.stfalcon.chatkit.messages.MessageHoldersConfigurator;
 
 /*
  * Created by troy379 on 28.03.17.
  */
 
 /**
- * Interface used to mark messages as custom content types. For its representation see {@link MessagesHolders}
+ * Interface used to mark messages as custom content types. For its representation see {@link MessageHoldersConfigurator}
  */
 
 public interface MessageContentType extends IMessage {

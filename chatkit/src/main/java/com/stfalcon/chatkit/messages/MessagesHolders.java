@@ -30,10 +30,9 @@ import java.util.List;
  */
 public class MessagesHolders {
 
-    private static final int VIEW_TYPE_DATE_HEADER = 0;
-    private static final int VIEW_TYPE_TEXT_MESSAGE = 1;
-    private static final int VIEW_TYPE_IMAGE_MESSAGE = 2;
-    private static final int VIEW_TYPE_CUSTOM_CONTENT = 100;
+    private static final short VIEW_TYPE_DATE_HEADER = 130;
+    private static final short VIEW_TYPE_TEXT_MESSAGE = 131;
+    private static final short VIEW_TYPE_IMAGE_MESSAGE = 132;
 
     private Class<? extends ViewHolder<Date>> dateHeaderHolder;
     private int dateHeaderLayout;
@@ -219,7 +218,7 @@ public class MessagesHolders {
      * Registers custom content type (e.g. multimedia, events etc.)
      */
     public <TYPE extends BaseMessageViewHolder<? extends MessageContentType>>
-    void registerContentType(int type, @NonNull Class<TYPE> holder,
+    void registerContentType(byte type, @NonNull Class<TYPE> holder,
                              @LayoutRes int incomingLayout,
                              @LayoutRes int outcomingLayout,
                              @NonNull ContentChecker contentChecker) {
@@ -234,7 +233,7 @@ public class MessagesHolders {
      * Registers custom content type (e.g. multimedia, events etc.)
      */
     public <TYPE extends BaseMessageViewHolder<? extends MessageContentType>>
-    void registerContentType(int type,
+    void registerContentType(byte type,
                              @NonNull Class<TYPE> incomingHolder, @LayoutRes int incomingLayout,
                              @NonNull Class<TYPE> outcomingHolder, @LayoutRes int outcomingLayout,
                              @NonNull ContentChecker contentChecker) {
@@ -264,7 +263,7 @@ public class MessagesHolders {
          * @param type    content type, for which content availability is determined.
          * @return weather the message has content for the current message.
          */
-        boolean hasContentFor(MESSAGE message, int type);
+        boolean hasContentFor(MESSAGE message, byte type);
     }
 
     /*
@@ -284,9 +283,8 @@ public class MessagesHolders {
             case -VIEW_TYPE_IMAGE_MESSAGE:
                 return getHolder(parent, outcomingImageConfig, messagesListStyle);
             default:
-                for (int i = 0; i < customContentTypes.size(); i++) {
-                    ContentTypeConfig typeConfig = customContentTypes.get(i);
-                    if (VIEW_TYPE_CUSTOM_CONTENT + i == Math.abs(viewType)) {
+                for (ContentTypeConfig typeConfig : customContentTypes) {
+                    if (typeConfig.type == Math.abs(viewType)) {
                         if (viewType > 0)
                             return getHolder(parent, typeConfig.incomingConfig, null);
                         else
@@ -350,7 +348,7 @@ public class MessagesHolders {
         }
     }
 
-    private int getContentViewType(IMessage message) {
+    private short getContentViewType(IMessage message) {
         if (message instanceof MessageContentType) {
             if (message instanceof MessageContentType.Image
                     && ((MessageContentType.Image) message).getImageUrl() != null) {
@@ -365,7 +363,7 @@ public class MessagesHolders {
                     throw new IllegalArgumentException("ContentChecker cannot be null when using custom content types!");
                 }
                 boolean hasContent = contentChecker.hasContentFor(message, config.type);
-                if (hasContent) return VIEW_TYPE_CUSTOM_CONTENT + i;
+                if (hasContent) return config.type;
             }
         }
 
@@ -780,12 +778,12 @@ public class MessagesHolders {
 
     private static class ContentTypeConfig<TYPE extends MessageContentType> {
 
-        private int type;
+        private byte type;
         private HolderConfig<TYPE> incomingConfig;
         private HolderConfig<TYPE> outcomingConfig;
 
         private ContentTypeConfig(
-                int type, HolderConfig<TYPE> incomingConfig, HolderConfig<TYPE> outcomingConfig) {
+                byte type, HolderConfig<TYPE> incomingConfig, HolderConfig<TYPE> outcomingConfig) {
 
             this.type = type;
             this.incomingConfig = incomingConfig;

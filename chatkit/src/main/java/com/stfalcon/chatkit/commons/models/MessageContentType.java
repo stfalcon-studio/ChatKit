@@ -1,26 +1,24 @@
 package com.stfalcon.chatkit.commons.models;
 
+import com.stfalcon.chatkit.messages.MessagesHolders;
+
 /*
  * Created by troy379 on 28.03.17.
  */
 
 /**
- * Interface used to mark messages as media types. For custom types see {@link } TODO link
+ * Interface used to mark messages as custom content types. For its representation see {@link MessagesHolders}
  */
+
 public interface MessageContentType extends IMessage {
 
     /**
-     * Media type for image message.
+     * Default media type for image message.
      */
-    interface Image extends MessageContentType {
+    interface Image extends IMessage {
         String getImageUrl();
     }
 
-    /**
-     * Media type for file message.
-     */
-    interface File extends MessageContentType {
-        String getFileUrl();
-    }
+    // other default types will be here
 
 }

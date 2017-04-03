@@ -169,7 +169,7 @@ class MessagesListStyle extends Style {
                 style.getDimension(R.dimen.message_text_size));
         style.outcomingTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTextStyle, Typeface.NORMAL);
         style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTimeTextColor,
-                style.getColor(R.color.white60));
+                style.getColor(R.color.warm_grey_four));
         style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTimeTextSize,
                 style.getDimension(R.dimen.message_time_text_size));
         style.outcomingTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTimeTextStyle, Typeface.NORMAL);

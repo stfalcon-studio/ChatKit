@@ -24,7 +24,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 
@@ -262,7 +261,7 @@ class MessagesListStyle extends Style {
             return getMessageSelector(outcomingDefaultBubbleColor, outcomingDefaultBubbleSelectedColor,
                     outcomingDefaultBubblePressedColor, R.drawable.shape_outcoming_message);
         } else {
-            return ContextCompat.getDrawable(context, outcomingBubbleDrawable);
+            return getDrawable(outcomingBubbleDrawable);
         }
     }
 
@@ -271,7 +270,7 @@ class MessagesListStyle extends Style {
             return getMessageSelector(Color.TRANSPARENT, outcomingDefaultImageOverlaySelectedColor,
                     outcomingDefaultImageOverlayPressedColor, R.drawable.shape_outcoming_message);
         } else {
-            return ContextCompat.getDrawable(context, outcomingImageOverlayDrawable);
+            return getDrawable(outcomingImageOverlayDrawable);
         }
     }
 
@@ -352,7 +351,7 @@ class MessagesListStyle extends Style {
             return getMessageSelector(incomingDefaultBubbleColor, incomingDefaultBubbleSelectedColor,
                     incomingDefaultBubblePressedColor, R.drawable.shape_incoming_message);
         } else {
-            return ContextCompat.getDrawable(context, incomingBubbleDrawable);
+            return getDrawable(incomingBubbleDrawable);
         }
     }
 
@@ -361,7 +360,7 @@ class MessagesListStyle extends Style {
             return getMessageSelector(Color.TRANSPARENT, incomingDefaultImageOverlaySelectedColor,
                     incomingDefaultImageOverlayPressedColor, R.drawable.shape_incoming_message);
         } else {
-            return ContextCompat.getDrawable(context, incomingImageOverlayDrawable);
+            return getDrawable(incomingImageOverlayDrawable);
         }
     }
 }

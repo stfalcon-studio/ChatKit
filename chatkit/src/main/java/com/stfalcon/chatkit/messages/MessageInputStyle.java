@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 
@@ -129,8 +128,8 @@ class MessageInputStyle extends Style {
         style.inputText = typedArray.getString(R.styleable.MessageInput_inputText);
 
         style.inputTextSize = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputTextSize, style.getDimension(R.dimen.input_text_size));
-        style.inputTextColor = typedArray.getColor(R.styleable.MessageInput_inputTextColor, ContextCompat.getColor(context, R.color.dark_grey_two));
-        style.inputHintColor = typedArray.getColor(R.styleable.MessageInput_inputHintColor, ContextCompat.getColor(context, R.color.warm_grey_three));
+        style.inputTextColor = typedArray.getColor(R.styleable.MessageInput_inputTextColor, style.getColor(R.color.dark_grey_two));
+        style.inputHintColor = typedArray.getColor(R.styleable.MessageInput_inputHintColor, style.getColor(R.color.warm_grey_three));
 
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);

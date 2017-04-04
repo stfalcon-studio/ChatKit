@@ -19,7 +19,6 @@ package com.stfalcon.chatkit.dialogs;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.R;
@@ -71,84 +70,84 @@ class DialogListStyle extends Style {
     private int dialogUnreadItemBackground;
 
     static DialogListStyle parse(Context context, AttributeSet attrs) {
-        DialogListStyle dialogStyle = new DialogListStyle(context, attrs);
+        DialogListStyle style = new DialogListStyle(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DialogsList);
 
         //Item background
-        dialogStyle.setDialogItemBackground(typedArray.getColor(R.styleable.DialogsList_dialogItemBackground,
-                ContextCompat.getColor(context, R.color.transparent)));
-        dialogStyle.setDialogUnreadItemBackground(typedArray.getColor(R.styleable.DialogsList_dialogUnreadItemBackground,
-                ContextCompat.getColor(context, R.color.transparent)));
+        style.setDialogItemBackground(typedArray.getColor(R.styleable.DialogsList_dialogItemBackground,
+                style.getColor(R.color.transparent)));
+        style.setDialogUnreadItemBackground(typedArray.getColor(R.styleable.DialogsList_dialogUnreadItemBackground,
+                style.getColor(R.color.transparent)));
         //Title text
-        dialogStyle.setDialogTitleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogTitleTextColor,
-                ContextCompat.getColor(context, R.color.dialog_title_text)));
-        dialogStyle.setDialogTitleTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogTitleTextSize,
+        style.setDialogTitleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogTitleTextColor,
+                style.getColor(R.color.dialog_title_text)));
+        style.setDialogTitleTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogTitleTextSize,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_title_text_size)));
-        dialogStyle.setDialogTitleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogTitleTextStyle, Typeface.NORMAL));
+        style.setDialogTitleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogTitleTextStyle, Typeface.NORMAL));
         //Title unread text
-        dialogStyle.setDialogUnreadTitleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadTitleTextColor,
-                ContextCompat.getColor(context, R.color.dialog_title_text)));
-        dialogStyle.setDialogUnreadTitleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadTitleTextStyle, Typeface.NORMAL));
+        style.setDialogUnreadTitleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadTitleTextColor,
+                style.getColor(R.color.dialog_title_text)));
+        style.setDialogUnreadTitleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadTitleTextStyle, Typeface.NORMAL));
 
         //Message text
-        dialogStyle.setDialogMessageTextColor(typedArray.getColor(R.styleable.DialogsList_dialogMessageTextColor,
-                ContextCompat.getColor(context, R.color.dialog_message_text)));
-        dialogStyle.setDialogMessageTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageTextSize,
+        style.setDialogMessageTextColor(typedArray.getColor(R.styleable.DialogsList_dialogMessageTextColor,
+                style.getColor(R.color.dialog_message_text)));
+        style.setDialogMessageTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageTextSize,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_message_text_size)));
-        dialogStyle.setDialogMessageTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogMessageTextStyle, Typeface.NORMAL));
+        style.setDialogMessageTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogMessageTextStyle, Typeface.NORMAL));
         //Message unread text
-        dialogStyle.setDialogUnreadMessageTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadMessageTextColor,
-                ContextCompat.getColor(context, R.color.dialog_message_text)));
-        dialogStyle.setDialogUnreadMessageTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadMessageTextStyle, Typeface.NORMAL));
+        style.setDialogUnreadMessageTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadMessageTextColor,
+                style.getColor(R.color.dialog_message_text)));
+        style.setDialogUnreadMessageTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadMessageTextStyle, Typeface.NORMAL));
 
         //Date text
-        dialogStyle.setDialogDateColor(typedArray.getColor(R.styleable.DialogsList_dialogDateColor,
-                ContextCompat.getColor(context, R.color.dialog_date_text)));
-        dialogStyle.setDialogDateSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDateSize,
+        style.setDialogDateColor(typedArray.getColor(R.styleable.DialogsList_dialogDateColor,
+                style.getColor(R.color.dialog_date_text)));
+        style.setDialogDateSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDateSize,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_date_text_size)));
-        dialogStyle.setDialogDateStyle(typedArray.getInt(R.styleable.DialogsList_dialogDateStyle, Typeface.NORMAL));
+        style.setDialogDateStyle(typedArray.getInt(R.styleable.DialogsList_dialogDateStyle, Typeface.NORMAL));
         //Date unread text
-        dialogStyle.setDialogUnreadDateColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadDateColor,
-                ContextCompat.getColor(context, R.color.dialog_date_text)));
-        dialogStyle.setDialogUnreadDateStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadDateStyle, Typeface.NORMAL));
+        style.setDialogUnreadDateColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadDateColor,
+                style.getColor(R.color.dialog_date_text)));
+        style.setDialogUnreadDateStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadDateStyle, Typeface.NORMAL));
 
         //Unread bubble
-        dialogStyle.setDialogUnreadBubbleEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogUnreadBubbleEnabled, true));
-        dialogStyle.setDialogUnreadBubbleBackgroundColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadBubbleBackgroundColor,
-                ContextCompat.getColor(context, R.color.dialog_unread_bubble)));
+        style.setDialogUnreadBubbleEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogUnreadBubbleEnabled, true));
+        style.setDialogUnreadBubbleBackgroundColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadBubbleBackgroundColor,
+                style.getColor(R.color.dialog_unread_bubble)));
 
         //Unread bubble text
-        dialogStyle.setDialogUnreadBubbleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadBubbleTextColor,
-                ContextCompat.getColor(context, R.color.dialog_unread_text)));
-        dialogStyle.setDialogUnreadBubbleTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogUnreadBubbleTextSize,
+        style.setDialogUnreadBubbleTextColor(typedArray.getColor(R.styleable.DialogsList_dialogUnreadBubbleTextColor,
+                style.getColor(R.color.dialog_unread_text)));
+        style.setDialogUnreadBubbleTextSize(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogUnreadBubbleTextSize,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_unread_bubble_text_size)));
-        dialogStyle.setDialogUnreadBubbleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadBubbleTextStyle, Typeface.NORMAL));
+        style.setDialogUnreadBubbleTextStyle(typedArray.getInt(R.styleable.DialogsList_dialogUnreadBubbleTextStyle, Typeface.NORMAL));
 
         //Avatar
-        dialogStyle.setDialogAvatarWidth(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogAvatarWidth,
+        style.setDialogAvatarWidth(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogAvatarWidth,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_avatar_width)));
-        dialogStyle.setDialogAvatarHeight(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogAvatarHeight,
+        style.setDialogAvatarHeight(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogAvatarHeight,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_avatar_height)));
 
         //Last message avatar
-        dialogStyle.setDialogMessageAvatarEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogMessageAvatarEnabled, true));
-        dialogStyle.setDialogMessageAvatarWidth(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageAvatarWidth,
+        style.setDialogMessageAvatarEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogMessageAvatarEnabled, true));
+        style.setDialogMessageAvatarWidth(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageAvatarWidth,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_last_message_avatar_width)));
-        dialogStyle.setDialogMessageAvatarHeight(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageAvatarHeight,
+        style.setDialogMessageAvatarHeight(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogMessageAvatarHeight,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_last_message_avatar_height)));
 
         //Divider
-        dialogStyle.setDialogDividerEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogDividerEnabled, true));
-        dialogStyle.setDialogDividerColor(typedArray.getColor(R.styleable.DialogsList_dialogDividerColor, ContextCompat.getColor(context, R.color.dialog_divider)));
-        dialogStyle.setDialogDividerLeftPadding(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDividerLeftPadding,
+        style.setDialogDividerEnabled(typedArray.getBoolean(R.styleable.DialogsList_dialogDividerEnabled, true));
+        style.setDialogDividerColor(typedArray.getColor(R.styleable.DialogsList_dialogDividerColor, style.getColor(R.color.dialog_divider)));
+        style.setDialogDividerLeftPadding(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDividerLeftPadding,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_divider_margin_left)));
-        dialogStyle.setDialogDividerRightPadding(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDividerRightPadding,
+        style.setDialogDividerRightPadding(typedArray.getDimensionPixelSize(R.styleable.DialogsList_dialogDividerRightPadding,
                 context.getResources().getDimensionPixelSize(R.dimen.dialog_divider_margin_right)));
 
         typedArray.recycle();
 
-        return dialogStyle;
+        return style;
     }
 
     private DialogListStyle(Context context, AttributeSet attrs) {

@@ -12,7 +12,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
@@ -32,7 +31,6 @@ import android.widget.ImageView;
 public class RoundedImageView extends ImageView {
 
     private int mResource = 0;
-    private ScaleType mScaleType = ScaleType.CENTER_CROP;
     private Drawable mDrawable;
 
     private float[] mRadii = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -53,13 +51,6 @@ public class RoundedImageView extends ImageView {
     protected void drawableStateChanged() {
         super.drawableStateChanged();
         invalidate();
-    }
-
-    @Override
-    public void setScaleType(ScaleType scaleType) {
-        super.setScaleType(scaleType);
-        mScaleType = scaleType;
-        updateDrawable();
     }
 
     @Override
@@ -130,10 +121,8 @@ public class RoundedImageView extends ImageView {
     private void updateDrawable() {
         if (mDrawable == null) return;
 
-        ((RoundedCornerDrawable) mDrawable).setScaleType(mScaleType);
         ((RoundedCornerDrawable) mDrawable).setCornerRadii(mRadii);
     }
-
 
     static class RoundedCornerDrawable extends Drawable {
         private RectF mBounds = new RectF();
@@ -147,10 +136,6 @@ public class RoundedImageView extends ImageView {
         private BitmapShader mBitmapShader;
 
         private float[] mRadii = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
-
-        // Set default scale type to FIT_CENTER, which is default scale type of
-        // original ImageView.
-        private ScaleType mScaleType = ScaleType.FIT_CENTER;
 
         private Path mPath = new Path();
         private Bitmap mBitmap;
@@ -218,35 +203,10 @@ public class RoundedImageView extends ImageView {
         }
 
         private void configureBounds(Canvas canvas) {
-            Rect clipBounds = canvas.getClipBounds();
             Matrix canvasMatrix = canvas.getMatrix();
 
-            switch (mScaleType) {
-                case CENTER:
-                    mBounds.set(clipBounds);
-                    break;
-                case CENTER_CROP:
-                    applyScaleToRadii(canvasMatrix);
-                    mBounds.set(clipBounds);
-                    break;
-                case FIT_XY:
-                    Matrix m = new Matrix();
-                    m.setRectToRect(mBitmapRect, new RectF(clipBounds), Matrix.ScaleToFit.FILL);
-                    mBitmapShader.setLocalMatrix(m);
-                    mBounds.set(clipBounds);
-                    break;
-                case FIT_START:
-                case FIT_END:
-                case FIT_CENTER:
-                case CENTER_INSIDE:
-                    applyScaleToRadii(canvasMatrix);
-                    mBounds.set(mBitmapRect);
-                    break;
-                case MATRIX:
-                    applyScaleToRadii(canvasMatrix);
-                    mBounds.set(mBitmapRect);
-                    break;
-            }
+            applyScaleToRadii(canvasMatrix);
+            mBounds.set(mBitmapRect);
         }
 
         private void applyScaleToRadii(Matrix m) {
@@ -316,13 +276,6 @@ public class RoundedImageView extends ImageView {
         @Override
         public int getIntrinsicHeight() {
             return mBitmapHeight;
-        }
-
-        public void setScaleType(ScaleType scaleType) {
-            if (scaleType == null) {
-                return;
-            }
-            mScaleType = scaleType;
         }
     }
 }

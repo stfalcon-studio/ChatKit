@@ -11,6 +11,7 @@
         android:id="@id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:layout_marginLeft="@dimen/message_outcoming_bubble_margin_left"
         android:layout_marginStart="@dimen/message_outcoming_bubble_margin_left"/>
 

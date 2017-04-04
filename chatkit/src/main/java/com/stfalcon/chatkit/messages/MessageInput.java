@@ -146,10 +146,13 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setBackground(style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
+        this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
         this.attachmentButton.setBackground(style.getAttachmentButtonBackground());
         this.attachmentButton.setImageDrawable(style.getAttachmentButtonIcon());
         this.attachmentButton.getLayoutParams().width = style.getAttachmentButtonWidth();
         this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
+
+        this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
         this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
 
         this.messageSendButton.setBackground(style.getInputButtonBackground());

@@ -17,6 +17,7 @@
         <attr name="inputButtonWidth" format="dimension|reference"/>
         <attr name="inputButtonHeight" format="dimension|reference"/>
 
+        <attr name="showAttachmentButton" format="boolean"/>
         <attr name="attachmentButtonBackground" format="reference"/>
         <attr name="attachmentButtonDefaultBgColor" format="color|reference"/>
         <attr name="attachmentButtonDefaultBgPressedColor" format="color|reference"/>

@@ -35,6 +35,8 @@ class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
 
+    private boolean showAttachmentButton;
+
     private int attachmentButtonBackground;
     private int attachmentButtonDefaultBgColor;
     private int attachmentButtonDefaultBgPressedColor;
@@ -82,6 +84,8 @@ class MessageInputStyle extends Style {
     static MessageInputStyle parse(Context context, AttributeSet attrs) {
         MessageInputStyle style = new MessageInputStyle(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessageInput);
+
+        style.showAttachmentButton = typedArray.getBoolean(R.styleable.MessageInput_showAttachmentButton, false);
 
         style.attachmentButtonBackground = typedArray.getResourceId(R.styleable.MessageInput_attachmentButtonBackground, -1);
         style.attachmentButtonDefaultBgColor = typedArray.getColor(R.styleable.MessageInput_attachmentButtonDefaultBgColor,
@@ -163,6 +167,10 @@ class MessageInputStyle extends Style {
                         new int[]{normalColor, pressedColor, disabledColor}
                 ));
         return drawable;
+    }
+
+    boolean showAttachmentButton() {
+        return showAttachmentButton;
     }
 
     Drawable getAttachmentButtonBackground() {

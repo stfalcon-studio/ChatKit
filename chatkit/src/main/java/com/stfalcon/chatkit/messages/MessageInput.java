@@ -41,8 +41,8 @@ public class MessageInput extends RelativeLayout
 
     protected EditText messageInput;
     protected ImageButton messageSendButton;
-    protected ImageButton addAttachmentsButton;
-    protected Space buttonSpace;
+    protected ImageButton attachmentButton;
+    protected Space sendButtonSpace, attachmentButtonSpace;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -97,7 +97,7 @@ public class MessageInput extends RelativeLayout
             if (isSubmitted) {
                 messageInput.setText("");
             }
-        } else if (id == R.id.addAttachmentsButton) {
+        } else if (id == R.id.attachmentButton) {
             inputListener.onAddAttachments();
         }
     }
@@ -146,11 +146,17 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setBackground(style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
+        this.attachmentButton.setBackground(style.getAttachmentButtonBackground());
+        this.attachmentButton.setImageDrawable(style.getAttachmentButtonIcon());
+        this.attachmentButton.getLayoutParams().width = style.getAttachmentButtonWidth();
+        this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
+        this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
+
         this.messageSendButton.setBackground(style.getInputButtonBackground());
         this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
-        this.buttonSpace.getLayoutParams().width = style.getInputButtonMargin();
+        this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
         if (getPaddingLeft() == 0
                 && getPaddingRight() == 0
@@ -170,11 +176,12 @@ public class MessageInput extends RelativeLayout
 
         messageInput = (EditText) findViewById(R.id.messageInput);
         messageSendButton = (ImageButton) findViewById(R.id.messageSendButton);
-        addAttachmentsButton = (ImageButton) findViewById(R.id.addAttachmentsButton);
-        buttonSpace = (Space) findViewById(R.id.buttonSpace);
+        attachmentButton = (ImageButton) findViewById(R.id.attachmentButton);
+        sendButtonSpace = (Space) findViewById(R.id.sendButtonSpace);
+        attachmentButtonSpace = (Space) findViewById(R.id.attachmentButtonSpace);
 
         messageSendButton.setOnClickListener(this);
-        addAttachmentsButton.setOnClickListener(this);
+        attachmentButton.setOnClickListener(this);
         messageInput.addTextChangedListener(this);
         messageInput.setText("");
     }

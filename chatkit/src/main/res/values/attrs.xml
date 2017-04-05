@@ -93,6 +93,14 @@
             <flag name="italic" value="2"/>
         </attr>
 
+        <attr name="incomingImageTimeTextColor" format="color|reference"/>
+        <attr name="incomingImageTimeTextSize" format="dimension|reference"/>
+        <attr name="incomingImageTimeTextStyle">
+            <flag name="normal" value="0"/>
+            <flag name="bold" value="1"/>
+            <flag name="italic" value="2"/>
+        </attr>
+
         <attr name="outcomingBubbleDrawable" format="reference"/>
         <attr name="outcomingDefaultBubbleColor" format="color|reference"/>
         <attr name="outcomingDefaultBubblePressedColor" format="color|reference"/>
@@ -118,6 +126,14 @@
         <attr name="outcomingTimeTextColor" format="color|reference"/>
         <attr name="outcomingTimeTextSize" format="dimension|reference"/>
         <attr name="outcomingTimeTextStyle">
+            <flag name="normal" value="0"/>
+            <flag name="bold" value="1"/>
+            <flag name="italic" value="2"/>
+        </attr>
+
+        <attr name="outcomingImageTimeTextColor" format="color|reference"/>
+        <attr name="outcomingImageTimeTextSize" format="dimension|reference"/>
+        <attr name="outcomingImageTimeTextStyle">
             <flag name="normal" value="0"/>
             <flag name="bold" value="1"/>
             <flag name="italic" value="2"/>

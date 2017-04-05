@@ -64,6 +64,10 @@ class MessagesListStyle extends Style {
     private int incomingTimeTextSize;
     private int incomingTimeTextStyle;
 
+    private int incomingImageTimeTextColor;
+    private int incomingImageTimeTextSize;
+    private int incomingImageTimeTextStyle;
+
     private int outcomingBubbleDrawable;
     private int outcomingDefaultBubbleColor;
     private int outcomingDefaultBubblePressedColor;
@@ -85,6 +89,10 @@ class MessagesListStyle extends Style {
     private int outcomingTimeTextColor;
     private int outcomingTimeTextSize;
     private int outcomingTimeTextStyle;
+
+    private int outcomingImageTimeTextColor;
+    private int outcomingImageTimeTextSize;
+    private int outcomingImageTimeTextStyle;
 
     private int dateHeaderPadding;
     private String dateHeaderFormat;
@@ -134,11 +142,18 @@ class MessagesListStyle extends Style {
         style.incomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTextSize,
                 style.getDimension(R.dimen.message_text_size));
         style.incomingTextStyle = typedArray.getInt(R.styleable.MessagesList_incomingTextStyle, Typeface.NORMAL);
+
         style.incomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_incomingTimeTextColor,
                 style.getColor(R.color.warm_grey_four));
         style.incomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingTimeTextSize,
                 style.getDimension(R.dimen.message_time_text_size));
         style.incomingTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_incomingTimeTextStyle, Typeface.NORMAL);
+
+        style.incomingImageTimeTextColor = typedArray.getColor(R.styleable.MessagesList_incomingImageTimeTextColor,
+                style.getColor(R.color.warm_grey_four));
+        style.incomingImageTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_incomingImageTimeTextSize,
+                style.getDimension(R.dimen.message_time_text_size));
+        style.incomingImageTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_incomingImageTimeTextStyle, Typeface.NORMAL);
 
         style.outcomingBubbleDrawable = typedArray.getResourceId(R.styleable.MessagesList_outcomingBubbleDrawable, -1);
         style.outcomingDefaultBubbleColor = typedArray.getColor(R.styleable.MessagesList_outcomingDefaultBubbleColor,
@@ -167,11 +182,18 @@ class MessagesListStyle extends Style {
         style.outcomingTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTextSize,
                 style.getDimension(R.dimen.message_text_size));
         style.outcomingTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTextStyle, Typeface.NORMAL);
+
         style.outcomingTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingTimeTextColor,
-                style.getColor(R.color.warm_grey_four));
+                style.getColor(R.color.white60));
         style.outcomingTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingTimeTextSize,
                 style.getDimension(R.dimen.message_time_text_size));
         style.outcomingTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingTimeTextStyle, Typeface.NORMAL);
+
+        style.outcomingImageTimeTextColor = typedArray.getColor(R.styleable.MessagesList_outcomingImageTimeTextColor,
+                style.getColor(R.color.warm_grey_four));
+        style.outcomingImageTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.MessagesList_outcomingImageTimeTextSize,
+                style.getDimension(R.dimen.message_time_text_size));
+        style.outcomingImageTimeTextStyle = typedArray.getInt(R.styleable.MessagesList_outcomingImageTimeTextStyle, Typeface.NORMAL);
 
         style.dateHeaderPadding = typedArray.getDimensionPixelSize(R.styleable.MessagesList_dateHeaderPadding,
                 style.getDimension(R.dimen.message_date_header_padding));
@@ -302,8 +324,28 @@ class MessagesListStyle extends Style {
         return outcomingTextStyle;
     }
 
+    int getOutcomingTimeTextColor() {
+        return outcomingTimeTextColor;
+    }
+
+    int getOutcomingTimeTextSize() {
+        return outcomingTimeTextSize;
+    }
+
     int getOutcomingTimeTextStyle() {
         return outcomingTimeTextStyle;
+    }
+
+    int getOutcomingImageTimeTextColor() {
+        return outcomingImageTimeTextColor;
+    }
+
+    int getOutcomingImageTimeTextSize() {
+        return outcomingImageTimeTextSize;
+    }
+
+    int getOutcomingImageTimeTextStyle() {
+        return outcomingImageTimeTextStyle;
     }
 
     int getDateHeaderTextColor() {
@@ -338,12 +380,16 @@ class MessagesListStyle extends Style {
         return incomingTimeTextColor;
     }
 
-    int getOutcomingTimeTextColor() {
-        return outcomingTimeTextColor;
+    int getIncomingImageTimeTextColor() {
+        return incomingImageTimeTextColor;
     }
 
-    int getOutcomingTimeTextSize() {
-        return outcomingTimeTextSize;
+    int getIncomingImageTimeTextSize() {
+        return incomingImageTimeTextSize;
+    }
+
+    int getIncomingImageTimeTextStyle() {
+        return incomingImageTimeTextStyle;
     }
 
     Drawable getIncomingBubbleDrawable() {

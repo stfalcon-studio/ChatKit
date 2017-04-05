@@ -622,6 +622,11 @@ public class MessageHolders {
         @Override
         public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
+            if (time != null) {
+                time.setTextColor(style.getIncomingImageTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingImageTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getIncomingImageTimeTextStyle());
+            }
 
             if (imageOverlay != null) {
                 imageOverlay.setBackground(style.getIncomingImageOverlayDrawable());
@@ -668,6 +673,11 @@ public class MessageHolders {
         @Override
         public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
+            if (time != null) {
+                time.setTextColor(style.getOutcomingImageTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingImageTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getOutcomingImageTimeTextStyle());
+            }
 
             if (imageOverlay != null) {
                 imageOverlay.setBackground(style.getOutcomingImageOverlayDrawable());

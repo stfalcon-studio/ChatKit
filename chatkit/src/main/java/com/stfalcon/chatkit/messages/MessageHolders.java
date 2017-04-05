@@ -28,7 +28,7 @@ import java.util.List;
 /*
  * Created by troy379 on 31.03.17.
  */
-public class MessageHoldersConfigurator {
+public class MessageHolders {
 
     private static final short VIEW_TYPE_DATE_HEADER = 130;
     private static final short VIEW_TYPE_TEXT_MESSAGE = 131;
@@ -45,7 +45,7 @@ public class MessageHoldersConfigurator {
     private List<ContentTypeConfig> customContentTypes = new ArrayList<>();
     private ContentChecker contentChecker;
 
-    public MessageHoldersConfigurator() {
+    public MessageHolders() {
         this.dateHeaderHolder = DefaultDateHeaderViewHolder.class;
         this.dateHeaderLayout = R.layout.item_date_header;
 
@@ -60,9 +60,9 @@ public class MessageHoldersConfigurator {
      *
      * @param holder holder class.
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingTextConfig(
+    public MessageHolders setIncomingTextConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
             @LayoutRes int layout) {
         this.incomingTextConfig.holder = holder;
@@ -74,9 +74,9 @@ public class MessageHoldersConfigurator {
      * Sets custom view holder class for incoming text message.
      *
      * @param holder holder class.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingTextHolder(
+    public MessageHolders setIncomingTextHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
         this.incomingTextConfig.holder = holder;
         return this;
@@ -86,9 +86,9 @@ public class MessageHoldersConfigurator {
      * Sets custom layout resource for incoming text message.
      *
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingTextLayout(@LayoutRes int layout) {
+    public MessageHolders setIncomingTextLayout(@LayoutRes int layout) {
         this.incomingTextConfig.layout = layout;
         return this;
     }
@@ -98,9 +98,9 @@ public class MessageHoldersConfigurator {
      *
      * @param holder holder class.
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingTextConfig(
+    public MessageHolders setOutcomingTextConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
             @LayoutRes int layout) {
         this.outcomingTextConfig.holder = holder;
@@ -112,9 +112,9 @@ public class MessageHoldersConfigurator {
      * Sets custom view holder class for outcoming text message.
      *
      * @param holder holder class.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingTextHolder(
+    public MessageHolders setOutcomingTextHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
         this.outcomingTextConfig.holder = holder;
         return this;
@@ -124,9 +124,9 @@ public class MessageHoldersConfigurator {
      * Sets custom layout resource for outcoming text message.
      *
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingTextLayout(@LayoutRes int layout) {
+    public MessageHolders setOutcomingTextLayout(@LayoutRes int layout) {
         this.outcomingTextConfig.layout = layout;
         return this;
     }
@@ -136,9 +136,9 @@ public class MessageHoldersConfigurator {
      *
      * @param holder holder class.
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingImageConfig(
+    public MessageHolders setIncomingImageConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
             @LayoutRes int layout) {
         this.incomingImageConfig.holder = holder;
@@ -150,9 +150,9 @@ public class MessageHoldersConfigurator {
      * Sets custom view holder class for incoming image message.
      *
      * @param holder holder class.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingImageHolder(
+    public MessageHolders setIncomingImageHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder) {
         this.incomingImageConfig.holder = holder;
         return this;
@@ -162,9 +162,9 @@ public class MessageHoldersConfigurator {
      * Sets custom layout resource for incoming image message.
      *
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setIncomingImageLayout(@LayoutRes int layout) {
+    public MessageHolders setIncomingImageLayout(@LayoutRes int layout) {
         this.incomingImageConfig.layout = layout;
         return this;
     }
@@ -174,9 +174,9 @@ public class MessageHoldersConfigurator {
      *
      * @param holder holder class.
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingImageConfig(
+    public MessageHolders setOutcomingImageConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
             @LayoutRes int layout) {
         this.outcomingImageConfig.holder = holder;
@@ -188,9 +188,9 @@ public class MessageHoldersConfigurator {
      * Sets custom view holder class for outcoming image message.
      *
      * @param holder holder class.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingImageHolder(
+    public MessageHolders setOutcomingImageHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder) {
         this.outcomingImageConfig.holder = holder;
         return this;
@@ -200,9 +200,9 @@ public class MessageHoldersConfigurator {
      * Sets custom layout resource for outcoming image message.
      *
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setOutcomingImageLayout(@LayoutRes int layout) {
+    public MessageHolders setOutcomingImageLayout(@LayoutRes int layout) {
         this.outcomingImageConfig.layout = layout;
         return this;
     }
@@ -212,9 +212,9 @@ public class MessageHoldersConfigurator {
      *
      * @param holder holder class.
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setDateHeaderConfig(
+    public MessageHolders setDateHeaderConfig(
             @NonNull Class<? extends ViewHolder<Date>> holder,
             @LayoutRes int layout) {
         this.dateHeaderHolder = holder;
@@ -226,9 +226,9 @@ public class MessageHoldersConfigurator {
      * Sets custom view holder class for date header.
      *
      * @param holder holder class.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setDateHeaderHolder(@NonNull Class<? extends ViewHolder<Date>> holder) {
+    public MessageHolders setDateHeaderHolder(@NonNull Class<? extends ViewHolder<Date>> holder) {
         this.dateHeaderHolder = holder;
         return this;
     }
@@ -237,9 +237,9 @@ public class MessageHoldersConfigurator {
      * Sets custom layout reource for date header.
      *
      * @param layout layout resource.
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
-    public MessageHoldersConfigurator setDateHeaderLayout(@LayoutRes int layout) {
+    public MessageHolders setDateHeaderLayout(@LayoutRes int layout) {
         this.dateHeaderLayout = layout;
         return this;
     }
@@ -252,10 +252,10 @@ public class MessageHoldersConfigurator {
      * @param incomingLayout  layout resource for incoming message
      * @param outcomingLayout layout resource for outcoming message
      * @param contentChecker  {@link ContentChecker} for registered type
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
     public <TYPE extends MessageContentType>
-    MessageHoldersConfigurator registerContentType(
+    MessageHolders registerContentType(
             byte type, @NonNull Class<? extends BaseMessageViewHolder<TYPE>> holder,
             @LayoutRes int incomingLayout,
             @LayoutRes int outcomingLayout,
@@ -276,10 +276,10 @@ public class MessageHoldersConfigurator {
      * @param incomingLayout  layout resource for incoming message
      * @param outcomingLayout layout resource for outcoming message
      * @param contentChecker  {@link ContentChecker} for registered type
-     * @return {@link MessageHoldersConfigurator} for subsequent configuration.
+     * @return {@link MessageHolders} for subsequent configuration.
      */
     public <TYPE extends MessageContentType>
-    MessageHoldersConfigurator registerContentType(
+    MessageHolders registerContentType(
             byte type,
             @NonNull Class<? extends BaseMessageViewHolder<TYPE>> incomingHolder, @LayoutRes int incomingLayout,
             @NonNull Class<? extends BaseMessageViewHolder<TYPE>> outcomingHolder, @LayoutRes int outcomingLayout,
@@ -351,12 +351,12 @@ public class MessageHoldersConfigurator {
               DateFormatter.Formatter dateHeadersFormatter) {
 
         if (item instanceof IMessage) {
-            ((MessageHoldersConfigurator.BaseMessageViewHolder) holder).isSelected = isSelected;
-            ((MessageHoldersConfigurator.BaseMessageViewHolder) holder).imageLoader = imageLoader;
+            ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
+            ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
             holder.itemView.setOnClickListener(onMessageClickListener);
         } else if (item instanceof Date) {
-            ((MessageHoldersConfigurator.DefaultDateHeaderViewHolder) holder).dateHeadersFormatter = dateHeadersFormatter;
+            ((MessageHolders.DefaultDateHeaderViewHolder) holder).dateHeadersFormatter = dateHeadersFormatter;
         }
 
         holder.onBind(item);

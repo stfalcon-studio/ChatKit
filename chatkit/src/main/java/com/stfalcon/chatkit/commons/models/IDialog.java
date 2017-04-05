@@ -22,7 +22,7 @@ import java.util.List;
  * For implementing by real dialog model
  */
 
-public interface IDialog {
+public interface IDialog<MESSAGE extends IMessage> {
 
     String getId();
 
@@ -30,11 +30,11 @@ public interface IDialog {
 
     String getDialogName();
 
-    List<IUser> getUsers();
+    List<? extends IUser> getUsers();
 
-    IMessage getLastMessage();
+    MESSAGE getLastMessage();
 
-    void setLastMessage(IMessage message);
+    void setLastMessage(MESSAGE message);
 
     int getUnreadCount();
 }

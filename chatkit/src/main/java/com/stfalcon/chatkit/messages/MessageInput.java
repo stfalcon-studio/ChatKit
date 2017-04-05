@@ -46,6 +46,7 @@ public class MessageInput extends RelativeLayout
 
     private CharSequence input;
     private InputListener inputListener;
+    private AttachmentsListener attachmentsListener;
 
     public MessageInput(Context context) {
         super(context);
@@ -63,12 +64,21 @@ public class MessageInput extends RelativeLayout
     }
 
     /**
-     * Set callback to be invoked when user entered his input
+     * Sets callback for 'submit' button.
      *
      * @param inputListener input callback
      */
     public void setInputListener(InputListener inputListener) {
         this.inputListener = inputListener;
+    }
+
+    /**
+     * Sets callback for 'add' button.
+     *
+     * @param attachmentsListener input callback
+     */
+    public void setAttachmentsListener(AttachmentsListener attachmentsListener) {
+        this.attachmentsListener = attachmentsListener;
     }
 
     /**
@@ -98,7 +108,7 @@ public class MessageInput extends RelativeLayout
                 messageInput.setText("");
             }
         } else if (id == R.id.attachmentButton) {
-            inputListener.onAddAttachments();
+            onAddAttachments();
         }
     }
 
@@ -131,6 +141,10 @@ public class MessageInput extends RelativeLayout
 
     private boolean onSubmit() {
         return inputListener != null && inputListener.onSubmit(input);
+    }
+
+    private void onAddAttachments() {
+        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -199,19 +213,27 @@ public class MessageInput extends RelativeLayout
     }
 
     /**
-     * Interface definition for a callback to be invoked when user entered his input
+     * Interface definition for a callback to be invoked when user pressed 'submit' button
      */
     public interface InputListener {
 
         /**
-         * Fires when user press send button.
+         * Fires when user presses 'send' button.
          *
          * @param input input entered by user
          * @return if input text is valid, you must return {@code true} and input will be cleared, otherwise return false.
          */
         boolean onSubmit(CharSequence input);
+    }
 
-        // TODO: 29.03.17 doc
+    /**
+     * Interface definition for a callback to be invoked when user presses 'add' button
+     */
+    public interface AttachmentsListener {
+
+        /**
+         * Fires when user presses 'add' button.
+         */
         void onAddAttachments();
     }
 }

@@ -19,10 +19,13 @@ android {
     }
 }
 
-ext.supportVersion = '25.1.1'
-ext.picassoVersion = '2.5.2'
-ext.circleImageViewVersion = '2.1.0'
-ext.shapeImageViewVersion = '0.9.3'
+ext {
+    supportVersion = '25.1.1'
+    picassoVersion = '2.5.2'
+    circleImageViewVersion = '2.1.0'
+    shapeImageViewVersion = '0.9.3'
+}
+
 
 dependencies {
     compile project(':chatkit')

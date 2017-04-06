@@ -22,6 +22,7 @@ public final class DialogsFixtures extends FixturesData {
         for (int i = 0; i < 20; i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_MONTH, -(i * i));
+            calendar.add(Calendar.MINUTE, -(i * i));
 
             chats.add(getDialog(i, calendar.getTime()));
         }

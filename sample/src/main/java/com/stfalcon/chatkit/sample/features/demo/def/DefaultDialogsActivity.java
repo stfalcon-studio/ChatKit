@@ -12,7 +12,11 @@ import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.features.demo.DemoDialogsActivity;
 
+import java.util.ArrayList;
+
 public class DefaultDialogsActivity extends DemoDialogsActivity {
+
+    private ArrayList<Dialog> dialogs;
 
     public static void open(Context context) {
         context.startActivity(new Intent(context, DefaultDialogsActivity.class));

@@ -36,6 +36,7 @@ import com.stfalcon.chatkit.utils.DateFormatter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -260,6 +261,33 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             }
         }
         return dialogExist;
+    }
+
+    /**
+     * Sort dialog by last message date
+     */
+    public void sortByLastMessageDate() {
+        Collections.sort(items, new Comparator<DIALOG>() {
+            @Override
+            public int compare(DIALOG o1, DIALOG o2) {
+                if (o1.getLastMessage().getCreatedAt().after(o2.getLastMessage().getCreatedAt())) {
+                    return -1;
+                } else if (o1.getLastMessage().getCreatedAt().before(o2.getLastMessage().getCreatedAt())) {
+                    return 1;
+                } else return 0;
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Sort items with rules of comparator
+     *
+     * @param comparator Comparator
+     */
+    public void sort(Comparator<DIALOG> comparator) {
+        Collections.sort(items, comparator);
+        notifyDataSetChanged();
     }
 
     /**

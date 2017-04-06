@@ -5,7 +5,7 @@ import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 /*
- * Created by troy379 on 23.03.17.
+ * Created by troy379 on 04.04.17.
  */
 public class AppUtils {
 

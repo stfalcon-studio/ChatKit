@@ -5,6 +5,7 @@
     <color name="gray">#ebebeb</color>
     <color name="gray_light">#e8e8e8</color>
     <color name="gray_transparent">#a6efefef</color>
+    <color name="gray_dark">#858585</color>
     <color name="gray_dark_transparent">#ae858585</color>
     <color name="black">#000000</color>
     <color name="black_10">#19000000</color>

@@ -16,4 +16,9 @@
     <string name="date_header_today">Today</string>
     <string name="date_header_yesterday">Yesterday</string>
 
+    <string-array name="view_types_dialog">
+        <item name="image">Image (default)</item>
+        <item name="voice">Voice message (custom)</item>
+    </string-array>
+
 </resources>

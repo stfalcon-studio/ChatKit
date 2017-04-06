@@ -1,6 +1,8 @@
 package com.stfalcon.chatkit.sample.features.demo.custom.media;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +20,8 @@ import com.stfalcon.chatkit.sample.features.demo.custom.media.holders.OutcomingV
 public class CustomMediaMessagesActivity extends DemoMessagesActivity
         implements MessageInput.InputListener,
         MessageInput.AttachmentsListener,
-        MessageHolders.ContentChecker<Message> {
+        MessageHolders.ContentChecker<Message>,
+        DialogInterface.OnClickListener {
 
     private static final byte CONTENT_TYPE_VOICE = 1;
 
@@ -50,7 +53,9 @@ public class CustomMediaMessagesActivity extends DemoMessagesActivity
 
     @Override
     public void onAddAttachments() {
-        messagesAdapter.addToStart(MessagesFixtures.getVoiceMessage(), true);
+        new AlertDialog.Builder(this)
+                .setItems(R.array.view_types_dialog, this)
+                .show();
     }
 
     @Override
@@ -62,6 +67,18 @@ public class CustomMediaMessagesActivity extends DemoMessagesActivity
                         && !message.getVoice().getUrl().isEmpty();
         }
         return false;
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        switch (i) {
+            case 0:
+                messagesAdapter.addToStart(MessagesFixtures.getImageMessage(), true);
+                break;
+            case 1:
+                messagesAdapter.addToStart(MessagesFixtures.getVoiceMessage(), true);
+                break;
+        }
     }
 
     private void initAdapter() {

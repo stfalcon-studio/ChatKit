@@ -1,16 +1,60 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/bubble"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
-    <TextView
+    <com.stfalcon.chatkit.utils.ShapeImageView
+        android:id="@id/messageUserAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/time"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <LinearLayout
+        android:id="@id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|end"
-        android:text="voice (in)"
-        android:textColor="@color/red"
-        android:textSize="20sp"/>
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:layout_toRightOf="@id/messageUserAvatar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_play_black"/>
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/bubble"
+        android:layout_alignRight="@id/bubble"
+        android:layout_below="@id/bubble"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/gray_dark"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

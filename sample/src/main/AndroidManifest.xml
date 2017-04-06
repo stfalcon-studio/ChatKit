@@ -30,15 +30,16 @@
         <activity
             android:name=".features.demo.styled.StyledDialogsActivity"/>
         <activity
+            android:name=".features.demo.custom.layout.CustomLayoutDialogsActivity"/>
+        <activity
             android:name=".features.demo.custom.layout.CustomLayoutMessagesActivity"/>
-        <activity
-            android:name=".features.demo.custom.holder.CustomHolderMessagesActivity"/>
-        <activity
-            android:name=".features.demo.custom.media.CustomMediaMessagesActivity"/>
         <activity
             android:name=".features.demo.custom.holder.CustomHolderDialogsActivity"/>
         <activity
-            android:name=".features.demo.custom.layout.CustomLayoutDialogsActivity"/>
+            android:name=".features.demo.custom.holder.CustomHolderMessagesActivity"/>
+        <activity
+            android:name=".features.demo.custom.media.CustomMediaMessagesActivity"
+            android:theme="@style/BlueTheme"/>
 
     </application>
 

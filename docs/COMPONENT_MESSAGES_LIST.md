@@ -27,7 +27,7 @@ Adapter’s constructor takes a sender id (a user on whose behalf messages are s
 MessagesListAdapter<Message> adapter = new MessagesListAdapter<>(senderId, imageLoader);
 messagesList.setAdapter(adapter);
 ```
-Anyway, you can pass second parameter as ‘null’, and avatars will be hidden.
+Anyway, you can pass second parameter as `null`, and avatars will be hidden.
 
 #### Prepare your model
 
@@ -49,7 +49,7 @@ public class Message implements IMessage {
    }
 
    @Override
-   public IUser getUser() {
+   public Author getUser() {
        return author;
    }
 
@@ -59,7 +59,7 @@ public class Message implements IMessage {
    }
 }
 ```
-As you can see, you need also to add the `IUser` interface for message author displaying:
+As you can see, you need also to add the Author object, which must to implement `IUser` interface:
 
 ```java
 public class Author implements IUser {
@@ -93,9 +93,8 @@ That's all! This approach allows the adapter to work with your message model wit
 #### Adding new messages
 
 When your models are ready to be used by adapter, you can simply add them to the list. There are two ways to do it:
-
-by adding one message to the start (bottom) of the list with scrolling (if needed). This method is best suitable for adding new messages by calling the `adapter.addToStart(IMessage message, boolean scroll)`;
-by adding the previous messages of chatting history to the end (top) of the list with `adapter.addToEnd(List<IMessage> messages, boolean reverse)` method. Note that you can reverse the list before adding, if messages aren’t in the right order.
+ * by adding one message to the start (bottom) of the list with scrolling (if needed). This method is best suitable for adding new messages by calling the `adapter.addToStart(IMessage message, boolean scroll)`;
+ * by adding the previous messages of chatting history to the end (top) of the list with `adapter.addToEnd(List<IMessage> messages, boolean reverse)` method. Note that you can reverse the list before adding, if messages aren’t in the right order.
 
 #### Adding messages from history
 
@@ -111,9 +110,25 @@ public void onLoadMore(int page, int totalItemsCount) {
 ```
 The `page` variable contains next page number to load (which is equals to the amount of executions) and `totalItemsCount`, that contains current messages counter in the list.
 
+#### Adding image message
+
+Can modern chat exist without media message exchange? The right answer is - no, it can't. Even in the simplest apps this feature is “must have”. With ChatKit, adding this feature is easier than ever!
+At this moment "out of the box" library contains anly the most popular type of media messages - image messages. All you need to implement it is to mark your `Message` object with the `MessageContentType.Image` interface and override its `getImageUrl()` method:
+```java
+public class Message implements IMessage,
+       MessageContentType.Image {
+    ...
+    @Override
+    public String getImageUrl() {
+       return image == null ? null : image.url;
+    }
+}
+```
+If the method returns `null`, the adapter recognizes the message as a text message and displays it in the appropriate form. If the url of the image is present, an image will be displayed using `ImageLoader`, which we passed to the adapter.
+
 #### Date headers
 
-There’s no need to worry about data headers generation, it proceeds automatically while adding and deleting messages from the list considering all the possible cases. Also it’s fully localized, because it’s created with native java methods.
+There’s no need to worry about date headers generation, it proceeds automatically while adding and deleting messages from the list considering all the possible cases. Also it’s fully localized, because it’s created with native java methods.
 
 #### Deleting messages
 
@@ -139,6 +154,9 @@ public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
    void onMessageLongClick(MESSAGE message);
 }
 ```
+#### Links highlighting
+In 99% of cases the user is confused, when he can not follow the link or call the phone, indicated in the message. If you think the same way, just include `textAutoLink="all"`, like in the ordinary `TextView`. Similarly, you can specify highlighting for certain types, for example, `email|phone|web`.
+
 #### Selection mode
 
 But these listeners are not enough, if you want to create really convenient UX. Just imagine, how long users will remove, copy or share messages by doing those actions one by one. What a waste of time!
@@ -155,7 +173,7 @@ public void onSelectionChanged(int count) {
    menu.findItem(R.id.action_delete).setVisible(count > 0);
 }
 ```
-After messages are selected, you can get them with `adapter.getSelectedMessages()` as a list of objects. Then you can call `adapter.unselectAllItems()`, it will cancel messages’ selection, and call `SelectionListener.onSelectionChanged()` with zero as parameter to change action mode.
+After messages are selected, you can get them with `adapter.getSelectedMessages()` as a list of objects. Then you can call `adapter.unselectAllItems()`, it will cancel messages’ selection, and call `SelectionListener.onSelectionChanged()` with zero as parameter to let you change the action mode.
 
 Furthermore, if you want to delete selected messages, just call  `adapter.deleteSelectedMessages()` method, and it will do all the work for you. But you need to call `adapter.getSelectedMessages()` before deleting messages from the list to make delete request from your data source.
 
@@ -163,9 +181,45 @@ If you need to disable selection mode on-the-fly, use `adapter.disableSelectionM
 
 **N.B.! When selection mode is enabled, your custom `OnMessageLongClickListener` will be ignored due to the conflict of logic.**
 
+#### Messages copying
+Another convenient feature is the copying of the selected messages to the clipboard. If you enable `selection mode`, you can very easily copy the text by calling the `copySelectedMessagesText` method, which will also return this text after the call. If for some reason you needed to get the text without copying it, you can use the `getSelectedMessagesText` method. Both of these methods receive `MessagesAttribute.Formatter<Message>` as a parameter, which allows you to specify your own copying format:
+```java
+new MessagesListAdapter.Formatter<Message>() {
+   @Override
+   public String format(Message message) {
+       String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
+               .format(message.getCreatedAt());
+
+       return String.format(Locale.getDefault(), "%s: %s (%s)",
+               message.getUser().getName(), text, createdAt);
+   }
+};
+```
+If `Formatter` is null, the `toString()` method will be called for each message.
+
 ## Make it look the way you want
 
 Certainly, initially defined appearance will not be suitable for everybody. And again, we have several options to solve this problem.
+
+#### Dates format for headers
+By default, the date in the date header is specified in the `d MMMM yyyy` format, but this does not satisfy all requirements. For example, you need to display such common options as "Today", "Yesterday" etc. To achieve this we have the `DateFormatter.Formatter` interface:
+```java
+@Override
+public String format(Date date) {
+   if (DateFormatter.isToday(date)) {
+       return DateFormatter.format(date, DateFormatter.Template.TIME);
+   } else if (DateFormatter.isYesterday(date)) {
+       return getString(R.string.date_header_yesterday);
+       …...
+   } else {
+       return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
+   }
+}
+```
+After creating it, you can pass it to adapter:
+```java
+messagesAdapter.setDateHeadersFormatter(formatter);
+```
 
 #### Styling via attributes
 
@@ -176,23 +230,28 @@ The simplest way to customize appearance is to use `MessageList` widget attribut
    android:id="@+id/messagesList"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   android:layout_above="@+id/input"
    app:incomingDefaultBubbleColor="@color/ivory"
    app:incomingDefaultBubblePressedColor="@color/ivory_dark"
    app:incomingDefaultBubbleSelectedColor="@color/gray"
+   app:incomingDefaultImageOverlayPressedColor="@color/black_10"
+   app:incomingDefaultImageOverlaySelectedColor="@color/gray_transparent"
    app:incomingTextColor="@color/black"
+   app:incomingTextLinkColor="@color/green"
    app:incomingTextSize="18sp"
    app:outcomingDefaultBubbleColor="@color/green"
    app:outcomingDefaultBubblePressedColor="@color/green_dark"
    app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
+   app:outcomingDefaultImageOverlayPressedColor="@color/black_10"
+   app:outcomingDefaultImageOverlaySelectedColor="@color/gray_transparent"
    app:outcomingTextColor="@color/white"
+   app:outcomingTextLinkColor="@color/brown"
    app:outcomingTextSize="18sp"/>
 ```
 ...we can get something like this:
 <p align="center">
 <img src="../images/CHAT_CUSTOM_ATTRS_STYLE.png">
 </p>
-If the shape of bubble doesn’t suits you, set your own drawable through the `incomingBubbleDrawable`/`outcomingBubbleDrawable` attribute. However, color customization attributes would not work for setting their state color, you should describe this behavior using selectors. Also you can set paddings for each of them by using `incomingBubblePaddingXXX` and `outcomingBubblePaddingXXX` attributes.
+If the shape of bubble doesn't suits you, set your own drawable through the `incomingBubbleDrawable` / `outcomingBubbleDrawable` attribute. However, color customization attributes would not work for setting their state color, you should describe this behavior using selectors. Also you can set padding for each of them by using `incomingBubblePaddingXXX` and `outcomingBubblePaddingXXX` attributes. In the same way you can set custom overlay drawable for image messages (without padding, of course).
 
 In case if you don’t like default data format, you can set it with only one line by using java date format — `dateHeaderFormat="dd.MM.yy"`
 
@@ -262,3 +321,37 @@ public class CustomOutcomingMessageViewHolder
 <img src="../images/CHAT_CUSTOM_HOLDER.png">
 <h6 align="center">Pay attention to outgoing message’ status and online indicator.</h6>
 </p>
+
+#### Custom content types
+We understand that ony images as media messages are often not enough. Therefore, we implemented the ability to add custom content types for displaying different types of content (geopoints, video, voice messages etc.).
+
+To do this, you just need to implement the `MessageContentType` interface. However, you do not need to override any methods at his time. After that, you need to prepare your own layout files for displaying incoming and outcoming messages of this type, as well as ViewHolders (for binding data to view). And after that you can register them in the adapter via the `MessageHolders` object.
+
+For example, let's add support of voice messages:
+```java
+MessageHolders holders = new MessageHolders()
+       .registerContentType(
+               CONTENT_TYPE_VOICE,
+               IncomingVoiceMessageViewHolder.class,
+               R.layout.item_custom_incoming_voice_message,
+               OutcomingVoiceMessageViewHolder.class,
+               R.layout.item_custom_outcoming_voice_message,
+               contentCheker);
+
+
+super.messagesAdapter = new MessagesListAdapter<>(super.senderId, holders, super.imageLoader);
+```
+We passed an identifier (which will come in handy to us a little later), markup files and ViewHolder classes for incoming and outcoming states, and `contentChecker` to the method. `ContentChecker` is an instance of the `MessageHolders.ContentChecker<Message>` class, where the content is checked for the registered type by its id:
+```java
+@Override
+public boolean hasContentFor(Message message, byte type) {
+   switch (type) {
+       case CONTENT_TYPE_VOICE:
+           return message.getVoice() != null
+                   && message.getVoice().getUrl() != null
+                   && !message.getVoice().getUrl().isEmpty();
+   }
+   return false;
+}
+```
+If the `hasContentFor` method returns `true` for the selected type, the corresponding item for that type will be created and the `onBind(Message message)` method of the registered ViewHolder will be called (the adapter itself recognizes and processes incoming and outcoming message types). In case the method returns `false`, the adapter will poll all other registered types. If there's no content for all known types, the message will be recognized as text.

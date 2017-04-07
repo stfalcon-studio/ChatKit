@@ -17,20 +17,37 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+}
+
+ext {
+    supportVersion = '25.1.1'
+    picassoVersion = '2.5.2'
+    circleImageViewVersion = '2.1.0'
+    shapeImageViewVersion = '0.9.3'
 }
 
 dependencies {
+    compile project(':chatkit')
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
 
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:cardview-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:cardview-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
 
-    compile project(':chatkit')
+    //Picasso
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+
+    //ImageViews
+    compile "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    compile "com.github.siyamed:android-shape-imageview:$shapeImageViewVersion"
 }

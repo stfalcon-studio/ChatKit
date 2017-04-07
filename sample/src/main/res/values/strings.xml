@@ -1,12 +1,24 @@
 <resources>
     <string name="app_name">ChatKit</string>
 
-    <string name="sample_title_default">Default design</string>
-    <string name="sample_title_attrs">Styling using attributes</string>
+    <string name="sample_title_default">Default view</string>
+    <string name="sample_title_attrs">Styled view</string>
     <string name="sample_title_layout">Custom layout</string>
     <string name="sample_title_holder">Custom view holder</string>
+    <string name="sample_title_media">Custom media type</string>
 
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="on_log_click_message">Your custom long click handler</string>
     <string name="action_delete">Delete</string>
+    <string name="action_copy">Copy</string>
+    <string name="copied_message">Message copied!</string>
+
+    <string name="date_header_today">Today</string>
+    <string name="date_header_yesterday">Yesterday</string>
+
+    <string-array name="view_types_dialog">
+        <item name="image">Image (default)</item>
+        <item name="voice">Voice message (custom)</item>
+    </string-array>
+
 </resources>

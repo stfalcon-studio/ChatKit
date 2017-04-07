@@ -41,10 +41,12 @@ public class MessageInput extends RelativeLayout
 
     protected EditText messageInput;
     protected ImageButton messageSendButton;
-    protected Space buttonSpace;
+    protected ImageButton attachmentButton;
+    protected Space sendButtonSpace, attachmentButtonSpace;
 
     private CharSequence input;
     private InputListener inputListener;
+    private AttachmentsListener attachmentsListener;
 
     public MessageInput(Context context) {
         super(context);
@@ -62,12 +64,21 @@ public class MessageInput extends RelativeLayout
     }
 
     /**
-     * Set callback to be invoked when user entered his input
+     * Sets callback for 'submit' button.
      *
      * @param inputListener input callback
      */
     public void setInputListener(InputListener inputListener) {
         this.inputListener = inputListener;
+    }
+
+    /**
+     * Sets callback for 'add' button.
+     *
+     * @param attachmentsListener input callback
+     */
+    public void setAttachmentsListener(AttachmentsListener attachmentsListener) {
+        this.attachmentsListener = attachmentsListener;
     }
 
     /**
@@ -96,6 +107,8 @@ public class MessageInput extends RelativeLayout
             if (isSubmitted) {
                 messageInput.setText("");
             }
+        } else if (id == R.id.attachmentButton) {
+            onAddAttachments();
         }
     }
 
@@ -130,6 +143,10 @@ public class MessageInput extends RelativeLayout
         return inputListener != null && inputListener.onSubmit(input);
     }
 
+    private void onAddAttachments() {
+        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
+    }
+
     private void init(Context context, AttributeSet attrs) {
         init(context);
         MessageInputStyle style = MessageInputStyle.parse(context, attrs);
@@ -143,11 +160,20 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setBackground(style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
+        this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
+        this.attachmentButton.setBackground(style.getAttachmentButtonBackground());
+        this.attachmentButton.setImageDrawable(style.getAttachmentButtonIcon());
+        this.attachmentButton.getLayoutParams().width = style.getAttachmentButtonWidth();
+        this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
+
+        this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
+        this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
+
         this.messageSendButton.setBackground(style.getInputButtonBackground());
         this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
-        this.buttonSpace.getLayoutParams().width = style.getInputButtonMargin();
+        this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
         if (getPaddingLeft() == 0
                 && getPaddingRight() == 0
@@ -167,9 +193,12 @@ public class MessageInput extends RelativeLayout
 
         messageInput = (EditText) findViewById(R.id.messageInput);
         messageSendButton = (ImageButton) findViewById(R.id.messageSendButton);
-        buttonSpace = (Space) findViewById(R.id.buttonSpace);
+        attachmentButton = (ImageButton) findViewById(R.id.attachmentButton);
+        sendButtonSpace = (Space) findViewById(R.id.sendButtonSpace);
+        attachmentButtonSpace = (Space) findViewById(R.id.attachmentButtonSpace);
 
         messageSendButton.setOnClickListener(this);
+        attachmentButton.setOnClickListener(this);
         messageInput.addTextChangedListener(this);
         messageInput.setText("");
     }
@@ -184,16 +213,27 @@ public class MessageInput extends RelativeLayout
     }
 
     /**
-     * Interface definition for a callback to be invoked when user entered his input
+     * Interface definition for a callback to be invoked when user pressed 'submit' button
      */
     public interface InputListener {
 
         /**
-         * Fires when user press send button.
+         * Fires when user presses 'send' button.
          *
          * @param input input entered by user
          * @return if input text is valid, you must return {@code true} and input will be cleared, otherwise return false.
          */
         boolean onSubmit(CharSequence input);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when user presses 'add' button
+     */
+    public interface AttachmentsListener {
+
+        /**
+         * Fires when user presses 'add' button.
+         */
+        void onAddAttachments();
     }
 }

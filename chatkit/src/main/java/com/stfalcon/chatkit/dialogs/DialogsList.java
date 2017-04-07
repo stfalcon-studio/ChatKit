@@ -30,6 +30,7 @@ import com.stfalcon.chatkit.commons.models.IDialog;
  * Component for displaying list of dialogs
  */
 public class DialogsList extends RecyclerView {
+
     private DialogListStyle dialogStyle;
 
     public DialogsList(Context context) {
@@ -68,7 +69,8 @@ public class DialogsList extends RecyclerView {
 
     /**
      * Set adapter for DialogsList
-     * @param adapter Adapter. Must extend DialogsListAdapter
+     *
+     * @param adapter  Adapter. Must extend DialogsListAdapter
      * @param <DIALOG> Dialog model class
      */
     public <DIALOG extends IDialog> void setAdapter(DialogsListAdapter<DIALOG> adapter) {

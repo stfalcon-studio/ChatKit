@@ -55,6 +55,9 @@ abstract class FixturesData {
     static final ArrayList<String> messages = new ArrayList<String>() {
         {
             add("Hello!");
+            add("This is my phone number - +1 (234) 567-89-01");
+            add("Here is my e-mail - myemail@example.com");
+            add("Hey! Check out this awesome link! www.github.com");
             add("Hello! No problem. I can today at 2 pm. And after we can go to the office.");
             add("At first, for some time, I was not able to answer him one word");
             add("At length one of them called out in a clear, polite, smooth dialect, not unlike in sound to the Italian");

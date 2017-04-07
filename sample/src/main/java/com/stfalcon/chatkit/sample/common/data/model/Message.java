@@ -9,8 +9,8 @@ import java.util.Date;
  * Created by troy379 on 04.04.17.
  */
 public class Message implements IMessage,
-        MessageContentType.Image,
-        MessageContentType {
+        MessageContentType.Image, /*this is for default image messages implementation*/
+        MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
 
     private String id;
     private String text;

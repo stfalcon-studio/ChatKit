@@ -39,7 +39,7 @@ To implement all of the features above you can use the following components:
 
 Download via Gradle:
 ```gradle
-compile 'com.github.stfalcon:chatkit:0.1.2'
+compile 'com.github.stfalcon:chatkit:0.2.0'
 ```
 
 or Maven:
@@ -47,7 +47,7 @@ or Maven:
 <dependency>
   <groupId>com.github.stfalcon</groupId>
   <artifactId>chatkit</artifactId>
-  <version>0.1.2</version>
+  <version>0.2.0</version>
   <type>pom</type>
 </dependency>
 ```

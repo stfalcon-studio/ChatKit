@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
 }
 
 ext {
@@ -25,7 +30,6 @@ ext {
     circleImageViewVersion = '2.1.0'
     shapeImageViewVersion = '0.9.3'
 }
-
 
 dependencies {
     compile project(':chatkit')
@@ -45,5 +49,5 @@ dependencies {
 
     //ImageViews
     compile "de.hdodenhof:circleimageview:$circleImageViewVersion"
-    compile "com.github.siyamed:android-shape-imageview:0.9.3"
+    compile "com.github.siyamed:android-shape-imageview:$shapeImageViewVersion"
 }

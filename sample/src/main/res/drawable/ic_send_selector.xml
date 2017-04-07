@@ -1,6 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/ic_send" android:state_enabled="false"/>
-    <item android:drawable="@drawable/ic_send_active" android:state_enabled="true"/>
-
-</selector>

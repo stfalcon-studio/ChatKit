@@ -21,11 +21,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.stfalcon.chatkit.R;
@@ -34,7 +35,6 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -47,17 +47,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
-    private static final int VIEW_TYPE_INCOMING_MESSAGE = 0x00;
-    private static final int VIEW_TYPE_OUTCOMING_MESSAGE = 0x01;
-    private static final int VIEW_TYPE_DATE_HEADER = 0x02;
-
-    private HoldersConfig holders;
+    private MessageHolders holders;
     private String senderId;
     private List<Wrapper> items;
 
     private int selectedItemsCount;
-    private boolean isSelectMode;
     private SelectionListener selectionListener;
+
+    static boolean isSelectionModeEnabled;
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
@@ -65,6 +62,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
+    private DateFormatter.Formatter dateHeadersFormatter;
 
     /**
      * For default list item layout and view holder.
@@ -73,17 +71,17 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param imageLoader image loading method.
      */
     public MessagesListAdapter(String senderId, ImageLoader imageLoader) {
-        this(senderId, new HoldersConfig(), imageLoader);
+        this(senderId, new MessageHolders(), imageLoader);
     }
 
     /**
      * For default list item layout and view holder.
      *
-     * @param senderId    identifier of sender.
-     * @param holders     custom layouts and view holders. See {@link HoldersConfig} documentation for details
-     * @param imageLoader image loading method.
+     * @param senderId            identifier of sender.
+     * @param holders custom layouts and view holders. See {@link MessageHolders} documentation for details
+     * @param imageLoader         image loading method.
      */
-    public MessagesListAdapter(String senderId, HoldersConfig holders,
+    public MessagesListAdapter(String senderId, MessageHolders holders,
                                ImageLoader imageLoader) {
         this.senderId = senderId;
         this.holders = holders;
@@ -93,47 +91,17 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case VIEW_TYPE_INCOMING_MESSAGE:
-                return getHolder(parent, holders.incomingLayout, holders.incomingHolder);
-            case VIEW_TYPE_OUTCOMING_MESSAGE:
-                return getHolder(parent, holders.outcomingLayout, holders.outcomingHolder);
-            case VIEW_TYPE_DATE_HEADER:
-                return getHolder(parent, holders.dateHeaderLayout, holders.dateHeaderHolder);
-        }
-        return null;
-    }
-
-    private <HOLDER extends ViewHolder>
-    ViewHolder getHolder(ViewGroup parent, @LayoutRes int layout, Class<HOLDER> holderClass) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-
-        try {
-            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class);
-            constructor.setAccessible(true);
-            HOLDER holder = constructor.newInstance(v);
-            if (holder instanceof DefaultMessageViewHolder) {
-                ((DefaultMessageViewHolder) holder).applyStyle(messagesListStyle);
-            }
-            return holder;
-        } catch (Exception e) {
-            return null;
-        }
+        return holders.getHolder(parent, viewType, messagesListStyle);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
-
-        if (wrapper.item instanceof IMessage) {
-            ((BaseMessageViewHolder) holder).isSelected = wrapper.isSelected;
-            ((BaseMessageViewHolder) holder).imageLoader = this.imageLoader;
-            holder.itemView.setOnLongClickListener(getMessageLongClickListener(wrapper));
-            holder.itemView.setOnClickListener(getMessageClickListener(wrapper));
-        }
-
-        holder.onBind(wrapper.item);
+        holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
+                getMessageClickListener(wrapper),
+                getMessageLongClickListener(wrapper),
+                dateHeadersFormatter);
     }
 
     @Override
@@ -143,17 +111,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     @Override
     public int getItemViewType(int position) {
-        Wrapper wrapper = items.get(position);
-        if (wrapper.item instanceof IMessage) {
-            IMessage message = (IMessage) wrapper.item;
-            if (message.getUser().getId().contentEquals(senderId)) {
-                return VIEW_TYPE_OUTCOMING_MESSAGE;
-            } else {
-                return VIEW_TYPE_INCOMING_MESSAGE;
-            }
-        } else {
-            return VIEW_TYPE_DATE_HEADER;
-        }
+        return holders.getViewType(items.get(position).item, senderId);
     }
 
     @Override
@@ -285,6 +243,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
+     * Returns {@code true} if, and only if, messages count in adapter is non-zero.
+     *
+     * @return {@code true} if size is 0, otherwise {@code false}
+     */
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    /**
      * Clears the messages list.
      */
     public void clear() {
@@ -367,7 +334,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                 notifyItemChanged(i);
             }
         }
-        isSelectMode = false;
+        isSelectionModeEnabled = false;
         selectedItemsCount = 0;
         notifySelectionChanged();
     }
@@ -407,6 +374,13 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      */
     public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
         this.loadMoreListener = loadMoreListener;
+    }
+
+    /**
+     * Sets custom {@link DateFormatter.Formatter} for text representation of date headers.
+     */
+    public void setDateHeadersFormatter(DateFormatter.Formatter dateHeadersFormatter) {
+        this.dateHeadersFormatter = dateHeadersFormatter;
     }
 
     /*
@@ -490,7 +464,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     private void decrementSelectedItemsCount() {
         selectedItemsCount--;
-        isSelectMode = selectedItemsCount > 0;
+        isSelectionModeEnabled = selectedItemsCount > 0;
 
         notifySelectionChanged();
     }
@@ -517,7 +491,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectionListener != null && isSelectMode) {
+                if (selectionListener != null && isSelectionModeEnabled) {
                     wrapper.isSelected = !wrapper.isSelected;
 
                     if (wrapper.isSelected) incrementSelectedItemsCount();
@@ -540,7 +514,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                     notifyMessageLongClicked(wrapper.item);
                     return true;
                 } else {
-                    isSelectMode = true;
+                    isSelectionModeEnabled = true;
                     view.callOnClick();
                     return true;
                 }
@@ -558,7 +532,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             builder.append(formatter == null
                     ? message.toString()
                     : formatter.format(message));
+            builder.append("\n\n");
         }
+        builder.replace(builder.length() - 2, builder.length(), "");
 
         return builder.toString();
     }
@@ -581,7 +557,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     * WRAPPER
     * */
     private class Wrapper<DATA> {
-        private DATA item;
+        DATA item;
         boolean isSelected;
 
         Wrapper(DATA item) {
@@ -660,133 +636,92 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         String format(MESSAGE message);
     }
 
-    /*
-    * HOLDERS CONFIG
-    * */
-
     /**
-     * Configuration object for passing custom layouts and view holders into adapter.
-     * You need to pass it into {@link MessagesListAdapter#MessagesListAdapter(String, HoldersConfig, ImageLoader)} to apply your changes.
+     * This class is deprecated. Use {@link MessageHolders} instead.
      */
-    public static class HoldersConfig {
-
-        private Class<? extends BaseMessageViewHolder<? extends IMessage>> incomingHolder;
-        private int incomingLayout;
-
-        private Class<? extends BaseMessageViewHolder<? extends IMessage>> outcomingHolder;
-        private int outcomingLayout;
-
-        private Class<? extends ViewHolder<Date>> dateHeaderHolder;
-        private int dateHeaderLayout;
-
-        public HoldersConfig() {
-            this.incomingHolder = DefaultIncomingMessageViewHolder.class;
-            this.incomingLayout = R.layout.item_incoming_message;
-
-            this.outcomingHolder = DefaultOutcomingMessageViewHolder.class;
-            this.outcomingLayout = R.layout.item_outcoming_message;
-
-            this.dateHeaderHolder = DefaultDateHeaderViewHolder.class;
-            this.dateHeaderLayout = R.layout.item_date_header;
-        }
+    @Deprecated
+    public static class HoldersConfig extends MessageHolders {
 
         /**
-         * Sets both of custom view holder class and layout resource for incoming message.
+         * This method is deprecated. Use {@link MessageHolders#setIncomingTextConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
          */
+        @Deprecated
         public void setIncoming(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
-            this.incomingHolder = holder;
-            this.incomingLayout = layout;
+            super.setIncomingTextConfig(holder, layout);
         }
 
         /**
-         * Sets custom view holder class for incoming message.
+         * This method is deprecated. Use {@link MessageHolders#setIncomingTextHolder(Class)} instead.
          *
          * @param holder holder class.
          */
+        @Deprecated
         public void setIncomingHolder(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
-            this.incomingHolder = holder;
+            super.setIncomingTextHolder(holder);
         }
 
         /**
-         * Sets custom layout resource for incoming message.
+         * This method is deprecated. Use {@link MessageHolders#setIncomingTextLayout(int)} instead.
          *
          * @param layout layout resource.
          */
+        @Deprecated
         public void setIncomingLayout(@LayoutRes int layout) {
-            this.incomingLayout = layout;
+            super.setIncomingTextLayout(layout);
         }
 
         /**
-         * Sets both of custom view holder class and layout resource for incoming message.
+         * This method is deprecated. Use {@link MessageHolders#setOutcomingTextConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
          */
+        @Deprecated
         public void setOutcoming(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder, @LayoutRes int layout) {
-            this.outcomingHolder = holder;
-            this.outcomingLayout = layout;
+            super.setOutcomingTextConfig(holder, layout);
         }
 
         /**
-         * Sets custom view holder class for outcoming message.
+         * This method is deprecated. Use {@link MessageHolders#setOutcomingTextHolder(Class)} instead.
          *
          * @param holder holder class.
          */
+        @Deprecated
         public void setOutcomingHolder(Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
-            this.outcomingHolder = holder;
+            super.setOutcomingTextHolder(holder);
         }
 
         /**
-         * Sets custom layout resource for outcoming message.
+         * This method is deprecated. Use {@link MessageHolders#setOutcomingTextLayout(int)} instead.
          *
          * @param layout layout resource.
          */
+        @Deprecated
         public void setOutcomingLayout(@LayoutRes int layout) {
-            this.outcomingLayout = layout;
+            this.setOutcomingTextLayout(layout);
         }
 
-        /*
-         * Sets both of custom view holder class and layout resource for date header.
+        /**
+         * This method is deprecated. Use {@link MessageHolders#setDateHeaderConfig(Class, int)} instead.
          *
          * @param holder holder class.
          * @param layout layout resource.
          */
+        @Deprecated
         public void setDateHeader(Class<? extends ViewHolder<Date>> holder, @LayoutRes int layout) {
-            this.dateHeaderHolder = holder;
-            this.dateHeaderLayout = layout;
-        }
-
-        /**
-         * Sets custom view holder class for date header.
-         *
-         * @param holder holder class.
-         */
-        public void setDateHeaderHolder(Class<? extends ViewHolder<Date>> holder) {
-            this.dateHeaderHolder = holder;
-        }
-
-        /**
-         * Sets custom layout reource for date header.
-         *
-         * @param layout layout resource.
-         */
-        public void setDateHeaderLayout(@LayoutRes int layout) {
-            this.dateHeaderLayout = layout;
+            super.setDateHeaderConfig(holder, layout);
         }
     }
 
-    /*
-    * HOLDERS
-    * */
-
     /**
-     * The base class for view holders for incoming and outcoming message.
-     * You can extend it to create your own holder in conjuction with custom layout or even using default layout.
+     * This class is deprecated. Use {@link MessageHolders.BaseMessageViewHolder} instead.
      */
-    public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
+    @Deprecated
+    public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage>
+            extends MessageHolders.BaseMessageViewHolder<MESSAGE> {
 
         private boolean isSelected;
 
@@ -800,12 +735,21 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
 
         /**
-         * Make message unselected
+         * Returns whether is item selected
          *
          * @return weather is item selected.
          */
         public boolean isSelected() {
             return isSelected;
+        }
+
+        /**
+         * Returns weather is selection mode enabled
+         *
+         * @return weather is selection mode enabled.
+         */
+        public boolean isSelectionModeEnabled() {
+            return isSelectionModeEnabled;
         }
 
         /**
@@ -817,140 +761,33 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             return imageLoader;
         }
 
-    }
-
-    interface DefaultMessageViewHolder {
-        void applyStyle(MessagesListStyle style);
-    }
-
-    /**
-     * Default view holder implementation for incoming message
-     */
-    public static class IncomingMessageViewHolder<MESSAGE extends IMessage>
-            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
-
-        protected ViewGroup bubble;
-        protected TextView text;
-        protected TextView time;
-        protected ImageView userAvatar;
-
-        public IncomingMessageViewHolder(View itemView) {
-            super(itemView);
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
-        }
-
-        @Override
-        public void onBind(MESSAGE message) {
-            bubble.setSelected(isSelected());
-            text.setText(message.getText());
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
-
-            boolean isAvatarExists = imageLoader != null && message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-            userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-            if (isAvatarExists) {
-                imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
-            }
-        }
-
-        @Override
-        public void applyStyle(MessagesListStyle style) {
-            bubble.setPadding(style.getIncomingDefaultBubblePaddingLeft(),
-                    style.getIncomingDefaultBubblePaddingTop(),
-                    style.getIncomingDefaultBubblePaddingRight(),
-                    style.getIncomingDefaultBubblePaddingBottom());
-            bubble.setBackground(style.getIncomingBubbleDrawable());
-
-            text.setTextColor(style.getIncomingTextColor());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTextSize());
-            text.setAutoLinkMask(style.getTextAutoLinkMask());
-            text.setLinkTextColor(style.getIncomingTextLinkColor());
-
-            userAvatar.getLayoutParams().width = style.getIncomingAvatarWidth();
-            userAvatar.getLayoutParams().height = style.getIncomingAvatarHeight();
-
-            time.setTextColor(style.getIncomingTimeTextColor());
-            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getIncomingTimeTextSize());
-        }
-    }
-
-    private static class DefaultIncomingMessageViewHolder extends IncomingMessageViewHolder<IMessage> {
-
-        public DefaultIncomingMessageViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    /**
-     * Default view holder implementation for outcoming message
-     */
-    public static class OutcomingMessageViewHolder<MESSAGE extends IMessage>
-            extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
-
-        protected ViewGroup bubble;
-        protected TextView text;
-        protected TextView time;
-        protected ImageView userAvatar;
-
-        public OutcomingMessageViewHolder(View itemView) {
-            super(itemView);
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
-        }
-
-        @Override
-        public void onBind(MESSAGE message) {
-            bubble.setSelected(isSelected());
-            text.setText(message.getText());
-            time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
-
-            if (userAvatar != null) {
-                boolean isAvatarExists = message.getUser().getAvatar() != null && !message.getUser().getAvatar().isEmpty();
-                userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
-                if (isAvatarExists && imageLoader != null) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+        protected void configureLinksBehavior(final TextView text) {
+            text.setLinksClickable(false);
+            text.setMovementMethod(new LinkMovementMethod() {
+                @Override
+                public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+                    boolean result = false;
+                    if (!isSelectionModeEnabled) {
+                        result = super.onTouchEvent(widget, buffer, event);
+                    }
+                    itemView.onTouchEvent(event);
+                    return result;
                 }
-            }
+            });
         }
 
-        @Override
-        public void applyStyle(MessagesListStyle style) {
-            bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
-                    style.getOutcomingDefaultBubblePaddingTop(),
-                    style.getOutcomingDefaultBubblePaddingRight(),
-                    style.getOutcomingDefaultBubblePaddingBottom());
-            bubble.setBackground(style.getOutcomingBubbleDrawable());
-
-            text.setTextColor(style.getOutcomingTextColor());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
-            text.setAutoLinkMask(style.getTextAutoLinkMask());
-            text.setLinkTextColor(style.getOutcomingTextLinkColor());
-            text.setLinkTextColor(style.getOutcomingTextLinkColor());
-
-            time.setTextColor(style.getOutcomingTimeTextColor());
-            time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
-        }
-    }
-
-    private static class DefaultOutcomingMessageViewHolder extends OutcomingMessageViewHolder<IMessage> {
-
-        public DefaultOutcomingMessageViewHolder(View itemView) {
-            super(itemView);
-        }
     }
 
     /**
-     * Default view holder implementation for date header
+     * This class is deprecated. Use {@link MessageHolders.DefaultDateHeaderViewHolder} instead.
      */
+    @Deprecated
     public static class DefaultDateHeaderViewHolder extends ViewHolder<Date>
-            implements DefaultMessageViewHolder {
+            implements MessageHolders.DefaultMessageViewHolder {
 
         protected TextView text;
         protected String dateFormat;
+        protected DateFormatter.Formatter dateHeadersFormatter;
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
@@ -959,17 +796,49 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         @Override
         public void onBind(Date date) {
-            text.setText(DateFormatter.format(date, dateFormat));
+            if (text != null) {
+                String formattedDate = null;
+                if (dateHeadersFormatter != null) formattedDate = dateHeadersFormatter.format(date);
+                text.setText(formattedDate == null ? DateFormatter.format(date, dateFormat) : formattedDate);
+            }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
-            text.setTextColor(style.getDateHeaderTextColor());
-            text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
-                    style.getDateHeaderPadding(), style.getDateHeaderPadding());
+            if (text != null) {
+                text.setTextColor(style.getDateHeaderTextColor());
+                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getDateHeaderTextSize());
+                text.setTypeface(text.getTypeface(), style.getDateHeaderTextStyle());
+                text.setPadding(style.getDateHeaderPadding(), style.getDateHeaderPadding(),
+                        style.getDateHeaderPadding(), style.getDateHeaderPadding());
+            }
             dateFormat = style.getDateHeaderFormat();
-            dateFormat = dateFormat == null ? DateFormatter.Template.STRING_MONTH.get() : dateFormat;
+            dateFormat = dateFormat == null ? DateFormatter.Template.STRING_DAY_MONTH_YEAR.get() : dateFormat;
+        }
+    }
+
+    /**
+     * This class is deprecated. Use {@link MessageHolders.IncomingTextMessageViewHolder} instead.
+     */
+    @Deprecated
+    public static class IncomingMessageViewHolder<MESSAGE extends IMessage>
+            extends MessageHolders.IncomingTextMessageViewHolder<MESSAGE>
+            implements MessageHolders.DefaultMessageViewHolder {
+
+        public IncomingMessageViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    /**
+     * This class is deprecated. Use {@link MessageHolders.OutcomingTextMessageViewHolder} instead.
+     */
+    @Deprecated
+    public static class OutcomingMessageViewHolder<MESSAGE extends IMessage>
+            extends MessageHolders.OutcomingTextMessageViewHolder<MESSAGE> {
+
+        public OutcomingMessageViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }

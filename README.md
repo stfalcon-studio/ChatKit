@@ -11,11 +11,13 @@ ChatKit is a library designed to simplify the development of UI for such a trivi
 ### Features
 
 * Ready-to-use already styled solution for quick implementation;
+* Default and custom media messages;
 * Fully customizable layouts - setting styles out of the box (use your own colors, text appearances, drawables, selectors and sizes) or even create your own custom markup or/and holders for unique behaviour;
 * List of dialogs, including tete-a-tete and group chats, markers for unread messages and last user message view;
 * List of messages (incoming and outcoming) with history pagination and already calculated dates headers;
 * Different avatars with no specific realization of image loading - you can use any library you want;
 * Selection mode for interacting with messages;
+* Links highlighting
 * Easy dates formatting;
 * Your own models for dialogs and messages - there is no converting needed;
 * Ready to use message input view;
@@ -37,7 +39,7 @@ To implement all of the features above you can use the following components:
 
 Download via Gradle:
 ```gradle
-compile 'com.github.stfalcon:chatkit:0.1.2'
+compile 'com.github.stfalcon:chatkit:0.2.0'
 ```
 
 or Maven:
@@ -45,7 +47,7 @@ or Maven:
 <dependency>
   <groupId>com.github.stfalcon</groupId>
   <artifactId>chatkit</artifactId>
-  <version>0.1.2</version>
+  <version>0.2.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -54,7 +56,7 @@ or Maven:
 
 Check out the [sample project](/sample/src/main) to try it yourself! :wink:
 
-### Change log
+### Changelog
 [See the changelog](docs/CHANGELOG.md) to be aware of latest improvements and fixes.
 
 ### Gratitude

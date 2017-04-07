@@ -158,6 +158,26 @@ dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogL
 
 Certainly, initially defined appearance will not be suitable for everybody. And again, we have several options to solve this problem.
 
+#### Dates format
+By default, the date in the dialogs is specified in the `HH: mm` format , but this does not satisfy all requirements. For example, you need to display such common options as "Today", "Yesterday", "Last week" etc. To achieve this we have the `DateFormatter.Formatter` interface:
+```java
+@Override
+public String format(Date date) {
+   if (DateFormatter.isToday(date)) {
+       return DateFormatter.format(date, DateFormatter.Template.TIME);
+   } else if (DateFormatter.isYesterday(date)) {
+       return getString(R.string.date_header_yesterday);
+       …...
+   } else {
+       return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
+   }
+}
+```
+After creating it, you can pass it to adapter:
+```java
+dialogsAdapter.setDatesFormatter(this);
+```
+
 #### Styling via attributes
 
 The simplest way to customize appearance is to use `DialogsList` widget attributes. With them we can set elements separately for read and unread dialogs: element’ background color, font size, color and text style for a dialog title, a last message, a date of last message. And also for dialog’s avatar size and last message author’s avatar size (only for group chats), setting a separator between elements (appearance, color, indents).

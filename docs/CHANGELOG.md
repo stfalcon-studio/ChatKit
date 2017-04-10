@@ -1,4 +1,4 @@
-## Version 0.1.2 (2017/04/07)
+## Version 0.2.0 (2017/04/07)
 
  * [Default image type](COMPONENT_MESSAGES_LIST.md#adding-image-message);
  * [Support for custom content types](COMPONENT_MESSAGES_LIST.md#custom-content-types);

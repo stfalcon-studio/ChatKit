@@ -124,7 +124,10 @@ public class Message implements IMessage,
     }
 }
 ```
-If the method returns `null`, the adapter recognizes the message as a text message and displays it in the appropriate form. If the url of the image is present, an image will be displayed using `ImageLoader`, which we passed to the adapter.
+If the method returns `null`, the adapter recognizes the message as a text message and displays it in the appropriate form. If the url of the image is present, an image will be displayed using `ImageLoader`, which we passed to the adapter:
+<p align="center">
+<img src="../images/CHAT_DEFAULT_IMAGE_TYPE.png">
+</p>
 
 #### Date headers
 
@@ -155,7 +158,10 @@ public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
 }
 ```
 #### Links highlighting
-In 99% of cases the user is confused, when he can not follow the link or call the phone, indicated in the message. If you think the same way, just include `textAutoLink="all"`, like in the ordinary `TextView`. Similarly, you can specify highlighting for certain types, for example, `email|phone|web`.
+In 99% of cases the user is confused, when he can not follow the link or call the phone, indicated in the message. If you think the same way, just include `textAutoLink="all"`, like in the ordinary `TextView`. Similarly, you can specify highlighting for certain types, for example, `email|phone|web`:
+<p align="center">
+<img src="../images/CHAT_LINKS_HIGHLIGHTING.png">
+</p>
 
 #### Selection mode
 
@@ -220,6 +226,10 @@ After creating it, you can pass it to adapter:
 ```java
 messagesAdapter.setDateHeadersFormatter(formatter);
 ```
+...and get this kind of result:
+<p align="center">
+<img src="../images/CHAT_DATES_FORMAT.png">
+</p>
 
 #### Styling via attributes
 
@@ -336,7 +346,7 @@ MessageHolders holders = new MessageHolders()
                R.layout.item_custom_incoming_voice_message,
                OutcomingVoiceMessageViewHolder.class,
                R.layout.item_custom_outcoming_voice_message,
-               contentCheker);
+               contentChecker);
 
 
 super.messagesAdapter = new MessagesListAdapter<>(super.senderId, holders, super.imageLoader);
@@ -355,3 +365,8 @@ public boolean hasContentFor(Message message, byte type) {
 }
 ```
 If the `hasContentFor` method returns `true` for the selected type, the corresponding item for that type will be created and the `onBind(Message message)` method of the registered ViewHolder will be called (the adapter itself recognizes and processes incoming and outcoming message types). In case the method returns `false`, the adapter will poll all other registered types. If there's no content for all known types, the message will be recognized as text.
+
+As the result, well get the following:
+<p align="center">
+<img src="../images/CHAT_CUSTOM_CONTENT_TYPE.png">
+</p>

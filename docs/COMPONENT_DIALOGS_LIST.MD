@@ -177,6 +177,10 @@ After creating it, you can pass it to adapter:
 ```java
 dialogsAdapter.setDatesFormatter(this);
 ```
+...and get this kind of result:
+<p align="center">
+<img src="../images/DIALOGS_DATES_FORMAT.png">
+</p>
 
 #### Styling via attributes
 

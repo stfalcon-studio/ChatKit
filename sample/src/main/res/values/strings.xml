@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">ChatKit</string>
+    <string name="sample_title">ChatKit for Android</string>
+
+    <string name="view">View</string>
 
     <string name="sample_title_default">Default view</string>
+    <string name="sample_subtitle_default">Dialogs and messages with default style</string>
     <string name="sample_title_attrs">Styled view</string>
+    <string name="sample_subtitle_attrs">Styled components using embedded attributes</string>
     <string name="sample_title_layout">Custom layout</string>
+    <string name="sample_subtitle_layout">Custom layouts to change default views position</string>
     <string name="sample_title_holder">Custom view holder</string>
-    <string name="sample_title_media">Custom media type</string>
+    <string name="sample_subtitle_holder">Custom view holder to extend default behaviour for a new features</string>
+    <string name="sample_title_custom_content">Custom content type</string>
+    <string name="sample_subtitle_custom_content">Custom message content on the example of voice message</string>
 
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="on_log_click_message">Your custom long click handler</string>

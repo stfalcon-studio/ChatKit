@@ -2,11 +2,13 @@
 
     <color name="cornflower_blue">#6274e2</color>
     <color name="cornflower_blue_dark">#303F9F</color>
+    <color name="cornflower_blue_darkest">#2d3a93</color>
     <color name="gray">#ebebeb</color>
     <color name="gray_light">#e8e8e8</color>
     <color name="gray_transparent">#a6efefef</color>
     <color name="gray_dark">#858585</color>
     <color name="gray_dark_transparent">#ae858585</color>
+    <color name="gray_darkest">#ae282828</color>
     <color name="black">#000000</color>
     <color name="black_10">#19000000</color>
     <color name="ivory">#f8efe6</color>

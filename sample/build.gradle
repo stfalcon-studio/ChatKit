@@ -29,6 +29,7 @@ ext {
     picassoVersion = '2.5.2'
     circleImageViewVersion = '2.1.0'
     shapeImageViewVersion = '0.9.3'
+    circleindicatorVersion = '1.2.2@aar'
 }
 
 dependencies {
@@ -50,4 +51,7 @@ dependencies {
     //ImageViews
     compile "de.hdodenhof:circleimageview:$circleImageViewVersion"
     compile "com.github.siyamed:android-shape-imageview:$shapeImageViewVersion"
+
+    //Utils
+    compile "me.relex:circleindicator:$circleindicatorVersion"
 }

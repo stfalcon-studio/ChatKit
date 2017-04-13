@@ -26,6 +26,10 @@ ChatKit is a library designed to simplify the development of UI for such a trivi
 ### Who we are
 Need iOS and Android apps, MVP development or prototyping? Contact us via info@stfalcon.com. We develop software since 2009, and we're known experts in this field. Check out our [portfolio](https://stfalcon.com/en/portfolio) and see more libraries from [stfalcon-studio](https://stfalcon-studio.github.io/).
 
+## Demo Application
+
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.stfalcon.chatkit.sample)
+
 ### How to use
 
 To implement all of the features above you can use the following components:

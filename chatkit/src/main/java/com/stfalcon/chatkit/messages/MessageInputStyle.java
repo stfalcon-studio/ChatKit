@@ -174,21 +174,15 @@ class MessageInputStyle extends Style {
     }
 
     Drawable getAttachmentButtonBackground() {
-        if (attachmentButtonBackground == -1) {
-            return getSelector(attachmentButtonDefaultBgColor, attachmentButtonDefaultBgPressedColor,
-                    attachmentButtonDefaultBgDisabledColor, R.drawable.mask);
-        } else {
-            return getDrawable(attachmentButtonBackground);
-        }
+        int shape = attachmentButtonBackground != -1 ? attachmentButtonBackground : R.drawable.mask;
+        return getSelector(attachmentButtonDefaultBgColor, attachmentButtonDefaultBgPressedColor,
+                attachmentButtonDefaultBgDisabledColor, shape);
     }
 
     Drawable getAttachmentButtonIcon() {
-        if (attachmentButtonIcon == -1) {
-            return getSelector(attachmentButtonDefaultIconColor, attachmentButtonDefaultIconPressedColor,
-                    attachmentButtonDefaultIconDisabledColor, R.drawable.ic_add_attachment);
-        } else {
-            return getDrawable(attachmentButtonIcon);
-        }
+        int shape = attachmentButtonIcon != -1 ? attachmentButtonIcon : R.drawable.ic_add_attachment;
+        return getSelector(attachmentButtonDefaultIconColor, attachmentButtonDefaultIconPressedColor,
+                attachmentButtonDefaultIconDisabledColor, shape);
     }
 
     int getAttachmentButtonWidth() {
@@ -204,21 +198,15 @@ class MessageInputStyle extends Style {
     }
 
     Drawable getInputButtonBackground() {
-        if (inputButtonBackground == -1) {
-            return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
-                    inputButtonDefaultBgDisabledColor, R.drawable.mask);
-        } else {
-            return getDrawable(inputButtonBackground);
-        }
+        int shape = inputButtonBackground != -1 ? inputButtonBackground : R.drawable.mask;
+        return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
+                inputButtonDefaultBgDisabledColor, shape);
     }
 
     Drawable getInputButtonIcon() {
-        if (inputButtonIcon == -1) {
-            return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
-                    inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
-        } else {
-            return getDrawable(inputButtonIcon);
-        }
+        int shape = inputButtonIcon != -1 ? inputButtonIcon : R.drawable.ic_send;
+        return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
+                inputButtonDefaultIconDisabledColor, shape);
     }
 
     int getInputButtonMargin() {

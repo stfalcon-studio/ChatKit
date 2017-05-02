@@ -349,6 +349,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
+    
+    /**
+    * @return the position of a dialog in the dialogs list.
+    */
+    public int getDialogPosition(DIALOG dialog) {
+        return this.items.indexOf(dialog);
+    }
 
     /*
     * LISTENERS

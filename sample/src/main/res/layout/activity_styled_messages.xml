@@ -46,6 +46,7 @@
         app:attachmentButtonDefaultIconPressedColor="@color/green_dark"
         app:inputButtonDefaultBgColor="@color/green"
         app:inputButtonDefaultBgPressedColor="@color/green_dark"
+        app:inputCursorDrawable="@drawable/shape_custom_cursor"
         app:inputHint="@string/hint_enter_a_message"
         app:showAttachmentButton="true"/>
 

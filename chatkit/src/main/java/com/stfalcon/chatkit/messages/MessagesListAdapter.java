@@ -58,7 +58,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
+    private OnMessageViewClickListener<MESSAGE> onMessageViewClickListener;
     private OnMessageLongClickListener<MESSAGE> onMessageLongClickListener;
+    private OnMessageViewLongClickListener<MESSAGE> onMessageViewLongClickListener;
     private ImageLoader imageLoader;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
@@ -77,9 +79,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * For default list item layout and view holder.
      *
-     * @param senderId            identifier of sender.
-     * @param holders custom layouts and view holders. See {@link MessageHolders} documentation for details
-     * @param imageLoader         image loading method.
+     * @param senderId    identifier of sender.
+     * @param holders     custom layouts and view holders. See {@link MessageHolders} documentation for details
+     * @param imageLoader image loading method.
      */
     public MessagesListAdapter(String senderId, MessageHolders holders,
                                ImageLoader imageLoader) {
@@ -359,12 +361,30 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
+     * Sets click listener for message view. Fires ONLY if list is not in selection mode.
+     *
+     * @param onMessageViewClickListener click listener.
+     */
+    public void setOnMessageViewClickListener(OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) {
+        this.onMessageViewClickListener = onMessageViewClickListener;
+    }
+
+    /**
      * Sets long click listener for item. Fires only if selection mode is disabled.
      *
      * @param onMessageLongClickListener long click listener.
      */
     public void setOnMessageLongClickListener(OnMessageLongClickListener<MESSAGE> onMessageLongClickListener) {
         this.onMessageLongClickListener = onMessageLongClickListener;
+    }
+
+    /**
+     * Sets long click listener for message view. Fires ONLY if selection mode is disabled.
+     *
+     * @param onMessageViewLongClickListener long click listener.
+     */
+    public void setOnMessageViewLongClickListener(OnMessageViewLongClickListener<MESSAGE> onMessageViewLongClickListener) {
+        this.onMessageViewLongClickListener = onMessageViewLongClickListener;
     }
 
     /**
@@ -451,10 +471,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private boolean isPreviousSameAuthor(String id, int position) {
         int prevPosition = position + 1;
         if (items.size() <= prevPosition) return false;
-
-        if (items.get(prevPosition).item instanceof IMessage) {
-            return ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
-        } else return false;
+        else return items.get(prevPosition).item instanceof IMessage
+                && ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
     }
 
     private void incrementSelectedItemsCount() {
@@ -481,9 +499,21 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
+    private void notifyMessageViewClicked(View view, MESSAGE message) {
+        if (onMessageViewClickListener != null) {
+            onMessageViewClickListener.onMessageViewClick(view, message);
+        }
+    }
+
     private void notifyMessageLongClicked(MESSAGE message) {
         if (onMessageLongClickListener != null) {
             onMessageLongClickListener.onMessageLongClick(message);
+        }
+    }
+
+    private void notifyMessageViewLongClicked(View view, MESSAGE message) {
+        if (onMessageViewLongClickListener != null) {
+            onMessageViewLongClickListener.onMessageViewLongClick(view, message);
         }
     }
 
@@ -501,6 +531,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                     notifyItemChanged(getMessagePositionById(message.getId()));
                 } else {
                     notifyMessageClicked(wrapper.item);
+                    notifyMessageViewClicked(view, wrapper.item);
                 }
             }
         };
@@ -512,6 +543,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             public boolean onLongClick(View view) {
                 if (selectionListener == null) {
                     notifyMessageLongClicked(wrapper.item);
+                    notifyMessageViewLongClicked(view, wrapper.item);
                     return true;
                 } else {
                     isSelectionModeEnabled = true;
@@ -602,11 +634,24 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public interface OnMessageClickListener<MESSAGE extends IMessage> {
 
         /**
-         * Fires when message was clicked.
+         * Fires when message is clicked.
          *
          * @param message clicked message.
          */
         void onMessageClick(MESSAGE message);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when message view is clicked.
+     */
+    public interface OnMessageViewClickListener<MESSAGE extends IMessage> {
+
+        /**
+         * Fires when message view is clicked.
+         *
+         * @param message clicked message.
+         */
+        void onMessageViewClick(View view, MESSAGE message);
     }
 
     /**
@@ -615,11 +660,24 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
 
         /**
-         * Fires when message was long clicked.
+         * Fires when message is long clicked.
          *
          * @param message clicked message.
          */
         void onMessageLongClick(MESSAGE message);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when message view is long clicked.
+     */
+    public interface OnMessageViewLongClickListener<MESSAGE extends IMessage> {
+
+        /**
+         * Fires when message view is long clicked.
+         *
+         * @param message clicked message.
+         */
+        void onMessageViewLongClick(View view, MESSAGE message);
     }
 
     /**

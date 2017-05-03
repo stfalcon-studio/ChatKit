@@ -2,6 +2,7 @@ package com.stfalcon.chatkit.messages;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
@@ -521,7 +522,7 @@ public class MessageHolders {
                         style.getIncomingDefaultBubblePaddingTop(),
                         style.getIncomingDefaultBubblePaddingRight(),
                         style.getIncomingDefaultBubblePaddingBottom());
-                bubble.setBackground(style.getIncomingBubbleDrawable());
+                ViewCompat.setBackground(bubble, style.getIncomingBubbleDrawable());
             }
 
             if (text != null) {
@@ -570,7 +571,7 @@ public class MessageHolders {
                         style.getOutcomingDefaultBubblePaddingTop(),
                         style.getOutcomingDefaultBubblePaddingRight(),
                         style.getOutcomingDefaultBubblePaddingBottom());
-                bubble.setBackground(style.getOutcomingBubbleDrawable());
+                ViewCompat.setBackground(bubble, style.getOutcomingBubbleDrawable());
             }
 
             if (text != null) {
@@ -630,7 +631,7 @@ public class MessageHolders {
             }
 
             if (imageOverlay != null) {
-                imageOverlay.setBackground(style.getIncomingImageOverlayDrawable());
+                ViewCompat.setBackground(imageOverlay, style.getIncomingImageOverlayDrawable());
             }
         }
     }
@@ -681,7 +682,7 @@ public class MessageHolders {
             }
 
             if (imageOverlay != null) {
-                imageOverlay.setBackground(style.getOutcomingImageOverlayDrawable());
+                ViewCompat.setBackground(imageOverlay, style.getOutcomingImageOverlayDrawable());
             }
         }
     }

@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "0.2.0"
+        versionName "0.2.1"
 
         consumerProguardFiles 'proguard.txt'
     }
@@ -23,7 +23,7 @@ android {
 publish {
     groupId = 'com.github.stfalcon'
     artifactId = 'chatkit'
-    publishVersion = '0.2.0'
+    publishVersion = '0.2.1'
     desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
     licences = ['Apache-2.0']
     uploadName = 'ChatKit'

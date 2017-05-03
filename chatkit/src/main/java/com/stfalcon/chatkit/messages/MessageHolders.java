@@ -341,7 +341,7 @@ public class MessageHolders {
                     }
                 }
         }
-        return null;
+        throw new IllegalStateException("Wrong message view type. Please, report this issue on GitHub with full stacktrace in description.");
     }
 
     @SuppressWarnings("unchecked")
@@ -394,7 +394,7 @@ public class MessageHolders {
             }
             return holder;
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
         }
     }
 

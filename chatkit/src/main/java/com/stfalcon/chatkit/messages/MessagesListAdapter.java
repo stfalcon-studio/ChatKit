@@ -547,7 +547,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                     return true;
                 } else {
                     isSelectionModeEnabled = true;
-                    view.callOnClick();
+                    view.performClick();
                     return true;
                 }
             }

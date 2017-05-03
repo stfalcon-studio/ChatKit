@@ -62,12 +62,12 @@ public class MessagesList extends RecyclerView {
      * @param <MESSAGE> Message model class
      */
     public <MESSAGE extends IMessage>
-    void setAdapter(MessagesListAdapter<MESSAGE> adapter) {
+    void setAdapter(MessagesListAdapter<MESSAGE> adapter, Boolean reverseLayout) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, true);
+                LinearLayoutManager.VERTICAL, reverseLayout);
 
         setItemAnimator(itemAnimator);
         setLayoutManager(layoutManager);

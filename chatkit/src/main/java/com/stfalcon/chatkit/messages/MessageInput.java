@@ -71,6 +71,11 @@ public class MessageInput extends RelativeLayout
     public void setInputListener(InputListener inputListener) {
         this.inputListener = inputListener;
     }
+    
+    
+    public EditText getMessageInput() {
+        return messageInput;
+    }
 
     /**
      * Sets callback for 'add' button.

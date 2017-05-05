@@ -18,6 +18,8 @@ package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.Space;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -157,22 +159,22 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
         this.messageInput.setTextColor(style.getInputTextColor());
         this.messageInput.setHintTextColor(style.getInputHintColor());
-        this.messageInput.setBackground(style.getInputBackground());
+        ViewCompat.setBackground(this.messageInput, style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
         this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
-        this.attachmentButton.setBackground(style.getAttachmentButtonBackground());
         this.attachmentButton.setImageDrawable(style.getAttachmentButtonIcon());
         this.attachmentButton.getLayoutParams().width = style.getAttachmentButtonWidth();
         this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
+        ViewCompat.setBackground(this.attachmentButton, style.getAttachmentButtonBackground());
 
         this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
         this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
 
-        this.messageSendButton.setBackground(style.getInputButtonBackground());
         this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
+        ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
         this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
         if (getPaddingLeft() == 0
@@ -204,11 +206,27 @@ public class MessageInput extends RelativeLayout
     }
 
     private void setCursor(Drawable drawable) {
+        if (drawable == null) return;
+
         try {
-            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
-            f.setAccessible(true);
-            f.set(this.messageInput, drawable);
-        } catch (Exception ignore) {
+            final Field drawableResField = TextView.class.getDeclaredField("mCursorDrawableRes");
+            drawableResField.setAccessible(true);
+
+            final Object drawableFieldOwner;
+            final Class<?> drawableFieldClass;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                drawableFieldOwner = this.messageInput;
+                drawableFieldClass = TextView.class;
+            } else {
+                final Field editorField = TextView.class.getDeclaredField("mEditor");
+                editorField.setAccessible(true);
+                drawableFieldOwner = editorField.get(this.messageInput);
+                drawableFieldClass = drawableFieldOwner.getClass();
+            }
+            final Field drawableField = drawableFieldClass.getDeclaredField("mCursorDrawable");
+            drawableField.setAccessible(true);
+            drawableField.set(drawableFieldOwner, new Drawable[]{drawable, drawable});
+        } catch (Exception ignored) {
         }
     }
 

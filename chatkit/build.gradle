@@ -6,10 +6,10 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "0.2.0"
+        versionName "0.2.1"
 
         consumerProguardFiles 'proguard.txt'
     }
@@ -23,17 +23,22 @@ android {
 publish {
     groupId = 'com.github.stfalcon'
     artifactId = 'chatkit'
-    publishVersion = '0.2.0'
+    publishVersion = '0.2.1'
     desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
     licences = ['Apache-2.0']
     uploadName = 'ChatKit'
     website = 'https://github.com/stfalcon-studio/ChatKit.git'
 }
 
+ext {
+    supportVersion = '25.3.1'
+    flexboxVersion = '0.2.5'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
-    compile 'com.google.android:flexbox:0.2.5'
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.google.android:flexbox:$flexboxVersion"
 }

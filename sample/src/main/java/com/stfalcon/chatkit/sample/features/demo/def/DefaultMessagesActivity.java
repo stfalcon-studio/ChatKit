@@ -3,6 +3,7 @@ package com.stfalcon.chatkit.sample.features.demo.def;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -13,7 +14,8 @@ import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
 
 public class DefaultMessagesActivity extends DemoMessagesActivity
         implements MessageInput.InputListener,
-        MessageInput.AttachmentsListener {
+        MessageInput.AttachmentsListener,
+        MessageInput.TypingListener {
 
     public static void open(Context context) {
         context.startActivity(new Intent(context, DefaultMessagesActivity.class));
@@ -31,6 +33,7 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
 
         MessageInput input = (MessageInput) findViewById(R.id.input);
         input.setInputListener(this);
+        input.setTypingListener(this);
     }
 
     @Override
@@ -51,5 +54,15 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
         super.messagesAdapter.enableSelectionMode(this);
         super.messagesAdapter.setLoadMoreListener(this);
         this.messagesList.setAdapter(super.messagesAdapter);
+    }
+
+    @Override
+    public void onStartTyping() {
+        Toast.makeText(this, R.string.start_typing_status, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStopTyping() {
+        Toast.makeText(this, R.string.stop_typing_status, Toast.LENGTH_SHORT).show();
     }
 }

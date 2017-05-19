@@ -135,12 +135,10 @@ public class MessageInput extends RelativeLayout
         input = s;
         messageSendButton.setEnabled(input.length() > 0);
         if (s.length() > 0) {
-
             if (!isTyping) {
                 isTyping = true;
                 if (typingListener != null) typingListener.onStartTyping();
             }
-
             removeCallbacks(typingTimerRunnable);
             postDelayed(typingTimerRunnable, 1500);
         }

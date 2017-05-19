@@ -127,3 +127,4 @@
 | `inputHintColor` | Sets text color of hint in message input field|
 | `inputBackground` | Sets background for input message view |
 | `inputCursorDrawable` | Sets cursor drawable for input message EditText |
+| `delayTypingStatus` | Sets delay typing for TypingListener|

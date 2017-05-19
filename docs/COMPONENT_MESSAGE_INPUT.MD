@@ -47,6 +47,24 @@ messageInput.setAttachmentsListener(new MessageInput.AttachmentsListener() {
 });
 ```
 
+#### Typing Listener
+
+If you want to track typing event:
+```java
+messageInput.setTypingListener(new MessageInput.TypingListener() {
+     @Override
+     public void onStartTyping() {
+         
+     }
+
+     @Override
+     public void onStopTyping() {
+
+     }
+ });
+```
+Default delay typing is 1500, you can change it with only one line `delayTypingStatus="delayInMilis"`
+
 #### Make it look the way you want
 
 By using available widget attribute you can change color and size of text and input hint,  maximum number of permitted lines, size and indents “submit” button, and its icon and background.

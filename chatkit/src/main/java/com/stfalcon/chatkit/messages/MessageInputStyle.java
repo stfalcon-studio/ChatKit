@@ -34,6 +34,7 @@ import com.stfalcon.chatkit.commons.Style;
 class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
+    private static final int DEFAULT_DELAY_TYPING_STATUS = 1500;
 
     private boolean showAttachmentButton;
 
@@ -80,6 +81,8 @@ class MessageInputStyle extends Style {
     private int inputDefaultPaddingRight;
     private int inputDefaultPaddingTop;
     private int inputDefaultPaddingBottom;
+
+    private int delayTypingStatus;
 
     static MessageInputStyle parse(Context context, AttributeSet attrs) {
         MessageInputStyle style = new MessageInputStyle(context, attrs);
@@ -137,6 +140,8 @@ class MessageInputStyle extends Style {
 
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);
+
+        style.delayTypingStatus = typedArray.getInt(R.styleable.MessageInput_delayTypingStatus, DEFAULT_DELAY_TYPING_STATUS);
 
         typedArray.recycle();
 
@@ -279,6 +284,10 @@ class MessageInputStyle extends Style {
 
     int getInputDefaultPaddingBottom() {
         return inputDefaultPaddingBottom;
+    }
+
+    int getDelayTypingStatus() {
+        return delayTypingStatus;
     }
 
 }

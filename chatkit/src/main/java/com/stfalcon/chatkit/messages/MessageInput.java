@@ -49,6 +49,7 @@ public class MessageInput extends RelativeLayout
     private AttachmentsListener attachmentsListener;
     private boolean isTyping;
     private TypingListener typingListener;
+    private int delayTypingStatusMillis;
     private Runnable typingTimerRunnable = new Runnable() {
         @Override
         public void run() {
@@ -140,7 +141,7 @@ public class MessageInput extends RelativeLayout
                 if (typingListener != null) typingListener.onStartTyping();
             }
             removeCallbacks(typingTimerRunnable);
-            postDelayed(typingTimerRunnable, 1500);
+            postDelayed(typingTimerRunnable, delayTypingStatusMillis);
         }
     }
 
@@ -216,6 +217,7 @@ public class MessageInput extends RelativeLayout
                     style.getInputDefaultPaddingBottom()
             );
         }
+        this.delayTypingStatusMillis = style.getDelayTypingStatus();
     }
 
     private void init(Context context) {

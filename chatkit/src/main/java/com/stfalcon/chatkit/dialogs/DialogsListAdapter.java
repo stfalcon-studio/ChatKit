@@ -16,6 +16,7 @@
 
 package com.stfalcon.chatkit.dialogs;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -530,17 +531,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
                 if (tvName != null) {
                     tvName.setTextColor(dialogStyle.getDialogTitleTextColor());
-                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogTitleTextStyle());
+                    tvName.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogTitleTextStyle());
                 }
 
                 if (tvDate != null) {
                     tvDate.setTextColor(dialogStyle.getDialogDateColor());
-                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogDateStyle());
+                    tvDate.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogDateStyle());
                 }
 
                 if (tvLastMessage != null) {
                     tvLastMessage.setTextColor(dialogStyle.getDialogMessageTextColor());
-                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogMessageTextStyle());
+                    tvLastMessage.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogMessageTextStyle());
                 }
             }
         }
@@ -553,17 +554,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
                 if (tvName != null) {
                     tvName.setTextColor(dialogStyle.getDialogUnreadTitleTextColor());
-                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogUnreadTitleTextStyle());
+                    tvName.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogUnreadTitleTextStyle());
                 }
 
                 if (tvDate != null) {
                     tvDate.setTextColor(dialogStyle.getDialogUnreadDateColor());
-                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogUnreadDateStyle());
+                    tvDate.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogUnreadDateStyle());
                 }
 
                 if (tvLastMessage != null) {
                     tvLastMessage.setTextColor(dialogStyle.getDialogUnreadMessageTextColor());
-                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogUnreadMessageTextStyle());
+                    tvLastMessage.setTypeface(Typeface.DEFAULT, dialogStyle.getDialogUnreadMessageTextStyle());
                 }
             }
         }

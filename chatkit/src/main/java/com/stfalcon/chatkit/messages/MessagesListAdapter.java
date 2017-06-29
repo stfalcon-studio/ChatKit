@@ -23,6 +23,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -65,6 +66,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
     private DateFormatter.Formatter dateHeadersFormatter;
+    private SparseArray<OnMessageViewClickListener> viewClickListenersArray = new SparseArray<>();
 
     /**
      * For default list item layout and view holder.
@@ -103,7 +105,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
-                dateHeadersFormatter);
+                dateHeadersFormatter,
+                viewClickListenersArray);
     }
 
     @Override
@@ -367,6 +370,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      */
     public void setOnMessageViewClickListener(OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) {
         this.onMessageViewClickListener = onMessageViewClickListener;
+    }
+
+    /**
+     * Registers click listener for view by id
+     * @param viewId view
+     * @param onMessageViewClickListener click listener.
+     */
+    public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) {
+        this.viewClickListenersArray.append(viewId, onMessageViewClickListener);
     }
 
     /**

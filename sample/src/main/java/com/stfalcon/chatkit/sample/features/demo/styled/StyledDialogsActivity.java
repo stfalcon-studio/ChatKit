@@ -54,13 +54,7 @@ public class StyledDialogsActivity extends DemoDialogsActivity
         super.dialogsAdapter = new DialogsListAdapter<>(super.imageLoader);
         super.dialogsAdapter.setItems(DialogsFixtures.getDialogs());
 
-        super.dialogsAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<Dialog>() {
-            @Override
-            public void onDialogClick(Dialog dialog) {
-                dialog.setUnreadCount(0);
-                dialogsAdapter.updateItemById(dialog);
-            }
-        });
+        super.dialogsAdapter.setOnDialogClickListener(this);
         super.dialogsAdapter.setOnDialogLongClickListener(this);
         super.dialogsAdapter.setDatesFormatter(this);
 

@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:dialogDividerLeftPadding="0dp"
         app:dialogMessageTextSize="17sp"
+        app:dialogTitleTextStyle="bold"
         app:dialogUnreadBubbleBackgroundColor="@color/red"
         app:dialogUnreadItemBackground="@color/gray_transparent"
         app:dialogUnreadTitleTextStyle="bold"/>

@@ -3,13 +3,16 @@ package com.stfalcon.chatkit.sample.features.demo.def;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
+import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
+import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 public class DefaultMessagesActivity extends DemoMessagesActivity
         implements MessageInput.InputListener,
@@ -50,6 +53,15 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
         super.messagesAdapter = new MessagesListAdapter<>(super.senderId, super.imageLoader);
         super.messagesAdapter.enableSelectionMode(this);
         super.messagesAdapter.setLoadMoreListener(this);
+        super.messagesAdapter.registerViewClickListener(R.id.messageUserAvatar,
+                new MessagesListAdapter.OnMessageViewClickListener<Message>() {
+                    @Override
+                    public void onMessageViewClick(View view, Message message) {
+                        AppUtils.showToast(DefaultMessagesActivity.this,
+                                message.getUser().getName() + " avatar click",
+                                false);
+                    }
+                });
         this.messagesList.setAdapter(super.messagesAdapter);
     }
 }

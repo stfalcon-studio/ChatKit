@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.stfalcon.chatkit.sample"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -25,7 +25,7 @@ android {
 }
 
 ext {
-    supportVersion = '25.1.1'
+    supportVersion = '25.3.1'
     picassoVersion = '2.5.2'
     circleImageViewVersion = '2.1.0'
     shapeImageViewVersion = '0.9.3'

@@ -147,7 +147,7 @@ If message has changed, you can update it by calling `adapter.update(IMessage me
 
 #### Click listeners
 
-Of course, the adapter have listeners for such important actions as short and long clicks. They just returns a message object that has been pressed, with a type that is specified as the generic type of adapter:
+Of course, the adapter has listeners for such important actions as short and long clicks. They just returns a message object that has been pressed, with a type that is specified as the generic type of adapter:
 
 ```java
 public interface OnMessageClickListener<MESSAGE extends IMessage> {
@@ -157,6 +157,12 @@ public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
    void onMessageLongClick(MESSAGE message);
 }
 ```
+
+Also here is an ability to set listeners on separate Views in message item:
+```
+public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) 
+```
+
 #### Links highlighting
 In 99% of cases the user is confused, when he can not follow the link or call the phone, indicated in the message. If you think the same way, just include `textAutoLink="all"`, like in the ordinary `TextView`. Similarly, you can specify highlighting for certain types, for example, `email|phone|web`:
 <p align="center">

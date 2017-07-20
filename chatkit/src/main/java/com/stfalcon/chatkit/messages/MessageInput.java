@@ -38,6 +38,7 @@ import java.lang.reflect.Field;
 /**
  * Component for input outcoming messages
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
 
@@ -130,7 +131,7 @@ public class MessageInput extends RelativeLayout
      */
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+        //do nothing
     }
 
     /**
@@ -138,7 +139,7 @@ public class MessageInput extends RelativeLayout
      */
     @Override
     public void afterTextChanged(Editable editable) {
-
+        //do nothing
     }
 
     private boolean onSubmit() {

@@ -31,6 +31,7 @@ import com.stfalcon.chatkit.commons.Style;
 /**
  * Style for MessageInputStyle customization by xml attributes
  */
+@SuppressWarnings("WeakerAccess")
 class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
@@ -169,11 +170,11 @@ class MessageInputStyle extends Style {
         return drawable;
     }
 
-    boolean showAttachmentButton() {
+    protected boolean showAttachmentButton() {
         return showAttachmentButton;
     }
 
-    Drawable getAttachmentButtonBackground() {
+    protected Drawable getAttachmentButtonBackground() {
         if (attachmentButtonBackground == -1) {
             return getSelector(attachmentButtonDefaultBgColor, attachmentButtonDefaultBgPressedColor,
                     attachmentButtonDefaultBgDisabledColor, R.drawable.mask);
@@ -182,7 +183,7 @@ class MessageInputStyle extends Style {
         }
     }
 
-    Drawable getAttachmentButtonIcon() {
+    protected Drawable getAttachmentButtonIcon() {
         if (attachmentButtonIcon == -1) {
             return getSelector(attachmentButtonDefaultIconColor, attachmentButtonDefaultIconPressedColor,
                     attachmentButtonDefaultIconDisabledColor, R.drawable.ic_add_attachment);
@@ -191,19 +192,19 @@ class MessageInputStyle extends Style {
         }
     }
 
-    int getAttachmentButtonWidth() {
+    protected int getAttachmentButtonWidth() {
         return attachmentButtonWidth;
     }
 
-    int getAttachmentButtonHeight() {
+    protected int getAttachmentButtonHeight() {
         return attachmentButtonHeight;
     }
 
-    int getAttachmentButtonMargin() {
+    protected int getAttachmentButtonMargin() {
         return attachmentButtonMargin;
     }
 
-    Drawable getInputButtonBackground() {
+    protected Drawable getInputButtonBackground() {
         if (inputButtonBackground == -1) {
             return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
                     inputButtonDefaultBgDisabledColor, R.drawable.mask);
@@ -212,7 +213,7 @@ class MessageInputStyle extends Style {
         }
     }
 
-    Drawable getInputButtonIcon() {
+    protected Drawable getInputButtonIcon() {
         if (inputButtonIcon == -1) {
             return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
                     inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
@@ -221,63 +222,63 @@ class MessageInputStyle extends Style {
         }
     }
 
-    int getInputButtonMargin() {
+    protected int getInputButtonMargin() {
         return inputButtonMargin;
     }
 
-    int getInputButtonWidth() {
+    protected int getInputButtonWidth() {
         return inputButtonWidth;
     }
 
-    int getInputButtonHeight() {
+    protected int getInputButtonHeight() {
         return inputButtonHeight;
     }
 
-    int getInputMaxLines() {
+    protected int getInputMaxLines() {
         return inputMaxLines;
     }
 
-    String getInputHint() {
+    protected String getInputHint() {
         return inputHint;
     }
 
-    String getInputText() {
+    protected String getInputText() {
         return inputText;
     }
 
-    int getInputTextSize() {
+    protected int getInputTextSize() {
         return inputTextSize;
     }
 
-    int getInputTextColor() {
+    protected int getInputTextColor() {
         return inputTextColor;
     }
 
-    int getInputHintColor() {
+    protected int getInputHintColor() {
         return inputHintColor;
     }
 
-    Drawable getInputBackground() {
+    protected Drawable getInputBackground() {
         return inputBackground;
     }
 
-    Drawable getInputCursorDrawable() {
+    protected Drawable getInputCursorDrawable() {
         return inputCursorDrawable;
     }
 
-    int getInputDefaultPaddingLeft() {
+    protected int getInputDefaultPaddingLeft() {
         return inputDefaultPaddingLeft;
     }
 
-    int getInputDefaultPaddingRight() {
+    protected int getInputDefaultPaddingRight() {
         return inputDefaultPaddingRight;
     }
 
-    int getInputDefaultPaddingTop() {
+    protected int getInputDefaultPaddingTop() {
         return inputDefaultPaddingTop;
     }
 
-    int getInputDefaultPaddingBottom() {
+    protected int getInputDefaultPaddingBottom() {
         return inputDefaultPaddingBottom;
     }
 

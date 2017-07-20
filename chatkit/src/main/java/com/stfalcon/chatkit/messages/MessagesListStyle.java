@@ -33,6 +33,7 @@ import com.stfalcon.chatkit.commons.Style;
 /**
  * Style for MessagesListStyle customization by xml attributes
  */
+@SuppressWarnings("WeakerAccess")
 class MessagesListStyle extends Style {
 
     private int textAutoLinkMask;
@@ -230,55 +231,55 @@ class MessagesListStyle extends Style {
         return drawable;
     }
 
-    int getTextAutoLinkMask() {
+    protected int getTextAutoLinkMask() {
         return textAutoLinkMask;
     }
 
-    int getIncomingTextLinkColor() {
+    protected int getIncomingTextLinkColor() {
         return incomingTextLinkColor;
     }
 
-    int getOutcomingTextLinkColor() {
+    protected int getOutcomingTextLinkColor() {
         return outcomingTextLinkColor;
     }
 
-    int getIncomingAvatarWidth() {
+    protected int getIncomingAvatarWidth() {
         return incomingAvatarWidth;
     }
 
-    int getIncomingAvatarHeight() {
+    protected int getIncomingAvatarHeight() {
         return incomingAvatarHeight;
     }
 
-    int getIncomingDefaultBubblePaddingLeft() {
+    protected int getIncomingDefaultBubblePaddingLeft() {
         return incomingDefaultBubblePaddingLeft;
     }
 
-    int getIncomingDefaultBubblePaddingRight() {
+    protected int getIncomingDefaultBubblePaddingRight() {
         return incomingDefaultBubblePaddingRight;
     }
 
-    int getIncomingDefaultBubblePaddingTop() {
+    protected int getIncomingDefaultBubblePaddingTop() {
         return incomingDefaultBubblePaddingTop;
     }
 
-    int getIncomingDefaultBubblePaddingBottom() {
+    protected int getIncomingDefaultBubblePaddingBottom() {
         return incomingDefaultBubblePaddingBottom;
     }
 
-    int getIncomingTextColor() {
+    protected int getIncomingTextColor() {
         return incomingTextColor;
     }
 
-    int getIncomingTextSize() {
+    protected int getIncomingTextSize() {
         return incomingTextSize;
     }
 
-    int getIncomingTextStyle() {
+    protected int getIncomingTextStyle() {
         return incomingTextStyle;
     }
 
-    Drawable getOutcomingBubbleDrawable() {
+    protected Drawable getOutcomingBubbleDrawable() {
         if (outcomingBubbleDrawable == -1) {
             return getMessageSelector(outcomingDefaultBubbleColor, outcomingDefaultBubbleSelectedColor,
                     outcomingDefaultBubblePressedColor, R.drawable.shape_outcoming_message);
@@ -287,7 +288,7 @@ class MessagesListStyle extends Style {
         }
     }
 
-    Drawable getOutcomingImageOverlayDrawable() {
+    protected Drawable getOutcomingImageOverlayDrawable() {
         if (outcomingImageOverlayDrawable == -1) {
             return getMessageSelector(Color.TRANSPARENT, outcomingDefaultImageOverlaySelectedColor,
                     outcomingDefaultImageOverlayPressedColor, R.drawable.shape_outcoming_message);
@@ -296,103 +297,103 @@ class MessagesListStyle extends Style {
         }
     }
 
-    int getOutcomingDefaultBubblePaddingLeft() {
+    protected int getOutcomingDefaultBubblePaddingLeft() {
         return outcomingDefaultBubblePaddingLeft;
     }
 
-    int getOutcomingDefaultBubblePaddingRight() {
+    protected int getOutcomingDefaultBubblePaddingRight() {
         return outcomingDefaultBubblePaddingRight;
     }
 
-    int getOutcomingDefaultBubblePaddingTop() {
+    protected int getOutcomingDefaultBubblePaddingTop() {
         return outcomingDefaultBubblePaddingTop;
     }
 
-    int getOutcomingDefaultBubblePaddingBottom() {
+    protected int getOutcomingDefaultBubblePaddingBottom() {
         return outcomingDefaultBubblePaddingBottom;
     }
 
-    int getOutcomingTextColor() {
+    protected int getOutcomingTextColor() {
         return outcomingTextColor;
     }
 
-    int getOutcomingTextSize() {
+    protected int getOutcomingTextSize() {
         return outcomingTextSize;
     }
 
-    int getOutcomingTextStyle() {
+    protected int getOutcomingTextStyle() {
         return outcomingTextStyle;
     }
 
-    int getOutcomingTimeTextColor() {
+    protected int getOutcomingTimeTextColor() {
         return outcomingTimeTextColor;
     }
 
-    int getOutcomingTimeTextSize() {
+    protected int getOutcomingTimeTextSize() {
         return outcomingTimeTextSize;
     }
 
-    int getOutcomingTimeTextStyle() {
+    protected int getOutcomingTimeTextStyle() {
         return outcomingTimeTextStyle;
     }
 
-    int getOutcomingImageTimeTextColor() {
+    protected int getOutcomingImageTimeTextColor() {
         return outcomingImageTimeTextColor;
     }
 
-    int getOutcomingImageTimeTextSize() {
+    protected int getOutcomingImageTimeTextSize() {
         return outcomingImageTimeTextSize;
     }
 
-    int getOutcomingImageTimeTextStyle() {
+    protected int getOutcomingImageTimeTextStyle() {
         return outcomingImageTimeTextStyle;
     }
 
-    int getDateHeaderTextColor() {
+    protected int getDateHeaderTextColor() {
         return dateHeaderTextColor;
     }
 
-    int getDateHeaderTextSize() {
+    protected int getDateHeaderTextSize() {
         return dateHeaderTextSize;
     }
 
-    int getDateHeaderTextStyle() {
+    protected int getDateHeaderTextStyle() {
         return dateHeaderTextStyle;
     }
 
-    int getDateHeaderPadding() {
+    protected int getDateHeaderPadding() {
         return dateHeaderPadding;
     }
 
-    String getDateHeaderFormat() {
+    protected String getDateHeaderFormat() {
         return dateHeaderFormat;
     }
 
-    int getIncomingTimeTextSize() {
+    protected int getIncomingTimeTextSize() {
         return incomingTimeTextSize;
     }
 
-    int getIncomingTimeTextStyle() {
+    protected int getIncomingTimeTextStyle() {
         return incomingTimeTextStyle;
     }
 
-    int getIncomingTimeTextColor() {
+    protected int getIncomingTimeTextColor() {
         return incomingTimeTextColor;
     }
 
-    int getIncomingImageTimeTextColor() {
+    protected int getIncomingImageTimeTextColor() {
         return incomingImageTimeTextColor;
     }
 
-    int getIncomingImageTimeTextSize() {
+    protected int getIncomingImageTimeTextSize() {
         return incomingImageTimeTextSize;
     }
 
-    int getIncomingImageTimeTextStyle() {
+    protected int getIncomingImageTimeTextStyle() {
         return incomingImageTimeTextStyle;
     }
 
-    Drawable getIncomingBubbleDrawable() {
+    protected Drawable getIncomingBubbleDrawable() {
         if (incomingBubbleDrawable == -1) {
             return getMessageSelector(incomingDefaultBubbleColor, incomingDefaultBubbleSelectedColor,
                     incomingDefaultBubblePressedColor, R.drawable.shape_incoming_message);
@@ -401,7 +402,7 @@ class MessagesListStyle extends Style {
         }
     }
 
-    Drawable getIncomingImageOverlayDrawable() {
+    protected Drawable getIncomingImageOverlayDrawable() {
         if (incomingImageOverlayDrawable == -1) {
             return getMessageSelector(Color.TRANSPARENT, incomingDefaultImageOverlaySelectedColor,
                     incomingDefaultImageOverlayPressedColor, R.drawable.shape_incoming_message);

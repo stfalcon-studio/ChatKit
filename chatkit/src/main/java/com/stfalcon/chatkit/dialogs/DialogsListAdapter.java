@@ -47,6 +47,7 @@ import static android.view.View.VISIBLE;
 /**
  * Adapter for {@link DialogsList}
  */
+@SuppressWarnings("WeakerAccess")
 public class DialogsListAdapter<DIALOG extends IDialog>
         extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> {
 
@@ -428,19 +429,19 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             this.imageLoader = imageLoader;
         }
 
-        void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
+        protected void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
             this.onDialogClickListener = onDialogClickListener;
         }
 
-        void setOnDialogViewClickListener(OnDialogViewClickListener<DIALOG> onDialogViewClickListener) {
+        protected void setOnDialogViewClickListener(OnDialogViewClickListener<DIALOG> onDialogViewClickListener) {
             this.onDialogViewClickListener = onDialogViewClickListener;
         }
 
-        void setOnLongItemClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
+        protected void setOnLongItemClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
         }
 
-        void setOnDialogViewLongClickListener(OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener) {
+        protected void setOnDialogViewLongClickListener(OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener) {
             this.onDialogViewLongClickListener = onDialogViewLongClickListener;
         }
 

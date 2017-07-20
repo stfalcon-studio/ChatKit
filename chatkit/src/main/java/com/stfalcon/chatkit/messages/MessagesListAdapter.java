@@ -44,6 +44,7 @@ import java.util.List;
 /**
  * Adapter for {@link MessagesList}.
  */
+@SuppressWarnings("WeakerAccess")
 public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
@@ -55,7 +56,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private int selectedItemsCount;
     private SelectionListener selectionListener;
 
-    static boolean isSelectionModeEnabled;
+    protected static boolean isSelectionModeEnabled;
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
@@ -374,7 +375,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     /**
      * Registers click listener for view by id
-     * @param viewId view
+     *
+     * @param viewId                     view
      * @param onMessageViewClickListener click listener.
      */
     public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) {
@@ -601,8 +603,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     * WRAPPER
     * */
     private class Wrapper<DATA> {
-        DATA item;
-        boolean isSelected;
+        protected DATA item;
+        protected boolean isSelected;
 
         Wrapper(DATA item) {
             this.item = item;

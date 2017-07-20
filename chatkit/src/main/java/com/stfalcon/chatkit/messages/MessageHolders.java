@@ -30,6 +30,7 @@ import java.util.List;
 /*
  * Created by troy379 on 31.03.17.
  */
+@SuppressWarnings("WeakerAccess")
 public class MessageHolders {
 
     private static final short VIEW_TYPE_DATE_HEADER = 130;
@@ -321,7 +322,7 @@ public class MessageHolders {
     * PRIVATE METHODS
     * */
 
-    ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
+    protected ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
         switch (viewType) {
             case VIEW_TYPE_DATE_HEADER:
                 return getHolder(parent, dateHeaderLayout, dateHeaderHolder, messagesListStyle);
@@ -347,12 +348,12 @@ public class MessageHolders {
     }
 
     @SuppressWarnings("unchecked")
-    void bind(final ViewHolder holder, final Object item, boolean isSelected,
-              final ImageLoader imageLoader,
-              final View.OnClickListener onMessageClickListener,
-              final View.OnLongClickListener onMessageLongClickListener,
-              final DateFormatter.Formatter dateHeadersFormatter,
-              final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
+    protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+                        final ImageLoader imageLoader,
+                        final View.OnClickListener onMessageClickListener,
+                        final View.OnLongClickListener onMessageLongClickListener,
+                        final DateFormatter.Formatter dateHeadersFormatter,
+                        final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
 
         if (item instanceof IMessage) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
@@ -380,7 +381,7 @@ public class MessageHolders {
     }
 
 
-    int getViewType(Object item, String senderId) {
+    protected int getViewType(Object item, String senderId) {
         boolean isOutcoming = false;
         int viewType;
 
@@ -411,7 +412,7 @@ public class MessageHolders {
             }
             return holder;
         } catch (Exception e) {
-            throw new RuntimeException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
+            throw new UnsupportedOperationException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
         }
     }
 
@@ -453,7 +454,7 @@ public class MessageHolders {
         /**
          * Callback for implementing images loading in message list
          */
-        ImageLoader imageLoader;
+        protected ImageLoader imageLoader;
 
         public BaseMessageViewHolder(View itemView) {
             super(itemView);
@@ -877,8 +878,8 @@ public class MessageHolders {
 
     private class HolderConfig<T extends IMessage> {
 
-        Class<? extends BaseMessageViewHolder<? extends T>> holder;
-        int layout;
+        protected Class<? extends BaseMessageViewHolder<? extends T>> holder;
+        protected int layout;
 
         HolderConfig(Class<? extends BaseMessageViewHolder<? extends T>> holder, int layout) {
             this.holder = holder;

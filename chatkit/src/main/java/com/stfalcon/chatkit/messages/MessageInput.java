@@ -41,6 +41,7 @@ import java.lang.reflect.Field;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class MessageInput extends RelativeLayout
         implements View.OnClickListener, TextWatcher {
+    private MessageInputStyle messageInputStyle;
 
     protected EditText messageInput;
     protected ImageButton messageSendButton;
@@ -196,7 +197,13 @@ public class MessageInput extends RelativeLayout
         }
     }
 
+    public MessageInputStyle getStyle() {
+        return this.messageInputStyle;
+    }
+
     public void setStyle(MessageInputStyle messageInputStyle) {
+        this.messageInputStyle = messageInputStyle;
+
         this.messageInput.setMaxLines(messageInputStyle.getInputMaxLines());
         this.messageInput.setHint(messageInputStyle.getInputHint());
         this.messageInput.setText(messageInputStyle.getInputText());

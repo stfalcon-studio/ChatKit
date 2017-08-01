@@ -32,7 +32,7 @@ import com.stfalcon.chatkit.commons.Style;
  * Style for MessageInputStyle customization by xml attributes
  */
 @SuppressWarnings("WeakerAccess")
-class MessageInputStyle extends Style {
+public class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
 

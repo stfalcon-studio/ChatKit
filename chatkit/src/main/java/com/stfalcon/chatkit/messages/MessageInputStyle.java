@@ -282,4 +282,192 @@ class MessageInputStyle extends Style {
         return inputDefaultPaddingBottom;
     }
 
+    public int getAttachmentButtonDefaultBgColor() {
+        return attachmentButtonDefaultBgColor;
+    }
+
+    public int getAttachmentButtonDefaultBgPressedColor() {
+        return attachmentButtonDefaultBgPressedColor;
+    }
+
+    public int getAttachmentButtonDefaultBgDisabledColor() {
+        return attachmentButtonDefaultBgDisabledColor;
+    }
+
+    public int getAttachmentButtonDefaultIconColor() {
+        return attachmentButtonDefaultIconColor;
+    }
+
+    public int getAttachmentButtonDefaultIconPressedColor() {
+        return attachmentButtonDefaultIconPressedColor;
+    }
+
+    public int getAttachmentButtonDefaultIconDisabledColor() {
+        return attachmentButtonDefaultIconDisabledColor;
+    }
+
+    public int getInputButtonDefaultBgColor() {
+        return inputButtonDefaultBgColor;
+    }
+
+    public int getInputButtonDefaultBgPressedColor() {
+        return inputButtonDefaultBgPressedColor;
+    }
+
+    public int getInputButtonDefaultBgDisabledColor() {
+        return inputButtonDefaultBgDisabledColor;
+    }
+
+    public int getInputButtonDefaultIconColor() {
+        return inputButtonDefaultIconColor;
+    }
+
+    public int getInputButtonDefaultIconPressedColor() {
+        return inputButtonDefaultIconPressedColor;
+    }
+
+    public int getInputButtonDefaultIconDisabledColor() {
+        return inputButtonDefaultIconDisabledColor;
+    }
+
+    public void setShowAttachmentButton(boolean showAttachmentButton) {
+        this.showAttachmentButton = showAttachmentButton;
+    }
+
+    public void setAttachmentButtonBackground(int attachmentButtonBackground) {
+        this.attachmentButtonBackground = attachmentButtonBackground;
+    }
+
+    public void setAttachmentButtonDefaultBgColor(int attachmentButtonDefaultBgColor) {
+        this.attachmentButtonDefaultBgColor = attachmentButtonDefaultBgColor;
+    }
+
+    public void setAttachmentButtonDefaultBgPressedColor(int attachmentButtonDefaultBgPressedColor) {
+        this.attachmentButtonDefaultBgPressedColor = attachmentButtonDefaultBgPressedColor;
+    }
+
+    public void setAttachmentButtonDefaultBgDisabledColor(int attachmentButtonDefaultBgDisabledColor) {
+        this.attachmentButtonDefaultBgDisabledColor = attachmentButtonDefaultBgDisabledColor;
+    }
+
+    public void setAttachmentButtonIcon(int attachmentButtonIcon) {
+        this.attachmentButtonIcon = attachmentButtonIcon;
+    }
+
+    public void setAttachmentButtonDefaultIconColor(int attachmentButtonDefaultIconColor) {
+        this.attachmentButtonDefaultIconColor = attachmentButtonDefaultIconColor;
+    }
+
+    public void setAttachmentButtonDefaultIconPressedColor(int attachmentButtonDefaultIconPressedColor) {
+        this.attachmentButtonDefaultIconPressedColor = attachmentButtonDefaultIconPressedColor;
+    }
+
+    public void setAttachmentButtonDefaultIconDisabledColor(int attachmentButtonDefaultIconDisabledColor) {
+        this.attachmentButtonDefaultIconDisabledColor = attachmentButtonDefaultIconDisabledColor;
+    }
+
+    public void setAttachmentButtonWidth(int attachmentButtonWidth) {
+        this.attachmentButtonWidth = attachmentButtonWidth;
+    }
+
+    public void setAttachmentButtonHeight(int attachmentButtonHeight) {
+        this.attachmentButtonHeight = attachmentButtonHeight;
+    }
+
+    public void setAttachmentButtonMargin(int attachmentButtonMargin) {
+        this.attachmentButtonMargin = attachmentButtonMargin;
+    }
+
+    public void setInputButtonBackground(int inputButtonBackground) {
+        this.inputButtonBackground = inputButtonBackground;
+    }
+
+    public void setInputButtonDefaultBgColor(int inputButtonDefaultBgColor) {
+        this.inputButtonDefaultBgColor = inputButtonDefaultBgColor;
+    }
+
+    public void setInputButtonDefaultBgPressedColor(int inputButtonDefaultBgPressedColor) {
+        this.inputButtonDefaultBgPressedColor = inputButtonDefaultBgPressedColor;
+    }
+
+    public void setInputButtonDefaultBgDisabledColor(int inputButtonDefaultBgDisabledColor) {
+        this.inputButtonDefaultBgDisabledColor = inputButtonDefaultBgDisabledColor;
+    }
+
+    public void setInputButtonIcon(int inputButtonIcon) {
+        this.inputButtonIcon = inputButtonIcon;
+    }
+
+    public void setInputButtonDefaultIconColor(int inputButtonDefaultIconColor) {
+        this.inputButtonDefaultIconColor = inputButtonDefaultIconColor;
+    }
+
+    public void setInputButtonDefaultIconPressedColor(int inputButtonDefaultIconPressedColor) {
+        this.inputButtonDefaultIconPressedColor = inputButtonDefaultIconPressedColor;
+    }
+
+    public void setInputButtonDefaultIconDisabledColor(int inputButtonDefaultIconDisabledColor) {
+        this.inputButtonDefaultIconDisabledColor = inputButtonDefaultIconDisabledColor;
+    }
+
+    public void setInputButtonWidth(int inputButtonWidth) {
+        this.inputButtonWidth = inputButtonWidth;
+    }
+
+    public void setInputButtonHeight(int inputButtonHeight) {
+        this.inputButtonHeight = inputButtonHeight;
+    }
+
+    public void setInputButtonMargin(int inputButtonMargin) {
+        this.inputButtonMargin = inputButtonMargin;
+    }
+
+    public void setInputMaxLines(int inputMaxLines) {
+        this.inputMaxLines = inputMaxLines;
+    }
+
+    public void setInputHint(String inputHint) {
+        this.inputHint = inputHint;
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
+    public void setInputTextSize(int inputTextSize) {
+        this.inputTextSize = inputTextSize;
+    }
+
+    public void setInputTextColor(int inputTextColor) {
+        this.inputTextColor = inputTextColor;
+    }
+
+    public void setInputHintColor(int inputHintColor) {
+        this.inputHintColor = inputHintColor;
+    }
+
+    public void setInputBackground(Drawable inputBackground) {
+        this.inputBackground = inputBackground;
+    }
+
+    public void setInputCursorDrawable(Drawable inputCursorDrawable) {
+        this.inputCursorDrawable = inputCursorDrawable;
+    }
+
+    public void setInputDefaultPaddingLeft(int inputDefaultPaddingLeft) {
+        this.inputDefaultPaddingLeft = inputDefaultPaddingLeft;
+    }
+
+    public void setInputDefaultPaddingRight(int inputDefaultPaddingRight) {
+        this.inputDefaultPaddingRight = inputDefaultPaddingRight;
+    }
+
+    public void setInputDefaultPaddingTop(int inputDefaultPaddingTop) {
+        this.inputDefaultPaddingTop = inputDefaultPaddingTop;
+    }
+
+    public void setInputDefaultPaddingBottom(int inputDefaultPaddingBottom) {
+        this.inputDefaultPaddingBottom = inputDefaultPaddingBottom;
+    }
+
 }

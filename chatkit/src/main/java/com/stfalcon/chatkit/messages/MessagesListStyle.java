@@ -313,6 +313,46 @@ public class MessagesListStyle extends Style {
         return outcomingDefaultBubblePaddingBottom;
     }
 
+    public int getIncomingDefaultBubbleColor() {
+        return incomingDefaultBubbleColor;
+    }
+
+    public int getIncomingDefaultBubblePressedColor() {
+        return incomingDefaultBubblePressedColor;
+    }
+
+    public int getIncomingDefaultBubbleSelectedColor() {
+        return incomingDefaultBubbleSelectedColor;
+    }
+
+    public int getIncomingDefaultImageOverlayPressedColor() {
+        return incomingDefaultImageOverlayPressedColor;
+    }
+
+    public int getIncomingDefaultImageOverlaySelectedColor() {
+        return incomingDefaultImageOverlaySelectedColor;
+    }
+
+    public int getOutcomingDefaultBubbleColor() {
+        return outcomingDefaultBubbleColor;
+    }
+
+    public int getOutcomingDefaultBubblePressedColor() {
+        return outcomingDefaultBubblePressedColor;
+    }
+
+    public int getOutcomingDefaultBubbleSelectedColor() {
+        return outcomingDefaultBubbleSelectedColor;
+    }
+
+    public int getOutcomingDefaultImageOverlayPressedColor() {
+        return outcomingDefaultImageOverlayPressedColor;
+    }
+
+    public int getOutcomingDefaultImageOverlaySelectedColor() {
+        return outcomingDefaultImageOverlaySelectedColor;
+    }
+
     public int getOutcomingTextColor() {
         return outcomingTextColor;
     }

@@ -153,42 +153,7 @@ public class MessageInput extends RelativeLayout
     private void init(Context context, AttributeSet attrs) {
         init(context);
         MessageInputStyle style = MessageInputStyle.parse(context, attrs);
-
-        this.messageInput.setMaxLines(style.getInputMaxLines());
-        this.messageInput.setHint(style.getInputHint());
-        this.messageInput.setText(style.getInputText());
-        this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
-        this.messageInput.setTextColor(style.getInputTextColor());
-        this.messageInput.setHintTextColor(style.getInputHintColor());
-        ViewCompat.setBackground(this.messageInput, style.getInputBackground());
-        setCursor(style.getInputCursorDrawable());
-
-        this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
-        this.attachmentButton.setImageDrawable(style.getAttachmentButtonIcon());
-        this.attachmentButton.getLayoutParams().width = style.getAttachmentButtonWidth();
-        this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
-        ViewCompat.setBackground(this.attachmentButton, style.getAttachmentButtonBackground());
-
-        this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
-        this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
-
-        this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
-        this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
-        this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
-        ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
-        this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
-
-        if (getPaddingLeft() == 0
-                && getPaddingRight() == 0
-                && getPaddingTop() == 0
-                && getPaddingBottom() == 0) {
-            setPadding(
-                    style.getInputDefaultPaddingLeft(),
-                    style.getInputDefaultPaddingTop(),
-                    style.getInputDefaultPaddingRight(),
-                    style.getInputDefaultPaddingBottom()
-            );
-        }
+        this.setStyle(style);
     }
 
     private void init(Context context) {
@@ -228,6 +193,36 @@ public class MessageInput extends RelativeLayout
             drawableField.setAccessible(true);
             drawableField.set(drawableFieldOwner, new Drawable[]{drawable, drawable});
         } catch (Exception ignored) {
+        }
+    }
+
+    public void setStyle(MessageInputStyle messageInputStyle) {
+        this.messageInput.setMaxLines(messageInputStyle.getInputMaxLines());
+        this.messageInput.setHint(messageInputStyle.getInputHint());
+        this.messageInput.setText(messageInputStyle.getInputText());
+        this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, messageInputStyle.getInputTextSize());
+        this.messageInput.setTextColor(messageInputStyle.getInputTextColor());
+        this.messageInput.setHintTextColor(messageInputStyle.getInputHintColor());
+        ViewCompat.setBackground(this.messageInput, messageInputStyle.getInputBackground());
+        setCursor(messageInputStyle.getInputCursorDrawable());
+
+        this.attachmentButton.setVisibility(messageInputStyle.showAttachmentButton() ? VISIBLE : GONE);
+        this.attachmentButton.setImageDrawable(messageInputStyle.getAttachmentButtonIcon());
+        this.attachmentButton.getLayoutParams().width = messageInputStyle.getAttachmentButtonWidth();
+        this.attachmentButton.getLayoutParams().height = messageInputStyle.getAttachmentButtonHeight();
+        ViewCompat.setBackground(this.attachmentButton, messageInputStyle.getAttachmentButtonBackground());
+
+        this.attachmentButtonSpace.setVisibility(messageInputStyle.showAttachmentButton() ? VISIBLE : GONE);
+        this.attachmentButtonSpace.getLayoutParams().width = messageInputStyle.getAttachmentButtonMargin();
+
+        this.messageSendButton.setImageDrawable(messageInputStyle.getInputButtonIcon());
+        this.messageSendButton.getLayoutParams().width = messageInputStyle.getInputButtonWidth();
+        this.messageSendButton.getLayoutParams().height = messageInputStyle.getInputButtonHeight();
+        ViewCompat.setBackground(messageSendButton, messageInputStyle.getInputButtonBackground());
+        this.sendButtonSpace.getLayoutParams().width = messageInputStyle.getInputButtonMargin();
+
+        if (getPaddingLeft() == 0 && getPaddingRight() == 0 && getPaddingTop() == 0 && getPaddingBottom() == 0) {
+            setPadding(messageInputStyle.getInputDefaultPaddingLeft(), messageInputStyle.getInputDefaultPaddingTop(), messageInputStyle.getInputDefaultPaddingRight(), messageInputStyle.getInputDefaultPaddingBottom());
         }
     }
 

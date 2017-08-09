@@ -32,6 +32,7 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.lang.reflect.Constructor;
@@ -298,19 +299,19 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * @return registered image loader
+     */
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
+
+    /**
      * Register a callback to be invoked when image need to load.
      *
      * @param imageLoader image loading method
      */
     public void setImageLoader(ImageLoader imageLoader) {
         this.imageLoader = imageLoader;
-    }
-
-    /**
-     * @return registered image loader
-     */
-    public ImageLoader getImageLoader() {
-        return imageLoader;
     }
 
     /**
@@ -592,12 +593,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
             //Set Dialog avatar
             if (imageLoader != null) {
-                imageLoader.loadImage(ivAvatar, dialog.getDialogPhoto());
+                imageLoader.loadImage(ivAvatar, dialog.getDialogPhotoDrawable(), dialog.getDialogPhoto());
             }
 
             //Set Last message user avatar
             if (imageLoader != null) {
-                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
+                if (dialog.getLastMessage() != null && dialog.getLastMessage().getUser() != null) {
+                    IUser user = dialog.getLastMessage().getUser();
+                    imageLoader.loadImage(ivLastMessageUser, user.getAvatarDrawable(), user.getAvatar());
+                } else {
+                    imageLoader.loadImage(ivLastMessageUser, null, null);
+                }
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);

@@ -16,6 +16,8 @@
 
 package com.stfalcon.chatkit.commons.models;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * For implementing by real user model
  */
@@ -34,6 +36,12 @@ public interface IUser {
      * @return the user's name
      * */
     String getName();
+
+    /**
+     *
+     * @return the user's avatar drawable
+     */
+    Drawable getAvatarDrawable();
 
     /**
      * Returns the user's avatar image url

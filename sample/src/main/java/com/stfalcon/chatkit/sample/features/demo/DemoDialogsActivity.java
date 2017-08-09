@@ -1,5 +1,6 @@
 package com.stfalcon.chatkit.sample.features.demo;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +28,11 @@ public abstract class DemoDialogsActivity extends AppCompatActivity
 
         imageLoader = new ImageLoader() {
             @Override
-            public void loadImage(ImageView imageView, String url) {
-                Picasso.with(DemoDialogsActivity.this).load(url).into(imageView);
+            public void loadImage(ImageView imageView, Drawable drawable, String url) {
+                Picasso.with(DemoDialogsActivity.this)
+                        .load(url)
+                        .placeholder(drawable)
+                        .into(imageView);
             }
         };
     }

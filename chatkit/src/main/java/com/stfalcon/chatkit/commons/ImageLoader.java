@@ -16,6 +16,7 @@
 
 package com.stfalcon.chatkit.commons;
 
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 /**
@@ -23,6 +24,6 @@ import android.widget.ImageView;
  */
 public interface ImageLoader {
 
-    void loadImage(ImageView imageView, String url);
+    void loadImage(ImageView imageView, Drawable drawable, String url);
 
 }

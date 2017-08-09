@@ -269,11 +269,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             items = new ArrayList<>();
         }
         for (DIALOG item : items) {
-            if (item.getId() == null) {
-                if (id == null) {
-                    return item;
-                }
-            } else if (item.getId().equals(id)) {
+            if (item.getId() == null && id == null) {
+                return item;
+            } else if (item.getId() != null && item.getId().equals(id)) {
                 return item;
             }
         }

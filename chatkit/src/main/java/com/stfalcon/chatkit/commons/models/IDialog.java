@@ -16,8 +16,6 @@
 
 package com.stfalcon.chatkit.commons.models;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.List;
 
 /**
@@ -27,8 +25,6 @@ import java.util.List;
 public interface IDialog<MESSAGE extends IMessage> {
 
     String getId();
-
-    Drawable getDialogPhotoDrawable();
 
     String getDialogPhoto();
 

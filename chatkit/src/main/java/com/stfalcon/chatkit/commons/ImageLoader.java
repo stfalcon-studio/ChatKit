@@ -16,14 +16,32 @@
 
 package com.stfalcon.chatkit.commons;
 
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
+import com.stfalcon.chatkit.commons.models.IDialog;
+import com.stfalcon.chatkit.commons.models.IUser;
+import com.stfalcon.chatkit.commons.models.MessageContentType;
 
 /**
  * Callback for implementing images loading in message list
  */
-public interface ImageLoader {
+public abstract class ImageLoader implements ContextImageLoader {
 
-    void loadImage(ImageView imageView, Drawable drawable, String url);
+    public abstract void loadImage(ImageView imageView, String url);
 
+    @Override
+    public void loadImage(ImageView imageView, IDialog dialog) {
+        loadImage(imageView, dialog.getDialogPhoto());
+    }
+
+    @Override
+    public void loadImage(ImageView imageView, IUser user) {
+        loadImage(imageView, user.getAvatar());
+    }
+
+    @Override
+    public void loadImage(ImageView imageView, MessageContentType.Image messageContent) {
+        loadImage(imageView, messageContent.getImageUrl());
+    }
 }
+

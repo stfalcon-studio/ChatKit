@@ -30,6 +30,7 @@ ext {
     circleImageViewVersion = '2.1.0'
     shapeImageViewVersion = '0.9.3'
     circleindicatorVersion = '1.2.2@aar'
+    textDrawableVersion = '1.0.1'
 }
 
 dependencies {
@@ -51,6 +52,7 @@ dependencies {
     //ImageViews
     compile "de.hdodenhof:circleimageview:$circleImageViewVersion"
     compile "com.github.siyamed:android-shape-imageview:$shapeImageViewVersion"
+    compile "com.amulyakhare:com.amulyakhare.textdrawable:$textDrawableVersion"
 
     //Utils
     compile "me.relex:circleindicator:$circleindicatorVersion"

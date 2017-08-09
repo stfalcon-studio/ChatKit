@@ -215,6 +215,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Move an item
+     * @param fromPosition the actual position of the item
+     * @param toPosition the new position of the item
+     */
+    public void moveItem(int fromPosition, int toPosition) {
+        DIALOG dialog = items.remove(fromPosition);
+        items.add(toPosition, dialog);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
      * Update dialog by position in dialogs list
      *
      * @param position position in dialogs list

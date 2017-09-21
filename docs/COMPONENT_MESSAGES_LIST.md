@@ -31,10 +31,10 @@ Anyway, you can pass second parameter as `null`, and avatars will be hidden.
 
 #### Prepare your model
 
-To be able to add messages, you must implement the `IMessage` interface into your existing model and override its methods:
+To be able to add messages, you must implement the `IMessage<ID>` interface into your existing model and override its methods:
 
 ```java
-public class Message implements IMessage {
+public class Message implements IMessage<String> {
 
    /*...*/
 
@@ -59,10 +59,10 @@ public class Message implements IMessage {
    }
 }
 ```
-As you can see, you need also to add the Author object, which must to implement `IUser` interface:
+As you can see, you need also to add the Author object, which must to implement `IUser<ID>` interface:
 
 ```java
-public class Author implements IUser {
+public class Author implements IUser<String> {
 
    /*...*/
 
@@ -115,8 +115,8 @@ The `page` variable contains next page number to load (which is equals to the am
 Can modern chat exist without media message exchange? The right answer is - no, it can't. Even in the simplest apps this feature is “must have”. With ChatKit, adding this feature is easier than ever!
 At this moment "out of the box" library contains anly the most popular type of media messages - image messages. All you need to implement it is to mark your `Message` object with the `MessageContentType.Image` interface and override its `getImageUrl()` method:
 ```java
-public class Message implements IMessage,
-       MessageContentType.Image {
+public class Message implements IMessage<String>,
+       MessageContentType.Image<String> {
     ...
     @Override
     public String getImageUrl() {

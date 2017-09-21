@@ -21,14 +21,14 @@ import java.util.Date;
 /**
  * For implementing by real message model
  */
-public interface IMessage {
+public interface IMessage<T> {
 
     /**
      * Returns message identifier
      *
      * @return the message id
      */
-    String getId();
+    T getId();
 
     /**
      * Returns message text

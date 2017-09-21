@@ -19,14 +19,14 @@ package com.stfalcon.chatkit.commons.models;
 /**
  * For implementing by real user model
  */
-public interface IUser {
+public interface IUser<T> {
 
     /**
      * Returns the user's id
      *
      * @return the user's id
      * */
-    String getId();
+    T getId();
 
     /**
      * Returns the user's name

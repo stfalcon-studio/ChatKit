@@ -201,7 +201,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param oldId      an identifier of message to update.
      * @param newMessage new message object.
      */
-    public boolean update(String oldId, MESSAGE newMessage) {
+    public boolean update(Object oldId, MESSAGE newMessage) {
         int position = getMessagePositionById(oldId);
         if (position >= 0) {
             Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
@@ -252,7 +252,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      *
      * @param id identifier of message to delete.
      */
-    public void deleteById(String id) {
+    public void deleteById(Object id) {
         int index = getMessagePositionById(id);
         if (index >= 0) {
             items.remove(index);
@@ -498,12 +498,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     @SuppressWarnings("unchecked")
-    private int getMessagePositionById(String id) {
+    private int getMessagePositionById(Object id) {
         for (int i = 0; i < items.size(); i++) {
             Wrapper wrapper = items.get(i);
             if (wrapper.item instanceof IMessage) {
                 MESSAGE message = (MESSAGE) wrapper.item;
-                if (message.getId().contentEquals(id)) {
+                if (message.getId().equals(id)) {
                     return i;
                 }
             }
@@ -525,7 +525,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         int prevPosition = position + 1;
         if (items.size() <= prevPosition) return false;
         else return items.get(prevPosition).item instanceof IMessage
-                && ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
+                && ((MESSAGE) items.get(prevPosition).item).getUser().getId().equals(id);
     }
 
     private void incrementSelectedItemsCount() {

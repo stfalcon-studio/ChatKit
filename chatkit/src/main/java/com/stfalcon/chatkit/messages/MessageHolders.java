@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.stfalcon.chatkit.utils.RoundedImageView;
@@ -36,9 +36,13 @@ public class MessageHolders {
     private static final short VIEW_TYPE_DATE_HEADER = 130;
     private static final short VIEW_TYPE_TEXT_MESSAGE = 131;
     private static final short VIEW_TYPE_IMAGE_MESSAGE = 132;
+    private static final short VIEW_TYPE_IS_TYPING = 133;
 
     private Class<? extends ViewHolder<Date>> dateHeaderHolder;
     private int dateHeaderLayout;
+
+    private Class<? extends ViewHolder<? extends IUser>> isTypingHolder;
+    private int isTypingLayout;
 
     private HolderConfig<IMessage> incomingTextConfig;
     private HolderConfig<IMessage> outcomingTextConfig;
@@ -51,6 +55,8 @@ public class MessageHolders {
     public MessageHolders() {
         this.dateHeaderHolder = DefaultDateHeaderViewHolder.class;
         this.dateHeaderLayout = R.layout.item_date_header;
+        this.isTypingHolder = DefaultIsTypingViewHolder.class;
+        this.isTypingLayout = R.layout.item_is_typing;
 
         this.incomingTextConfig = new HolderConfig<>(DefaultIncomingTextMessageViewHolder.class, R.layout.item_incoming_text_message);
         this.outcomingTextConfig = new HolderConfig<>(DefaultOutcomingTextMessageViewHolder.class, R.layout.item_outcoming_text_message);
@@ -226,6 +232,21 @@ public class MessageHolders {
     }
 
     /**
+     * Sets both of custom view holder class and layout resource for is typing holder.
+     *
+     * @param holder holder class.
+     * @param layout layout resource.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIsTypingConfig(
+            @NonNull Class<? extends BaseIsTypingViewHolder<? extends IUser>> holder,
+            @LayoutRes int layout) {
+        this.isTypingHolder = holder;
+        this.isTypingLayout = layout;
+        return this;
+    }
+
+    /**
      * Sets custom view holder class for date header.
      *
      * @param holder holder class.
@@ -326,6 +347,8 @@ public class MessageHolders {
         switch (viewType) {
             case VIEW_TYPE_DATE_HEADER:
                 return getHolder(parent, dateHeaderLayout, dateHeaderHolder, messagesListStyle);
+            case VIEW_TYPE_IS_TYPING:
+                return getHolder(parent, isTypingLayout, isTypingHolder, messagesListStyle);
             case VIEW_TYPE_TEXT_MESSAGE:
                 return getHolder(parent, incomingTextConfig, messagesListStyle);
             case -VIEW_TYPE_TEXT_MESSAGE:
@@ -387,10 +410,14 @@ public class MessageHolders {
 
         if (item instanceof IMessage) {
             IMessage message = (IMessage) item;
-            isOutcoming = message.getUser().getId().contentEquals(senderId);
+            isOutcoming = message.getUser().getUserId().contentEquals(senderId);
             viewType = getContentViewType(message);
 
-        } else viewType = VIEW_TYPE_DATE_HEADER;
+        } else if (item instanceof IUser) {
+            viewType = VIEW_TYPE_IS_TYPING;
+        } else {
+            viewType = VIEW_TYPE_DATE_HEADER;
+        }
 
         return isOutcoming ? viewType * -1 : viewType;
     }
@@ -742,6 +769,32 @@ public class MessageHolders {
         }
     }
 
+    public abstract static class BaseIsTypingViewHolder<USER extends IUser> extends ViewHolder<USER>
+            implements DefaultMessageViewHolder {
+
+        protected final TextView text;
+
+        public BaseIsTypingViewHolder(final View itemView) {
+            super(itemView);
+            text = (TextView) itemView.findViewById(R.id.messageText);
+        }
+
+
+        @Override
+        public void onBind(IUser iUser) {
+            if (text != null) {
+                text.setText(iUser.getName() + " is typing...");
+            }
+        }
+
+        @Override
+        public void applyStyle(MessagesListStyle style) {
+            if(text != null) {
+                text.setTextColor(style.getOutcomingTimeTextColor());
+            }
+        }
+    }
+
     /**
      * Base view holder for incoming message
      */
@@ -859,6 +912,15 @@ public class MessageHolders {
         public DefaultOutcomingImageMessageViewHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    private static class DefaultIsTypingViewHolder
+            extends BaseIsTypingViewHolder<IUser> {
+
+        public DefaultIsTypingViewHolder(View itemView) {
+            super(itemView);
+        }
+
     }
 
     private static class ContentTypeConfig<TYPE extends MessageContentType> {

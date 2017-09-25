@@ -20,7 +20,7 @@ public class User implements IUser {
     }
 
     @Override
-    public String getId() {
+    public String getUserId() {
         return id;
     }
 

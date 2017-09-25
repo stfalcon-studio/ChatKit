@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "0.2.2"
+        versionName "0.2.3"
 
         consumerProguardFiles 'proguard.txt'
     }
@@ -20,15 +20,15 @@ android {
     }
 }
 
-publish {
-    groupId = 'com.github.stfalcon'
-    artifactId = 'chatkit'
-    publishVersion = '0.2.2'
-    desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
-    licences = ['Apache-2.0']
-    uploadName = 'ChatKit'
-    website = 'https://github.com/stfalcon-studio/ChatKit.git'
-}
+//publish {
+//    groupId = 'com.github.stfalcon'
+//    artifactId = 'chatkit'
+//    publishVersion = '0.2.2'
+//    desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
+//    licences = ['Apache-2.0']
+//    uploadName = 'ChatKit'
+//    website = 'https://github.com/stfalcon-studio/ChatKit.git'
+//}
 
 ext {
     supportVersion = '25.3.1'

@@ -26,7 +26,7 @@ public interface IUser {
      *
      * @return the user's id
      * */
-    String getId();
+    String getUserId();
 
     /**
      * Returns the user's name

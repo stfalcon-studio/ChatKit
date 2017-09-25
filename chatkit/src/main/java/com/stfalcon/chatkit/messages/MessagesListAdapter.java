@@ -29,11 +29,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.util.ArrayList;
@@ -137,15 +137,32 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param message message to add.
      * @param scroll  {@code true} if need to scroll list to bottom when message added.
      */
-    public void addToStart(MESSAGE message, boolean scroll) {
-        boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
+    public void addToStart(final MESSAGE message, final boolean scroll) {
+        final int typingIndex = getIsTypingIndex();
+
+        final int lastMessageIndex = typingIndex == -1 ? 0 : 1;
+
+        final boolean isNewMessageToday = !isPreviousSameDate(lastMessageIndex, message.getCreatedAt());
         if (isNewMessageToday) {
-            items.add(0, new Wrapper<>(message.getCreatedAt()));
+            items.add(lastMessageIndex, new Wrapper<>(message.getCreatedAt()));
         }
-        Wrapper<MESSAGE> element = new Wrapper<>(message);
-        items.add(0, element);
-        notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        final Wrapper<MESSAGE> element = new Wrapper<>(message);
+
+        items.add(lastMessageIndex, element);
+
+        notifyItemRangeInserted(lastMessageIndex, isNewMessageToday ? 2 : 1);
         if (layoutManager != null && scroll) {
+            layoutManager.scrollToPosition(0);
+        }
+    }
+
+    public void setTyping(final IUser user) {
+        if (user == null) {
+            deleteIsTyping();
+        } else if (getIsTypingIndex() == -1) {
+            final Wrapper<IUser> element = new Wrapper<>(user);
+            items.add(0, element);
+            notifyItemRangeInserted(0, 1);
             layoutManager.scrollToPosition(0);
         }
     }
@@ -159,7 +176,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
         if (reverse) Collections.reverse(messages);
 
-        if (!items.isEmpty()) {
+        if (!items.isEmpty() && getIsTypingIndex() == -1) {
             int lastItemPosition = items.size() - 1;
             Date lastItem = (Date) items.get(lastItemPosition).item;
             if (DateFormatter.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
@@ -472,6 +489,25 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         return -1;
     }
 
+    private void deleteIsTyping() {
+        final int index = getIsTypingIndex();
+        if (index != -1) {
+            items.remove(index);
+            notifyItemRemoved(index);
+        }
+    }
+
+    private int getIsTypingIndex() {
+        for (int i = 0; i < items.size(); i++) {
+            Wrapper wrapper = items.get(i);
+            if (wrapper.item instanceof IUser) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     @SuppressWarnings("unchecked")
     private boolean isPreviousSameDate(int position, Date dateToCompare) {
         if (items.size() <= position) return false;
@@ -486,7 +522,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         int prevPosition = position + 1;
         if (items.size() <= prevPosition) return false;
         else return items.get(prevPosition).item instanceof IMessage
-                && ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
+                && ((MESSAGE) items.get(prevPosition).item).getUser().getUserId().contentEquals(id);
     }
 
     private void incrementSelectedItemsCount() {

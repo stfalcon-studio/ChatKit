@@ -410,7 +410,7 @@ public class MessageHolders {
 
         if (item instanceof IMessage) {
             IMessage message = (IMessage) item;
-            isOutcoming = message.getUser().getId().contentEquals(senderId);
+            isOutcoming = message.getUser().getUserId().contentEquals(senderId);
             viewType = getContentViewType(message);
 
         } else if (item instanceof IUser) {

@@ -522,7 +522,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         int prevPosition = position + 1;
         if (items.size() <= prevPosition) return false;
         else return items.get(prevPosition).item instanceof IMessage
-                && ((MESSAGE) items.get(prevPosition).item).getUser().getId().contentEquals(id);
+                && ((MESSAGE) items.get(prevPosition).item).getUser().getUserId().contentEquals(id);
     }
 
     private void incrementSelectedItemsCount() {

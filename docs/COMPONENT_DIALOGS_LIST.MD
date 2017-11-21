@@ -36,7 +36,7 @@ dialogsListView.setAdapter(dialogsListAdapter);
 
 #### Prepare your model
 
-To be able to add dialog, you must implement the `IDealog` interface to your existing model and override its methods:
+To be able to add dialog, you must implement the `IDialog` interface to your existing model and override its methods:
 
 ```java
 public class DefaultDialog implements IDialog {

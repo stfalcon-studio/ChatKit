@@ -39,6 +39,7 @@ import com.stfalcon.chatkit.utils.DateFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -120,6 +121,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         return holders.getViewType(items.get(position).item, senderId);
     }
 
+    public List<MESSAGE> getMessageList() {
+        List<MESSAGE> messages = new ArrayList<>();
+        for (Wrapper<MESSAGE> wrapper : items) {
+            messages.add(wrapper.item);
+        }
+        return messages;
+    }
+
     @Override
     public void onLoadMore(int page, int total) {
         if (loadMoreListener != null) {
@@ -138,13 +147,55 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param scroll  {@code true} if need to scroll list to bottom when message added.
      */
     public void addToStart(MESSAGE message, boolean scroll) {
-        boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
-        if (isNewMessageToday) {
-            items.add(0, new Wrapper<>(message.getCreatedAt()));
-        }
+
         Wrapper<MESSAGE> element = new Wrapper<>(message);
-        items.add(0, element);
-        notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        if (message.getId().contains("chatcamp_typing_id")) {
+            boolean alreadyPresent = false;
+            for (int i = 0; i < items.size(); ++i) {
+                if(items.get(i).item instanceof IMessage) {
+                    Wrapper<MESSAGE> wrapper = items.get(i);
+                    if (wrapper.item.getId().contains("chatcamp_typing_id")) {
+                        if (wrapper.item.getId().equals(message.getId())) {
+                            alreadyPresent = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!alreadyPresent) {
+                items.add(0, element);
+                notifyItemInserted(0);
+            } else {
+                return;
+            }
+        } else {
+            for(int i = 0; i < items.size(); ++i) {
+                if(items.get(i).item instanceof IMessage) {
+                    Wrapper<MESSAGE> wrapper = items.get(i);
+                    if(wrapper.item.getUser().getId().equals(element.item.getUser().getId())
+                            && wrapper.item.getId().contains("chatcamp_typing_id")) {
+                       items.remove(wrapper);
+                       notifyItemRemoved(i);
+                       break;
+                    }
+                }
+            }
+            for (int i = 0; i < items.size(); ++i) {
+                if(items.get(i).item instanceof IMessage) {
+                    Wrapper<MESSAGE> wrapper = items.get(i);
+                    if (!wrapper.item.getId().contains("chatcamp_typing_id")) {
+                        boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
+                        if (isNewMessageToday) {
+                            items.add(i, new Wrapper<>(message.getCreatedAt()));
+                        }
+                        items.add(i, element);
+                        notifyItemRangeInserted(i, isNewMessageToday ? i + 2 : i + 1);
+                        break;
+                    }
+                }
+            }
+        }
+
         if (layoutManager != null && scroll) {
             layoutManager.scrollToPosition(0);
         }
@@ -156,6 +207,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param messages messages from history.
      * @param reverse  {@code true} if need to reverse messages before adding.
      */
+
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
         if (reverse) Collections.reverse(messages);
 
@@ -246,6 +298,17 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             notifyItemRemoved(index);
         }
         recountDateHeaders();
+    }
+
+    public void deleteAllTypingMessages() {
+        Iterator<Wrapper> iter = items.iterator();
+        while(iter.hasNext()){
+            Wrapper wrapper = iter.next();
+            if(wrapper.item instanceof IMessage && ((IMessage)wrapper.item).getId().contains("chatcamp_typing_id")) {
+                iter.remove();
+            }
+        }
+        notifyDataSetChanged();
     }
 
     /**

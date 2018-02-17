@@ -37,7 +37,7 @@
 | `dialogItemBackground` | Sets background of dialogs items| 
 | `dialogItemBackground` | Sets background of dialogs items when has unread messages |
 
-## [MessagesList]](COMPONENT_MESSAGES_LIST.md) xml attributes:
+## [MessagesList](COMPONENT_MESSAGES_LIST.md) xml attributes:
 
 | Attribute        | Description| 
 | ------------- |-------------|

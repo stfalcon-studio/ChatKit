@@ -50,4 +50,13 @@ public interface IMessage {
      * @return the message creation date
      */
     Date getCreatedAt();
+
+    /**
+     * Returns message type
+     *
+     * @return the type of the message
+     */
+    int getMessageType();
+
+    IActionMessage getActionMessage();
 }

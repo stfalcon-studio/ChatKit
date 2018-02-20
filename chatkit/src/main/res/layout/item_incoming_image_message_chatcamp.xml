@@ -1,0 +1,76 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/chat_user_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@id/image"
+        android:layout_alignStart="@id/image"/>
+
+    <com.stfalcon.chatkit.utils.ShapeImageView
+        android:id="@id/messageUserAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/ll_time"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <com.stfalcon.chatkit.utils.RoundedImageView
+        android:id="@id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginEnd="@dimen/message_incoming_bubble_margin_right"
+        android:layout_marginRight="@dimen/message_incoming_bubble_margin_right"
+        android:layout_below="@id/tv_username"
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:layout_toRightOf="@id/messageUserAvatar"/>
+
+    <View
+        android:id="@id/imageOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/image"
+        android:layout_alignEnd="@id/image"
+        android:layout_alignLeft="@id/image"
+        android:layout_alignRight="@id/image"
+        android:layout_alignStart="@id/image"
+        android:layout_alignTop="@id/image"/>
+
+    <LinearLayout
+        android:id="@+id/ll_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignEnd="@id/image"
+        android:layout_alignRight="@id/image"
+        android:layout_below="@id/image"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/margin_x">
+
+        <TextView
+            android:id="@+id/tv_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/chat_time_text"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"/>
+
+        <ImageView
+            android:id="@+id/iv_tick"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:src="@drawable/single_tick"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+</RelativeLayout>

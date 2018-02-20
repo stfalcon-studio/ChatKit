@@ -160,6 +160,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                             break;
                         }
                     }
+                    if(!wrapper.item.getId().contains("chatcamp_typing_id")) {
+                        break;
+                    }
                 }
             }
             if (!alreadyPresent) {
@@ -177,6 +180,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
                        items.remove(wrapper);
                        notifyItemRemoved(i);
                        break;
+                    }
+                    if(!wrapper.item.getId().contains("chatcamp_typing_id")) {
+                        break;
                     }
                 }
             }

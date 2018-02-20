@@ -29,4 +29,5 @@ dependencies {
     compile "com.android.support:appcompat-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"
     compile "com.google.android:flexbox:$flexboxVersion"
+    compile 'com.wang.avi:library:2.1.3'
 }

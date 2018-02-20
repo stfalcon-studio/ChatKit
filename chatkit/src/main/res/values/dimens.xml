@@ -33,4 +33,18 @@
     <dimen name="message_date_header_padding">16dp</dimen>
     <dimen name="message_incoming_bubble_margin_right">40dp</dimen>
     <dimen name="message_outcoming_bubble_margin_left">88dp</dimen>
+
+    <!--chat camp dimen-->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_x">8dp</dimen>
+    <dimen name="normal_text">16sp</dimen>
+    <dimen name="default_text">14sp</dimen>
+    <dimen name="chat_user_name">12sp</dimen>
+    <dimen name="chat_time_text">8sp</dimen>
+
 </resources>

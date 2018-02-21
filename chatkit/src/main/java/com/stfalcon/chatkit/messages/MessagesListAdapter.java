@@ -74,6 +74,12 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         Collections.sort(items, comparator);
     }
 
+    public void scrollToStart() {
+        if (layoutManager != null) {
+            layoutManager.scrollToPosition(0);
+        }
+    }
+
     /**
      * For default list item layout and view holder.
      *

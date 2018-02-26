@@ -206,7 +206,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      * Add dialog to dialogs list
      *
      * @param dialog   dialog item
-     * @param position position in dialogs lost
+     * @param position position in dialogs list
      */
     public void addItem(int position, DIALOG dialog) {
         items.add(position, dialog);

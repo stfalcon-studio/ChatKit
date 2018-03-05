@@ -595,7 +595,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         this.layoutManager = layoutManager;
     }
 
-    void setStyle(MessagesListStyle style) {
+    public MessagesListStyle getStyle() {
+        return this.messagesListStyle;
+    }
+
+    public void setStyle(MessagesListStyle style) {
         this.messagesListStyle = style;
     }
 

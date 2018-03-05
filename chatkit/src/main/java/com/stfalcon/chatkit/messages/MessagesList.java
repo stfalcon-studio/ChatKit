@@ -94,4 +94,12 @@ public class MessagesList extends RecyclerView {
     private void parseStyle(Context context, AttributeSet attrs) {
         messagesListStyle = MessagesListStyle.parse(context, attrs);
     }
+
+    public MessagesListStyle getStyle() {
+        return this.messagesListStyle;
+    }
+
+    public void setStyle(MessagesListStyle messagesListStyle) {
+        this.messagesListStyle = messagesListStyle;
+    }
 }

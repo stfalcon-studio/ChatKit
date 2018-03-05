@@ -3,6 +3,9 @@
 *.ap_
 *.jar
 
+#dont ignore gradle-wraper.jar because jitpack needs it !
+!gradle-wrapper.jar
+
 # files for the dex VM
 *.dex
 

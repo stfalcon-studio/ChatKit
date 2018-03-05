@@ -630,7 +630,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                imageLoader.loadImage(image, message);
             }
 
             if (imageOverlay != null) {
@@ -681,7 +681,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                imageLoader.loadImage(image, message);
             }
 
             if (imageOverlay != null) {
@@ -770,7 +770,7 @@ public class MessageHolders {
 
                 userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
                 if (isAvatarExists) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+                    imageLoader.loadImage(userAvatar, message.getUser());
                 }
             }
         }

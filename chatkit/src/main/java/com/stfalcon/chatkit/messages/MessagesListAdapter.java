@@ -157,6 +157,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param reverse  {@code true} if need to reverse messages before adding.
      */
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
+        if (messages.isEmpty()) return
+    
         if (reverse) Collections.reverse(messages);
 
         if (!items.isEmpty()) {

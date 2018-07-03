@@ -7,7 +7,6 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
         versionCode 1
         versionName "0.2.2"
 
@@ -36,7 +35,7 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:design:$supportVersion"

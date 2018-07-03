@@ -6,7 +6,6 @@ android {
     defaultConfig {
         applicationId "com.stfalcon.chatkit.sample"
         minSdkVersion 14
-        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,9 +32,9 @@ ext {
 }
 
 dependencies {
-    compile project(':chatkit')
+    implementation project(':chatkit')
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

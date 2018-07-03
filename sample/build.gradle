@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.stfalcon.chatkit.sample"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,9 +25,9 @@ android {
 }
 
 ext {
-    supportVersion = '25.3.1'
+    supportVersion = '27.1.1'
     picassoVersion = '2.5.2'
-    circleImageViewVersion = '2.1.0'
+    circleImageViewVersion = '2.2.0'
     shapeImageViewVersion = '0.9.3'
     circleindicatorVersion = '1.2.2@aar'
 }
@@ -54,4 +54,11 @@ dependencies {
 
     //Utils
     compile "me.relex:circleindicator:$circleindicatorVersion"
+
+    compile "com.android.support:support-v4:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.android.support:support-vector-drawable:$supportVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.1.2'
+    compile "com.android.support:gridlayout-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
 }

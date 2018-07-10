@@ -180,8 +180,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      *
      * @param message updated message object.
      */
-    public void update(MESSAGE message) {
-        update(message.getId(), message);
+    public boolean update(MESSAGE message) {
+        return update(message.getId(), message);
     }
 
     /**
@@ -190,12 +190,26 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param oldId      an identifier of message to update.
      * @param newMessage new message object.
      */
-    public void update(String oldId, MESSAGE newMessage) {
+    public boolean update(String oldId, MESSAGE newMessage) {
         int position = getMessagePositionById(oldId);
         if (position >= 0) {
             Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
             items.set(position, element);
             notifyItemChanged(position);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Updates message by its id if it exists, add to start if not
+     *
+     * @param message   message object to insert or update.
+     */
+    public void upsert(MESSAGE message) {
+        if (!update(message)) {
+            addToStart(message, false);
         }
     }
 

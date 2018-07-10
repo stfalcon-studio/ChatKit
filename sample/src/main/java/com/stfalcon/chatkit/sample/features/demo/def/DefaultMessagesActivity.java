@@ -34,6 +34,7 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
 
         MessageInput input = (MessageInput) findViewById(R.id.input);
         input.setInputListener(this);
+        input.setAttachmentsListener(this);
     }
 
     @Override

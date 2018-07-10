@@ -19,6 +19,7 @@ package com.stfalcon.chatkit.dialogs;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -214,6 +215,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Move an item
+     * @param fromPosition the actual position of the item
+     * @param toPosition the new position of the item
+     */
+    public void moveItem(int fromPosition, int toPosition) {
+        DIALOG dialog = items.remove(fromPosition);
+        items.add(toPosition, dialog);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
      * Update dialog by position in dialogs list
      *
      * @param position position in dialogs list
@@ -243,6 +255,27 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 break;
             }
         }
+    }
+
+    /**
+     * Find an item by its id
+     *
+     * @param id the wanted item's id
+     * @return the found item, or null
+     */
+    @Nullable
+    public DIALOG getItemById(String id) {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        for (DIALOG item : items) {
+            if (item.getId() == null && id == null) {
+                return item;
+            } else if (item.getId() != null && item.getId().equals(id)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     /**
@@ -298,19 +331,19 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * @return registered image loader
+     */
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
+
+    /**
      * Register a callback to be invoked when image need to load.
      *
      * @param imageLoader image loading method
      */
     public void setImageLoader(ImageLoader imageLoader) {
         this.imageLoader = imageLoader;
-    }
-
-    /**
-     * @return registered image loader
-     */
-    public ImageLoader getImageLoader() {
-        return imageLoader;
     }
 
     /**

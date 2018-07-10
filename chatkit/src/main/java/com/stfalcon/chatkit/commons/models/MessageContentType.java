@@ -31,7 +31,7 @@ public interface MessageContentType extends IMessage {
     /**
      * Default media type for image message.
      */
-    interface Image extends IMessage {
+    interface Image implements MessageContentType {
         String getImageUrl();
     }
 

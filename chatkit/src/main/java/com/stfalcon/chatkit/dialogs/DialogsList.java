@@ -75,7 +75,7 @@ public class DialogsList extends RecyclerView {
      */
     public <DIALOG extends IDialog>
     void setAdapter(DialogsListAdapter<DIALOG> adapter) {
-        setAdapter(adapter, true);
+        setAdapter(adapter, false);
     }
 
     /**

@@ -128,8 +128,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * PUBLIC METHODS
-    * */
+     * PUBLIC METHODS
+     * */
 
     /**
      * Adds message to bottom of list and scroll if needed.
@@ -158,7 +158,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      */
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
         if (messages.isEmpty()) return;
-    
+
         if (reverse) Collections.reverse(messages);
 
         if (!items.isEmpty()) {
@@ -205,7 +205,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /**
      * Updates message by its id if it exists, add to start if not
      *
-     * @param message   message object to insert or update.
+     * @param message message object to insert or update.
      */
     public void upsert(MESSAGE message) {
         if (!update(message)) {
@@ -277,7 +277,10 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * Clears the messages list.
      */
     public void clear() {
-        items.clear();
+        if (items != null) {
+            items.clear();
+            notifyDataSetChanged();
+        }
     }
 
     /**
@@ -434,8 +437,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * PRIVATE METHODS
-    * */
+     * PRIVATE METHODS
+     * */
     private void recountDateHeaders() {
         List<Integer> indicesToDelete = new ArrayList<>();
 
@@ -616,8 +619,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * WRAPPER
-    * */
+     * WRAPPER
+     * */
     private class Wrapper<DATA> {
         protected DATA item;
         protected boolean isSelected;
@@ -628,8 +631,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * LISTENERS
-    * */
+     * LISTENERS
+     * */
 
     /**
      * Interface definition for a callback to be invoked when next part of messages need to be loaded.

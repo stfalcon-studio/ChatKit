@@ -3,8 +3,8 @@ package com.stfalcon.chatkit.sample.features.demo.def;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -71,11 +71,11 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
 
     @Override
     public void onStartTyping() {
-        Toast.makeText(this, R.string.start_typing_status, Toast.LENGTH_SHORT).show();
+        Log.v("Typing listener", getString(R.string.start_typing_status));
     }
 
     @Override
     public void onStopTyping() {
-        Toast.makeText(this, R.string.stop_typing_status, Toast.LENGTH_SHORT).show();
+        Log.v("Typing listener", getString(R.string.stop_typing_status));
     }
 }

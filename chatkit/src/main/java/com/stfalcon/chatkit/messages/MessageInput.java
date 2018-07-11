@@ -40,7 +40,7 @@ import java.lang.reflect.Field;
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class MessageInput extends RelativeLayout
-        implements View.OnClickListener, TextWatcher {
+        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener {
 
     protected EditText messageInput;
     protected ImageButton messageSendButton;
@@ -50,6 +50,19 @@ public class MessageInput extends RelativeLayout
     private CharSequence input;
     private InputListener inputListener;
     private AttachmentsListener attachmentsListener;
+    private boolean isTyping;
+    private TypingListener typingListener;
+    private int delayTypingStatusMillis;
+    private Runnable typingTimerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isTyping) {
+                isTyping = false;
+                if (typingListener != null) typingListener.onStopTyping();
+            }
+        }
+    };
+    private boolean lastFocus;
 
     public MessageInput(Context context) {
         super(context);
@@ -110,6 +123,8 @@ public class MessageInput extends RelativeLayout
             if (isSubmitted) {
                 messageInput.setText("");
             }
+            removeCallbacks(typingTimerRunnable);
+            post(typingTimerRunnable);
         } else if (id == R.id.attachmentButton) {
             onAddAttachments();
         }
@@ -123,6 +138,14 @@ public class MessageInput extends RelativeLayout
     public void onTextChanged(CharSequence s, int start, int count, int after) {
         input = s;
         messageSendButton.setEnabled(input.length() > 0);
+        if (s.length() > 0) {
+            if (!isTyping) {
+                isTyping = true;
+                if (typingListener != null) typingListener.onStartTyping();
+            }
+            removeCallbacks(typingTimerRunnable);
+            postDelayed(typingTimerRunnable, delayTypingStatusMillis);
+        }
     }
 
     /**
@@ -140,6 +163,14 @@ public class MessageInput extends RelativeLayout
     @Override
     public void afterTextChanged(Editable editable) {
         //do nothing
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (lastFocus && !hasFocus && typingListener != null) {
+            typingListener.onStopTyping();
+        }
+        lastFocus = hasFocus;
     }
 
     private boolean onSubmit() {
@@ -189,6 +220,7 @@ public class MessageInput extends RelativeLayout
                     style.getInputDefaultPaddingBottom()
             );
         }
+        this.delayTypingStatusMillis = style.getDelayTypingStatus();
     }
 
     private void init(Context context) {
@@ -204,6 +236,7 @@ public class MessageInput extends RelativeLayout
         attachmentButton.setOnClickListener(this);
         messageInput.addTextChangedListener(this);
         messageInput.setText("");
+        messageInput.setOnFocusChangeListener(this);
     }
 
     private void setCursor(Drawable drawable) {
@@ -231,6 +264,10 @@ public class MessageInput extends RelativeLayout
         }
     }
 
+    public void setTypingListener(TypingListener typingListener) {
+        this.typingListener = typingListener;
+    }
+
     /**
      * Interface definition for a callback to be invoked when user pressed 'submit' button
      */
@@ -254,5 +291,22 @@ public class MessageInput extends RelativeLayout
          * Fires when user presses 'add' button.
          */
         void onAddAttachments();
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when user typing
+     */
+    public interface TypingListener {
+
+        /**
+         * Fires when user presses start typing
+         */
+        void onStartTyping();
+
+        /**
+         * Fires when user presses stop typing
+         */
+        void onStopTyping();
+
     }
 }

@@ -79,7 +79,7 @@ class RecyclerScrollMoreListener
             int visibleThreshold = 5;
             if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
                 currentPage++;
-                loadMoreListener.onLoadMore(currentPage, totalItemCount);
+                loadMoreListener.onLoadMore(loadMoreListener.getMessagesCount(), totalItemCount);
                 loading = true;
             }
         }
@@ -87,5 +87,7 @@ class RecyclerScrollMoreListener
 
     interface OnLoadMoreListener {
         void onLoadMore(int page, int total);
+
+        int getMessagesCount();
     }
 }

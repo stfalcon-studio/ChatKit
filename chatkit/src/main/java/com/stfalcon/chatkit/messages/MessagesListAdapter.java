@@ -49,14 +49,14 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
+    protected static boolean isSelectionModeEnabled;
+
     private MessageHolders holders;
     private String senderId;
     private List<Wrapper> items;
 
     private int selectedItemsCount;
     private SelectionListener selectionListener;
-
-    protected static boolean isSelectionModeEnabled;
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
@@ -125,6 +125,17 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         if (loadMoreListener != null) {
             loadMoreListener.onLoadMore(page, total);
         }
+    }
+
+    @Override
+    public int getMessagesCount() {
+        int count = 0;
+        for (Wrapper item : items) {
+            if (item.item instanceof IMessage) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /*
@@ -274,12 +285,21 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * Clears the messages list.
+     * Clears the messages list. With notifyDataSetChanged
      */
     public void clear() {
+        clear(true);
+    }
+
+    /**
+     * Clears the messages list.
+     */
+    public void clear(boolean notifyDataSetChanged) {
         if (items != null) {
             items.clear();
-            notifyDataSetChanged();
+            if (notifyDataSetChanged) {
+                notifyDataSetChanged();
+            }
         }
     }
 

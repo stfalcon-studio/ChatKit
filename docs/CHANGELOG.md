@@ -1,3 +1,20 @@
+## Version 0.3.0 (2018/07/12)
+* [Added Typing Listener to MessageInput](https://github.com/stfalcon-studio/ChatKit/blob/master/docs/COMPONENT_MESSAGE_INPUT.MD#typing-listener). Thanks to [toanpv](https://github.com/toanpv);
+* Fixed artifacts with bubble background in message list;
+* Added separate method MessagesListAdapter.clear(notifyDataSetChanged). Method MessagesListAdapter.clear() does notifyDataSetChanged by default. [#89](https://github.com/stfalcon-studio/ChatKit/issues/86);
+* Fixed "The totalItemsCount parameter in OnLoadMore callback contains date header." [#86](https://github.com/stfalcon-studio/ChatKit/issues/86);
+* Merged pull requests:
+  * Avoid Crash on empty list in addToEnd [#146](https://github.com/stfalcon-studio/ChatKit/pull/146);
+  * Fix link typo in docs [#134](https://github.com/stfalcon-studio/ChatKit/pull/134);
+  * Add nullable for getImageUrl() [#119](https://github.com/stfalcon-studio/ChatKit/pull/119);
+  * Made correction to DialogList documentation [#112](https://github.com/stfalcon-studio/ChatKit/pull/112);
+  * Allow moving Dialog item and get Dialog by id [#70](https://github.com/stfalcon-studio/ChatKit/pull/70);
+  * Allow the user to get the current position of a DIALOG [#32](https://github.com/stfalcon-studio/ChatKit/pull/32);
+  * Added upsert(Message) method to add or update message to adapter as appropriate [#61](https://github.com/stfalcon-studio/ChatKit/pull/61);
+  * Create LICENSE [#167](https://github.com/stfalcon-studio/ChatKit/pull/167);
+  * NPE check in DialofsListAdapter.java when there is no last message (is null) [#75](https://github.com/stfalcon-studio/ChatKit/pull/75);
+* Sample: Fixed artifacts on some devices in ShapeImageView. Changed fixture message image.
+
 ## Version 0.2.0 (2017/04/07)
 
  * [Default image type](COMPONENT_MESSAGES_LIST.md#adding-image-message);

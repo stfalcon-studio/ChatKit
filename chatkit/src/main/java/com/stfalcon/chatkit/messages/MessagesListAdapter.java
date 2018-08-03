@@ -142,20 +142,24 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     * PUBLIC METHODS
     * */
 
+    public void addToStart(MESSAGE message, boolean scroll) {
+        addToStart(message, scroll, true);
+    }
+
     /**
      * Adds message to bottom of list and scroll if needed.
      *
      * @param message message to add.
      * @param scroll  {@code true} if need to scroll list to bottom when message added.
      */
-    public void addToStart(MESSAGE message, boolean scroll) {
-        boolean isNewMessageToday = !isPreviousSameDate(0, message.getCreatedAt());
-        if (isNewMessageToday) {
+    public void addToStart(MESSAGE message, boolean scroll, boolean dateHeader) {
+        boolean isNewMessageToday = !isPreviousSameDate(1, message.getCreatedAt());
+        if (isNewMessageToday && dateHeader) {
             items.add(0, new Wrapper<>(message.getCreatedAt()));
         }
         Wrapper<MESSAGE> element = new Wrapper<>(message);
         items.add(0, element);
-        notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        notifyItemRangeInserted(0, isNewMessageToday && dateHeader ? 2 : 1);
         if (layoutManager != null && scroll) {
             layoutManager.scrollToPosition(0);
         }
@@ -171,11 +175,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         if (reverse) Collections.reverse(messages);
 
         if (!items.isEmpty()) {
-            int lastItemPosition = items.size() - 1;
-            Date lastItem = (Date) items.get(lastItemPosition).item;
-            if (DateFormatter.isSameDay(messages.get(0).getCreatedAt(), lastItem)) {
-                items.remove(lastItemPosition);
-                notifyItemRemoved(lastItemPosition);
+            int lastItemPosition = items.size() - 2;
+
+            if (lastItemPosition > 0) {
+                Object object = items.get(lastItemPosition).item;
+                if (object instanceof Date) {
+                    Date lastItem = (Date) object;
+
+                    if (DateFormatter.isSameDay(messages.get(1).getCreatedAt(), lastItem)) {
+                        items.remove(lastItemPosition);
+                        notifyItemRemoved(lastItemPosition);
+                    }
+                }
             }
         }
 

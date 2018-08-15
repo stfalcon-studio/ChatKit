@@ -23,7 +23,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 
@@ -35,19 +34,16 @@ public class MessagesList extends RecyclerView {
 
     public MessagesList(Context context) {
         super(context);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     public MessagesList(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         parseStyle(context, attrs);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     public MessagesList(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         parseStyle(context, attrs);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     /**

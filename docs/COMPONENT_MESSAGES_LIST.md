@@ -321,8 +321,8 @@ For example, you can add status for outgoing messages with only few lines:
 public class CustomOutcomingMessageViewHolder
        extends MessagesListAdapter.OutcomingMessageViewHolder<Message> {
 
-   public CustomOutcomingMessageViewHolder(View itemView) {
-       super(itemView);
+   public CustomOutcomingMessageViewHolder(View itemView, Object payload) {
+       super(itemView, payload);
    }
 
    @Override
@@ -337,6 +337,58 @@ public class CustomOutcomingMessageViewHolder
 <img src="../images/CHAT_CUSTOM_HOLDER.png">
 <h6 align="center">Pay attention to outgoing message’ status and online indicator.</h6>
 </p>
+
+#### Passing custom data to your ViewHolder
+You can pass any data to your custom ViewHolder. To do this, firstly you need override the constructor `super(View itemView, Object payload)` (the constructor `super(View itemView)` is deprecated and will be deleted in one of the new version of library). After that you can pass data as third parameter in method `MessageHolders().setXXXConfig`.
+For example, let's add click listener in incoming text message on avatar click.
+Create interface for click callback and payload class to store it:
+```java
+public interface OnAvatarClickListener {
+        void onAvatarClick();
+}
+
+public class Payload {
+        public OnAvatarClickListener avatarClickListener;
+} 
+```
+Then in our custom ViewHolder in method `onBind`:
+```java
+@Override
+    public void onBind(Message message) {
+        super.onBind(message);
+        ...
+        //We can set click listener on view from payload
+        final Payload payload = (Payload) this.payload;
+        userAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (payload != null && payload.avatarClickListener != null) {
+                    payload.avatarClickListener.onAvatarClick();
+                }
+            }
+        });
+    }
+```
+Then create Payload and set it and our ViewHolder class to MessageHolders config.
+```
+//We can pass any data to ViewHolder with payload
+CustomIncomingTextMessageViewHolder.Payload payload = new CustomIncomingTextMessageViewHolder.Payload();
+//For example click listener
+payload.avatarClickListener = new CustomIncomingTextMessageViewHolder.OnAvatarClickListener() {
+    @Override
+    public void onAvatarClick() {
+        Toast.makeText(CustomHolderMessagesActivity.this,
+                "Text message avatar clicked", Toast.LENGTH_SHORT).show();
+    }
+};
+
+MessageHolders holdersConfig = new MessageHolders()
+        .setIncomingTextConfig(
+                CustomIncomingTextMessageViewHolder.class,
+                R.layout.item_custom_incoming_text_message,
+                payload)
+                ...
+```
 
 #### Custom content types
 We understand that ony images as media messages are often not enough. Therefore, we implemented the ability to add custom content types for displaying different types of content (geopoints, video, voice messages etc.).

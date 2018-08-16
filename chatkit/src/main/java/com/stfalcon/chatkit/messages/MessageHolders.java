@@ -655,12 +655,13 @@ public class MessageHolders {
          */
         protected ImageLoader imageLoader;
 
+        @Deprecated
         public BaseMessageViewHolder(View itemView) {
             super(itemView);
         }
 
         public BaseMessageViewHolder(View itemView, Object payload) {
-            this(itemView);
+            super(itemView);
             this.payload = payload;
         }
 
@@ -717,6 +718,7 @@ public class MessageHolders {
         protected ViewGroup bubble;
         protected TextView text;
 
+        @Deprecated
         public IncomingTextMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -775,6 +777,7 @@ public class MessageHolders {
         protected ViewGroup bubble;
         protected TextView text;
 
+        @Deprecated
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -833,6 +836,7 @@ public class MessageHolders {
         protected ImageView image;
         protected View imageOverlay;
 
+        @Deprecated
         public IncomingImageMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -893,6 +897,7 @@ public class MessageHolders {
         protected ImageView image;
         protected View imageOverlay;
 
+        @Deprecated
         public OutcomingImageMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -991,6 +996,7 @@ public class MessageHolders {
         protected TextView time;
         protected ImageView userAvatar;
 
+        @Deprecated
         public BaseIncomingMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -1048,6 +1054,7 @@ public class MessageHolders {
 
         protected TextView time;
 
+        @Deprecated
         public BaseOutcomingMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
@@ -1091,7 +1098,7 @@ public class MessageHolders {
             extends IncomingTextMessageViewHolder<IMessage> {
 
         public DefaultIncomingTextMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -1099,7 +1106,7 @@ public class MessageHolders {
             extends OutcomingTextMessageViewHolder<IMessage> {
 
         public DefaultOutcomingTextMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -1107,7 +1114,7 @@ public class MessageHolders {
             extends IncomingImageMessageViewHolder<MessageContentType.Image> {
 
         public DefaultIncomingImageMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -1115,7 +1122,7 @@ public class MessageHolders {
             extends OutcomingImageMessageViewHolder<MessageContentType.Image> {
 
         public DefaultOutcomingImageMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 

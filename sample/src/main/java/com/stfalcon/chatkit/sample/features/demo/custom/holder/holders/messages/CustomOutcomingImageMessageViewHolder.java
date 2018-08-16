@@ -11,8 +11,8 @@ import com.stfalcon.chatkit.sample.common.data.model.Message;
 public class CustomOutcomingImageMessageViewHolder
         extends MessageHolders.OutcomingImageMessageViewHolder<Message> {
 
-    public CustomOutcomingImageMessageViewHolder(View itemView) {
-        super(itemView);
+    public CustomOutcomingImageMessageViewHolder(View itemView, Object payload) {
+        super(itemView, payload);
     }
 
     @Override

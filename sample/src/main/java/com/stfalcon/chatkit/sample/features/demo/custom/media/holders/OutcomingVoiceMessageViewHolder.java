@@ -18,8 +18,8 @@ public class OutcomingVoiceMessageViewHolder
     private TextView tvDuration;
     private TextView tvTime;
 
-    public OutcomingVoiceMessageViewHolder(View itemView) {
-        super(itemView);
+    public OutcomingVoiceMessageViewHolder(View itemView, Object payload) {
+        super(itemView, payload);
         tvDuration = (TextView) itemView.findViewById(R.id.duration);
         tvTime = (TextView) itemView.findViewById(R.id.time);
     }

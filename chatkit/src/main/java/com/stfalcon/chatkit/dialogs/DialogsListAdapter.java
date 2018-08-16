@@ -643,7 +643,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
-                    && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
+                    && dialog.getUsersCount() > 1 ? VISIBLE : GONE);
 
             //Set Last message text
             if (dialog.getLastMessage() != null) {

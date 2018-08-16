@@ -2,8 +2,6 @@ package com.stfalcon.chatkit.sample.common.data.model;
 
 import com.stfalcon.chatkit.commons.models.IDialog;
 
-import java.util.ArrayList;
-
 /*
  * Created by troy379 on 04.04.17.
  */
@@ -12,20 +10,18 @@ public class Dialog implements IDialog<Message> {
     private String id;
     private String dialogPhoto;
     private String dialogName;
-    private ArrayList<User> users;
     private Message lastMessage;
+    private int usersCount;
 
     private int unreadCount;
 
-    public Dialog(String id, String name, String photo,
-                  ArrayList<User> users, Message lastMessage, int unreadCount) {
-
+    public Dialog(String id, String name, String photo, Message lastMessage, int unreadCount, int usersCount) {
         this.id = id;
         this.dialogName = name;
         this.dialogPhoto = photo;
-        this.users = users;
         this.lastMessage = lastMessage;
         this.unreadCount = unreadCount;
+        this.usersCount = usersCount;
     }
 
     @Override
@@ -44,8 +40,8 @@ public class Dialog implements IDialog<Message> {
     }
 
     @Override
-    public ArrayList<User> getUsers() {
-        return users;
+    public int getUsersCount() {
+        return usersCount;
     }
 
     @Override

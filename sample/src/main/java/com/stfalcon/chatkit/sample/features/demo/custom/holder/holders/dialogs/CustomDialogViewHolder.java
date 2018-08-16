@@ -23,10 +23,10 @@ public class CustomDialogViewHolder
     public void onBind(Dialog dialog) {
         super.onBind(dialog);
 
-        if (dialog.getUsers().size() > 1) {
+        if (dialog.getUsersCount() > 1) {
             onlineIndicator.setVisibility(View.GONE);
         } else {
-            boolean isOnline = dialog.getUsers().get(0).isOnline();
+            boolean isOnline = dialog.getLastMessage().getUser().isOnline();
             onlineIndicator.setVisibility(View.VISIBLE);
             if (isOnline) {
                 onlineIndicator.setBackgroundResource(R.drawable.shape_bubble_online);

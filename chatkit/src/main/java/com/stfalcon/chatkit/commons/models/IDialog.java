@@ -16,8 +16,6 @@
 
 package com.stfalcon.chatkit.commons.models;
 
-import java.util.List;
-
 /**
  * For implementing by real dialog model
  */
@@ -30,7 +28,7 @@ public interface IDialog<MESSAGE extends IMessage> {
 
     String getDialogName();
 
-    List<? extends IUser> getUsers();
+    int getUsersCount();
 
     MESSAGE getLastMessage();
 

@@ -660,7 +660,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 imageLoader.loadImage(ivAvatar, dialog);
             }
 
-            //Set Last message user avatar
+            //Set Last message user avatar with check if there is last message
             if (imageLoader != null && dialog.getLastMessage() != null) {
                 imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser());
             }

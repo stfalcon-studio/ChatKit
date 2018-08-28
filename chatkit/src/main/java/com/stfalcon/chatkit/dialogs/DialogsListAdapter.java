@@ -258,6 +258,26 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Upsert dialog in dialogs list or add it to then end of dialogs list
+     *
+     * @param item dialog item
+     */
+    public void upsertItem(DIALOG item) {
+        boolean updated = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(item.getId())) {
+                items.set(i, item);
+                notifyItemChanged(i);
+                updated = true;
+                break;
+            }
+        }
+        if (!updated) {
+            addItem(item);
+        }
+    }
+
+    /**
      * Find an item by its id
      *
      * @param id the wanted item's id

@@ -651,6 +651,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 tvDate.setText(formattedDate == null
                         ? getDateString(lastMessageDate)
                         : formattedDate);
+            } else {
+                tvDate.setText(null);
             }
 
             //Set Dialog avatar
@@ -663,11 +665,14 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
-                    && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
+                    && dialog.getUsers().size() > 1
+                    && dialog.getLastMessage() != null ? VISIBLE : GONE);
 
             //Set Last message text
             if (dialog.getLastMessage() != null) {
                 tvLastMessage.setText(dialog.getLastMessage().getText());
+            } else {
+                tvLastMessage.setText(null);
             }
 
             //Set Unread message count bubble

@@ -258,6 +258,26 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Upsert dialog in dialogs list or add it to then end of dialogs list
+     *
+     * @param item dialog item
+     */
+    public void upsertItem(DIALOG item) {
+        boolean updated = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(item.getId())) {
+                items.set(i, item);
+                notifyItemChanged(i);
+                updated = true;
+                break;
+            }
+        }
+        if (!updated) {
+            addItem(item);
+        }
+    }
+
+    /**
      * Find an item by its id
      *
      * @param id the wanted item's id
@@ -631,6 +651,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 tvDate.setText(formattedDate == null
                         ? getDateString(lastMessageDate)
                         : formattedDate);
+            } else {
+                tvDate.setText(null);
             }
 
             //Set Dialog avatar
@@ -643,11 +665,14 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar());
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
-                    && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
+                    && dialog.getUsers().size() > 1
+                    && dialog.getLastMessage() != null ? VISIBLE : GONE);
 
             //Set Last message text
             if (dialog.getLastMessage() != null) {
                 tvLastMessage.setText(dialog.getLastMessage().getText());
+            } else {
+                tvLastMessage.setText(null);
             }
 
             //Set Unread message count bubble

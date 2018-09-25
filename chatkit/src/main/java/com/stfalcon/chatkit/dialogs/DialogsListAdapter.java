@@ -200,7 +200,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      */
     public void addItem(DIALOG dialog) {
         items.add(dialog);
-        notifyItemInserted(0);
+        notifyItemInserted(items.size() - 1);
     }
 
     /**
@@ -421,7 +421,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
-    
+
     /**
     * @return the position of a dialog in the dialogs list.
     */

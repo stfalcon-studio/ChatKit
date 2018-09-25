@@ -51,9 +51,9 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     protected static boolean isSelectionModeEnabled;
 
+    protected List<Wrapper> items;
     private MessageHolders holders;
     private String senderId;
-    private List<Wrapper> items;
 
     private int selectedItemsCount;
     private SelectionListener selectionListener;

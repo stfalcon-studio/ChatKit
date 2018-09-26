@@ -239,12 +239,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param messages messages list to delete.
      */
     public void delete(List<MESSAGE> messages) {
+        boolean result = false;
         for (MESSAGE message : messages) {
             int index = getMessagePositionById(message.getId());
-            items.remove(index);
-            notifyItemRemoved(index);
+            if (index >= 0) {
+                items.remove(index);
+                notifyItemRemoved(index);
+                result = true;
+            }
         }
-        recountDateHeaders();
+        if (result) {
+            recountDateHeaders();
+        }
     }
 
     /**
@@ -267,12 +273,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param ids array of identifiers of messages to delete.
      */
     public void deleteByIds(String[] ids) {
+        boolean result = false;
         for (String id : ids) {
             int index = getMessagePositionById(id);
-            items.remove(index);
-            notifyItemRemoved(index);
+            if (index >= 0) {
+                items.remove(index);
+                notifyItemRemoved(index);
+                result = true;
+            }
         }
-        recountDateHeaders();
+        if (result) {
+            recountDateHeaders();
+        }
     }
 
     /**

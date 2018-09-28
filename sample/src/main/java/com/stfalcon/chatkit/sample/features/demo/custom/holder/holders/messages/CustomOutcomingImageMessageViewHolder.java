@@ -21,4 +21,10 @@ public class CustomOutcomingImageMessageViewHolder
 
         time.setText(message.getStatus() + " " + time.getText());
     }
+
+    //Override this method to pass custom data in ImageLoader.
+    @Override
+    protected void loadImage(Message message) {
+        imageLoader.loadImage(image, message.getImageUrl(), null);
+    }
 }

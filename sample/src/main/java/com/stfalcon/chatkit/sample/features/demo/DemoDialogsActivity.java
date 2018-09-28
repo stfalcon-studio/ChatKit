@@ -27,7 +27,7 @@ public abstract class DemoDialogsActivity extends AppCompatActivity
 
         imageLoader = new ImageLoader() {
             @Override
-            public void loadImage(ImageView imageView, String url) {
+            public void loadImage(ImageView imageView, String url, Object payload) {
                 Picasso.with(DemoDialogsActivity.this).load(url).into(imageView);
             }
         };

@@ -706,7 +706,6 @@ public class MessageHolders {
                 }
             });
         }
-
     }
 
     /**
@@ -851,7 +850,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                loadImage(message);
             }
 
             if (imageOverlay != null) {
@@ -873,11 +872,15 @@ public class MessageHolders {
             }
         }
 
+        protected void loadImage(MESSAGE message) {
+            imageLoader.loadImage(image, message.getImageUrl(), null);
+        }
+
         private void init(View itemView) {
             image = (ImageView) itemView.findViewById(R.id.image);
             imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
-            if (image != null && image instanceof RoundedImageView) {
+            if (image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
                         R.dimen.message_bubble_corners_radius,
                         R.dimen.message_bubble_corners_radius,
@@ -912,7 +915,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                loadImage(message);
             }
 
             if (imageOverlay != null) {
@@ -934,11 +937,20 @@ public class MessageHolders {
             }
         }
 
+        /**
+         * Calls Imageloader for loading image.
+         * Override this method to have ability to pass custom data in ImageLoader.
+         * @param message Message with image
+         */
+        protected void loadImage(MESSAGE message) {
+            imageLoader.loadImage(image, message.getImageUrl(), null);
+        }
+
         private void init(View itemView) {
             image = (ImageView) itemView.findViewById(R.id.image);
             imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
-            if (image != null && image instanceof RoundedImageView) {
+            if (image instanceof RoundedImageView) {
                 ((RoundedImageView) image).setCorners(
                         R.dimen.message_bubble_corners_radius,
                         R.dimen.message_bubble_corners_radius,
@@ -1020,7 +1032,7 @@ public class MessageHolders {
 
                 userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
                 if (isAvatarExists) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar(), null);
                 }
             }
         }

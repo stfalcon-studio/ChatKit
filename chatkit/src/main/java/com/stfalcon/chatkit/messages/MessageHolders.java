@@ -483,6 +483,37 @@ public class MessageHolders {
         return this;
     }
 
+    /**
+     * Registers custom content type (e.g. multimedia, events etc.)
+     *
+     * @param type            unique id for content type
+     * @param incomingHolder  holder class for incoming message
+     * @param outcomingHolder holder class for outcoming message
+     * @param incomingPayload payload for incoming message
+     * @param outcomingPayload payload for outcoming message
+     * @param incomingLayout  layout resource for incoming message
+     * @param outcomingLayout layout resource for outcoming message
+     * @param contentChecker  {@link MessageHolders.ContentChecker} for registered type
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public <TYPE extends MessageContentType>
+    MessageHolders registerContentType(
+            byte type,
+            @NonNull Class<? extends MessageHolders.BaseMessageViewHolder<TYPE>> incomingHolder, Object incomingPayload, @LayoutRes int incomingLayout,
+            @NonNull Class<? extends MessageHolders.BaseMessageViewHolder<TYPE>> outcomingHolder, Object outcomingPayload, @LayoutRes int outcomingLayout,
+            @NonNull MessageHolders.ContentChecker contentChecker) {
+
+        if (type == 0)
+            throw new IllegalArgumentException("content type must be greater or less than '0'!");
+
+        customContentTypes.add(
+                new MessageHolders.ContentTypeConfig<>(type,
+                        new MessageHolders.HolderConfig<>(incomingHolder, incomingLayout, incomingPayload),
+                        new MessageHolders.HolderConfig<>(outcomingHolder, outcomingLayout, outcomingPayload)));
+        this.contentChecker = contentChecker;
+        return this;
+    }
+
     /*
      * INTERFACES
      * */

@@ -115,6 +115,7 @@ When your models are ready to be used by adapter, you can simply add them to the
 * adapter.addItems(List<DIALOG> items) - adds a new dialog list to the end of the list;
 * adapter.addItem(DIALOG dialog) - adds one dialog to the end of the list
 * adapter.addItem(int position, DIALOG dialog) -  adds a new dialog to the specified position.
+* adapter.upsertItem(DIALOG dialog) - adds one dialog to the end of the list if not exists, otherwise updates the existing dialog.
 
 #### Updating dialogs
 If dialog has changed, you can update it by position in list by calling `adapter.updateItem(int position, DIALOG item)` or update it by dialog id by calling `adapter.updateItemById(DIALOG item)`

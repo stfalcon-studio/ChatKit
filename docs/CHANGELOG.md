@@ -1,3 +1,13 @@
+## Version 0.3.2 (2018/09/28)
+* [Passing custom data to ImageLoader](https://github.com/stfalcon-studio/ChatKit/issues/183)
+* Fixed: In DialogListAdapter, addItem(dialog) adds the item to end of the list but updates the first item [#198](https://github.com/stfalcon-studio/ChatKit/issues/198)
+* Protected `items` field in `MessagesListAdapter` and `DialogsListAdapte` [#188](https://github.com/stfalcon-studio/ChatKit/issues/188)
+* Fixed `delete` and `deleteByIds` methods in MessagesListAdapter
+* Merged pull requests:
+   * Clear last message if null in dialog list (Fix issue #189) [#190](https://github.com/stfalcon-studio/ChatKit/pull/190)
+   * Add upsert method to dialogs list [#191](https://github.com/stfalcon-studio/ChatKit/pull/191)
+   * Update documentation to add upsertItem method [#208](https://github.com/stfalcon-studio/ChatKit/pull/208)
+
 ## Version 0.3.1 (2018/08/16)
 * [Passing custom data to your ViewHolder](https://github.com/stfalcon-studio/ChatKit/blob/master/docs/COMPONENT_MESSAGES_LIST.md#passing-custom-data-to-your-viewholder) [#180](https://github.com/stfalcon-studio/ChatKit/issues/180)
 * Added Proguard rules to [Readme](https://github.com/stfalcon-studio/ChatKit#proguard) and [sample project](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/proguard-rules.pro). [#122](https://github.com/stfalcon-studio/ChatKit/issues/122)

@@ -1,3 +1,16 @@
+## Version 0.3.2
+
+* Method `ImageLoader.loadImage(ImageView imageView, String url)` is removed. Use `ImageLoader.loadImage(ImageView imageView, String url, Object payload)` instead.
+
+## Version 0.3.1 
+
+* Constructor `BaseOutcomingMessageViewHolder(View itemView)` is marked as `deprecated`. Use `BaseOutcomingMessageViewHolder(View itemView, Object payload)` instead;
+* Constructor `OutcomingTextMessageViewHolder(View itemView)` is marked as `deprecated`. Use `OutcomingTextMessageViewHolder(View itemView, Object payload)` instead;
+* Constructor `IncomingTextMessageViewHolder(View itemView)` is marked as `deprecated`. Use `IncomingTextMessageViewHolder(View itemView, Object payload)` instead;
+* Constructor `IncomingImageMessageViewHolder(View itemView)` is marked as `deprecated`. Use `IncomingImageMessageViewHolder(View itemView, Object payload)` instead;
+* Constructor `OutcomingImageMessageViewHolder(View itemView)` is marked as `deprecated`. Use `OutcomingImageMessageViewHolder(View itemView, Object payload)` instead;
+
+
 ## Version 0.1.2 (2017/04/07)
 
 **Note that all deprecated methods and class will be removed at version 0.3.0**

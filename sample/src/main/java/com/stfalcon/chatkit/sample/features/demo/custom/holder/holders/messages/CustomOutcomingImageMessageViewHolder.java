@@ -1,5 +1,6 @@
 package com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages;
 
+import android.util.Pair;
 import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageHolders;
@@ -22,9 +23,10 @@ public class CustomOutcomingImageMessageViewHolder
         time.setText(message.getStatus() + " " + time.getText());
     }
 
-    //Override this method to pass custom data in ImageLoader.
+    //Override this method to have ability to pass custom data in ImageLoader for loading image(not avatar).
     @Override
-    protected void loadImage(Message message) {
-        imageLoader.loadImage(image, message.getImageUrl(), null);
+    protected Object getPayloadForImageLoader(Message message) {
+        //For example you can pass size of placeholder before loading
+        return new Pair<>(100, 100);
     }
 }

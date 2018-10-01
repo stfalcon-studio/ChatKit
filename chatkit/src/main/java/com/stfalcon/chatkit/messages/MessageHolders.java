@@ -486,14 +486,14 @@ public class MessageHolders {
     /**
      * Registers custom content type (e.g. multimedia, events etc.)
      *
-     * @param type            unique id for content type
-     * @param incomingHolder  holder class for incoming message
-     * @param outcomingHolder holder class for outcoming message
-     * @param incomingPayload payload for incoming message
+     * @param type             unique id for content type
+     * @param incomingHolder   holder class for incoming message
+     * @param outcomingHolder  holder class for outcoming message
+     * @param incomingPayload  payload for incoming message
      * @param outcomingPayload payload for outcoming message
-     * @param incomingLayout  layout resource for incoming message
-     * @param outcomingLayout layout resource for outcoming message
-     * @param contentChecker  {@link MessageHolders.ContentChecker} for registered type
+     * @param incomingLayout   layout resource for incoming message
+     * @param outcomingLayout  layout resource for outcoming message
+     * @param contentChecker   {@link MessageHolders.ContentChecker} for registered type
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public <TYPE extends MessageContentType>
@@ -881,7 +881,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                loadImage(message);
+                imageLoader.loadImage(image, message.getImageUrl(), getPayloadForImageLoader(message));
             }
 
             if (imageOverlay != null) {
@@ -903,8 +903,13 @@ public class MessageHolders {
             }
         }
 
-        protected void loadImage(MESSAGE message) {
-            imageLoader.loadImage(image, message.getImageUrl(), null);
+        /**
+         * Override this method to have ability to pass custom data in ImageLoader for loading image(not avatar).
+         *
+         * @param message Message with image
+         */
+        protected Object getPayloadForImageLoader(MESSAGE message) {
+            return null;
         }
 
         private void init(View itemView) {
@@ -946,7 +951,7 @@ public class MessageHolders {
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                loadImage(message);
+                imageLoader.loadImage(image, message.getImageUrl(), getPayloadForImageLoader(message));
             }
 
             if (imageOverlay != null) {
@@ -969,12 +974,12 @@ public class MessageHolders {
         }
 
         /**
-         * Calls Imageloader for loading image.
-         * Override this method to have ability to pass custom data in ImageLoader.
+         * Override this method to have ability to pass custom data in ImageLoader for loading image(not avatar).
+         *
          * @param message Message with image
          */
-        protected void loadImage(MESSAGE message) {
-            imageLoader.loadImage(image, message.getImageUrl(), null);
+        protected Object getPayloadForImageLoader(MESSAGE message) {
+            return null;
         }
 
         private void init(View itemView) {

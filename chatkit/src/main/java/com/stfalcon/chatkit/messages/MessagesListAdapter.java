@@ -51,7 +51,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
     protected static boolean isSelectionModeEnabled;
 
-    public List<Wrapper> items;
+    protected List<Wrapper> items;
     private MessageHolders holders;
     private String senderId;
 
@@ -528,7 +528,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
-    public void generateDateHeaders(List<MESSAGE> messages) {
+    protected void generateDateHeaders(List<MESSAGE> messages) {
         for (int i = 0; i < messages.size(); i++) {
             MESSAGE message = messages.get(i);
             this.items.add(new Wrapper<>(message));

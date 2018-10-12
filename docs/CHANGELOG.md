@@ -1,4 +1,4 @@
-## Version 0.3.3-SNAPSHOT (2018/10/12)
+## Version 0.3.3 (2018/10/12)
 * Merged: Added upsert method to move a specific item to the start. [#209](https://github.com/stfalcon-studio/ChatKit/pull/209)
 
 ## Version 0.3.2 (2018/09/28)

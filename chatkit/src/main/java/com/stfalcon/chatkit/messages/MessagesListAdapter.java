@@ -174,25 +174,28 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
         if (reverse) Collections.reverse(messages);
 
-        if (!items.isEmpty()) {
-            int lastItemPosition = items.size() - 2;
+        if (items != null)
+        {
+            if (!items.isEmpty()) {
+                int lastItemPosition = items.size() - 2;
 
-            if (lastItemPosition > 0) {
-                Object object = items.get(lastItemPosition).item;
-                if (object instanceof Date) {
-                    Date lastItem = (Date) object;
+                if (items.size() >= lastItemPosition) {
+                    Object object = items.get(lastItemPosition).item;
+                    if (object instanceof Date) {
+                        Date lastItem = (Date) object;
 
-                    if (DateFormatter.isSameDay(messages.get(1).getCreatedAt(), lastItem)) {
-                        items.remove(lastItemPosition);
-                        notifyItemRemoved(lastItemPosition);
+                        if (DateFormatter.isSameDay(messages.get(1).getCreatedAt(), lastItem)) {
+                            items.remove(lastItemPosition);
+                            notifyItemRemoved(lastItemPosition);
+                        }
                     }
                 }
             }
-        }
 
-        int oldSize = items.size();
-        generateDateHeaders(messages);
-        notifyItemRangeInserted(oldSize, items.size() - oldSize);
+            int oldSize = items.size();
+            generateDateHeaders(messages);
+            notifyItemRangeInserted(oldSize, items.size() - oldSize);
+        }
     }
 
     /**

@@ -8,7 +8,7 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="8dp">
 
-    <com.stfalcon.chatkit.utils.ShapeImageView
+    <com.stfalcon.customChatkit.utils.ShapeImageView
         android:id="@id/messageUserAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"

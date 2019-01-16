@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.stfalcon.chatkit.dialogs.DialogsList
+    <com.stfalcon.customChatkit.dialogs.DialogsList
         android:id="@+id/dialogsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

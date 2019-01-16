@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
-        <com.stfalcon.chatkit.utils.ShapeImageView
+        <com.stfalcon.customChatkit.utils.ShapeImageView
             android:id="@id/dialogAvatar"
             android:layout_width="@dimen/dialog_avatar_width"
             android:layout_height="@dimen/dialog_avatar_height"
@@ -53,7 +53,7 @@
             android:layout_toEndOf="@id/dialogAvatar"
             android:layout_toRightOf="@id/dialogAvatar">
 
-            <com.stfalcon.chatkit.utils.ShapeImageView
+            <com.stfalcon.customChatkit.utils.ShapeImageView
                 android:id="@id/dialogLastMessageUserAvatar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

@@ -1,8 +1,6 @@
 package com.stfalcon.chatkit.sample.features.main;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.CustomHolderDialogsActivity;
@@ -13,6 +11,8 @@ import com.stfalcon.chatkit.sample.features.demo.styled.StyledDialogsActivity;
 import com.stfalcon.chatkit.sample.features.main.adapter.DemoCardFragment;
 import com.stfalcon.chatkit.sample.features.main.adapter.MainActivityPagerAdapter;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
 /*
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
-
     }
 
     @Override

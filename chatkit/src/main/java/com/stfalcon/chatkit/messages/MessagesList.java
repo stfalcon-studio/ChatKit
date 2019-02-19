@@ -17,14 +17,15 @@
 package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 /**
  * Component for displaying list of messages
@@ -79,7 +80,7 @@ public class MessagesList extends RecyclerView {
         itemAnimator.setSupportsChangeAnimations(false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, reverseLayout);
+                RecyclerView.VERTICAL, reverseLayout);
 
         setItemAnimator(itemAnimator);
         setLayoutManager(layoutManager);

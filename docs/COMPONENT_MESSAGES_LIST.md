@@ -282,7 +282,7 @@ But what if you need not only to change the appearance of the elements, but also
 * `@id/messageTime`  (TextView)
 * `@id/messageUserAvatar` (ImageView)
 
-For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_custom_incoming_message.xml)
+For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_custom_incoming_text_message.xml)
 
 After a layout was created, you need to put it into `HoldersConfig` object, which has appropriate methods for each layout files: `setIncomingLayout(int layoutRes)`, `setOutcomingLayout(int layoutRes)` `setDateHeaderLayout(int layoutRes)`. To hook up a config object, you need to transfer it to adapter through a constructor:
 

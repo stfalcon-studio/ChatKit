@@ -370,7 +370,7 @@ Then in our custom ViewHolder in method `onBind`:
     }
 ```
 Then create Payload and set it and our ViewHolder class to MessageHolders config.
-```
+```java
 //We can pass any data to ViewHolder with payload
 CustomIncomingTextMessageViewHolder.Payload payload = new CustomIncomingTextMessageViewHolder.Payload();
 //For example click listener

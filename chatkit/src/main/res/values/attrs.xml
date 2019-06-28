@@ -43,6 +43,11 @@
         <attr name="inputBackground" format="reference"/>
         <attr name="inputCursorDrawable" format="reference"/>
 
+        <attr name="inputPaddingLeft" format="dimension|reference"/>
+        <attr name="inputPaddingRight" format="dimension|reference"/>
+        <attr name="inputPaddingTop" format="dimension|reference"/>
+        <attr name="inputPaddingBottom" format="dimension|reference"/>
+
         <attr name="delayTypingStatus" format="integer"/>
     </declare-styleable>
 

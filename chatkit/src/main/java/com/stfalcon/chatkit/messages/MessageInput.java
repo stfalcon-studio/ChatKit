@@ -191,6 +191,12 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
         this.messageInput.setTextColor(style.getInputTextColor());
         this.messageInput.setHintTextColor(style.getInputHintColor());
+        this.messageInput.setPadding(
+                style.getInputFieldPaddingLeft(),
+                style.getInputFieldPaddingTop(),
+                style.getInputFieldPaddingRight(),
+                style.getInputFieldPaddingBottom()
+        );
         ViewCompat.setBackground(this.messageInput, style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 

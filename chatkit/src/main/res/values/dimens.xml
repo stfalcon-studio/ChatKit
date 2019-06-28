@@ -7,6 +7,10 @@
     <dimen name="input_padding_right">16sp</dimen>
     <dimen name="input_padding_top">8sp</dimen>
     <dimen name="input_padding_bottom">8sp</dimen>
+    <dimen name="input_field_padding_left">0dp</dimen>
+    <dimen name="input_field_padding_right">0dp</dimen>
+    <dimen name="input_field_padding_top">8dp</dimen>
+    <dimen name="input_field_padding_bottom">8dp</dimen>
 
     <dimen name="message_bubble_corners_radius">15dp</dimen>
 

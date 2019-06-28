@@ -78,6 +78,11 @@ class MessageInputStyle extends Style {
     private Drawable inputBackground;
     private Drawable inputCursorDrawable;
 
+    private int inputFieldPaddingLeft;
+    private int inputFieldPaddingRight;
+    private int inputFieldPaddingTop;
+    private int inputFieldPaddingBottom;
+
     private int inputDefaultPaddingLeft;
     private int inputDefaultPaddingRight;
     private int inputDefaultPaddingTop;
@@ -141,6 +146,15 @@ class MessageInputStyle extends Style {
 
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);
+
+        style.inputFieldPaddingLeft = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputPaddingLeft,
+                style.getDimension(R.dimen.input_field_padding_left));
+        style.inputFieldPaddingRight = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputPaddingRight,
+                style.getDimension(R.dimen.input_field_padding_right));
+        style.inputFieldPaddingTop = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputPaddingTop,
+                style.getDimension(R.dimen.input_field_padding_top));
+        style.inputFieldPaddingBottom = typedArray.getDimensionPixelSize(R.styleable.MessageInput_inputPaddingBottom,
+                style.getDimension(R.dimen.input_field_padding_bottom));
 
         style.delayTypingStatus = typedArray.getInt(R.styleable.MessageInput_delayTypingStatus, DEFAULT_DELAY_TYPING_STATUS);
 
@@ -269,6 +283,22 @@ class MessageInputStyle extends Style {
 
     protected Drawable getInputCursorDrawable() {
         return inputCursorDrawable;
+    }
+
+    protected int getInputFieldPaddingLeft() {
+        return inputFieldPaddingLeft;
+    }
+
+    protected int getInputFieldPaddingRight() {
+        return inputFieldPaddingRight;
+    }
+
+    protected int getInputFieldPaddingTop() {
+        return inputFieldPaddingTop;
+    }
+
+    protected int getInputFieldPaddingBottom() {
+        return inputFieldPaddingBottom;
     }
 
     protected int getInputDefaultPaddingLeft() {

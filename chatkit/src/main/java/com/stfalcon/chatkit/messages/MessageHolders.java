@@ -563,7 +563,7 @@ public class MessageHolders {
     }
 
     @SuppressWarnings("unchecked")
-    protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+    protected void bind(final ViewHolder holder, final Object item, boolean isSelected, boolean isContinuous,
                         final ImageLoader imageLoader,
                         final View.OnClickListener onMessageClickListener,
                         final View.OnLongClickListener onMessageLongClickListener,
@@ -572,6 +572,7 @@ public class MessageHolders {
 
         if (item instanceof IMessage) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
+            ((BaseMessageViewHolder) holder).isContinuous = isContinuous;
             ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
             holder.itemView.setOnClickListener(onMessageClickListener);
@@ -676,6 +677,7 @@ public class MessageHolders {
 
         boolean isSelected;
 
+        boolean isContinuous;
         /**
          * For setting custom data to ViewHolder
          */
@@ -703,6 +705,15 @@ public class MessageHolders {
          */
         public boolean isSelected() {
             return isSelected;
+        }
+
+        /**
+         * Returns whether item belongs to the same user
+         *
+         * @return weather item belongs to the same user.
+         */
+        public boolean isContinuous() {
+            return isContinuous;
         }
 
         /**

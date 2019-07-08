@@ -56,6 +56,13 @@ or Maven:
 </dependency>
 ```
 
+### AndroidX
+To use with AndroidX you have to set targetSdkVersion for your project to 28 and add following 2 lines in ```gradle.properties``` file.
+```
+android.useAndroidX=true
+android.enableJetifier=true
+```
+
 ### Proguard
 If you are using ProGuard you might need to add rules:
 ```

@@ -19,6 +19,7 @@ package com.stfalcon.chatkit.messages;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -34,6 +35,7 @@ import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.util.ArrayList;
@@ -103,11 +105,43 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
-        holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
+        boolean isContinuous = false;
+        if (position > 0 && position != items.size() - 1) {
+            isContinuous = isContinuous(items.get(position), items.get(position - 1));
+        }
+        holders.bind(holder, wrapper.item, wrapper.isSelected, isContinuous, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
                 dateHeadersFormatter,
                 viewClickListenersArray);
+    }
+
+    private boolean isContinuous(Wrapper currentMsg, Wrapper precedingMsg) {
+        // null check
+        if (currentMsg == null || precedingMsg == null) {
+            return false;
+        }
+
+        IUser currentUser = null, precedingUser = null;
+        if (currentMsg.item instanceof IMessage) {
+            currentUser = ((IMessage) currentMsg.item).getUser();
+        } else {
+            return false;
+        }
+        if (precedingMsg.item instanceof IMessage) {
+            precedingUser = ((IMessage) precedingMsg.item).getUser();
+        } else {
+            return false;
+        }
+
+
+        System.out.println(" ------------------ " + (!(currentUser == null || precedingUser == null)
+                && currentUser.getId().equals(precedingUser.getId())));
+        // If admin message or
+        return !(currentUser == null || precedingUser == null)
+                && currentUser.getId().equals(precedingUser.getId());
+
+
     }
 
     @Override
@@ -155,7 +189,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
         Wrapper<MESSAGE> element = new Wrapper<>(message);
         items.add(0, element);
+        boolean isContinuous = isPreviousSameAuthor(message.getUser().getId(), 0);
         notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        if (isContinuous) {
+            notifyItemChanged(1);
+        }
         if (layoutManager != null && scroll) {
             layoutManager.scrollToPosition(0);
         }

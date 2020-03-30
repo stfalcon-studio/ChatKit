@@ -16,8 +16,8 @@
 
 package com.stfalcon.chatkit.commons;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Base ViewHolder

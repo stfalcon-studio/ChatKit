@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 14
         versionCode 1
-        versionName "0.3.3"
+        versionName "1.0.0"
         consumerProguardFiles 'proguard.txt'
     }
     android {
@@ -21,7 +21,7 @@ android {
 publish {
     groupId = 'com.github.stfalcon'
     artifactId = 'chatkit'
-    publishVersion = '0.3.3'
+    publishVersion = '1.0.0'
     desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
     licences = ['Apache-2.0']
     uploadName = 'ChatKit'
@@ -29,14 +29,14 @@ publish {
 }
 
 ext {
-    supportVersion = '27.1.1'
-    flexboxVersion = '1.0.0'
+    androidxVersion = '1.0.2'
+    materialVersion = '1.1.0-alpha03'
+    flexboxVersion = '1.1.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:design:$supportVersion"
+    implementation "androidx.appcompat:appcompat:$androidxVersion"
+    implementation "com.google.android.material:material:$materialVersion"
     implementation "com.google.android:flexbox:$flexboxVersion"
 }

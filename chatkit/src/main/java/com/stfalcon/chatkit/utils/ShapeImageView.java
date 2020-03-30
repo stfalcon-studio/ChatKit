@@ -22,11 +22,14 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * ImageView with mask what described with Bézier Curves
  */
 
-public class ShapeImageView extends android.support.v7.widget.AppCompatImageView {
+public class ShapeImageView extends AppCompatImageView {
+
     private Path path;
 
     public ShapeImageView(Context context) {

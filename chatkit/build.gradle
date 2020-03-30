@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'maven'
+
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
@@ -13,6 +15,29 @@ android {
     android {
         lintOptions {
             abortOnError false
+        }
+    }
+}
+
+def username = nexus_username
+def password = nexus_password
+
+uploadArchives {
+    repositories {
+        repositories.mavenDeployer {
+            pom {
+                groupId = "com.digium"
+                artifactId = "chat-kit"
+                version = '1.0.0-SNAPSHOT'
+            }
+
+            snapshotRepository(url: "http://nexus.switchvox.com/repository/maven-snapshots/") {
+                authentication(userName: username, password: password)
+            }
+
+            repository(url: "http://nexus.switchvox.com/repository/maven-releases/") {
+                authentication(userName: username, password: password)
+            }
         }
     }
 }

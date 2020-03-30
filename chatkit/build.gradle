@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 23
         versionCode 1
         versionName "1.0.0"
         consumerProguardFiles 'proguard.txt'
@@ -29,8 +29,8 @@ publish {
 }
 
 ext {
-    androidxVersion = '1.0.2'
-    materialVersion = '1.1.0-alpha03'
+    androidxVersion = '1.2.0-alpha03'
+    materialVersion = '1.2.0-alpha05'
     flexboxVersion = '1.1.0'
 }
 

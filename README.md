@@ -43,7 +43,7 @@ To implement all of the features above you can use the following components:
 
 Download via Gradle:
 ```gradle
-compile 'com.github.stfalcon:chatkit:0.3.3'
+implementation 'com.github.stfalcon:chatkit:0.3.3'
 ```
 
 or Maven:

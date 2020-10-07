@@ -35,10 +35,10 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_holder_messages);
 
-        messagesList = (MessagesList) findViewById(R.id.messagesList);
+        messagesList = findViewById(R.id.messagesList);
         initAdapter();
 
-        MessageInput input = (MessageInput) findViewById(R.id.input);
+        MessageInput input = findViewById(R.id.input);
         input.setInputListener(this);
         input.setAttachmentsListener(this);
     }
@@ -65,13 +65,8 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         //We can pass any data to ViewHolder with payload
         CustomIncomingTextMessageViewHolder.Payload payload = new CustomIncomingTextMessageViewHolder.Payload();
         //For example click listener
-        payload.avatarClickListener = new CustomIncomingTextMessageViewHolder.OnAvatarClickListener() {
-            @Override
-            public void onAvatarClick() {
-                Toast.makeText(CustomHolderMessagesActivity.this,
-                        "Text message avatar clicked", Toast.LENGTH_SHORT).show();
-            }
-        };
+        payload.avatarClickListener = () -> Toast.makeText(CustomHolderMessagesActivity.this,
+                "Text message avatar clicked", Toast.LENGTH_SHORT).show();
 
         MessageHolders holdersConfig = new MessageHolders()
                 .setIncomingTextConfig(

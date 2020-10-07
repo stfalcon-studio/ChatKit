@@ -20,8 +20,8 @@ public class IncomingVoiceMessageViewHolder
 
     public IncomingVoiceMessageViewHolder(View itemView, Object payload) {
         super(itemView, payload);
-        tvDuration = (TextView) itemView.findViewById(R.id.duration);
-        tvTime = (TextView) itemView.findViewById(R.id.time);
+        tvDuration = itemView.findViewById(R.id.duration);
+        tvTime = itemView.findViewById(R.id.time);
     }
 
     @Override

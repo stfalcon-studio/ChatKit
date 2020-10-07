@@ -29,12 +29,9 @@ public class CustomIncomingTextMessageViewHolder
 
         //We can set click listener on view from payload
         final Payload payload = (Payload) this.payload;
-        userAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (payload != null && payload.avatarClickListener != null) {
-                    payload.avatarClickListener.onAvatarClick();
-                }
+        userAvatar.setOnClickListener(view -> {
+            if (payload != null && payload.avatarClickListener != null) {
+                payload.avatarClickListener.onAvatarClick();
             }
         });
     }

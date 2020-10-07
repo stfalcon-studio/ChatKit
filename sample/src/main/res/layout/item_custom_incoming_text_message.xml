@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -12,7 +11,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginRight="8dp" />
 
     <!--this view is needed for custom holder-->
     <ImageView
@@ -23,7 +22,7 @@
         android:layout_alignRight="@id/messageUserAvatar"
         android:layout_alignTop="@id/messageUserAvatar"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp" />
 
     <LinearLayout
         android:id="@id/bubble"
@@ -42,7 +41,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" />
 
     </LinearLayout>
 
@@ -54,6 +53,6 @@
         android:layout_alignRight="@id/bubble"
         android:layout_below="@id/bubble"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp" />
 
 </RelativeLayout>

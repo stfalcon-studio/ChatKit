@@ -25,7 +25,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_dialogs);
 
-        dialogsList = (DialogsList) findViewById(R.id.dialogsList);
+        dialogsList = findViewById(R.id.dialogsList);
         initAdapter();
     }
 

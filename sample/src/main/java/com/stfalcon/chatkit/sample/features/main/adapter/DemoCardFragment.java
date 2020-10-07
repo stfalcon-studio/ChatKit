@@ -2,12 +2,13 @@ package com.stfalcon.chatkit.sample.features.main.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.stfalcon.chatkit.sample.R;
 
@@ -54,9 +55,9 @@ public class DemoCardFragment extends Fragment
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_demo_card, container, false);
 
-        TextView tvTitle = (TextView) v.findViewById(R.id.tvTitle);
-        TextView tvDescription = (TextView) v.findViewById(R.id.tvDescription);
-        Button button = (Button) v.findViewById(R.id.button);
+        TextView tvTitle = v.findViewById(R.id.tvTitle);
+        TextView tvDescription = v.findViewById(R.id.tvDescription);
+        Button button = v.findViewById(R.id.button);
 
         tvTitle.setText(title);
         tvDescription.setText(description);
@@ -67,10 +68,8 @@ public class DemoCardFragment extends Fragment
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button:
-                onAction();
-                break;
+        if (view.getId() == R.id.button) {
+            onAction();
         }
     }
 

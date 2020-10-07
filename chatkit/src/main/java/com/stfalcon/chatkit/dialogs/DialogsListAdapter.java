@@ -18,15 +18,16 @@ package com.stfalcon.chatkit.dialogs;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -216,8 +217,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * Move an item
+     *
      * @param fromPosition the actual position of the item
-     * @param toPosition the new position of the item
+     * @param toPosition   the new position of the item
      */
     public void moveItem(int fromPosition, int toPosition) {
         DIALOG dialog = items.remove(fromPosition);
@@ -327,15 +329,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      * Sort dialog by last message date
      */
     public void sortByLastMessageDate() {
-        Collections.sort(items, new Comparator<DIALOG>() {
-            @Override
-            public int compare(DIALOG o1, DIALOG o2) {
-                if (o1.getLastMessage().getCreatedAt().after(o2.getLastMessage().getCreatedAt())) {
-                    return -1;
-                } else if (o1.getLastMessage().getCreatedAt().before(o2.getLastMessage().getCreatedAt())) {
-                    return 1;
-                } else return 0;
-            }
+        Collections.sort(items, (o1, o2) -> {
+            if (o1.getLastMessage().getCreatedAt().after(o2.getLastMessage().getCreatedAt())) {
+                return -1;
+            } else if (o1.getLastMessage().getCreatedAt().before(o2.getLastMessage().getCreatedAt())) {
+                return 1;
+            } else return 0;
         });
         notifyDataSetChanged();
     }
@@ -443,15 +442,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
-    * @return the position of a dialog in the dialogs list.
-    */
+     * @return the position of a dialog in the dialogs list.
+     */
     public int getDialogPosition(DIALOG dialog) {
         return this.items.indexOf(dialog);
     }
 
     /*
-    * LISTENERS
-    * */
+     * LISTENERS
+     * */
     public interface OnDialogClickListener<DIALOG extends IDialog> {
         void onDialogClick(DIALOG dialog);
     }
@@ -469,8 +468,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /*
-    * HOLDERS
-    * */
+     * HOLDERS
+     * */
     public abstract static class BaseDialogViewHolder<DIALOG extends IDialog>
             extends ViewHolder<DIALOG> {
 
@@ -525,15 +524,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
         public DialogViewHolder(View itemView) {
             super(itemView);
-            root = (ViewGroup) itemView.findViewById(R.id.dialogRootLayout);
-            container = (ViewGroup) itemView.findViewById(R.id.dialogContainer);
-            tvName = (TextView) itemView.findViewById(R.id.dialogName);
-            tvDate = (TextView) itemView.findViewById(R.id.dialogDate);
-            tvLastMessage = (TextView) itemView.findViewById(R.id.dialogLastMessage);
-            tvBubble = (TextView) itemView.findViewById(R.id.dialogUnreadBubble);
-            ivLastMessageUser = (ImageView) itemView.findViewById(R.id.dialogLastMessageUserAvatar);
-            ivAvatar = (ImageView) itemView.findViewById(R.id.dialogAvatar);
-            dividerContainer = (ViewGroup) itemView.findViewById(R.id.dialogDividerContainer);
+            root = itemView.findViewById(R.id.dialogRootLayout);
+            container = itemView.findViewById(R.id.dialogContainer);
+            tvName = itemView.findViewById(R.id.dialogName);
+            tvDate = itemView.findViewById(R.id.dialogDate);
+            tvLastMessage = itemView.findViewById(R.id.dialogLastMessage);
+            tvBubble = itemView.findViewById(R.id.dialogUnreadBubble);
+            ivLastMessageUser = itemView.findViewById(R.id.dialogLastMessageUserAvatar);
+            ivAvatar = itemView.findViewById(R.id.dialogAvatar);
+            dividerContainer = itemView.findViewById(R.id.dialogDividerContainer);
             divider = itemView.findViewById(R.id.dialogDivider);
 
         }
@@ -680,30 +679,24 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvBubble.setVisibility(dialogStyle.isDialogUnreadBubbleEnabled() &&
                     dialog.getUnreadCount() > 0 ? VISIBLE : GONE);
 
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onDialogClickListener != null) {
-                        onDialogClickListener.onDialogClick(dialog);
-                    }
-                    if (onDialogViewClickListener != null) {
-                        onDialogViewClickListener.onDialogViewClick(view, dialog);
-                    }
+            container.setOnClickListener(view -> {
+                if (onDialogClickListener != null) {
+                    onDialogClickListener.onDialogClick(dialog);
+                }
+                if (onDialogViewClickListener != null) {
+                    onDialogViewClickListener.onDialogViewClick(view, dialog);
                 }
             });
 
 
-            container.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (onLongItemClickListener != null) {
-                        onLongItemClickListener.onDialogLongClick(dialog);
-                    }
-                    if (onDialogViewLongClickListener != null) {
-                        onDialogViewLongClickListener.onDialogViewLongClick(view, dialog);
-                    }
-                    return onLongItemClickListener != null || onDialogViewLongClickListener != null;
+            container.setOnLongClickListener(view -> {
+                if (onLongItemClickListener != null) {
+                    onLongItemClickListener.onDialogLongClick(dialog);
                 }
+                if (onDialogViewLongClickListener != null) {
+                    onDialogViewLongClickListener.onDialogViewLongClick(view, dialog);
+                }
+                return onLongItemClickListener != null || onDialogViewLongClickListener != null;
             });
         }
 

@@ -18,12 +18,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.support.annotation.DimenRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+import androidx.annotation.DimenRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
 /**
  * Thanks to Joonho Kim (https://github.com/pungrue26) for his lightweight SelectableRoundedImageView,
@@ -134,8 +134,6 @@ public class RoundedImageView extends AppCompatImageView {
 
         private final Paint mBitmapPaint;
 
-        private BitmapShader mBitmapShader;
-
         private float[] mRadii = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
 
         private Path mPath = new Path();
@@ -144,7 +142,7 @@ public class RoundedImageView extends AppCompatImageView {
 
         private RoundedCornerDrawable(Bitmap bitmap, Resources r) {
             mBitmap = bitmap;
-            mBitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            BitmapShader mBitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
             mBitmapWidth = bitmap.getScaledWidth(r.getDisplayMetrics());
             mBitmapHeight = bitmap.getScaledHeight(r.getDisplayMetrics());

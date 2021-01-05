@@ -1,5 +1,6 @@
 package com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages;
 
+import android.animation.Animator;
 import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageHolders;
@@ -28,6 +29,14 @@ public class CustomIncomingImageMessageViewHolder
             onlineIndicator.setBackgroundResource(R.drawable.shape_bubble_online);
         } else {
             onlineIndicator.setBackgroundResource(R.drawable.shape_bubble_offline);
+        }
+
+        if (isContinuous()) {
+            userAvatar.setVisibility(View.INVISIBLE);
+            onlineIndicator.setVisibility(View.GONE);
+        } else {
+            userAvatar.setVisibility(View.VISIBLE);
+            onlineIndicator.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -18,6 +18,7 @@ public class Message implements IMessage,
     private User user;
     private Image image;
     private Voice voice;
+    private boolean isContinous;
 
     public Message(String id, User user, String text) {
         this(id, user, text, new Date());

@@ -3,6 +3,7 @@ package com.stfalcon.chatkit.messages;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
+
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -563,7 +564,8 @@ public class MessageHolders {
     }
 
     @SuppressWarnings("unchecked")
-    protected void bind(final ViewHolder holder, final Object item, boolean isSelected, boolean isContinuous,
+    protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+                        boolean isContinuous, boolean nextIsContinuous,
                         final ImageLoader imageLoader,
                         final View.OnClickListener onMessageClickListener,
                         final View.OnLongClickListener onMessageLongClickListener,
@@ -678,6 +680,8 @@ public class MessageHolders {
         boolean isSelected;
 
         boolean isContinuous;
+
+        boolean nextItemIsContinous;
         /**
          * For setting custom data to ViewHolder
          */
@@ -715,6 +719,22 @@ public class MessageHolders {
         public boolean isContinuous() {
             return isContinuous;
         }
+
+        /**
+         * Returns whether the current item and the next belongs to the same user
+         */
+        public boolean isNextItemIsContinuous() {
+            return isContinuous;
+        }
+
+        public List<View> getVisibleViewsForFirstItemInGroup() {
+            return new ArrayList<>();
+        }
+
+        public List<View> getVisibleViewsForLastItemInGroup() {
+            return new ArrayList<>();
+        }
+
 
         /**
          * Returns weather is selection mode enabled
@@ -779,6 +799,26 @@ public class MessageHolders {
 
             if (text != null) {
                 text.setText(message.getText());
+            }
+
+            if (isNextItemIsContinuous()) {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.GONE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            if (isContinuous()) {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.INVISIBLE);
+                }
             }
         }
 

@@ -22,6 +22,7 @@ import android.content.Context;
 
 import androidx.annotation.LayoutRes;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -106,10 +107,15 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
         boolean isContinuous = false;
+        boolean nextItemIsContinous = false;
         if (position > 0 && position != items.size() - 1) {
             isContinuous = isContinuous(items.get(position), items.get(position - 1));
         }
-        holders.bind(holder, wrapper.item, wrapper.isSelected, isContinuous, imageLoader,
+
+        if (position + 1 < items.size() - 1) {
+            nextItemIsContinous = nextItemIsContinous(items.get(position), items.get(position + 1));
+        }
+        holders.bind(holder, wrapper.item, wrapper.isSelected, isContinuous, nextItemIsContinous, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
                 dateHeadersFormatter,
@@ -122,7 +128,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
             return false;
         }
 
-        IUser currentUser = null, precedingUser = null;
+        IUser currentUser, precedingUser;
         if (currentMsg.item instanceof IMessage) {
             currentUser = ((IMessage) currentMsg.item).getUser();
         } else {
@@ -130,6 +136,34 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
         if (precedingMsg.item instanceof IMessage) {
             precedingUser = ((IMessage) precedingMsg.item).getUser();
+        } else {
+            return false;
+        }
+
+
+        System.out.println(" ------------------ " + (!(currentUser == null || precedingUser == null)
+                && currentUser.getId().equals(precedingUser.getId())));
+        // If admin message or
+        return !(currentUser == null || precedingUser == null)
+                && currentUser.getId().equals(precedingUser.getId());
+
+
+    }
+
+    private boolean nextItemIsContinous(Wrapper currentMsg, Wrapper nextMessage) {
+        // null check
+        if (currentMsg == null || nextMessage == null) {
+            return false;
+        }
+
+        IUser currentUser, precedingUser;
+        if (currentMsg.item instanceof IMessage) {
+            currentUser = ((IMessage) currentMsg.item).getUser();
+        } else {
+            return false;
+        }
+        if (nextMessage.item instanceof IMessage) {
+            precedingUser = ((IMessage) nextMessage.item).getUser();
         } else {
             return false;
         }

@@ -19,6 +19,7 @@ android {
 }
 
 publish {
+    userOrg = 'egeniq'
     groupId = 'com.github.stfalcon'
     artifactId = 'chatkit'
     publishVersion = '0.3.3'

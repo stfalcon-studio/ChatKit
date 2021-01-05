@@ -16,7 +16,7 @@
 
 package com.stfalcon.chatkit.commons.models;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.stfalcon.chatkit.messages.MessageHolders;
 
 /*

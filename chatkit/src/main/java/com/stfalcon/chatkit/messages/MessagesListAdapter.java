@@ -106,76 +106,68 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
-        boolean isContinuous = false;
-        boolean nextItemIsContinous = false;
-        if (position > 0 && position != items.size() - 1) {
-            isContinuous = isContinuous(items.get(position), items.get(position - 1));
+        boolean isFirstItemInGroup = true;
+        boolean isLastItemInGroup = true;
+        if (position < items.size() - 1) {
+            isFirstItemInGroup = isFirstItemInGroup(items.get(position), items.get(position + 1));
         }
 
-        if (position + 1 < items.size() - 1) {
-            nextItemIsContinous = nextItemIsContinous(items.get(position), items.get(position + 1));
+        if (position > 0) {
+            isLastItemInGroup = isLastItemInGroup(items.get(position), items.get(position - 1));
         }
-        holders.bind(holder, wrapper.item, wrapper.isSelected, isContinuous, nextItemIsContinous, imageLoader,
+        holders.bind(holder, wrapper.item, wrapper.isSelected, isFirstItemInGroup, isLastItemInGroup, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
                 dateHeadersFormatter,
                 viewClickListenersArray);
     }
 
-    private boolean isContinuous(Wrapper currentMsg, Wrapper precedingMsg) {
+    private boolean isFirstItemInGroup(Wrapper currentMsg, Wrapper precedingMsg) {
         // null check
         if (currentMsg == null || precedingMsg == null) {
-            return false;
+            return true;
         }
 
         IUser currentUser, precedingUser;
         if (currentMsg.item instanceof IMessage) {
             currentUser = ((IMessage) currentMsg.item).getUser();
         } else {
-            return false;
+            return true;
         }
         if (precedingMsg.item instanceof IMessage) {
             precedingUser = ((IMessage) precedingMsg.item).getUser();
         } else {
-            return false;
+            return true;
         }
 
-
-        System.out.println(" ------------------ " + (!(currentUser == null || precedingUser == null)
-                && currentUser.getId().equals(precedingUser.getId())));
         // If admin message or
-        return !(currentUser == null || precedingUser == null)
-                && currentUser.getId().equals(precedingUser.getId());
-
-
+        if (currentUser == null || precedingUser == null) return true;
+        return !(currentUser.getId().equals(precedingUser.getId()));
     }
 
-    private boolean nextItemIsContinous(Wrapper currentMsg, Wrapper nextMessage) {
+    private boolean isLastItemInGroup(Wrapper currentMsg, Wrapper nextMessage) {
         // null check
         if (currentMsg == null || nextMessage == null) {
-            return false;
+            return true;
         }
 
-        IUser currentUser, precedingUser;
+        IUser currentUser, nextUser;
         if (currentMsg.item instanceof IMessage) {
             currentUser = ((IMessage) currentMsg.item).getUser();
         } else {
-            return false;
+            return true;
         }
         if (nextMessage.item instanceof IMessage) {
-            precedingUser = ((IMessage) nextMessage.item).getUser();
+            nextUser = ((IMessage) nextMessage.item).getUser();
         } else {
-            return false;
+            return true;
         }
 
-
-        System.out.println(" ------------------ " + (!(currentUser == null || precedingUser == null)
-                && currentUser.getId().equals(precedingUser.getId())));
         // If admin message or
-        return !(currentUser == null || precedingUser == null)
-                && currentUser.getId().equals(precedingUser.getId());
-
-
+        if (currentUser == null || nextUser == null) {
+            return true;
+        }
+        return !currentUser.getId().equals(nextUser.getId());
     }
 
     @Override

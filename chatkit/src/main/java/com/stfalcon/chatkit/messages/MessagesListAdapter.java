@@ -19,8 +19,10 @@ package com.stfalcon.chatkit.messages;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -34,6 +36,7 @@ import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.util.ArrayList;
@@ -103,11 +106,68 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Wrapper wrapper = items.get(position);
-        holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
+        boolean isFirstItemInGroup = true;
+        boolean isLastItemInGroup = true;
+        if (position < items.size() - 1) {
+            isFirstItemInGroup = isFirstItemInGroup(items.get(position), items.get(position + 1));
+        }
+
+        if (position > 0) {
+            isLastItemInGroup = isLastItemInGroup(items.get(position), items.get(position - 1));
+        }
+        holders.bind(holder, wrapper.item, wrapper.isSelected, isFirstItemInGroup, isLastItemInGroup, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
                 dateHeadersFormatter,
                 viewClickListenersArray);
+    }
+
+    private boolean isFirstItemInGroup(Wrapper currentMsg, Wrapper precedingMsg) {
+        // null check
+        if (currentMsg == null || precedingMsg == null) {
+            return true;
+        }
+
+        IUser currentUser, precedingUser;
+        if (currentMsg.item instanceof IMessage) {
+            currentUser = ((IMessage) currentMsg.item).getUser();
+        } else {
+            return true;
+        }
+        if (precedingMsg.item instanceof IMessage) {
+            precedingUser = ((IMessage) precedingMsg.item).getUser();
+        } else {
+            return true;
+        }
+
+        // If admin message or
+        if (currentUser == null || precedingUser == null) return true;
+        return !(currentUser.getId().equals(precedingUser.getId()));
+    }
+
+    private boolean isLastItemInGroup(Wrapper currentMsg, Wrapper nextMessage) {
+        // null check
+        if (currentMsg == null || nextMessage == null) {
+            return true;
+        }
+
+        IUser currentUser, nextUser;
+        if (currentMsg.item instanceof IMessage) {
+            currentUser = ((IMessage) currentMsg.item).getUser();
+        } else {
+            return true;
+        }
+        if (nextMessage.item instanceof IMessage) {
+            nextUser = ((IMessage) nextMessage.item).getUser();
+        } else {
+            return true;
+        }
+
+        // If admin message or
+        if (currentUser == null || nextUser == null) {
+            return true;
+        }
+        return !currentUser.getId().equals(nextUser.getId());
     }
 
     @Override
@@ -155,7 +215,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
         Wrapper<MESSAGE> element = new Wrapper<>(message);
         items.add(0, element);
+        boolean isContinuous = isPreviousSameAuthor(message.getUser().getId(), 0);
         notifyItemRangeInserted(0, isNewMessageToday ? 2 : 1);
+        if (isContinuous) {
+            notifyItemChanged(1);
+        }
         if (layoutManager != null && scroll) {
             layoutManager.scrollToPosition(0);
         }

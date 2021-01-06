@@ -1,8 +1,9 @@
 package com.stfalcon.chatkit.messages;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -564,6 +565,7 @@ public class MessageHolders {
 
     @SuppressWarnings("unchecked")
     protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+                        boolean isContinuous, boolean isLastItemInGroup,
                         final ImageLoader imageLoader,
                         final View.OnClickListener onMessageClickListener,
                         final View.OnLongClickListener onMessageLongClickListener,
@@ -573,6 +575,8 @@ public class MessageHolders {
         if (item instanceof IMessage) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
             ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
+            ((BaseMessageViewHolder) holder).isFirstItemInGroup = isContinuous;
+            ((BaseMessageViewHolder) holder).isLastItemInGroup = isLastItemInGroup;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
             holder.itemView.setOnClickListener(onMessageClickListener);
 
@@ -676,6 +680,9 @@ public class MessageHolders {
 
         boolean isSelected;
 
+        boolean isFirstItemInGroup;
+
+        boolean isLastItemInGroup;
         /**
          * For setting custom data to ViewHolder
          */
@@ -704,6 +711,31 @@ public class MessageHolders {
         public boolean isSelected() {
             return isSelected;
         }
+
+        /**
+         * Returns whether item belongs to the same user
+         *
+         * @return weather item belongs to the same user.
+         */
+        public boolean isFirstItemInGroup() {
+            return isFirstItemInGroup;
+        }
+
+        /**
+         * Returns whether the current item and the next belongs to the same user
+         */
+        public boolean isLastItemInGroup() {
+            return isLastItemInGroup;
+        }
+
+        public List<View> getVisibleViewsForFirstItemInGroup() {
+            return new ArrayList<>();
+        }
+
+        public List<View> getVisibleViewsForLastItemInGroup() {
+            return new ArrayList<>();
+        }
+
 
         /**
          * Returns weather is selection mode enabled
@@ -769,6 +801,26 @@ public class MessageHolders {
             if (text != null) {
                 text.setText(message.getText());
             }
+
+            if (isLastItemInGroup()) {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.GONE);
+                }
+            }
+
+            if (isFirstItemInGroup()) {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.INVISIBLE);
+                }
+            }
         }
 
         @Override
@@ -827,6 +879,26 @@ public class MessageHolders {
 
             if (text != null) {
                 text.setText(message.getText());
+            }
+
+            if (isLastItemInGroup()) {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForLastItemInGroup()) {
+                    continousView.setVisibility(View.GONE);
+                }
+            }
+
+            if (isFirstItemInGroup()) {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                for (View continousView : getVisibleViewsForFirstItemInGroup()) {
+                    continousView.setVisibility(View.INVISIBLE);
+                }
             }
         }
 

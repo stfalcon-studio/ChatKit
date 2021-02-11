@@ -1,8 +1,5 @@
 package com.stfalcon.chatkit.messages;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -13,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -508,8 +509,8 @@ public class MessageHolders {
 
         customContentTypes.add(
                 new MessageHolders.ContentTypeConfig<>(type,
-                        new MessageHolders.HolderConfig<>(incomingHolder, incomingLayout, incomingPayload),
-                        new MessageHolders.HolderConfig<>(outcomingHolder, outcomingLayout, outcomingPayload)));
+                        new HolderConfig<>(incomingHolder, incomingLayout, incomingPayload),
+                        new HolderConfig<>(outcomingHolder, outcomingLayout, outcomingPayload)));
         this.contentChecker = contentChecker;
         return this;
     }
@@ -580,12 +581,7 @@ public class MessageHolders {
                 final int key = clickListenersArray.keyAt(i);
                 final View view = holder.itemView.findViewById(key);
                 if (view != null) {
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickListenersArray.get(key).onMessageViewClick(view, (IMessage) item);
-                        }
-                    });
+                    view.setOnClickListener(v -> clickListenersArray.get(key).onMessageViewClick(view, (IMessage) item));
                 }
             }
         } else if (item instanceof Date) {
@@ -793,8 +789,8 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            bubble = itemView.findViewById(R.id.bubble);
+            text = itemView.findViewById(R.id.messageText);
         }
     }
 
@@ -852,8 +848,8 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            bubble = itemView.findViewById(R.id.bubble);
+            text = itemView.findViewById(R.id.messageText);
         }
     }
 
@@ -913,7 +909,7 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = itemView.findViewById(R.id.image);
             imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
             if (image instanceof RoundedImageView) {
@@ -983,7 +979,7 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = itemView.findViewById(R.id.image);
             imageOverlay = itemView.findViewById(R.id.imageOverlay);
 
             if (image instanceof RoundedImageView) {
@@ -1009,7 +1005,7 @@ public class MessageHolders {
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = itemView.findViewById(R.id.messageText);
         }
 
         @Override
@@ -1089,8 +1085,8 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            time = (TextView) itemView.findViewById(R.id.messageTime);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+            time = itemView.findViewById(R.id.messageTime);
+            userAvatar = itemView.findViewById(R.id.messageUserAvatar);
         }
     }
 
@@ -1130,7 +1126,7 @@ public class MessageHolders {
         }
 
         private void init(View itemView) {
-            time = (TextView) itemView.findViewById(R.id.messageTime);
+            time = itemView.findViewById(R.id.messageTime);
         }
     }
 
@@ -1189,7 +1185,7 @@ public class MessageHolders {
         }
     }
 
-    private class HolderConfig<T extends IMessage> {
+    private static class HolderConfig<T extends IMessage> {
 
         protected Class<? extends BaseMessageViewHolder<? extends T>> holder;
         protected int layout;

@@ -30,10 +30,10 @@ public class StyledMessagesActivity extends DemoMessagesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_styled_messages);
 
-        messagesList = (MessagesList) findViewById(R.id.messagesList);
+        messagesList = findViewById(R.id.messagesList);
         initAdapter();
 
-        MessageInput input = (MessageInput) findViewById(R.id.input);
+        MessageInput input = findViewById(R.id.input);
         input.setInputListener(this);
         input.setAttachmentsListener(this);
     }

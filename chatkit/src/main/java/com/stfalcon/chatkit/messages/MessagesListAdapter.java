@@ -19,8 +19,6 @@ package com.stfalcon.chatkit.messages;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
@@ -29,6 +27,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -617,39 +618,32 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     private View.OnClickListener getMessageClickListener(final Wrapper<MESSAGE> wrapper) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectionListener != null && isSelectionModeEnabled) {
-                    wrapper.isSelected = !wrapper.isSelected;
+        return view -> {
+            if (selectionListener != null && isSelectionModeEnabled) {
+                wrapper.isSelected = !wrapper.isSelected;
 
-                    if (wrapper.isSelected) incrementSelectedItemsCount();
-                    else decrementSelectedItemsCount();
+                if (wrapper.isSelected) incrementSelectedItemsCount();
+                else decrementSelectedItemsCount();
 
-                    MESSAGE message = (wrapper.item);
-                    notifyItemChanged(getMessagePositionById(message.getId()));
-                } else {
-                    notifyMessageClicked(wrapper.item);
-                    notifyMessageViewClicked(view, wrapper.item);
-                }
+                MESSAGE message = (wrapper.item);
+                notifyItemChanged(getMessagePositionById(message.getId()));
+            } else {
+                notifyMessageClicked(wrapper.item);
+                notifyMessageViewClicked(view, wrapper.item);
             }
         };
     }
 
     private View.OnLongClickListener getMessageLongClickListener(final Wrapper<MESSAGE> wrapper) {
-        return new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (selectionListener == null) {
-                    notifyMessageLongClicked(wrapper.item);
-                    notifyMessageViewLongClicked(view, wrapper.item);
-                    return true;
-                } else {
-                    isSelectionModeEnabled = true;
-                    view.performClick();
-                    return true;
-                }
+        return view -> {
+            if (selectionListener == null) {
+                notifyMessageLongClicked(wrapper.item);
+                notifyMessageViewLongClicked(view, wrapper.item);
+            } else {
+                isSelectionModeEnabled = true;
+                view.performClick();
             }
+            return true;
         };
     }
 
@@ -687,7 +681,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     /*
      * WRAPPER
      * */
-    public class Wrapper<DATA> {
+    public static class Wrapper<DATA> {
         public DATA item;
         public boolean isSelected;
 
@@ -948,7 +942,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = itemView.findViewById(R.id.messageText);
         }
 
         @Override

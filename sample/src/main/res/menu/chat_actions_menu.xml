@@ -1,16 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_delete"
         android:icon="@drawable/ic_action_delete"
         android:title="@string/action_delete"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_copy"
         android:icon="@drawable/ic_action_copy"
         android:title="@string/action_copy"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

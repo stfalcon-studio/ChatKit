@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
-import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
@@ -31,10 +29,10 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_messages);
 
-        this.messagesList = (MessagesList) findViewById(R.id.messagesList);
+        this.messagesList = findViewById(R.id.messagesList);
         initAdapter();
 
-        MessageInput input = (MessageInput) findViewById(R.id.input);
+        MessageInput input = findViewById(R.id.input);
         input.setInputListener(this);
         input.setTypingListener(this);
         input.setAttachmentsListener(this);
@@ -58,14 +56,9 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
         super.messagesAdapter.enableSelectionMode(this);
         super.messagesAdapter.setLoadMoreListener(this);
         super.messagesAdapter.registerViewClickListener(R.id.messageUserAvatar,
-                new MessagesListAdapter.OnMessageViewClickListener<Message>() {
-                    @Override
-                    public void onMessageViewClick(View view, Message message) {
-                        AppUtils.showToast(DefaultMessagesActivity.this,
-                                message.getUser().getName() + " avatar click",
-                                false);
-                    }
-                });
+                (view, message) -> AppUtils.showToast(DefaultMessagesActivity.this,
+                        message.getUser().getName() + " avatar click",
+                        false));
         this.messagesList.setAdapter(super.messagesAdapter);
     }
 

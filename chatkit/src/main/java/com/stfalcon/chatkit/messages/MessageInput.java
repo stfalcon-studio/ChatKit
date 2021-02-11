@@ -19,8 +19,6 @@ package com.stfalcon.chatkit.messages;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.Space;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -29,7 +27,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
+
+import androidx.core.view.ViewCompat;
 
 import com.stfalcon.chatkit.R;
 
@@ -226,11 +227,11 @@ public class MessageInput extends RelativeLayout
     private void init(Context context) {
         inflate(context, R.layout.view_message_input, this);
 
-        messageInput = (EditText) findViewById(R.id.messageInput);
-        messageSendButton = (ImageButton) findViewById(R.id.messageSendButton);
-        attachmentButton = (ImageButton) findViewById(R.id.attachmentButton);
-        sendButtonSpace = (Space) findViewById(R.id.sendButtonSpace);
-        attachmentButtonSpace = (Space) findViewById(R.id.attachmentButtonSpace);
+        messageInput = findViewById(R.id.messageInput);
+        messageSendButton = findViewById(R.id.messageSendButton);
+        attachmentButton = findViewById(R.id.attachmentButton);
+        sendButtonSpace = findViewById(R.id.sendButtonSpace);
+        attachmentButtonSpace = findViewById(R.id.attachmentButtonSpace);
 
         messageSendButton.setOnClickListener(this);
         attachmentButton.setOnClickListener(this);

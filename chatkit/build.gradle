@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         minSdkVersion 14
@@ -15,6 +15,11 @@ android {
         lintOptions {
             abortOnError false
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -28,15 +33,11 @@ publish {
     website = 'https://github.com/stfalcon-studio/ChatKit.git'
 }
 
-ext {
-    supportVersion = '27.1.1'
-    flexboxVersion = '1.0.0'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:design:$supportVersion"
-    implementation "com.google.android:flexbox:$flexboxVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation "com.google.android:flexbox:1.0.0"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

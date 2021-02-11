@@ -28,7 +28,7 @@ public class StyledDialogsActivity extends DemoDialogsActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_styled_dialogs);
 
-        dialogsList = (DialogsList) findViewById(R.id.dialogsList);
+        dialogsList = findViewById(R.id.dialogsList);
         initAdapter();
     }
 

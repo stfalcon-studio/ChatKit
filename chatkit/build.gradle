@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 29
@@ -8,7 +8,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         versionCode 1
-        versionName "0.3.3"
+        versionName '0.4.0'
         consumerProguardFiles 'proguard.txt'
     }
     android {
@@ -21,16 +21,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
-publish {
-    groupId = 'com.github.stfalcon'
-    artifactId = 'chatkit'
-    publishVersion = '0.3.3'
-    desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
-    licences = ['Apache-2.0']
-    uploadName = 'ChatKit'
-    website = 'https://github.com/stfalcon-studio/ChatKit.git'
+    afterEvaluate {
+        publishing {
+            publications {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    // Applies the component for the release build variant.
+                    from components.release
+
+                    // You can then customize attributes of the publication as shown below.
+                    groupId = 'com.github.stfalcon'
+                    artifactId = 'chatkit'
+                    version = '0.4.0'
+                }
+            }
+        }
+    }
 }
 
 dependencies {

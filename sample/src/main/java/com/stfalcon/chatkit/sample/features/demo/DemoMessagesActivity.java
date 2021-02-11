@@ -43,7 +43,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        imageLoader = (imageView, url, payload) -> Picasso.with(DemoMessagesActivity.this).load(url).into(imageView);
+        imageLoader = (imageView, url, payload) -> Picasso.get().load(url).into(imageView);
     }
 
     @Override

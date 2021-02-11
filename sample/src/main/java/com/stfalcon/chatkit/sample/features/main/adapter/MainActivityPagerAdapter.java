@@ -19,10 +19,10 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     public static final int ID_CUSTOM_VIEW_HOLDER = 3;
     public static final int ID_CUSTOM_CONTENT = 4;
 
-    private Context context;
+    private final Context context;
 
     public MainActivityPagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;
     }
 

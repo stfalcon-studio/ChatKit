@@ -41,19 +41,21 @@ To implement all of the features above you can use the following components:
 
 ### Download
 
-Download via Gradle:
-```gradle
-compile 'com.github.stfalcon:chatkit:0.3.3'
+1. Add jitpack to the root build.gradle file of your project at the end of repositories.
 ```
-
-or Maven:
-```xml
-<dependency>
-  <groupId>com.github.stfalcon</groupId>
-  <artifactId>chatkit</artifactId>
-  <version>0.3.3</version>
-  <type>pom</type>
-</dependency>
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
+```
+2. Add the dependency
+```
+dependencies {
+  ...
+  implementation 'com.github.stfalcon:chatkit:[last_version]'
+}  
 ```
 
 ### AndroidX

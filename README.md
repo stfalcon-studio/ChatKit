@@ -51,6 +51,7 @@ allprojects {
 }
 ```
 2. Add the dependency
+[![](https://jitpack.io/v/stfalcon-studio/Chatkit.svg)](https://jitpack.io/#stfalcon-studio/Chatkit)
 ```
 dependencies {
   ...

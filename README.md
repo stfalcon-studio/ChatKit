@@ -55,7 +55,7 @@ allprojects {
 ```
 dependencies {
   ...
-  implementation 'com.github.stfalcon:chatkit:[last_version]'
+  implementation 'com.github.stfalcon-studio:Chatkit:[last_version]'
 }  
 ```
 

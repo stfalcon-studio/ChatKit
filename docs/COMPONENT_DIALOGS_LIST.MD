@@ -221,7 +221,7 @@ But what if changing appearance is not enough? Not a problem, create your own la
 * `@id/dialogDividerContainer` (ViewGroup)
 * `@id/dialogDivider` (View)
 
-For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_dialog_custom.xml).
+For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_custom_dialog.xml).
 
 After creating layout you need to transfer it to the adapter’s constructor.
 ```java

@@ -62,4 +62,8 @@ public class Dialog implements IDialog<Message> {
     public int getUnreadCount() {
         return unreadCount;
     }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
+    }
 }

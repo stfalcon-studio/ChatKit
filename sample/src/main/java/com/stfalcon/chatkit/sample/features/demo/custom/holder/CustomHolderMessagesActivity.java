@@ -3,6 +3,7 @@ package com.stfalcon.chatkit.sample.features.demo.custom.holder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessageInput;
@@ -34,10 +35,10 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_holder_messages);
 
-        messagesList = (MessagesList) findViewById(R.id.messagesList);
+        messagesList = findViewById(R.id.messagesList);
         initAdapter();
 
-        MessageInput input = (MessageInput) findViewById(R.id.input);
+        MessageInput input = findViewById(R.id.input);
         input.setInputListener(this);
         input.setAttachmentsListener(this);
     }
@@ -60,10 +61,18 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
     }
 
     private void initAdapter() {
+
+        //We can pass any data to ViewHolder with payload
+        CustomIncomingTextMessageViewHolder.Payload payload = new CustomIncomingTextMessageViewHolder.Payload();
+        //For example click listener
+        payload.avatarClickListener = () -> Toast.makeText(CustomHolderMessagesActivity.this,
+                "Text message avatar clicked", Toast.LENGTH_SHORT).show();
+
         MessageHolders holdersConfig = new MessageHolders()
                 .setIncomingTextConfig(
                         CustomIncomingTextMessageViewHolder.class,
-                        R.layout.item_custom_incoming_text_message)
+                        R.layout.item_custom_incoming_text_message,
+                        payload)
                 .setOutcomingTextConfig(
                         CustomOutcomingTextMessageViewHolder.class,
                         R.layout.item_custom_outcoming_text_message)

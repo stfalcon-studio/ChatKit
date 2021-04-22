@@ -1,10 +1,8 @@
 package com.stfalcon.chatkit.messages;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -29,6 +31,7 @@ import java.util.List;
 /*
  * Created by troy379 on 31.03.17.
  */
+@SuppressWarnings("WeakerAccess")
 public class MessageHolders {
 
     private static final short VIEW_TYPE_DATE_HEADER = 130;
@@ -72,6 +75,24 @@ public class MessageHolders {
     }
 
     /**
+     * Sets both of custom view holder class and layout resource for incoming text message.
+     *
+     * @param holder  holder class.
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingTextConfig(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @LayoutRes int layout,
+            Object payload) {
+        this.incomingTextConfig.holder = holder;
+        this.incomingTextConfig.layout = layout;
+        this.incomingTextConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom view holder class for incoming text message.
      *
      * @param holder holder class.
@@ -84,6 +105,21 @@ public class MessageHolders {
     }
 
     /**
+     * Sets custom view holder class for incoming text message.
+     *
+     * @param holder  holder class.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingTextHolder(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            Object payload) {
+        this.incomingTextConfig.holder = holder;
+        this.incomingTextConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom layout resource for incoming text message.
      *
      * @param layout layout resource.
@@ -91,6 +127,19 @@ public class MessageHolders {
      */
     public MessageHolders setIncomingTextLayout(@LayoutRes int layout) {
         this.incomingTextConfig.layout = layout;
+        return this;
+    }
+
+    /**
+     * Sets custom layout resource for incoming text message.
+     *
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingTextLayout(@LayoutRes int layout, Object payload) {
+        this.incomingTextConfig.layout = layout;
+        this.incomingTextConfig.payload = payload;
         return this;
     }
 
@@ -110,6 +159,24 @@ public class MessageHolders {
     }
 
     /**
+     * Sets both of custom view holder class and layout resource for outcoming text message.
+     *
+     * @param holder  holder class.
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingTextConfig(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @LayoutRes int layout,
+            Object payload) {
+        this.outcomingTextConfig.holder = holder;
+        this.outcomingTextConfig.layout = layout;
+        this.outcomingTextConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom view holder class for outcoming text message.
      *
      * @param holder holder class.
@@ -122,6 +189,21 @@ public class MessageHolders {
     }
 
     /**
+     * Sets custom view holder class for outcoming text message.
+     *
+     * @param holder  holder class.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingTextHolder(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            Object payload) {
+        this.outcomingTextConfig.holder = holder;
+        this.outcomingTextConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom layout resource for outcoming text message.
      *
      * @param layout layout resource.
@@ -129,6 +211,19 @@ public class MessageHolders {
      */
     public MessageHolders setOutcomingTextLayout(@LayoutRes int layout) {
         this.outcomingTextConfig.layout = layout;
+        return this;
+    }
+
+    /**
+     * Sets custom layout resource for outcoming text message.
+     *
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingTextLayout(@LayoutRes int layout, Object payload) {
+        this.outcomingTextConfig.layout = layout;
+        this.outcomingTextConfig.payload = payload;
         return this;
     }
 
@@ -148,6 +243,24 @@ public class MessageHolders {
     }
 
     /**
+     * Sets both of custom view holder class and layout resource for incoming image message.
+     *
+     * @param holder  holder class.
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingImageConfig(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
+            @LayoutRes int layout,
+            Object payload) {
+        this.incomingImageConfig.holder = holder;
+        this.incomingImageConfig.layout = layout;
+        this.incomingImageConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom view holder class for incoming image message.
      *
      * @param holder holder class.
@@ -160,6 +273,21 @@ public class MessageHolders {
     }
 
     /**
+     * Sets custom view holder class for incoming image message.
+     *
+     * @param holder  holder class.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingImageHolder(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
+            Object payload) {
+        this.incomingImageConfig.holder = holder;
+        this.incomingImageConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom layout resource for incoming image message.
      *
      * @param layout layout resource.
@@ -167,6 +295,19 @@ public class MessageHolders {
      */
     public MessageHolders setIncomingImageLayout(@LayoutRes int layout) {
         this.incomingImageConfig.layout = layout;
+        return this;
+    }
+
+    /**
+     * Sets custom layout resource for incoming image message.
+     *
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setIncomingImageLayout(@LayoutRes int layout, Object payload) {
+        this.incomingImageConfig.layout = layout;
+        this.incomingImageConfig.payload = payload;
         return this;
     }
 
@@ -186,6 +327,24 @@ public class MessageHolders {
     }
 
     /**
+     * Sets both of custom view holder class and layout resource for outcoming image message.
+     *
+     * @param holder  holder class.
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingImageConfig(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
+            @LayoutRes int layout,
+            Object payload) {
+        this.outcomingImageConfig.holder = holder;
+        this.outcomingImageConfig.layout = layout;
+        this.outcomingImageConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom view holder class for outcoming image message.
      *
      * @param holder holder class.
@@ -198,6 +357,21 @@ public class MessageHolders {
     }
 
     /**
+     * Sets custom view holder class for outcoming image message.
+     *
+     * @param holder  holder class.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingImageHolder(
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
+            Object payload) {
+        this.outcomingImageConfig.holder = holder;
+        this.outcomingImageConfig.payload = payload;
+        return this;
+    }
+
+    /**
      * Sets custom layout resource for outcoming image message.
      *
      * @param layout layout resource.
@@ -205,6 +379,19 @@ public class MessageHolders {
      */
     public MessageHolders setOutcomingImageLayout(@LayoutRes int layout) {
         this.outcomingImageConfig.layout = layout;
+        return this;
+    }
+
+    /**
+     * Sets custom layout resource for outcoming image message.
+     *
+     * @param layout  layout resource.
+     * @param payload custom data.
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public MessageHolders setOutcomingImageLayout(@LayoutRes int layout, Object payload) {
+        this.outcomingImageConfig.layout = layout;
+        this.outcomingImageConfig.payload = payload;
         return this;
     }
 
@@ -297,9 +484,40 @@ public class MessageHolders {
         return this;
     }
 
+    /**
+     * Registers custom content type (e.g. multimedia, events etc.)
+     *
+     * @param type             unique id for content type
+     * @param incomingHolder   holder class for incoming message
+     * @param outcomingHolder  holder class for outcoming message
+     * @param incomingPayload  payload for incoming message
+     * @param outcomingPayload payload for outcoming message
+     * @param incomingLayout   layout resource for incoming message
+     * @param outcomingLayout  layout resource for outcoming message
+     * @param contentChecker   {@link MessageHolders.ContentChecker} for registered type
+     * @return {@link MessageHolders} for subsequent configuration.
+     */
+    public <TYPE extends MessageContentType>
+    MessageHolders registerContentType(
+            byte type,
+            @NonNull Class<? extends MessageHolders.BaseMessageViewHolder<TYPE>> incomingHolder, Object incomingPayload, @LayoutRes int incomingLayout,
+            @NonNull Class<? extends MessageHolders.BaseMessageViewHolder<TYPE>> outcomingHolder, Object outcomingPayload, @LayoutRes int outcomingLayout,
+            @NonNull MessageHolders.ContentChecker contentChecker) {
+
+        if (type == 0)
+            throw new IllegalArgumentException("content type must be greater or less than '0'!");
+
+        customContentTypes.add(
+                new MessageHolders.ContentTypeConfig<>(type,
+                        new HolderConfig<>(incomingHolder, incomingLayout, incomingPayload),
+                        new HolderConfig<>(outcomingHolder, outcomingLayout, outcomingPayload)));
+        this.contentChecker = contentChecker;
+        return this;
+    }
+
     /*
-    * INTERFACES
-    * */
+     * INTERFACES
+     * */
 
     /**
      * The interface, which contains logic for checking the availability of content.
@@ -317,13 +535,13 @@ public class MessageHolders {
     }
 
     /*
-    * PRIVATE METHODS
-    * */
+     * PRIVATE METHODS
+     * */
 
-    ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
+    protected ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
         switch (viewType) {
             case VIEW_TYPE_DATE_HEADER:
-                return getHolder(parent, dateHeaderLayout, dateHeaderHolder, messagesListStyle);
+                return getHolder(parent, dateHeaderLayout, dateHeaderHolder, messagesListStyle, null);
             case VIEW_TYPE_TEXT_MESSAGE:
                 return getHolder(parent, incomingTextConfig, messagesListStyle);
             case -VIEW_TYPE_TEXT_MESSAGE:
@@ -346,16 +564,26 @@ public class MessageHolders {
     }
 
     @SuppressWarnings("unchecked")
-    void bind(ViewHolder holder, Object item, boolean isSelected, ImageLoader imageLoader,
-              View.OnClickListener onMessageClickListener,
-              View.OnLongClickListener onMessageLongClickListener,
-              DateFormatter.Formatter dateHeadersFormatter) {
+    protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+                        final ImageLoader imageLoader,
+                        final View.OnClickListener onMessageClickListener,
+                        final View.OnLongClickListener onMessageLongClickListener,
+                        final DateFormatter.Formatter dateHeadersFormatter,
+                        final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
 
         if (item instanceof IMessage) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
             ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
             holder.itemView.setOnClickListener(onMessageClickListener);
+
+            for (int i = 0; i < clickListenersArray.size(); i++) {
+                final int key = clickListenersArray.keyAt(i);
+                final View view = holder.itemView.findViewById(key);
+                if (view != null) {
+                    view.setOnClickListener(v -> clickListenersArray.get(key).onMessageViewClick(view, (IMessage) item));
+                }
+            }
         } else if (item instanceof Date) {
             ((MessageHolders.DefaultDateHeaderViewHolder) holder).dateHeadersFormatter = dateHeadersFormatter;
         }
@@ -364,7 +592,7 @@ public class MessageHolders {
     }
 
 
-    int getViewType(Object item, String senderId) {
+    protected int getViewType(Object item, String senderId) {
         boolean isOutcoming = false;
         int viewType;
 
@@ -378,24 +606,34 @@ public class MessageHolders {
         return isOutcoming ? viewType * -1 : viewType;
     }
 
-    private ViewHolder getHolder(ViewGroup parent, HolderConfig holderConfig, MessagesListStyle style) {
-        return getHolder(parent, holderConfig.layout, holderConfig.holder, style);
+    private ViewHolder getHolder(ViewGroup parent, HolderConfig holderConfig,
+                                 MessagesListStyle style) {
+        return getHolder(parent, holderConfig.layout, holderConfig.holder, style, holderConfig.payload);
     }
 
     private <HOLDER extends ViewHolder>
-    ViewHolder getHolder(ViewGroup parent, @LayoutRes int layout, Class<HOLDER> holderClass, MessagesListStyle style) {
+    ViewHolder getHolder(ViewGroup parent, @LayoutRes int layout, Class<HOLDER> holderClass,
+                         MessagesListStyle style, Object payload) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         try {
-            Constructor<HOLDER> constructor = holderClass.getDeclaredConstructor(View.class);
-            constructor.setAccessible(true);
-            HOLDER holder = constructor.newInstance(v);
+            Constructor<HOLDER> constructor = null;
+            HOLDER holder;
+            try {
+                constructor = holderClass.getDeclaredConstructor(View.class, Object.class);
+                constructor.setAccessible(true);
+                holder = constructor.newInstance(v, payload);
+            } catch (NoSuchMethodException e) {
+                constructor = holderClass.getDeclaredConstructor(View.class);
+                constructor.setAccessible(true);
+                holder = constructor.newInstance(v);
+            }
             if (holder instanceof DefaultMessageViewHolder && style != null) {
                 ((DefaultMessageViewHolder) holder).applyStyle(style);
             }
             return holder;
         } catch (Exception e) {
-            throw new RuntimeException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
+            throw new UnsupportedOperationException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
         }
     }
 
@@ -423,8 +661,8 @@ public class MessageHolders {
     }
 
     /*
-    * HOLDERS
-    * */
+     * HOLDERS
+     * */
 
     /**
      * The base class for view holders for incoming and outcoming message.
@@ -435,12 +673,23 @@ public class MessageHolders {
         boolean isSelected;
 
         /**
+         * For setting custom data to ViewHolder
+         */
+        protected Object payload;
+
+        /**
          * Callback for implementing images loading in message list
          */
-        ImageLoader imageLoader;
+        protected ImageLoader imageLoader;
 
+        @Deprecated
         public BaseMessageViewHolder(View itemView) {
             super(itemView);
+        }
+
+        public BaseMessageViewHolder(View itemView, Object payload) {
+            super(itemView);
+            this.payload = payload;
         }
 
         /**
@@ -484,7 +733,6 @@ public class MessageHolders {
                 }
             });
         }
-
     }
 
     /**
@@ -496,10 +744,15 @@ public class MessageHolders {
         protected ViewGroup bubble;
         protected TextView text;
 
+        @Deprecated
         public IncomingTextMessageViewHolder(View itemView) {
             super(itemView);
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            init(itemView);
+        }
+
+        public IncomingTextMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
@@ -534,6 +787,11 @@ public class MessageHolders {
                 configureLinksBehavior(text);
             }
         }
+
+        private void init(View itemView) {
+            bubble = itemView.findViewById(R.id.bubble);
+            text = itemView.findViewById(R.id.messageText);
+        }
     }
 
     /**
@@ -545,10 +803,15 @@ public class MessageHolders {
         protected ViewGroup bubble;
         protected TextView text;
 
+        @Deprecated
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
-            bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            init(itemView);
+        }
+
+        public OutcomingTextMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
@@ -583,6 +846,11 @@ public class MessageHolders {
                 configureLinksBehavior(text);
             }
         }
+
+        private void init(View itemView) {
+            bubble = itemView.findViewById(R.id.bubble);
+            text = itemView.findViewById(R.id.messageText);
+        }
     }
 
     /**
@@ -594,26 +862,22 @@ public class MessageHolders {
         protected ImageView image;
         protected View imageOverlay;
 
+        @Deprecated
         public IncomingImageMessageViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            imageOverlay = itemView.findViewById(R.id.imageOverlay);
+            init(itemView);
+        }
 
-            if (image != null && image instanceof RoundedImageView) {
-                ((RoundedImageView) image).setCorners(
-                        R.dimen.message_bubble_corners_radius,
-                        R.dimen.message_bubble_corners_radius,
-                        R.dimen.message_bubble_corners_radius,
-                        0
-                );
-            }
+        public IncomingImageMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                imageLoader.loadImage(image, message.getImageUrl(), getPayloadForImageLoader(message));
             }
 
             if (imageOverlay != null) {
@@ -634,6 +898,29 @@ public class MessageHolders {
                 ViewCompat.setBackground(imageOverlay, style.getIncomingImageOverlayDrawable());
             }
         }
+
+        /**
+         * Override this method to have ability to pass custom data in ImageLoader for loading image(not avatar).
+         *
+         * @param message Message with image
+         */
+        protected Object getPayloadForImageLoader(MESSAGE message) {
+            return null;
+        }
+
+        private void init(View itemView) {
+            image = itemView.findViewById(R.id.image);
+            imageOverlay = itemView.findViewById(R.id.imageOverlay);
+
+            if (image instanceof RoundedImageView) {
+                ((RoundedImageView) image).setCorners(
+                        R.dimen.message_bubble_corners_radius,
+                        R.dimen.message_bubble_corners_radius,
+                        R.dimen.message_bubble_corners_radius,
+                        0
+                );
+            }
+        }
     }
 
     /**
@@ -645,26 +932,22 @@ public class MessageHolders {
         protected ImageView image;
         protected View imageOverlay;
 
+        @Deprecated
         public OutcomingImageMessageViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            imageOverlay = itemView.findViewById(R.id.imageOverlay);
+            init(itemView);
+        }
 
-            if (image != null && image instanceof RoundedImageView) {
-                ((RoundedImageView) image).setCorners(
-                        R.dimen.message_bubble_corners_radius,
-                        R.dimen.message_bubble_corners_radius,
-                        0,
-                        R.dimen.message_bubble_corners_radius
-                );
-            }
+        public OutcomingImageMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
         public void onBind(MESSAGE message) {
             super.onBind(message);
             if (image != null && imageLoader != null) {
-                imageLoader.loadImage(image, message.getImageUrl());
+                imageLoader.loadImage(image, message.getImageUrl(), getPayloadForImageLoader(message));
             }
 
             if (imageOverlay != null) {
@@ -685,6 +968,29 @@ public class MessageHolders {
                 ViewCompat.setBackground(imageOverlay, style.getOutcomingImageOverlayDrawable());
             }
         }
+
+        /**
+         * Override this method to have ability to pass custom data in ImageLoader for loading image(not avatar).
+         *
+         * @param message Message with image
+         */
+        protected Object getPayloadForImageLoader(MESSAGE message) {
+            return null;
+        }
+
+        private void init(View itemView) {
+            image = itemView.findViewById(R.id.image);
+            imageOverlay = itemView.findViewById(R.id.imageOverlay);
+
+            if (image instanceof RoundedImageView) {
+                ((RoundedImageView) image).setCorners(
+                        R.dimen.message_bubble_corners_radius,
+                        R.dimen.message_bubble_corners_radius,
+                        0,
+                        R.dimen.message_bubble_corners_radius
+                );
+            }
+        }
     }
 
     /**
@@ -699,7 +1005,7 @@ public class MessageHolders {
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = itemView.findViewById(R.id.messageText);
         }
 
         @Override
@@ -734,10 +1040,15 @@ public class MessageHolders {
         protected TextView time;
         protected ImageView userAvatar;
 
+        @Deprecated
         public BaseIncomingMessageViewHolder(View itemView) {
             super(itemView);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
-            userAvatar = (ImageView) itemView.findViewById(R.id.messageUserAvatar);
+            init(itemView);
+        }
+
+        public BaseIncomingMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
@@ -753,7 +1064,7 @@ public class MessageHolders {
 
                 userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
                 if (isAvatarExists) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar());
+                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar(), null);
                 }
             }
         }
@@ -772,6 +1083,11 @@ public class MessageHolders {
             }
 
         }
+
+        private void init(View itemView) {
+            time = itemView.findViewById(R.id.messageTime);
+            userAvatar = itemView.findViewById(R.id.messageUserAvatar);
+        }
     }
 
     /**
@@ -782,9 +1098,15 @@ public class MessageHolders {
 
         protected TextView time;
 
+        @Deprecated
         public BaseOutcomingMessageViewHolder(View itemView) {
             super(itemView);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
+            init(itemView);
+        }
+
+        public BaseOutcomingMessageViewHolder(View itemView, Object payload) {
+            super(itemView, payload);
+            init(itemView);
         }
 
         @Override
@@ -802,11 +1124,15 @@ public class MessageHolders {
                 time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
             }
         }
+
+        private void init(View itemView) {
+            time = itemView.findViewById(R.id.messageTime);
+        }
     }
 
     /*
-    * DEFAULTS
-    * */
+     * DEFAULTS
+     * */
 
     interface DefaultMessageViewHolder {
         void applyStyle(MessagesListStyle style);
@@ -816,7 +1142,7 @@ public class MessageHolders {
             extends IncomingTextMessageViewHolder<IMessage> {
 
         public DefaultIncomingTextMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -824,7 +1150,7 @@ public class MessageHolders {
             extends OutcomingTextMessageViewHolder<IMessage> {
 
         public DefaultOutcomingTextMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -832,7 +1158,7 @@ public class MessageHolders {
             extends IncomingImageMessageViewHolder<MessageContentType.Image> {
 
         public DefaultIncomingImageMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -840,7 +1166,7 @@ public class MessageHolders {
             extends OutcomingImageMessageViewHolder<MessageContentType.Image> {
 
         public DefaultOutcomingImageMessageViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, null);
         }
     }
 
@@ -859,14 +1185,21 @@ public class MessageHolders {
         }
     }
 
-    private class HolderConfig<T extends IMessage> {
+    private static class HolderConfig<T extends IMessage> {
 
-        Class<? extends BaseMessageViewHolder<? extends T>> holder;
-        int layout;
+        protected Class<? extends BaseMessageViewHolder<? extends T>> holder;
+        protected int layout;
+        protected Object payload;
 
         HolderConfig(Class<? extends BaseMessageViewHolder<? extends T>> holder, int layout) {
             this.holder = holder;
             this.layout = layout;
+        }
+
+        HolderConfig(Class<? extends BaseMessageViewHolder<? extends T>> holder, int layout, Object payload) {
+            this.holder = holder;
+            this.layout = layout;
+            this.payload = payload;
         }
     }
 }

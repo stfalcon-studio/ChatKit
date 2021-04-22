@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
         app:incomingAvatarWidth="56dp"
         app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
         app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
-        app:outcomingTimeTextColor="@color/gray_dark_transparent"/>
+        app:outcomingTimeTextColor="@color/gray_dark_transparent" />
 
     <View
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
         android:layout_above="@+id/input"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/gray_light"/>
+        android:background="@color/gray_light" />
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
@@ -38,6 +37,6 @@
         app:inputButtonDefaultIconColor="@color/white"
         app:inputButtonDefaultIconDisabledColor="@color/white60"
         app:inputHint="@string/hint_enter_a_message"
-        app:showAttachmentButton="true"/>
+        app:showAttachmentButton="true" />
 
 </RelativeLayout>

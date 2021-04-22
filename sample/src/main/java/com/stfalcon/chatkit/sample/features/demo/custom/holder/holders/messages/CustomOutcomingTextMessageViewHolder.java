@@ -8,8 +8,8 @@ import com.stfalcon.chatkit.sample.common.data.model.Message;
 public class CustomOutcomingTextMessageViewHolder
         extends MessageHolders.OutcomingTextMessageViewHolder<Message> {
 
-    public CustomOutcomingTextMessageViewHolder(View itemView) {
-        super(itemView);
+    public CustomOutcomingTextMessageViewHolder(View itemView, Object payload) {
+        super(itemView, payload);
     }
 
     @Override

@@ -1,6 +1,6 @@
-[ ![Download](https://api.bintray.com/packages/troy379/maven/ChatKit/images/download.svg) ](https://bintray.com/troy379/maven/ChatKit/_latestVersion)
-
 # ChatKit for Android
+
+[![](https://jitpack.io/v/stfalcon-studio/Chatkit.svg)](https://jitpack.io/#stfalcon-studio/Chatkit)
 
 ChatKit is a library designed to simplify the development of UI for such a trivial task as chat. It has flexible possibilities for styling, customizing and data management
 
@@ -41,19 +41,50 @@ To implement all of the features above you can use the following components:
 
 ### Download
 
-Download via Gradle:
-```gradle
-compile 'com.github.stfalcon:chatkit:0.2.0'
+1. Add jitpack to the root build.gradle file of your project at the end of repositories.
+```
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
+```
+2. Add the dependency
+[![](https://jitpack.io/v/stfalcon-studio/Chatkit.svg)](https://jitpack.io/#stfalcon-studio/Chatkit)
+```
+dependencies {
+  ...
+  implementation 'com.github.stfalcon-studio:Chatkit:[last_version]'
+}  
 ```
 
-or Maven:
-```xml
-<dependency>
-  <groupId>com.github.stfalcon</groupId>
-  <artifactId>chatkit</artifactId>
-  <version>0.2.0</version>
-  <type>pom</type>
-</dependency>
+### AndroidX
+To use with AndroidX you have to set targetSdkVersion for your project to 28 and add following 2 lines in ```gradle.properties``` file.
+```
+android.useAndroidX=true
+android.enableJetifier=true
+```
+
+### Proguard
+If you are using ProGuard you might need to add rules:
+```
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutcomingTextMessageViewHolder {
+     public <init>(android.view.View, java.lang.Object);
+     public <init>(android.view.View);
+ }
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$IncomingTextMessageViewHolder {
+     public <init>(android.view.View, java.lang.Object);
+     public <init>(android.view.View);
+ }
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$IncomingImageMessageViewHolder {
+     public <init>(android.view.View, java.lang.Object);
+     public <init>(android.view.View);
+ }
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutcomingImageMessageViewHolder {
+     public <init>(android.view.View, java.lang.Object);
+     public <init>(android.view.View);
+ }
 ```
 
 ### Try it
@@ -79,7 +110,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://github.com/stfalcon-studio/ChatKit/blob/master/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

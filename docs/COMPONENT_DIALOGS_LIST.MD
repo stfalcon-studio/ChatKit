@@ -36,7 +36,7 @@ dialogsListView.setAdapter(dialogsListAdapter);
 
 #### Prepare your model
 
-To be able to add dialog, you must implement the `IDealog` interface to your existing model and override its methods:
+To be able to add dialog, you must implement the `IDialog` interface to your existing model and override its methods:
 
 ```java
 public class DefaultDialog implements IDialog {
@@ -113,8 +113,9 @@ When your models are ready to be used by adapter, you can simply add them to the
 
 * adapter.setItems(List<DIALOG> items) - replaces existing list with a new dialog list;
 * adapter.addItems(List<DIALOG> items) - adds a new dialog list to the end of the list;
-* adapter.addItem(DIALOG dialog) - adds a new dialog to the specified position;
-* adapter.addItem(int position, DIALOG dialog) - adds one dialog to the end of the list.
+* adapter.addItem(DIALOG dialog) - adds one dialog to the end of the list
+* adapter.addItem(int position, DIALOG dialog) -  adds a new dialog to the specified position.
+* adapter.upsertItem(DIALOG dialog) - adds one dialog to the end of the list if not exists, otherwise updates the existing dialog.
 
 #### Updating dialogs
 If dialog has changed, you can update it by position in list by calling `adapter.updateItem(int position, DIALOG item)` or update it by dialog id by calling `adapter.updateItemById(DIALOG item)`
@@ -220,7 +221,7 @@ But what if changing appearance is not enough? Not a problem, create your own la
 * `@id/dialogDividerContainer` (ViewGroup)
 * `@id/dialogDivider` (View)
 
-For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_dialog_custom.xml).
+For better understanding see how [custom layout looks like](https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/res/layout/item_custom_dialog.xml).
 
 After creating layout you need to transfer it to the adapter’s constructor.
 ```java

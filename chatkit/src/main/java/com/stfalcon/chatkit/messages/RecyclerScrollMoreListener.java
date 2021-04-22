@@ -16,10 +16,10 @@
 
 package com.stfalcon.chatkit.messages;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 class RecyclerScrollMoreListener
         extends RecyclerView.OnScrollListener {
@@ -79,7 +79,7 @@ class RecyclerScrollMoreListener
             int visibleThreshold = 5;
             if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
                 currentPage++;
-                loadMoreListener.onLoadMore(currentPage, totalItemCount);
+                loadMoreListener.onLoadMore(loadMoreListener.getMessagesCount(), totalItemCount);
                 loading = true;
             }
         }
@@ -87,5 +87,7 @@ class RecyclerScrollMoreListener
 
     interface OnLoadMoreListener {
         void onLoadMore(int page, int total);
+
+        int getMessagesCount();
     }
 }

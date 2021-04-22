@@ -18,17 +18,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.support.annotation.DimenRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+import androidx.annotation.DimenRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
 /**
  * Thanks to Joonho Kim (https://github.com/pungrue26) for his lightweight SelectableRoundedImageView,
  * that was used as default image message representation
  */
-public class RoundedImageView extends ImageView {
+public class RoundedImageView extends AppCompatImageView {
 
     private int mResource = 0;
     private Drawable mDrawable;
@@ -124,7 +125,7 @@ public class RoundedImageView extends ImageView {
         ((RoundedCornerDrawable) mDrawable).setCornerRadii(mRadii);
     }
 
-    static class RoundedCornerDrawable extends Drawable {
+    private static class RoundedCornerDrawable extends Drawable {
         private RectF mBounds = new RectF();
 
         private final RectF mBitmapRect = new RectF();
@@ -133,17 +134,15 @@ public class RoundedImageView extends ImageView {
 
         private final Paint mBitmapPaint;
 
-        private BitmapShader mBitmapShader;
-
         private float[] mRadii = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
 
         private Path mPath = new Path();
         private Bitmap mBitmap;
         private boolean mBoundsConfigured = false;
 
-        RoundedCornerDrawable(Bitmap bitmap, Resources r) {
+        private RoundedCornerDrawable(Bitmap bitmap, Resources r) {
             mBitmap = bitmap;
-            mBitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            BitmapShader mBitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
             mBitmapWidth = bitmap.getScaledWidth(r.getDisplayMetrics());
             mBitmapHeight = bitmap.getScaledHeight(r.getDisplayMetrics());
@@ -155,12 +154,12 @@ public class RoundedImageView extends ImageView {
             mBitmapPaint.setShader(mBitmapShader);
         }
 
-        static RoundedCornerDrawable fromBitmap(Bitmap bitmap, Resources r) {
+        private static RoundedCornerDrawable fromBitmap(Bitmap bitmap, Resources r) {
             if (bitmap != null) return new RoundedCornerDrawable(bitmap, r);
             else return null;
         }
 
-        static Drawable fromDrawable(Drawable drawable, Resources r) {
+        private static Drawable fromDrawable(Drawable drawable, Resources r) {
             if (drawable != null) {
                 if (drawable instanceof RoundedCornerDrawable) {
                     return drawable;
@@ -180,7 +179,7 @@ public class RoundedImageView extends ImageView {
             return drawable;
         }
 
-        static Bitmap drawableToBitmap(Drawable drawable) {
+        private static Bitmap drawableToBitmap(Drawable drawable) {
             if (drawable == null) return null;
 
             if (drawable instanceof BitmapDrawable) {

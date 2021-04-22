@@ -19,15 +19,17 @@ package com.stfalcon.chatkit.messages;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -43,18 +45,19 @@ import java.util.List;
 /**
  * Adapter for {@link MessagesList}.
  */
+@SuppressWarnings("WeakerAccess")
 public class MessagesListAdapter<MESSAGE extends IMessage>
         extends RecyclerView.Adapter<ViewHolder>
         implements RecyclerScrollMoreListener.OnLoadMoreListener {
 
+    protected static boolean isSelectionModeEnabled;
+
+    protected List<Wrapper> items;
     private MessageHolders holders;
     private String senderId;
-    private List<Wrapper> items;
 
     private int selectedItemsCount;
     private SelectionListener selectionListener;
-
-    static boolean isSelectionModeEnabled;
 
     private OnLoadMoreListener loadMoreListener;
     private OnMessageClickListener<MESSAGE> onMessageClickListener;
@@ -65,6 +68,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListStyle messagesListStyle;
     private DateFormatter.Formatter dateHeadersFormatter;
+    private SparseArray<OnMessageViewClickListener> viewClickListenersArray = new SparseArray<>();
 
     /**
      * For default list item layout and view holder.
@@ -103,7 +107,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         holders.bind(holder, wrapper.item, wrapper.isSelected, imageLoader,
                 getMessageClickListener(wrapper),
                 getMessageLongClickListener(wrapper),
-                dateHeadersFormatter);
+                dateHeadersFormatter,
+                viewClickListenersArray);
     }
 
     @Override
@@ -123,9 +128,20 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
+    @Override
+    public int getMessagesCount() {
+        int count = 0;
+        for (Wrapper item : items) {
+            if (item.item instanceof IMessage) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     /*
-    * PUBLIC METHODS
-    * */
+     * PUBLIC METHODS
+     * */
 
     /**
      * Adds message to bottom of list and scroll if needed.
@@ -153,6 +169,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param reverse  {@code true} if need to reverse messages before adding.
      */
     public void addToEnd(List<MESSAGE> messages, boolean reverse) {
+        if (messages.isEmpty()) return;
+
         if (reverse) Collections.reverse(messages);
 
         if (!items.isEmpty()) {
@@ -174,8 +192,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      *
      * @param message updated message object.
      */
-    public void update(MESSAGE message) {
-        update(message.getId(), message);
+    public boolean update(MESSAGE message) {
+        return update(message.getId(), message);
     }
 
     /**
@@ -184,12 +202,60 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param oldId      an identifier of message to update.
      * @param newMessage new message object.
      */
-    public void update(String oldId, MESSAGE newMessage) {
+    public boolean update(String oldId, MESSAGE newMessage) {
         int position = getMessagePositionById(oldId);
         if (position >= 0) {
             Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
             items.set(position, element);
             notifyItemChanged(position);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Moves the elements position from current to start
+     *
+     * @param newMessage new message object.
+     */
+    public void updateAndMoveToStart(MESSAGE newMessage) {
+        int position = getMessagePositionById(newMessage.getId());
+        if (position >= 0) {
+            Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
+            items.remove(position);
+            items.add(0, element);
+            notifyItemMoved(position, 0);
+            notifyItemChanged(0);
+        }
+    }
+
+    /**
+     * Updates message by its id if it exists, add to start if not
+     *
+     * @param message message object to insert or update.
+     */
+    public void upsert(MESSAGE message) {
+        if (!update(message)) {
+            addToStart(message, false);
+        }
+    }
+
+    /**
+     * Updates and moves to start if message by its id exists and if specified move to start, if not
+     * specified the item stays at current position and updated
+     *
+     * @param message message object to insert or update.
+     */
+    public void upsert(MESSAGE message, boolean moveToStartIfUpdate) {
+        if (moveToStartIfUpdate) {
+            if (getMessagePositionById(message.getId()) > 0) {
+                updateAndMoveToStart(message);
+            } else {
+                upsert(message);
+            }
+        } else {
+            upsert(message);
         }
     }
 
@@ -208,12 +274,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param messages messages list to delete.
      */
     public void delete(List<MESSAGE> messages) {
+        boolean result = false;
         for (MESSAGE message : messages) {
             int index = getMessagePositionById(message.getId());
-            items.remove(index);
-            notifyItemRemoved(index);
+            if (index >= 0) {
+                items.remove(index);
+                notifyItemRemoved(index);
+                result = true;
+            }
         }
-        recountDateHeaders();
+        if (result) {
+            recountDateHeaders();
+        }
     }
 
     /**
@@ -236,12 +308,18 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
      * @param ids array of identifiers of messages to delete.
      */
     public void deleteByIds(String[] ids) {
+        boolean result = false;
         for (String id : ids) {
             int index = getMessagePositionById(id);
-            items.remove(index);
-            notifyItemRemoved(index);
+            if (index >= 0) {
+                items.remove(index);
+                notifyItemRemoved(index);
+                result = true;
+            }
         }
-        recountDateHeaders();
+        if (result) {
+            recountDateHeaders();
+        }
     }
 
     /**
@@ -254,10 +332,22 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
-     * Clears the messages list.
+     * Clears the messages list. With notifyDataSetChanged
      */
     public void clear() {
-        items.clear();
+        clear(true);
+    }
+
+    /**
+     * Clears the messages list.
+     */
+    public void clear(boolean notifyDataSetChanged) {
+        if (items != null) {
+            items.clear();
+            if (notifyDataSetChanged) {
+                notifyDataSetChanged();
+            }
+        }
     }
 
     /**
@@ -370,6 +460,16 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /**
+     * Registers click listener for view by id
+     *
+     * @param viewId                     view
+     * @param onMessageViewClickListener click listener.
+     */
+    public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) {
+        this.viewClickListenersArray.append(viewId, onMessageViewClickListener);
+    }
+
+    /**
      * Sets long click listener for item. Fires only if selection mode is disabled.
      *
      * @param onMessageLongClickListener long click listener.
@@ -404,8 +504,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * PRIVATE METHODS
-    * */
+     * PRIVATE METHODS
+     * */
     private void recountDateHeaders() {
         List<Integer> indicesToDelete = new ArrayList<>();
 
@@ -429,7 +529,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
-    private void generateDateHeaders(List<MESSAGE> messages) {
+    protected void generateDateHeaders(List<MESSAGE> messages) {
         for (int i = 0; i < messages.size(); i++) {
             MESSAGE message = messages.get(i);
             this.items.add(new Wrapper<>(message));
@@ -518,39 +618,32 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     private View.OnClickListener getMessageClickListener(final Wrapper<MESSAGE> wrapper) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectionListener != null && isSelectionModeEnabled) {
-                    wrapper.isSelected = !wrapper.isSelected;
+        return view -> {
+            if (selectionListener != null && isSelectionModeEnabled) {
+                wrapper.isSelected = !wrapper.isSelected;
 
-                    if (wrapper.isSelected) incrementSelectedItemsCount();
-                    else decrementSelectedItemsCount();
+                if (wrapper.isSelected) incrementSelectedItemsCount();
+                else decrementSelectedItemsCount();
 
-                    MESSAGE message = (wrapper.item);
-                    notifyItemChanged(getMessagePositionById(message.getId()));
-                } else {
-                    notifyMessageClicked(wrapper.item);
-                    notifyMessageViewClicked(view, wrapper.item);
-                }
+                MESSAGE message = (wrapper.item);
+                notifyItemChanged(getMessagePositionById(message.getId()));
+            } else {
+                notifyMessageClicked(wrapper.item);
+                notifyMessageViewClicked(view, wrapper.item);
             }
         };
     }
 
     private View.OnLongClickListener getMessageLongClickListener(final Wrapper<MESSAGE> wrapper) {
-        return new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (selectionListener == null) {
-                    notifyMessageLongClicked(wrapper.item);
-                    notifyMessageViewLongClicked(view, wrapper.item);
-                    return true;
-                } else {
-                    isSelectionModeEnabled = true;
-                    view.performClick();
-                    return true;
-                }
+        return view -> {
+            if (selectionListener == null) {
+                notifyMessageLongClicked(wrapper.item);
+                notifyMessageViewLongClicked(view, wrapper.item);
+            } else {
+                isSelectionModeEnabled = true;
+                view.performClick();
             }
+            return true;
         };
     }
 
@@ -586,11 +679,11 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * WRAPPER
-    * */
-    private class Wrapper<DATA> {
-        DATA item;
-        boolean isSelected;
+     * WRAPPER
+     * */
+    public static class Wrapper<DATA> {
+        public DATA item;
+        public boolean isSelected;
 
         Wrapper(DATA item) {
             this.item = item;
@@ -598,8 +691,8 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
     }
 
     /*
-    * LISTENERS
-    * */
+     * LISTENERS
+     * */
 
     /**
      * Interface definition for a callback to be invoked when next part of messages need to be loaded.
@@ -849,7 +942,7 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
 
         public DefaultDateHeaderViewHolder(View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = itemView.findViewById(R.id.messageText);
         }
 
         @Override

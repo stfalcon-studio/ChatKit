@@ -17,12 +17,13 @@
 package com.stfalcon.chatkit.dialogs;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.stfalcon.chatkit.commons.models.IDialog;
 
@@ -73,9 +74,9 @@ public class DialogsList extends RecyclerView {
      * @param adapter  Adapter. Must extend DialogsListAdapter
      * @param <DIALOG> Dialog model class
      */
-    public <DIALOG extends IDialog>
+    public <DIALOG extends IDialog<?>>
     void setAdapter(DialogsListAdapter<DIALOG> adapter) {
-        setAdapter(adapter, true);
+        setAdapter(adapter, false);
     }
 
     /**
@@ -85,7 +86,7 @@ public class DialogsList extends RecyclerView {
      * @param reverseLayout weather to use reverse layout for layout manager.
      * @param <DIALOG>      Dialog model class
      */
-    public <DIALOG extends IDialog>
+    public <DIALOG extends IDialog<?>>
     void setAdapter(DialogsListAdapter<DIALOG> adapter, boolean reverseLayout) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);

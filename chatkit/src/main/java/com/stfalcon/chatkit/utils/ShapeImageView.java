@@ -20,21 +20,23 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.view.View;
 
 /**
  * ImageView with mask what described with Bézier Curves
  */
 
-public class ShapeImageView extends ImageView {
+public class ShapeImageView extends androidx.appcompat.widget.AppCompatImageView {
     private Path path;
 
     public ShapeImageView(Context context) {
         super(context);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     public ShapeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
@@ -56,9 +58,14 @@ public class ShapeImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (canvas != null) {
-            canvas.clipPath(path);
+        if (path.isEmpty()) {
             super.onDraw(canvas);
+            return;
         }
+
+        int saveCount = canvas.save();
+        canvas.clipPath(path);
+        super.onDraw(canvas);
+        canvas.restoreToCount(saveCount);
     }
 }

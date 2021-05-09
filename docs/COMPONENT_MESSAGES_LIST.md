@@ -160,7 +160,7 @@ public interface OnMessageLongClickListener<MESSAGE extends IMessage> {
 
 Also here is an ability to set listeners on separate Views in message item:
 ```
-public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener) 
+public void registerViewClickListener(int viewId, OnMessageViewClickListener<MESSAGE> onMessageViewClickListener)
 ```
 
 #### Links highlighting
@@ -287,9 +287,9 @@ For better understanding see how [custom layout looks like](https://github.com/s
 After a layout was created, you need to put it into `HoldersConfig` object, which has appropriate methods for each layout files: `setIncomingLayout(int layoutRes)`, `setOutcomingLayout(int layoutRes)` `setDateHeaderLayout(int layoutRes)`. To hook up a config object, you need to transfer it to adapter through a constructor:
 
 ```java
-MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
-holdersConfig.setIncomingLayout(R.layout.item_custom_incoming_message);
-holdersConfig.setOutcomingLayout(R.layout.item_custom_outcoming_message);
+MessageHolders holdersConfig = new MessageHolders();
+holdersConfig.setIncomingTextLayout(R.layout.item_custom_incoming_message);
+holdersConfig.setOutcomingTextLayout(R.layout.item_custom_outcoming_message);
 adapter = new MessagesListAdapter<>(senderId, holdersConfig, imageLoader);
 ```
 <p align="center">
@@ -299,12 +299,12 @@ adapter = new MessagesListAdapter<>(senderId, holdersConfig, imageLoader);
 
 #### Not enough features? Create your own holder!
 
-Sometimes a message text displaying is not enough. For example, you need to add the message processing status and reactions to the message (as in Slack). Of course, for this purpose you have to create your own layout, but you can’t do it without changing the logic of ViewHolder. `HolderConfig` can do the trick. You can transfer your own holder class with `setIncomingHolder(Class holderClass)`, `setOutcomingHolder(Class holderClass)` and `setDateHeaderHolder(Class holderClass)` methods in it. For convenience' sake, it also contains methods for simultaneous adding of layout file and holder:
+Sometimes a message text displaying is not enough. For example, you need to add the message processing status and reactions to the message (as in Slack). Of course, for this purpose you have to create your own layout, but you can’t do it without changing the logic of ViewHolder. `HolderConfig` can do the trick. You can transfer your own holder class with `setIncomingTextHolder(Class holderClass)`, `setOutcomingTextHolder(Class holderClass)` and `setDateHeaderHolder(Class holderClass)` methods in it. For convenience' sake, it also contains methods for simultaneous adding of layout file and holder:
 
 ```java
-holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class,
+holdersConfig.setIncomingTextConfig(CustomIncomingMessageViewHolder.class,
         R.layout.item_custom_holder_incoming_message);
-holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class,
+holdersConfig.setOutcomingTextConfig(CustomOutcomingMessageViewHolder.class,
         R.layout.item_custom_holder_outcoming_message);
 ```
 To create your own holder, you need to inherit your class from `MessagesListAdapter.BaseMessageViewHolder<>`, and transfer your message class to generic type, because on the assumption of it the `onBind(IMessage message)` method will be typified. This method is similar to `onBindViewHolder()` method from `RecyclerView.Adapter` class: you can manipulate your data from it and upload images through `protected` of the `ImageLoader` field, and get `isSelected` state.
@@ -349,7 +349,7 @@ public interface OnAvatarClickListener {
 
 public class Payload {
         public OnAvatarClickListener avatarClickListener;
-} 
+}
 ```
 Then in our custom ViewHolder in method `onBind`:
 ```java

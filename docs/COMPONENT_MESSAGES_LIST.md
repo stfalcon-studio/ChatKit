@@ -113,7 +113,7 @@ The `page` variable contains next page number to load (which is equals to the am
 #### Adding image message
 
 Can modern chat exist without media message exchange? The right answer is - no, it can't. Even in the simplest apps this feature is “must have”. With ChatKit, adding this feature is easier than ever!
-At this moment "out of the box" library contains anly the most popular type of media messages - image messages. All you need to implement it is to mark your `Message` object with the `MessageContentType.Image` interface and override its `getImageUrl()` method:
+At this moment "out of the box" library contains only the most popular type of media messages - image messages. All you need to implement it is to mark your `Message` object with the `MessageContentType.Image` interface and override its `getImageUrl()` method:
 ```java
 public class Message implements IMessage,
        MessageContentType.Image {

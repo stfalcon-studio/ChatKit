@@ -17,11 +17,13 @@
 package com.stfalcon.chatkit.messages;
 
 import android.content.Context;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
+
 import android.util.AttributeSet;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -75,13 +77,8 @@ public class MessagesList extends RecyclerView {
      */
     public <MESSAGE extends IMessage>
     void setAdapter(MessagesListAdapter<MESSAGE> adapter, boolean reverseLayout) {
-        SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
-        itemAnimator.setSupportsChangeAnimations(false);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, reverseLayout);
-
-        setItemAnimator(itemAnimator);
         setLayoutManager(layoutManager);
         adapter.setLayoutManager(layoutManager);
         adapter.setStyle(messagesListStyle);

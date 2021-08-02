@@ -241,6 +241,19 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         }
     }
 
+
+    /**
+     * Updates message by its id if it exists, add to start if not
+     *
+     * @param message message object to insert or update.
+     * @param scroll  {@code true} if need to scroll list to bottom when message added.
+     */
+    public void upsert(MESSAGE message, Boolean scroll) {
+        if (!update(message)) {
+            addToStart(message, scroll);
+        }
+    }
+
     /**
      * Updates and moves to start if message by its id exists and if specified move to start, if not
      * specified the item stays at current position and updated

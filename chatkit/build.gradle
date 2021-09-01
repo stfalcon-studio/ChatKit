@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 14
@@ -16,17 +15,6 @@ android {
             abortOnError false
         }
     }
-}
-
-publish {
-    userOrg = 'egeniq'
-    groupId = 'com.github.stfalcon'
-    artifactId = 'chatkit'
-    publishVersion = '0.3.3'
-    desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
-    licences = ['Apache-2.0']
-    uploadName = 'ChatKit'
-    website = 'https://github.com/stfalcon-studio/ChatKit.git'
 }
 
 ext {

@@ -2,7 +2,7 @@
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
@@ -16,7 +16,7 @@ plugins {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
         maven { url "https://jitpack.io" }
     }

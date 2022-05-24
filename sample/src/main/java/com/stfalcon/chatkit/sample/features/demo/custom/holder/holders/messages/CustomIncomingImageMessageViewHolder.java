@@ -14,8 +14,8 @@ public class CustomIncomingImageMessageViewHolder
 
     private View onlineIndicator;
 
-    public CustomIncomingImageMessageViewHolder(View itemView) {
-        super(itemView);
+    public CustomIncomingImageMessageViewHolder(View itemView, Object payload) {
+        super(itemView, payload);
         onlineIndicator = itemView.findViewById(R.id.onlineIndicator);
     }
 

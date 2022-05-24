@@ -1,8 +1,9 @@
 package com.stfalcon.chatkit.sample.utils;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.widget.Toast;
+
+import androidx.annotation.StringRes;
 
 /*
  * Created by troy379 on 04.04.17.

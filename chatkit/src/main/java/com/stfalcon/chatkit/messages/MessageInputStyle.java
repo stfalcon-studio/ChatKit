@@ -20,10 +20,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.Style;
@@ -31,9 +32,11 @@ import com.stfalcon.chatkit.commons.Style;
 /**
  * Style for MessageInputStyle customization by xml attributes
  */
+@SuppressWarnings("WeakerAccess")
 class MessageInputStyle extends Style {
 
     private static final int DEFAULT_MAX_LINES = 5;
+    private static final int DEFAULT_DELAY_TYPING_STATUS = 1500;
 
     private boolean showAttachmentButton;
 
@@ -80,6 +83,8 @@ class MessageInputStyle extends Style {
     private int inputDefaultPaddingRight;
     private int inputDefaultPaddingTop;
     private int inputDefaultPaddingBottom;
+
+    private int delayTypingStatus;
 
     static MessageInputStyle parse(Context context, AttributeSet attrs) {
         MessageInputStyle style = new MessageInputStyle(context, attrs);
@@ -138,6 +143,8 @@ class MessageInputStyle extends Style {
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);
 
+        style.delayTypingStatus = typedArray.getInt(R.styleable.MessageInput_delayTypingStatus, DEFAULT_DELAY_TYPING_STATUS);
+
         typedArray.recycle();
 
         style.inputDefaultPaddingLeft = style.getDimension(R.dimen.input_padding_left);
@@ -169,11 +176,11 @@ class MessageInputStyle extends Style {
         return drawable;
     }
 
-    boolean showAttachmentButton() {
+    protected boolean showAttachmentButton() {
         return showAttachmentButton;
     }
 
-    Drawable getAttachmentButtonBackground() {
+    protected Drawable getAttachmentButtonBackground() {
         if (attachmentButtonBackground == -1) {
             return getSelector(attachmentButtonDefaultBgColor, attachmentButtonDefaultBgPressedColor,
                     attachmentButtonDefaultBgDisabledColor, R.drawable.mask);
@@ -182,7 +189,7 @@ class MessageInputStyle extends Style {
         }
     }
 
-    Drawable getAttachmentButtonIcon() {
+    protected Drawable getAttachmentButtonIcon() {
         if (attachmentButtonIcon == -1) {
             return getSelector(attachmentButtonDefaultIconColor, attachmentButtonDefaultIconPressedColor,
                     attachmentButtonDefaultIconDisabledColor, R.drawable.ic_add_attachment);
@@ -191,19 +198,19 @@ class MessageInputStyle extends Style {
         }
     }
 
-    int getAttachmentButtonWidth() {
+    protected int getAttachmentButtonWidth() {
         return attachmentButtonWidth;
     }
 
-    int getAttachmentButtonHeight() {
+    protected int getAttachmentButtonHeight() {
         return attachmentButtonHeight;
     }
 
-    int getAttachmentButtonMargin() {
+    protected int getAttachmentButtonMargin() {
         return attachmentButtonMargin;
     }
 
-    Drawable getInputButtonBackground() {
+    protected Drawable getInputButtonBackground() {
         if (inputButtonBackground == -1) {
             return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
                     inputButtonDefaultBgDisabledColor, R.drawable.mask);
@@ -212,7 +219,7 @@ class MessageInputStyle extends Style {
         }
     }
 
-    Drawable getInputButtonIcon() {
+    protected Drawable getInputButtonIcon() {
         if (inputButtonIcon == -1) {
             return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
                     inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
@@ -221,64 +228,68 @@ class MessageInputStyle extends Style {
         }
     }
 
-    int getInputButtonMargin() {
+    protected int getInputButtonMargin() {
         return inputButtonMargin;
     }
 
-    int getInputButtonWidth() {
+    protected int getInputButtonWidth() {
         return inputButtonWidth;
     }
 
-    int getInputButtonHeight() {
+    protected int getInputButtonHeight() {
         return inputButtonHeight;
     }
 
-    int getInputMaxLines() {
+    protected int getInputMaxLines() {
         return inputMaxLines;
     }
 
-    String getInputHint() {
+    protected String getInputHint() {
         return inputHint;
     }
 
-    String getInputText() {
+    protected String getInputText() {
         return inputText;
     }
 
-    int getInputTextSize() {
+    protected int getInputTextSize() {
         return inputTextSize;
     }
 
-    int getInputTextColor() {
+    protected int getInputTextColor() {
         return inputTextColor;
     }
 
-    int getInputHintColor() {
+    protected int getInputHintColor() {
         return inputHintColor;
     }
 
-    Drawable getInputBackground() {
+    protected Drawable getInputBackground() {
         return inputBackground;
     }
 
-    Drawable getInputCursorDrawable() {
+    protected Drawable getInputCursorDrawable() {
         return inputCursorDrawable;
     }
 
-    int getInputDefaultPaddingLeft() {
+    protected int getInputDefaultPaddingLeft() {
         return inputDefaultPaddingLeft;
     }
 
-    int getInputDefaultPaddingRight() {
+    protected int getInputDefaultPaddingRight() {
         return inputDefaultPaddingRight;
     }
 
-    int getInputDefaultPaddingTop() {
+    protected int getInputDefaultPaddingTop() {
         return inputDefaultPaddingTop;
     }
 
-    int getInputDefaultPaddingBottom() {
+    protected int getInputDefaultPaddingBottom() {
         return inputDefaultPaddingBottom;
+    }
+
+    int getDelayTypingStatus() {
+        return delayTypingStatus;
     }
 
 }

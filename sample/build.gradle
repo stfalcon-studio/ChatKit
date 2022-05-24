@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "com.stfalcon.chatkit.sample"
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion 14
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -22,36 +21,34 @@ android {
             abortOnError false
         }
     }
-}
 
-ext {
-    supportVersion = '25.1.1'
-    picassoVersion = '2.5.2'
-    circleImageViewVersion = '2.1.0'
-    shapeImageViewVersion = '0.9.3'
-    circleindicatorVersion = '1.2.2@aar'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile project(':chatkit')
+    implementation project(':chatkit')
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
-    compile "com.android.support:appcompat-v7:$supportVersion"
-    compile "com.android.support:cardview-v7:$supportVersion"
-    compile "com.android.support:design:$supportVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     //Picasso
-    compile "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.squareup.picasso:picasso:2.71828"
 
     //ImageViews
-    compile "de.hdodenhof:circleimageview:$circleImageViewVersion"
-    compile "com.github.siyamed:android-shape-imageview:$shapeImageViewVersion"
+    implementation "de.hdodenhof:circleimageview:2.2.0"
+    implementation "com.github.siyamed:android-shape-imageview:0.9.3"
 
     //Utils
-    compile "me.relex:circleindicator:$circleindicatorVersion"
+    implementation "me.relex:circleindicator:1.2.2@aar"
+
 }

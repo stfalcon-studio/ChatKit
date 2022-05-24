@@ -24,7 +24,7 @@ public class CustomLayoutDialogsActivity extends DemoDialogsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_layout_dialogs);
 
-        dialogsList = (DialogsList) findViewById(R.id.dialogsList);
+        dialogsList = findViewById(R.id.dialogsList);
         initAdapter();
     }
 

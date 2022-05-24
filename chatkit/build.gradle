@@ -1,16 +1,14 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion 14
         versionCode 1
-        versionName "0.2.0"
-
+        versionName '0.4.1'
         consumerProguardFiles 'proguard.txt'
     }
     android {
@@ -18,22 +16,35 @@ android {
             abortOnError false
         }
     }
-}
 
-publish {
-    groupId = 'com.github.stfalcon'
-    artifactId = 'chatkit'
-    publishVersion = '0.2.0'
-    desc = 'ChatKit - is a library designed to simplify the development of UI for such a trivial task as chat. It have flexible possibilities for styling, customizing and data management'
-    licences = ['Apache-2.0']
-    uploadName = 'ChatKit'
-    website = 'https://github.com/stfalcon-studio/ChatKit.git'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    afterEvaluate {
+        publishing {
+            publications {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    // Applies the component for the release build variant.
+                    from components.release
+
+                    // You can then customize attributes of the publication as shown below.
+                    groupId = 'com.github.stfalcon'
+                    artifactId = 'chatkit'
+                    version = '0.4.1'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
-    compile 'com.google.android:flexbox:0.2.5'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation "com.google.android:flexbox:1.0.0"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

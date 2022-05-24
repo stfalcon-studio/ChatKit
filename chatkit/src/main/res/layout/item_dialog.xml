@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@id/dialogRootLayout"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+    android:id="@id/dialogRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@id/dialogContainer"
@@ -13,7 +13,7 @@
             android:id="@id/dialogAvatar"
             android:layout_width="@dimen/dialog_avatar_width"
             android:layout_height="@dimen/dialog_avatar_height"
-            android:layout_margin="16dp"/>
+            android:layout_margin="16dp" />
 
         <TextView
             android:id="@id/dialogName"
@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"
             android:includeFontPadding="false"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
         <TextView
             android:id="@id/dialogDate"
@@ -41,7 +41,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             android:ellipsize="end"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="7dp"
-                android:layout_marginRight="7dp"/>
+                android:layout_marginRight="7dp" />
 
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_toRightOf="@id/dialogLastMessageUserAvatar"
                 android:ellipsize="end"
                 android:gravity="top"
-                android:maxLines="1"/>
+                android:maxLines="1" />
 
         </RelativeLayout>
 
@@ -88,7 +88,7 @@
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"
             android:gravity="center"
-            android:lines="1"/>
+            android:lines="1" />
 
         <FrameLayout
             android:id="@id/dialogDividerContainer"
@@ -103,7 +103,7 @@
                 android:id="@id/dialogDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/dialog_divider"/>
+                android:background="@color/dialog_divider" />
 
         </FrameLayout>
 
